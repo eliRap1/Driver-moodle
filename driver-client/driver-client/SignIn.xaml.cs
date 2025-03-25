@@ -16,24 +16,15 @@ using System.Windows.Shapes;
 namespace driver_client
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for SignIn.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class SignIn : Page
     {
-        SignIn signin = new SignIn();
-        public MainWindow()
+        public SignIn()
         {
             InitializeComponent();
-        }
-
-        private void signUp_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void signIn_Click(object sender, RoutedEventArgs e)
-        {
-            signInPage.Navigate(signin);
+            role.Items.Add("Driver");
+            role.Items.Add("Admin");
         }
     }
 }
