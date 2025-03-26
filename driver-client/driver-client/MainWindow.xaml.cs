@@ -21,6 +21,7 @@ namespace driver_client
     public partial class MainWindow : Window
     {
         SignIn signin = new SignIn();
+        SignUp signup = new SignUp();
         public MainWindow()
         {
             InitializeComponent();
@@ -28,7 +29,7 @@ namespace driver_client
 
         private void signUp_Click(object sender, RoutedEventArgs e)
         {
-
+            signInPage.Navigate(signup);
         }
 
         private void signIn_Click(object sender, RoutedEventArgs e)

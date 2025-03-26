@@ -8,9 +8,11 @@ using System.Threading.Tasks;
 namespace Model
 {
     [CollectionDataContract]
-    public class CitiesList : List<City>
+    public class AllUsers : List<UserInfo>
     {
-        public CitiesList() { }
-        public CitiesList(IEnumerable<Base> List) : base(List.Cast<City>().ToList()) { }
+        public AllUsers() { }
+        public AllUsers(IEnumerable<Base> List) : base(List.Cast<UserInfo>().ToList()) { }
+
+
     }
 }

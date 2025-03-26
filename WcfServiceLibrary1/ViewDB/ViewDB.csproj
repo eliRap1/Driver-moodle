@@ -42,9 +42,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseDB.cs" />
-    <Compile Include="CityDB.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StudentDB.cs" />
+    <Compile Include="UserDB.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="studentsDB.accdb">

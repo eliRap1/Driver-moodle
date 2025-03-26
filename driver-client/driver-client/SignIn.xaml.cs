@@ -23,8 +23,7 @@ namespace driver_client
         public SignIn()
         {
             InitializeComponent();
-            role.Items.Add("Driver");
-            role.Items.Add("Admin");
+            
         }
     }
 }

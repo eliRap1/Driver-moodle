@@ -13,14 +13,7 @@ namespace WcfServiceLibrary1
     public interface IService1
     {
         [OperationContract]
-        bool AddStudent(Student student);
-
-        [OperationContract]
-        StudentsList GetAllStudents();
-        [OperationContract]
-        CitiesList GetAllCities();
-        [OperationContract]
-        City GetCityById(int id);
+        bool AddUser(string name, string password);
     }
 
 

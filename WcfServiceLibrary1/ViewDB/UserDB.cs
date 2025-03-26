@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 
 namespace ViewDB
 {
-    public class StudentDB : BaseDB
+    public class UserDB : BaseDB
     {
+
         protected override Base NewEntity()
         {
-            return new Student();
+            return new UserInfo();
         }
         protected override void CreateModel(Base entity)
         {
@@ -20,12 +21,10 @@ namespace ViewDB
             {
                 try
                 {
-                    Student s = (Student)entity;
-                    s.Age = int.Parse(reader["Age"].ToString());
-                    s.Fname = reader["lastName"].ToString();
-                    s.Name = reader["name"].ToString(); 
-                    //s.CityId = int.Parse(reader["cityId"].ToString()); 
-                    s.Gender = bool.Parse(reader["gender"].ToString());
+                    UserInfo s = (UserInfo)entity;
+                    s.Username = reader["username"].ToString();
+                    s.Password = reader["pass"].ToString();
+                    s.isAdmin = bool.Parse(reader["isAdmin"].ToString());
                 }
                 catch
                 {
@@ -35,7 +34,7 @@ namespace ViewDB
         }
         public Student GetStudentById(int id)
         {
-            string sqlStr = "Select * From Studets Where id=" + id;
+            string sqlStr = "Select * From Users Where id=" + id;
             List<Base> list = Select(sqlStr);
             if (list.Count == 1)
             { return (Student)list[0]; }
@@ -43,22 +42,18 @@ namespace ViewDB
         }
         public StudentsList GetAllStudents()
         {
-            List<Base> list = Select("Select * From Studets");
+            List<Base> list = Select("Select * From Users");
             StudentsList studs = new StudentsList(list);
             return studs;
         }
 
-        public bool AddStudent(Student student)
+        public bool AddStudent(UserInfo user)
         {
-            string sqlstr = $"INSERT INTO Studets ([name], [lastName], [Age],[gender]) "+"" +
-                $"VALUES ('{student.Name}', '{student.Fname}', {student.Age},{student.Gender})";
-            //INSERT INTO table_name (column1, column2, column3, ...)
-            //VALUES(value1, value2, value3, ...);
+            string sqlstr = $"INSERT INTO Users ([name], [password], [isAdmin]) " + "" +
+                $"VALUES ('{user.Username}', '{user.Password}', {user.isAdmin})";
 
             return SaveChanges(sqlstr) != 0;
 
         }
-        
     }
-
 }

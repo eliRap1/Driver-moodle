@@ -11,8 +11,8 @@ namespace BusinessLogic
     public class AllCitiesListAnd_Logics
     {
        
-        private static CitiesList allCitiesList = null;
-
+        //private static CitiesList allCitiesList = null;
+        /*
         public static CitiesList GetAllCities()
         { 
             if (allCitiesList==null)
@@ -21,6 +21,6 @@ namespace BusinessLogic
             }
             return allCitiesList;        
         }
-
-    }
+        /*  public static CitiesList GetAllCities()
+    */}
 }
