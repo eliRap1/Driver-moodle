@@ -13,6 +13,5 @@ namespace Model
         public AllUsers() { }
         public AllUsers(IEnumerable<Base> List) : base(List.Cast<UserInfo>().ToList()) { }
 
-
     }
 }

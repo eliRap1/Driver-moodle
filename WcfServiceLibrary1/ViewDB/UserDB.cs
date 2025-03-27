@@ -32,18 +32,18 @@ namespace ViewDB
                 }
             }
         }
-        public Student GetStudentById(int id)
+        public UserInfo GetUserById(int id)
         {
             string sqlStr = "Select * From Users Where id=" + id;
             List<Base> list = Select(sqlStr);
             if (list.Count == 1)
-            { return (Student)list[0]; }
+            { return (UserInfo)list[0]; }
             else { return null; }
         }
-        public StudentsList GetAllStudents()
+        public AllUsers GetAllStudents()
         {
             List<Base> list = Select("Select * From Users");
-            StudentsList studs = new StudentsList(list);
+            AllUsers studs = new AllUsers(list);
             return studs;
         }
 
