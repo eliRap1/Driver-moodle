@@ -15,8 +15,38 @@ namespace WcfServiceLibrary1
     {
         public bool AddUser(string name, string password)
         {
-            return AllUsers.AddUser(name, password);
+            AllUsers allUsers = new AllUsers();
+            ViewDB.UserDB userDB = new ViewDB.UserDB();
+            bool worked = false;
+            if (allUsers.AddUser(name, password))
+                worked = userDB.AddStudent(new UserInfo { Username = name, Password = password });
+            return worked;
+
         }
+        public bool CheckUserExist(string username)
+        {
+            AllUsers allUsers = new AllUsers();
+            return allUsers.Any(x => x.Username == username);
+        }
+        public bool CheckUserPassword(string username, string password)
+        {
+            AllUsers allUsers = new AllUsers();
+            return allUsers.Any(x => x.Username == username && x.Password == password);
+        }
+        public UserInfo GetUserById(int id)
+        {
+            ViewDB.UserDB userDB = new ViewDB.UserDB();
+            UserInfo user = userDB.GetUserById(id);
+            return user;
+        }
+
+        public AllUsers GetAllUsers()
+        {
+            ViewDB.UserDB userDB = new ViewDB.UserDB();
+            AllUsers allUsers = userDB.GetAllStudents();
+            return allUsers;
+        }
+
 
     }
 }
