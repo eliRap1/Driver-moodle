@@ -13,13 +13,14 @@ namespace WcfServiceLibrary1
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "Service1" in both code and config file together.
     public class Service1 : IService1
     {
-        public bool AddUser(string name, string password)
+        public bool AddUser(string name, string password,string email, string phone, bool admin)
         {
             AllUsers allUsers = new AllUsers();
             ViewDB.UserDB userDB = new ViewDB.UserDB();
             bool worked = false;
-            if (allUsers.AddUser(name, password))
-                worked = userDB.AddStudent(new UserInfo { Username = name, Password = password });
+            UserInfo user = allUsers.AddUser(name, password, email, phone, admin);
+            if (user != null)
+                worked = userDB.AddStudent(user);
             return worked;
 
         }

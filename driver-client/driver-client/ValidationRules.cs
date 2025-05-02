@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace eliRap
+namespace driver_client
 {
     public class AgeRangeRule : ValidationRule
     {
@@ -81,6 +81,21 @@ namespace eliRap
             else
                 return new ValidationResult(false,
                           "Please enter a legal phone.");  // is incorrect
+        }
+    }
+    public class isAdminRule : ValidationRule
+    {
+
+        // validation check
+        public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+        {
+            string admin = (string)value;
+            //
+            if (admin == "Student" || admin == "Teacher")
+                return ValidationResult.ValidResult;  // correct
+            else
+                return new ValidationResult(false,
+                          "Please select a role");  // is incorrect
         }
     }
     public class MinLenth : ValidationRule

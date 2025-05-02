@@ -24,7 +24,7 @@ namespace ViewDB
                     UserInfo s = (UserInfo)entity;
                     s.Username = reader["username"].ToString();
                     s.Password = reader["pass"].ToString();
-                    s.isAdmin = bool.Parse(reader["isAdmin"].ToString());
+                    s.IsAdmin = bool.Parse(reader["isAdmin"].ToString());
                 }
                 catch
                 {
@@ -49,8 +49,13 @@ namespace ViewDB
 
         public bool AddStudent(UserInfo user)
         {
-            string sqlstr = $"INSERT INTO Users ([name], [password], [isAdmin]) " + "" +
-                $"VALUES ('{user.Username}', '{user.Password}', {user.isAdmin})";
+            string table = "Student";
+            if(user.IsAdmin)
+            {
+                table = "Teacher";
+            }
+            string sqlstr = $"INSERT INTO "+table+" ([username], [password], [email], [phone]) " + "" +
+                $"VALUES ('{user.Username}', '{user.Password}','{user.Email}' ,'{user.Phone}')";
 
             return SaveChanges(sqlstr) != 0;
 

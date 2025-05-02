@@ -12,15 +12,15 @@ namespace Model
     {
         public AllUsers() { }
         public AllUsers(IEnumerable<Base> List) : base(List.Cast<UserInfo>().ToList()) { }
-        public bool AddUser(string name, string password)
+        public UserInfo AddUser(string name, string password, string email, string phone, bool admin)
         {
             if (this.Any(x => x.Username == name))
-                return false;
+                return null;
 
-            this.Add(new UserInfo { Username = name, Password = password });
-            UserInfo user = (UserInfo)this.LastOrDefault(x => x.Username == name && x.Password == password);
+            this.Add(new UserInfo { Username = name, Password = password, Email = email, Phone = phone, IsAdmin = admin});
+            UserInfo user = (UserInfo)this.LastOrDefault(x => x.Username == name && x.Password == password && x.Email == email && x.Phone == phone && x.IsAdmin == admin);
             
-            return true;
+            return user;
         }
     }
 }

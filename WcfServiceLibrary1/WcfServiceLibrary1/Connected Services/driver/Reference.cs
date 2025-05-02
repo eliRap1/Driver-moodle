@@ -19,14 +19,15 @@ namespace WcfServiceLibrary1.driver {
     [System.SerializableAttribute()]
     public class StudentsList : System.Collections.Generic.List<Model.Student> {
     }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.CollectionDataContractAttribute(Name="CitiesList", Namespace="http://schemas.datacontract.org/2004/07/Model", ItemName="City")]
-    [System.SerializableAttribute()]
-    public class CitiesList : System.Collections.Generic.List<Model.City> {
-    }
-    
+
+    //[System.Diagnostics.DebuggerStepThroughAttribute()]
+    //[System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    //[System.Runtime.Serialization.CollectionDataContractAttribute(Name = "CitiesList", Namespace = "http://schemas.datacontract.org/2004/07/Model", ItemName = "City")]
+    //[System.SerializableAttribute()]
+    //public class CitiesList : System.Collections.Generic.List<Model.City>
+    //{
+    //}
+
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="driver.IService1")]
     public interface IService1 {
@@ -43,17 +44,17 @@ namespace WcfServiceLibrary1.driver {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllStudents", ReplyAction="http://tempuri.org/IService1/GetAllStudentsResponse")]
         System.Threading.Tasks.Task<WcfServiceLibrary1.driver.StudentsList> GetAllStudentsAsync();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllCities", ReplyAction="http://tempuri.org/IService1/GetAllCitiesResponse")]
-        WcfServiceLibrary1.driver.CitiesList GetAllCities();
+        //[System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllCities", ReplyAction="http://tempuri.org/IService1/GetAllCitiesResponse")]
+        //WcfServiceLibrary1.driver.CitiesList GetAllCities();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllCities", ReplyAction="http://tempuri.org/IService1/GetAllCitiesResponse")]
-        System.Threading.Tasks.Task<WcfServiceLibrary1.driver.CitiesList> GetAllCitiesAsync();
+        //[System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllCities", ReplyAction="http://tempuri.org/IService1/GetAllCitiesResponse")]
+        //System.Threading.Tasks.Task<WcfServiceLibrary1.driver.CitiesList> GetAllCitiesAsync();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetCityById", ReplyAction="http://tempuri.org/IService1/GetCityByIdResponse")]
-        Model.City GetCityById(int id);
+        //[System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetCityById", ReplyAction="http://tempuri.org/IService1/GetCityByIdResponse")]
+        //Model.City GetCityById(int id);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetCityById", ReplyAction="http://tempuri.org/IService1/GetCityByIdResponse")]
-        System.Threading.Tasks.Task<Model.City> GetCityByIdAsync(int id);
+        //[System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetCityById", ReplyAction="http://tempuri.org/IService1/GetCityByIdResponse")]
+        //System.Threading.Tasks.Task<Model.City> GetCityByIdAsync(int id);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -98,21 +99,25 @@ namespace WcfServiceLibrary1.driver {
         public System.Threading.Tasks.Task<WcfServiceLibrary1.driver.StudentsList> GetAllStudentsAsync() {
             return base.Channel.GetAllStudentsAsync();
         }
-        
-        public WcfServiceLibrary1.driver.CitiesList GetAllCities() {
-            return base.Channel.GetAllCities();
-        }
-        
-        public System.Threading.Tasks.Task<WcfServiceLibrary1.driver.CitiesList> GetAllCitiesAsync() {
-            return base.Channel.GetAllCitiesAsync();
-        }
-        
-        public Model.City GetCityById(int id) {
-            return base.Channel.GetCityById(id);
-        }
-        
-        public System.Threading.Tasks.Task<Model.City> GetCityByIdAsync(int id) {
-            return base.Channel.GetCityByIdAsync(id);
-        }
-    }
+
+    //public WcfServiceLibrary1.driver.CitiesList GetAllCities()
+    //{
+    //    return base.Channel.GetAllCities();
+    //}
+
+    //public System.Threading.Tasks.Task<WcfServiceLibrary1.driver.CitiesList> GetAllCitiesAsync()
+    //{
+    //    return base.Channel.GetAllCitiesAsync();
+    //}
+
+    //public Model.City GetCityById(int id)
+    //{
+    //    return base.Channel.GetCityById(id);
+    //}
+
+    //public System.Threading.Tasks.Task<Model.City> GetCityByIdAsync(int id)
+    //{
+    //    return base.Channel.GetCityByIdAsync(id);
+    //}
+}
 }
