@@ -18,9 +18,9 @@ namespace driver_client
     /// <summary>
     /// Interaction logic for SignIn.xaml
     /// </summary>
-    public partial class SignIn : Page
+    public partial class LogIn : Page
     {
-        public SignIn()
+        public LogIn()
         {
             InitializeComponent();
             

@@ -51,25 +51,46 @@ namespace driver_client
             }
             driver.Service1Client srv = new driver.Service1Client();
             if ((Validation.GetHasError(username) || Validation.GetHasError(age) || Validation.GetHasError(pass)) || Validation.GetHasError(phone) ||
-                Validation.GetHasError(email) || role.SelectedIndex == -1)
+                Validation.GetHasError(email) || role.SelectedIndex == -1 || Validation.GetHasError(teacherId))
             {
-                MessageBox.Show("username and password must be atleast 3 letters, email and phone number must be real, if you didnt select a role do it");
+                MessageBox.Show("Please fill all the fields correctly");
             }
             else if(!srv.CheckUserExist(userN))
             {
-                if(srv.AddUser(userN, password,emailT, phone1, isTecher))
+                if(!isTecher && srv.AddUser(userN, password, emailT, phone1, isTecher, teacherId.Text))
                 {
                     MessageBox.Show("You are successfully registered");
+                }
+                else if(isTecher && srv.AddUser(userN, password, emailT, phone1, isTecher, ""))
+                {
+
+                        MessageBox.Show("You are successfully registered");
 
                 }
                 else
                 {
-                    MessageBox.Show("Error!!");
+                    MessageBox.Show("Error!");
                 }
-                
+            }
+            else
+            {
+                MessageBox.Show("Username already exist");
             }
 
+        }
 
+        private void role_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(role.SelectedItem == "Student")
+            {
+                teacherId.Visibility = Visibility.Visible;
+                idTecherText.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                teacherId.Visibility = Visibility.Hidden;
+                idTecherText.Visibility = Visibility.Hidden;
+            }
         }
     }
 }

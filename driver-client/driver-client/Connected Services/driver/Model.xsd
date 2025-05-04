@@ -5,10 +5,11 @@
       <xs:extension base="tns:Base">
         <xs:sequence>
           <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="IsAdmin" type="xs:boolean" />
           <xs:element minOccurs="0" name="Password" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="Phone" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="TeacherId" type="xs:int" />
           <xs:element minOccurs="0" name="Username" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="isAdmin" type="xs:boolean" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>

@@ -20,7 +20,7 @@ namespace driver_client
     /// </summary>
     public partial class MainWindow : Window
     {
-        SignIn signin = new SignIn();
+        LogIn login = new LogIn();
         SignUp signup = new SignUp();
         public MainWindow()
         {
@@ -29,12 +29,12 @@ namespace driver_client
 
         private void signUp_Click(object sender, RoutedEventArgs e)
         {
-            signInPage.Navigate(signup);
+            page.Navigate(signup);
         }
 
         private void signIn_Click(object sender, RoutedEventArgs e)
         {
-            signInPage.Navigate(signin);
+            page.Navigate(login);
         }
     }
 }

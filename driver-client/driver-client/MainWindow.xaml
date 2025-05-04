@@ -22,9 +22,9 @@
         <Image Source="/picture/background.png" Height="600" Margin="0,-95,0,-71" Grid.ColumnSpan="100" Grid.RowSpan="100"/>
         <TextBlock Grid.Row="0" Text="Welcome to DRIVER MOODLE" Height="60" Width="600" FontSize="40" HorizontalAlignment="Center"
                    VerticalAlignment="Center" Grid.ColumnSpan="4" FontFamily="rod" FontWeight="Bold" Foreground="#FF2A239A" />
-        <Button x:Name="signIn" Grid.Column="1" Grid.Row="2" Content="Sign In" Width="100" Height="40" FontSize="20" Margin="0,0,0,0" Click="signIn_Click" />
+        <Button x:Name="logIn" Grid.Column="1" Grid.Row="2" Content="Log In" Width="100" Height="40" FontSize="20" Margin="0,0,0,0" Click="signIn_Click" />
         <Button x:Name="signUp" Grid.Column="1" Grid.Row="3" Content="Sign Up" Width="100" Height="40" FontSize="20" Margin="0,0,0,0" Click="signUp_Click" />
-        <Frame x:Name="signInPage" Grid.ColumnSpan="100" Grid.RowSpan="100"/>
+        <Frame x:Name="page" Grid.ColumnSpan="100" Grid.RowSpan="100"/>
 
     </Grid>
 </Window>

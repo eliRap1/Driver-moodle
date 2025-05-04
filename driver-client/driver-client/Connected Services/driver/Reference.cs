@@ -69,16 +69,19 @@ namespace driver_client.driver {
         private string EmailField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsAdminField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string PasswordField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string PhoneField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string UsernameField;
+        private int TeacherIdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool isAdminField;
+        private string UsernameField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public string Email {
@@ -89,6 +92,19 @@ namespace driver_client.driver {
                 if ((object.ReferenceEquals(this.EmailField, value) != true)) {
                     this.EmailField = value;
                     this.RaisePropertyChanged("Email");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsAdmin {
+            get {
+                return this.IsAdminField;
+            }
+            set {
+                if ((this.IsAdminField.Equals(value) != true)) {
+                    this.IsAdminField = value;
+                    this.RaisePropertyChanged("IsAdmin");
                 }
             }
         }
@@ -120,6 +136,19 @@ namespace driver_client.driver {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public int TeacherId {
+            get {
+                return this.TeacherIdField;
+            }
+            set {
+                if ((this.TeacherIdField.Equals(value) != true)) {
+                    this.TeacherIdField = value;
+                    this.RaisePropertyChanged("TeacherId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string Username {
             get {
                 return this.UsernameField;
@@ -128,19 +157,6 @@ namespace driver_client.driver {
                 if ((object.ReferenceEquals(this.UsernameField, value) != true)) {
                     this.UsernameField = value;
                     this.RaisePropertyChanged("Username");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool isAdmin {
-            get {
-                return this.isAdminField;
-            }
-            set {
-                if ((this.isAdminField.Equals(value) != true)) {
-                    this.isAdminField = value;
-                    this.RaisePropertyChanged("isAdmin");
                 }
             }
         }
@@ -158,10 +174,10 @@ namespace driver_client.driver {
     public interface IService1 {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetUserById", ReplyAction="http://tempuri.org/IService1/GetUserByIdResponse")]
-        driver_client.driver.UserInfo GetUserById(int id);
+        driver_client.driver.UserInfo GetUserById(int id, string table);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetUserById", ReplyAction="http://tempuri.org/IService1/GetUserByIdResponse")]
-        System.Threading.Tasks.Task<driver_client.driver.UserInfo> GetUserByIdAsync(int id);
+        System.Threading.Tasks.Task<driver_client.driver.UserInfo> GetUserByIdAsync(int id, string table);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllUsers", ReplyAction="http://tempuri.org/IService1/GetAllUsersResponse")]
         driver_client.driver.AllUsers GetAllUsers();
@@ -182,10 +198,10 @@ namespace driver_client.driver {
         System.Threading.Tasks.Task<bool> CheckUserExistAsync(string username);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddUser", ReplyAction="http://tempuri.org/IService1/AddUserResponse")]
-        bool AddUser(string name, string password, string email, string phone, bool admin);
+        bool AddUser(string name, string password, string email, string phone, bool admin, string teacherId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddUser", ReplyAction="http://tempuri.org/IService1/AddUserResponse")]
-        System.Threading.Tasks.Task<bool> AddUserAsync(string name, string password, string email, string phone, bool admin);
+        System.Threading.Tasks.Task<bool> AddUserAsync(string name, string password, string email, string phone, bool admin, string teacherId);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -215,12 +231,12 @@ namespace driver_client.driver {
                 base(binding, remoteAddress) {
         }
         
-        public driver_client.driver.UserInfo GetUserById(int id) {
-            return base.Channel.GetUserById(id);
+        public driver_client.driver.UserInfo GetUserById(int id, string table) {
+            return base.Channel.GetUserById(id, table);
         }
         
-        public System.Threading.Tasks.Task<driver_client.driver.UserInfo> GetUserByIdAsync(int id) {
-            return base.Channel.GetUserByIdAsync(id);
+        public System.Threading.Tasks.Task<driver_client.driver.UserInfo> GetUserByIdAsync(int id, string table) {
+            return base.Channel.GetUserByIdAsync(id, table);
         }
         
         public driver_client.driver.AllUsers GetAllUsers() {
@@ -247,12 +263,12 @@ namespace driver_client.driver {
             return base.Channel.CheckUserExistAsync(username);
         }
         
-        public bool AddUser(string name, string password, string email, string phone, bool admin) {
-            return base.Channel.AddUser(name, password, email, phone, admin);
+        public bool AddUser(string name, string password, string email, string phone, bool admin, string teacherId) {
+            return base.Channel.AddUser(name, password, email, phone, admin, teacherId);
         }
         
-        public System.Threading.Tasks.Task<bool> AddUserAsync(string name, string password, string email, string phone, bool admin) {
-            return base.Channel.AddUserAsync(name, password, email, phone, admin);
+        public System.Threading.Tasks.Task<bool> AddUserAsync(string name, string password, string email, string phone, bool admin, string teacherId) {
+            return base.Channel.AddUserAsync(name, password, email, phone, admin, teacherId);
         }
     }
 }

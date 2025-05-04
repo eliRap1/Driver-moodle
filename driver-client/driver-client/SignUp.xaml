@@ -10,19 +10,21 @@
 
     <Grid>
         <Image Source="/picture/background.png" Margin="0,-95,0,-71" Grid.ColumnSpan="100" Grid.RowSpan="100" />
+        <Rectangle Fill="AliceBlue" Height="200" Width="400" Margin="0,-50,0,0"/>
         <Label Content="Sign Up" FontSize="40" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100,20,0,0" x:Name="signUp_label"/>
-        <ComboBox x:Name="role" Margin="80" Width="100" Height="50" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+        <ComboBox x:Name="role" Margin="80" Width="100" Height="50" HorizontalAlignment="Center" VerticalAlignment="Bottom" SelectionChanged="role_SelectionChanged" >
         </ComboBox>
                  
         <Button Content="Sign Up" Margin="5" Width="100" Height="50" HorizontalAlignment="Center" VerticalAlignment="Bottom" Click="signup_Click"/>
-        <StackPanel  Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Width="112" Margin="-220,0,0,0">
+        <StackPanel  Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Width="112" Margin="-220,-50,0,0">
             <TextBlock Text="User name:" FontSize="23" FontWeight="Bold"/>
             <TextBlock Text="Password:" FontSize="23" FontWeight="Bold"/>
             <TextBlock Text="Age:" FontSize="23" FontWeight="Bold"/>
             <TextBlock Text="Email:" FontSize="23" FontWeight="Bold"/>
             <TextBlock Text="Phone:" FontSize="23" FontWeight="Bold"/>
+            <TextBlock Text="Teacher id: " FontSize="23" FontWeight="Bold" x:Name="idTecherText" Visibility="Hidden"/>
         </StackPanel>
-        <StackPanel  Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center"  Margin="140,0,0,0" Width="200">
+        <StackPanel  Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center"  Margin="140,-60,0,0" Width="200">
             <Border x:Name="username_border"  BorderBrush="Red" BorderThickness="0">
                 <TextBox Name="username" Height="30" Width="200" FontSize="20">
                     <Binding  Path="Username"  ValidatesOnDataErrors="True"  UpdateSourceTrigger="PropertyChanged">
@@ -34,7 +36,7 @@
                 </TextBox>
 
             </Border>
-            <Border x:Name="pass_border"  BorderBrush="Red" BorderThickness="0">
+            <Border x:Name="pass_border"  BorderBrush="Red" BorderThickness="0"> 
                 <TextBox Name="pass" Height="30" Width="200" FontSize="20 ">
                     <Binding  Path="Password"  ValidatesOnDataErrors="True"  UpdateSourceTrigger="PropertyChanged">
 
@@ -72,6 +74,16 @@
                     <Binding  Path="Phone"  ValidatesOnDataErrors="True"  UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
                             <local:PhoneRule/>
+                            <!--validation Rule with parameters-->
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox>
+            </Border>
+            <Border x:Name="teacher_border" BorderBrush="Red" BorderThickness="0">
+                <TextBox Name="teacherId" Height="30" Width="200" FontSize="20" Visibility="Hidden">
+                    <Binding Path="TeacherId"  ValidatesOnDataErrors="True"  UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <local:TeacherIdRule/>
                             <!--validation Rule with parameters-->
                         </Binding.ValidationRules>
                     </Binding>

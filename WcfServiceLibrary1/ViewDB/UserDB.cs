@@ -32,9 +32,9 @@ namespace ViewDB
                 }
             }
         }
-        public UserInfo GetUserById(int id)
+        public UserInfo GetUserById(int id, string table)
         {
-            string sqlStr = "Select * From Users Where id=" + id;
+            string sqlStr = "Select * From " +table+ " Where id=" + id;
             List<Base> list = Select(sqlStr);
             if (list.Count == 1)
             { return (UserInfo)list[0]; }
@@ -49,13 +49,23 @@ namespace ViewDB
 
         public bool AddStudent(UserInfo user)
         {
-            string table = "Student";
-            if(user.IsAdmin)
+            string table = "Student"; ;
+            string id = user.TeacherId.ToString();
+            string sqlstr = "";
+            if (user.IsAdmin)
             {
                 table = "Teacher";
+
+                sqlstr = $"INSERT INTO " + table + " ([username], [password], [email], [phone]) " + "" +
+                    $"VALUES ('{user.Username}', '{user.Password}','{user.Email}' ,'{user.Phone}')";
             }
-            string sqlstr = $"INSERT INTO "+table+" ([username], [password], [email], [phone]) " + "" +
-                $"VALUES ('{user.Username}', '{user.Password}','{user.Email}' ,'{user.Phone}')";
+            else
+            {
+                sqlstr = $"INSERT INTO " + table + " ([username], [password], [email], [phone],TeacherId) " + "" +
+    $"VALUES ('{user.Username}', '{user.Password}','{user.Email}' ,'{user.Phone}','{id}')";
+            }
+
+
 
             return SaveChanges(sqlstr) != 0;
 

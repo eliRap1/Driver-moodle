@@ -1,4 +1,5 @@
-﻿using System;
+﻿using driver_client.driver;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -33,6 +34,7 @@ namespace driver_client
             //  check age range
             if ((age < min) || (age > max))
             {
+                //MessageBox.Show("Please enter an age in the range: " + min + " - " + max + ".");
                 return new ValidationResult(false,
                   "Please enter an age in the range: " + min + " - " + max + ".");
             }
@@ -46,7 +48,54 @@ namespace driver_client
 
 
 
+    public class TeacherIdRule : ValidationRule
+    {
 
+        // validation check
+        public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+        {
+            string id = (string)value;
+            if (id == ""  || id == "-")
+            {
+                return new ValidationResult(false,
+          "Please enter a legal Techaer id.");
+            }
+            else
+            {
+                try
+                {
+                    int.Parse(id);
+                }
+                catch
+                {
+                    //MessageBox.Show("Please enter a legal Techaer id.");
+                    return new ValidationResult(false,
+                                  "Please enter a legal Techaer id.");  // is incorrect
+                }
+                try
+                {
+                    driver.Service1Client srv = new driver.Service1Client();
+                    UserInfo user = srv.GetUserById(int.Parse(id), "Teacher");
+                    if (user != null)
+                    {
+                        return ValidationResult.ValidResult;  // correct
+                    }
+                    else
+                    {
+                        //MessageBox.Show("Please enter a legal Techaer id.");
+                        return new ValidationResult(false,
+                                  "Please enter a legal Techaer id.");  // is incorrect
+                    }
+                }
+                catch
+                {
+
+                    return new ValidationResult(false,
+                                  "Please enter a legal Techaer id.");  // is incorrect
+                }
+            }
+        }
+    }
     public class EmailRule : ValidationRule
     {
 
