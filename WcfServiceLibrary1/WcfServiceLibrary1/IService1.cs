@@ -23,7 +23,7 @@ namespace WcfServiceLibrary1
         bool CheckUserExist(string username);
 
         [OperationContract]
-        bool AddUser(string name, string password, string email, string phone, bool admin,string teacherId = "");
+        bool AddUser(string name, string password, string email, string phone, bool admin, int tID);
     }
 
 

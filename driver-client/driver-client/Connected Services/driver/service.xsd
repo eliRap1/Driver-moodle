@@ -65,7 +65,7 @@
         <xs:element minOccurs="0" name="email" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="phone" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="admin" type="xs:boolean" />
-        <xs:element minOccurs="0" name="teacherId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="tID" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

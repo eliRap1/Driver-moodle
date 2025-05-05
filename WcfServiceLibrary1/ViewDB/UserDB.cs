@@ -47,28 +47,23 @@ namespace ViewDB
             return studs;
         }
 
-        public bool AddStudent(UserInfo user)
+        public bool AddUser(UserInfo user)
         {
-            string table = "Student"; ;
-            string id = user.TeacherId.ToString();
+            string table = "Teacher"; 
             string sqlstr = "";
-            if (user.IsAdmin)
-            {
-                table = "Teacher";
-
-                sqlstr = $"INSERT INTO " + table + " ([username], [password], [email], [phone]) " + "" +
-                    $"VALUES ('{user.Username}', '{user.Password}','{user.Email}' ,'{user.Phone}')";
-            }
-            else
-            {
-                sqlstr = $"INSERT INTO " + table + " ([username], [password], [email], [phone],TeacherId) " + "" +
-    $"VALUES ('{user.Username}', '{user.Password}','{user.Email}' ,'{user.Phone}','{id}')";
-            }
-
-
-
+            sqlstr = $"INSERT INTO " + table + " ([username], [password], [email], [phone]) " + "" +
+                $"VALUES ('{user.Username}', '{user.Password}','{user.Email}' ,'{user.Phone}')";
             return SaveChanges(sqlstr) != 0;
 
+        }
+        public bool AddStudent(UserInfo user)
+        {
+            string table = "Student"; 
+            string id = user.TeacherId.ToString();
+            string sqlstr = "";
+            sqlstr = $"INSERT INTO " + table + " ([username], [password], [email], [phone], [teacherId]) " + "" +
+                $"VALUES ('{user.Username}', '{user.Password}','{user.Email}' ,'{user.Phone}', {user.TeacherId})";
+            return SaveChanges(sqlstr) != 0;
         }
     }
 }

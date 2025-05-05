@@ -57,15 +57,9 @@ namespace driver_client
             }
             else if(!srv.CheckUserExist(userN))
             {
-                if(!isTecher && srv.AddUser(userN, password, emailT, phone1, isTecher, teacherId.Text))
+                if(srv.AddUser(userN, password, emailT, phone1, isTecher, int.Parse(teacherId.Text)))
                 {
                     MessageBox.Show("You are successfully registered");
-                }
-                else if(isTecher && srv.AddUser(userN, password, emailT, phone1, isTecher, ""))
-                {
-
-                        MessageBox.Show("You are successfully registered");
-
                 }
                 else
                 {

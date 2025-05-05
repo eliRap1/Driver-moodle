@@ -198,10 +198,10 @@ namespace driver_client.driver {
         System.Threading.Tasks.Task<bool> CheckUserExistAsync(string username);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddUser", ReplyAction="http://tempuri.org/IService1/AddUserResponse")]
-        bool AddUser(string name, string password, string email, string phone, bool admin, string teacherId);
+        bool AddUser(string name, string password, string email, string phone, bool admin, int tID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddUser", ReplyAction="http://tempuri.org/IService1/AddUserResponse")]
-        System.Threading.Tasks.Task<bool> AddUserAsync(string name, string password, string email, string phone, bool admin, string teacherId);
+        System.Threading.Tasks.Task<bool> AddUserAsync(string name, string password, string email, string phone, bool admin, int tID);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -263,12 +263,12 @@ namespace driver_client.driver {
             return base.Channel.CheckUserExistAsync(username);
         }
         
-        public bool AddUser(string name, string password, string email, string phone, bool admin, string teacherId) {
-            return base.Channel.AddUser(name, password, email, phone, admin, teacherId);
+        public bool AddUser(string name, string password, string email, string phone, bool admin, int tID) {
+            return base.Channel.AddUser(name, password, email, phone, admin, tID);
         }
         
-        public System.Threading.Tasks.Task<bool> AddUserAsync(string name, string password, string email, string phone, bool admin, string teacherId) {
-            return base.Channel.AddUserAsync(name, password, email, phone, admin, teacherId);
+        public System.Threading.Tasks.Task<bool> AddUserAsync(string name, string password, string email, string phone, bool admin, int tID) {
+            return base.Channel.AddUserAsync(name, password, email, phone, admin, tID);
         }
     }
 }
