@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="AllCitiesListAndLogics.cs" />
     <Compile Include="AllStudentsListAndLogics.cs" />
+    <Compile Include="AllUsersListAndLofics.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

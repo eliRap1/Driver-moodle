@@ -57,12 +57,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="SignIn.xaml.cs">
-      <DependentUpon>SignIn.xaml</DependentUpon>
+    <Compile Include="Sign.cs" />
+    <Compile Include="LogIn.xaml.cs">
+      <DependentUpon>LogIn.xaml</DependentUpon>
     </Compile>
     <Compile Include="SignUp.xaml.cs">
       <DependentUpon>SignUp.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ValidationRules.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -80,7 +82,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="SignIn.xaml">
+    <Page Include="LogIn.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -107,6 +109,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Connected Services\driver\driver_client.driver.AllUsers1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\driver\driver_client.driver.CitiesList.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -114,6 +119,9 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\driver\driver_client.driver.StudentsList.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\driver\driver_client.driver.UserInfo1.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\driver\Model.xsd">
@@ -154,6 +162,15 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="picture\background.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="picture\driver.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="picture\student.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="picture\chose.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
