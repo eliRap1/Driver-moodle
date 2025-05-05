@@ -62,13 +62,17 @@ namespace driver_client
             }
             driver.Service1Client srv = new driver.Service1Client();
             if ((Validation.GetHasError(username) || Validation.GetHasError(age) || Validation.GetHasError(pass)) || Validation.GetHasError(phone) ||
-                Validation.GetHasError(email) || Validation.GetHasError(teacherId))
+                Validation.GetHasError(email) || (isTecher && Validation.GetHasError(teacherId)))
             {
                 MessageBox.Show("Change the highlighted fields");
             }
-            else if(userN == null || password == null || emailT == null || phone1 == null || role.SelectedIndex == -1 || role.SelectedIndex == 0)
+            else if(userN == null || password == null || emailT == null || phone1 == null || role.SelectedIndex == -1 || role.SelectedIndex == 0 || (teacherId.Text == "0" && !isTecher))
             {
                 MessageBox.Show("Please fill all the fields correctly");
+            }
+            else if(password != confirmPass.Text)
+            {
+                MessageBox.Show("Passwords don't match");
             }
             else if(!srv.CheckUserExist(userN))
             {

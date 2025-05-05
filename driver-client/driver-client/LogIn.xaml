@@ -6,28 +6,91 @@
       xmlns:local="clr-namespace:driver_client"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="LogIn">
+      Title="LogIn"
+      Background="#F0F4FA">
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <Image Source="/picture/background.png" Height="600" Margin="0,-95,0,-71" Grid.ColumnSpan="100" Grid.RowSpan="100"/>
-        <TextBlock Grid.Row="0" Text="Welcome to DRIVER MOODLE" Height="60" Width="600" FontSize="40" HorizontalAlignment="Center"
-            VerticalAlignment="Center" Grid.ColumnSpan="4" FontFamily="rod" FontWeight="Bold" Foreground="#FF2A239A" />
-        <PasswordBox x:Name="pass" Width="200" Height="40" Grid.Row="2" FontSize="30" Grid.Column="1"/>
-        <TextBox x:Name="username" Width="200" Height="40" Grid.Row="1" FontSize="30" Grid.Column="1"/>
-        <Button x:Name="signIn" Grid.Column="1" Grid.Row="4" Content="Log In" Width="100" Height="40" FontSize="20" Margin="0,0,0,0" />
-        <TextBlock Grid.Row="1" Text="Username:" Height="40" Width="200" FontSize="30" HorizontalAlignment="Center" FontWeight="Bold" FontFamily="ROD"/>
-        <TextBlock Grid.Row="2" Text="Password:" Height="40" Width="200" FontSize="30" HorizontalAlignment="Center" FontWeight="Bold" FontFamily="ROD"/>
+        <Frame x:Name="page" Grid.RowSpan="100" Grid.ColumnSpan="100" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0" Panel.ZIndex="100"/>
+        <!-- Subtle background image faintly visible -->
+        <Image Source="/picture/background.png"
+               Stretch="UniformToFill"
+               Opacity="0.2"
+               Grid.RowSpan="5"
+               Grid.ColumnSpan="3"/>
+
+        <!-- Centered login panel -->
+        <Border CornerRadius="10"
+                Background="White"
+                Padding="40"
+                Width="400"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
+            <Border.Effect>
+                <DropShadowEffect Color="#000000"
+                                  BlurRadius="15"
+                                  ShadowDepth="4"
+                                  Opacity="0.2"/>
+            </Border.Effect>
+
+            <StackPanel Margin="0,0,0,20">
+                <!-- Header -->
+                <TextBlock Text="Log In"
+                           FontSize="28"
+                           FontWeight="Bold"
+                           Foreground="#2A239A"
+                           HorizontalAlignment="Center"/>
+
+                <!-- Username field -->
+                <StackPanel>
+                    <TextBlock Text="Username"
+                               FontSize="14"
+                               FontWeight="SemiBold"
+                               Margin="0,0,0,4"
+                               Foreground="#333"/>
+                    <TextBox x:Name="username"
+                             Height="36"
+                             FontSize="14"
+                             Padding="6"
+                             Background="#E8F0FE"
+                             BorderBrush="#2A239A"
+                             BorderThickness="1"
+                             />
+                </StackPanel>
+
+                <!-- Password field -->
+                <StackPanel>
+                    <TextBlock Text="Password"
+                               FontSize="14"
+                               FontWeight="SemiBold"
+                               Margin="0,0,0,4"
+                               Foreground="#333"/>
+                    <PasswordBox x:Name="pass"
+                                 Height="36"
+                                 FontSize="14"
+                                 Padding="6"
+                                 Background="#E8F0FE"
+                                 BorderBrush="#2A239A"
+                                 BorderThickness="1"
+                                 />
+                </StackPanel>
+
+                <!-- Log In button -->
+                <Button x:Name="signIn"
+                        Content="Log In"
+                        Height="40"
+                        FontSize="16"
+                        FontWeight="SemiBold"
+                        Background="#2A239A"
+                        Foreground="White"
+                        Margin="0,20,0,0"
+                        Click="signIn_Click"/>
+
+                <!-- Sign Up link -->
+                <TextBlock HorizontalAlignment="Center" FontSize="12" Foreground="#555">
+                    Don't have an account? 
+                    <Hyperlink Click="signUp_Click">Sign Up</Hyperlink>
+                </TextBlock>
+            </StackPanel>
+        </Border>
     </Grid>
 </Page>

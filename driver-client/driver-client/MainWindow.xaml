@@ -39,27 +39,42 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <TextBlock Text="Welcome to DRIVER MOODLE"
-                           FontSize="32" FontWeight="Bold" Foreground="#2A239A"
+                           FontSize="32" FontWeight="Bold" Foreground="#4169e1 "
                            HorizontalAlignment="Center" Margin="0,0,0,20"/>
                 <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
                     <Button x:Name="logIn"
                             Content="Log In" Width="120" Height="40" FontSize="16" FontWeight="SemiBold"
-                            Background="#2A239A" Foreground="White" 
+                            Background="#4169e1 " Foreground="White" 
                             Click="signIn_Click"/>
                     <Button x:Name="signUp"
                             Content="Sign Up" Width="120" Height="40" FontSize="16" FontWeight="SemiBold"
-                            Background="Transparent" BorderBrush="#2A239A" BorderThickness="2"
-                            Foreground="#2A239A" 
+                            Background="Transparent" BorderBrush="#4169e1 " BorderThickness="2"
+                            Foreground="#4169e1 " 
                             Click="signUp_Click"/>
                 </StackPanel>
             </Grid>
         </Border>
+        <DockPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10">
+            <Menu Background="#1A2E50" Foreground="Gray" FontWeight="Bold" Height="24">
+                <MenuItem Header="_Menu">
+                    <MenuItem Header="login"
+                x:Name="loginB"
+                Click="signIn_Click"
+                Icon="picture/driver.png"/>
+                    <MenuItem Header="sign Up"
+                x:Name="signUpB"
+                Click="signUp_Click"
+                Icon="picture/student.png"/>
+                </MenuItem>
+            </Menu>
+        </DockPanel>
         <Frame x:Name="page"
                Grid.RowSpan="100"
                Grid.ColumnSpan="100"
                HorizontalAlignment="Stretch"
                VerticalAlignment="Stretch"
                Margin="0,0,0,0"
+               Panel.ZIndex="100"
                />
     </Grid>
 </Window>

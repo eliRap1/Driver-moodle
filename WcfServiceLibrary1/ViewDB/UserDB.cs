@@ -23,8 +23,8 @@ namespace ViewDB
                 {
                     UserInfo s = (UserInfo)entity;
                     s.Username = reader["username"].ToString();
-                    s.Password = reader["pass"].ToString();
-                    s.IsAdmin = bool.Parse(reader["isAdmin"].ToString());
+                    s.Password = reader["password"].ToString();
+                    //s.IsAdmin = bool.Parse(reader["isAdmin"].ToString());
                 }
                 catch
                 {
@@ -42,7 +42,13 @@ namespace ViewDB
         }
         public AllUsers GetAllStudents()
         {
-            List<Base> list = Select("Select * From Users");
+            List<Base> list = Select("Select * From Student");
+            AllUsers studs = new AllUsers(list);
+            return studs;
+        }
+        public AllUsers GetAllTeacher()
+        {
+            List<Base> list = Select("Select * From Teacher");
             AllUsers studs = new AllUsers(list);
             return studs;
         }

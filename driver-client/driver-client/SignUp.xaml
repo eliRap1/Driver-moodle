@@ -9,15 +9,15 @@
       Title="SignUp" Background="AliceBlue">
 
     <Grid Margin="20">
-        <Image Source="/picture/background1.png" Opacity="0.4" Margin="-290,-190,-290,-101"/>
-        <Border CornerRadius="10" Background="White" Padding="40"
+        <Image Source="/picture/background.png" Opacity="0.4" Margin="-290,-190,-290,-101"    Stretch="UniformToFill"/>
+        <Border CornerRadius="10" Background="White" Padding="60"
                 HorizontalAlignment="Center" VerticalAlignment="Center"
-                MaxWidth="600" MinWidth="300" Width="Auto"
+                MaxWidth="800" MinWidth="250" Width="Auto"
                 BorderBrush="LightGray" BorderThickness="1">
             <StackPanel>
                 <!-- Header -->
                 <TextBlock Text="Sign Up" FontSize="28" FontWeight="Bold"
-                           HorizontalAlignment="Center" Margin="0,0,0,20"/>
+                           HorizontalAlignment="Center" Margin="0,0,0,20" />
 
                 <!-- Role ComboBox with improved design -->
                 <StackPanel Orientation="Vertical" Margin="0,0,0,20">

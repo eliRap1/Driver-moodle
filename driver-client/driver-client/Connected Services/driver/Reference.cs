@@ -191,6 +191,12 @@ namespace driver_client.driver {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CheckUserPassword", ReplyAction="http://tempuri.org/IService1/CheckUserPasswordResponse")]
         System.Threading.Tasks.Task<bool> CheckUserPasswordAsync(string username, string password);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CheckUserAdmin", ReplyAction="http://tempuri.org/IService1/CheckUserAdminResponse")]
+        bool CheckUserAdmin(string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CheckUserAdmin", ReplyAction="http://tempuri.org/IService1/CheckUserAdminResponse")]
+        System.Threading.Tasks.Task<bool> CheckUserAdminAsync(string username);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CheckUserExist", ReplyAction="http://tempuri.org/IService1/CheckUserExistResponse")]
         bool CheckUserExist(string username);
         
@@ -253,6 +259,14 @@ namespace driver_client.driver {
         
         public System.Threading.Tasks.Task<bool> CheckUserPasswordAsync(string username, string password) {
             return base.Channel.CheckUserPasswordAsync(username, password);
+        }
+        
+        public bool CheckUserAdmin(string username) {
+            return base.Channel.CheckUserAdmin(username);
+        }
+        
+        public System.Threading.Tasks.Task<bool> CheckUserAdminAsync(string username) {
+            return base.Channel.CheckUserAdminAsync(username);
         }
         
         public bool CheckUserExist(string username) {

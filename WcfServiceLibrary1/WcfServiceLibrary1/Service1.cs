@@ -7,16 +7,18 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using WcfServiceLibrary1.ContractTypes;
 
 namespace WcfServiceLibrary1
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "Service1" in both code and config file together.
     public class Service1 : IService1
     {
+        private ViewDB.UserDB userDB = new ViewDB.UserDB();
+        private AllUsers allUsers = new AllUsers();
+        private AllUsers allAdmins = new AllUsers();
         public bool AddUser(string name, string password,string email, string phone, bool admin,int tID)
         {
-            AllUsers allUsers = new AllUsers();
-            ViewDB.UserDB userDB = new ViewDB.UserDB();
             bool worked = false;
             UserInfo user = allUsers.AddUser(name, password, email, phone, admin,tID);
             if (user != null)
@@ -32,24 +34,28 @@ namespace WcfServiceLibrary1
 
         public bool CheckUserExist(string username)
         {
-            AllUsers allUsers = new AllUsers();
-            return allUsers.Any(x => x.Username == username);
+            allUsers = userDB.GetAllStudents();
+            allAdmins = userDB.GetAllTeacher();
+            return allUsers.Any(x => x.Username == username) || allAdmins.Any(x => x.Username == username);
         }
         public bool CheckUserPassword(string username, string password)
         {
-            AllUsers allUsers = new AllUsers();
-            return allUsers.Any(x => x.Username == username && x.Password == password);
+            allUsers = userDB.GetAllStudents();
+            allAdmins = userDB.GetAllTeacher();
+            return allUsers.Any(x => x.Username == username && x.Password == password) || allAdmins.Any(x => x.Username == username && x.Password == password);
         }
         public UserInfo GetUserById(int id, string table)
         {
-            ViewDB.UserDB userDB = new ViewDB.UserDB();
             UserInfo user = userDB.GetUserById(id, table);
             return user;
         }
-
+        public bool CheckUserAdmin(string username)
+        {
+            allAdmins = userDB.GetAllTeacher();
+            return allAdmins.Any(x => x.Username == username);
+        }
         public AllUsers GetAllUsers()
         {
-            ViewDB.UserDB userDB = new ViewDB.UserDB();
             AllUsers allUsers = userDB.GetAllStudents();
             return allUsers;
         }

@@ -20,6 +20,8 @@ namespace WcfServiceLibrary1
         [OperationContract]
         bool CheckUserPassword(string username, string password);
         [OperationContract]
+        bool CheckUserAdmin(string username);
+        [OperationContract]
         bool CheckUserExist(string username);
 
         [OperationContract]

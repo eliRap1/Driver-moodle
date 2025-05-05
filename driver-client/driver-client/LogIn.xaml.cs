@@ -20,10 +20,40 @@ namespace driver_client
     /// </summary>
     public partial class LogIn : Page
     {
+        SignUp signup = new SignUp();
+        //private Sign sign = new Sign();
         public LogIn()
         {
             InitializeComponent();
-            
+            //this.DataContext = sign;
+        }
+
+        private void signIn_Click(object sender, RoutedEventArgs e)
+        {
+            string password = pass.Password;
+            string user = username.Text;
+
+            driver.Service1Client srv = new driver.Service1Client();
+            if (srv.CheckUserPassword(user, password))
+            {
+                if(srv.CheckUserAdmin(user))
+                {
+                    //page.Navigate(new Admin());
+                }
+                else
+                {
+                    //page.Navigate(new Home());
+                }
+            }
+            else
+             {
+                MessageBox.Show("Wrong password or username");
+            }
+
+        }
+        private void signUp_Click(object sender, RoutedEventArgs e)
+        {
+            page.Navigate(signup);
         }
     }
 }
