@@ -163,5 +163,14 @@
   <ItemGroup>
     <Resource Include="picture\background.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="picture\driver.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="picture\student.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="picture\chose.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

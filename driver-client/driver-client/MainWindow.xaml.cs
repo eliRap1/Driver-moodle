@@ -30,11 +30,15 @@ namespace driver_client
         private void signUp_Click(object sender, RoutedEventArgs e)
         {
             page.Navigate(signup);
+            welcomePanel.Visibility = Visibility.Collapsed;
+
         }
 
         private void signIn_Click(object sender, RoutedEventArgs e)
         {
             page.Navigate(login);
+            welcomePanel.Visibility = Visibility.Collapsed;
+
         }
     }
 }

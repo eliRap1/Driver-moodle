@@ -6,10 +6,11 @@
       xmlns:local="clr-namespace:driver_client"
       mc:Ignorable="d"
       d:DesignHeight="1080" d:DesignWidth="1920"
-      Title="SignUp" Background="LightGray">
+      Title="SignUp" Background="LightBlue">
 
     <Grid Margin="20">
-        <Border CornerRadius="10" Background="White" Padding="30"
+        <Image Source="/picture/background.png" Margin="0,-95,0,-71" Grid.ColumnSpan="100" Grid.RowSpan="100" Opacity="0.4"/>
+        <Border CornerRadius="10" Background="White" Padding="40"
                 HorizontalAlignment="Center" VerticalAlignment="Center"
                 MaxWidth="600" MinWidth="300" Width="Auto"
                 BorderBrush="LightGray" BorderThickness="1">
@@ -21,23 +22,31 @@
                 <!-- Role ComboBox with improved design -->
                 <StackPanel Orientation="Vertical" Margin="0,0,0,20">
                     <TextBlock Text="Role" FontWeight="SemiBold" Margin="0,0,0,5"/>
-                    <ComboBox x:Name="role" Width="180" Height="35"
-                              Padding="6,2"
-                              Background="#F5F5F5"
-                              BorderBrush="Gray"
-                              BorderThickness="1"
-                              FontSize="14"
-                              HorizontalContentAlignment="Left"
-                              VerticalContentAlignment="Center"
-                              SelectionChanged="role_SelectionChanged">
-                        <ComboBox.Resources>
-                            <Style TargetType="ComboBoxItem">
-                                <Setter Property="FontSize" Value="14"/>
-                                <Setter Property="Padding" Value="10,4"/>
-                            </Style>
-                        </ComboBox.Resources>
+                    <ComboBox x:Name="role" 
+          Width="220" Height="40"
+          Padding="6,2"
+          Background="#FF76AFE5"    
+          Foreground="#007ACC"
+                        BorderBrush="#007ACC"
+                        BorderThickness="2"
+                        FontSize="15"
+          HorizontalContentAlignment="Left"
+          VerticalContentAlignment="Center"
+          SelectionChanged="role_SelectionChanged">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" Margin="4,2">
+                                    <Image Width="20" Height="20" Margin="0,0,6,0"
+                       Source="{Binding Icon}"/>
+                                    <TextBlock Text="{Binding Name}"
+                           Foreground="#007ACC"/>
+                                    <!-- blue item text -->
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
                     </ComboBox>
                 </StackPanel>
+
 
                 <!-- Input fields -->
                 <Grid>

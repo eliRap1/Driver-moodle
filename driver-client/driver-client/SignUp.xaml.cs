@@ -19,6 +19,11 @@ namespace driver_client
     /// <summary>
     /// Interaction logic for SignUp.xaml
     /// </summary>
+    public class RoleOption
+    {
+        public string Name { get; set; }
+        public string Icon { get; set; }
+    }
     public partial class SignUp : Page
     {
         static List<string> users = new List<string>() {"eli", "moshe", "daniel", "david", "omer", "yossi"};//list of autorized users
@@ -27,8 +32,14 @@ namespace driver_client
         public SignUp()
         {
             InitializeComponent();
-            role.Items.Add("Student");
-            role.Items.Add("Teacher");
+            var options = new List<RoleOption>
+            {
+                new RoleOption { Name = "Choose", Icon = "picture/chose.png" },
+                new RoleOption { Name = "Student", Icon = "picture/student.png" },
+                new RoleOption { Name = "Teacher", Icon = "picture/driver.png" }
+            };
+            role.ItemsSource = options;
+            role.SelectedIndex = 0;
             sign = new Sign();
             this.DataContext = sign;
         }
@@ -45,7 +56,7 @@ namespace driver_client
             //pass_border.BorderThickness = new Thickness(0);
             //age_border.BorderThickness = new Thickness(0);
             //email_border.BorderThickness = new Thickness(0);
-            if(role.SelectedItem == "Teacher")// && pass.Password == "DriverT!" && users.Contains(username.Text))//check if the admin password is right and if the user is in the list of autorized users
+            if(role.SelectedIndex == 2)// && pass.Password == "DriverT!" && users.Contains(username.Text))//check if the admin password is right and if the user is in the list of autorized users
             {
                 isTecher = true;
             }
@@ -55,7 +66,7 @@ namespace driver_client
             {
                 MessageBox.Show("Change the highlighted fields");
             }
-            else if(userN == null || password == null || emailT == null || phone1 == null || role.SelectedIndex == -1)
+            else if(userN == null || password == null || emailT == null || phone1 == null || role.SelectedIndex == -1 || role.SelectedIndex == 0)
             {
                 MessageBox.Show("Please fill all the fields correctly");
             }
@@ -79,7 +90,7 @@ namespace driver_client
 
         private void role_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(role.SelectedItem == "Student")
+            if (role.SelectedIndex == 1)
             {
                 teacherId.Visibility = Visibility.Visible;
                 idTecherText.Visibility = Visibility.Visible;
