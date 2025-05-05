@@ -1,96 +1,156 @@
 ﻿<Page x:Class="driver_client.SignUp"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:driver_client"
-      mc:Ignorable="d" 
+      mc:Ignorable="d"
       d:DesignHeight="1080" d:DesignWidth="1920"
-      Title="SignUp">
+      Title="SignUp" Background="LightGray">
 
-    <Grid>
-        <Image Source="/picture/background.png" Margin="0,-95,0,-71" Grid.ColumnSpan="100" Grid.RowSpan="100" />
-        <Rectangle Fill="AliceBlue" Height="200" Width="400" Margin="0,-50,0,0"/>
-        <Label Content="Sign Up" FontSize="40" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100,20,0,0" x:Name="signUp_label"/>
-        <ComboBox x:Name="role" Margin="80" Width="100" Height="50" HorizontalAlignment="Center" VerticalAlignment="Bottom" SelectionChanged="role_SelectionChanged" >
-        </ComboBox>
-                 
-        <Button Content="Sign Up" Margin="5" Width="100" Height="50" HorizontalAlignment="Center" VerticalAlignment="Bottom" Click="signup_Click"/>
-        <StackPanel  Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Width="112" Margin="-220,-50,0,0">
-            <TextBlock Text="User name:" FontSize="23" FontWeight="Bold"/>
-            <TextBlock Text="Password:" FontSize="23" FontWeight="Bold"/>
-            <TextBlock Text="Age:" FontSize="23" FontWeight="Bold"/>
-            <TextBlock Text="Email:" FontSize="23" FontWeight="Bold"/>
-            <TextBlock Text="Phone:" FontSize="23" FontWeight="Bold"/>
-            <TextBlock Text="Teacher id: " FontSize="23" FontWeight="Bold" x:Name="idTecherText" Visibility="Hidden"/>
-        </StackPanel>
-        <StackPanel  Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center"  Margin="140,-60,0,0" Width="200">
-            <Border x:Name="username_border"  BorderBrush="Red" BorderThickness="0">
-                <TextBox Name="username" Height="30" Width="200" FontSize="20">
-                    <Binding  Path="Username"  ValidatesOnDataErrors="True"  UpdateSourceTrigger="PropertyChanged">
-                        <Binding.ValidationRules>
-                            <local:MinLenth/>
-                            <!--validation Rule with parameters-->
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox>
+    <Grid Margin="20">
+        <Border CornerRadius="10" Background="White" Padding="30"
+                HorizontalAlignment="Center" VerticalAlignment="Center"
+                MaxWidth="600" MinWidth="300" Width="Auto"
+                BorderBrush="LightGray" BorderThickness="1">
+            <StackPanel>
+                <!-- Header -->
+                <TextBlock Text="Sign Up" FontSize="28" FontWeight="Bold"
+                           HorizontalAlignment="Center" Margin="0,0,0,20"/>
 
-            </Border>
-            <Border x:Name="pass_border"  BorderBrush="Red" BorderThickness="0"> 
-                <TextBox Name="pass" Height="30" Width="200" FontSize="20 ">
-                    <Binding  Path="Password"  ValidatesOnDataErrors="True"  UpdateSourceTrigger="PropertyChanged">
+                <!-- Role ComboBox with improved design -->
+                <StackPanel Orientation="Vertical" Margin="0,0,0,20">
+                    <TextBlock Text="Role" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                    <ComboBox x:Name="role" Width="180" Height="35"
+                              Padding="6,2"
+                              Background="#F5F5F5"
+                              BorderBrush="Gray"
+                              BorderThickness="1"
+                              FontSize="14"
+                              HorizontalContentAlignment="Left"
+                              VerticalContentAlignment="Center"
+                              SelectionChanged="role_SelectionChanged">
+                        <ComboBox.Resources>
+                            <Style TargetType="ComboBoxItem">
+                                <Setter Property="FontSize" Value="14"/>
+                                <Setter Property="Padding" Value="10,4"/>
+                            </Style>
+                        </ComboBox.Resources>
+                    </ComboBox>
+                </StackPanel>
 
-                        <Binding.ValidationRules>
-                            <local:MinLenth/>
-                            <!--validation Rule with parameters-->
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox>
-            </Border>
-            <Border x:Name="age_border"  BorderBrush="Red" BorderThickness="0">
-                <TextBox Name="age" Height="30" Width="200" FontSize="20" >
-                    <Binding  Path="Age"  ValidatesOnDataErrors="True"  UpdateSourceTrigger="PropertyChanged">
+                <!-- Input fields -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <!-- 0 Username -->
+                        <RowDefinition Height="Auto"/>
+                        <!-- 1 Password -->
+                        <RowDefinition Height="Auto"/>
+                        <!-- 2 Confirm Password -->
+                        <RowDefinition Height="Auto"/>
+                        <!-- 3 Age -->
+                        <RowDefinition Height="Auto"/>
+                        <!-- 4 Email -->
+                        <RowDefinition Height="Auto"/>
+                        <!-- 5 Phone -->
+                        <RowDefinition Height="Auto"/>
+                        <!-- 6 Teacher ID -->
+                    </Grid.RowDefinitions>
 
-                        <Binding.ValidationRules>
-                            <local:AgeRangeRule/>
-                            <!--validation Rule with parameters-->
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox>
-            </Border>
-            <Border x:Name="email_border"  BorderBrush="Red" BorderThickness="0">
-                <TextBox Name="email" Height="30" Width="200" FontSize="20"  >
-                    <Binding  Path="Email"  ValidatesOnDataErrors="True"  UpdateSourceTrigger="PropertyChanged">
+                    <!-- Username -->
+                    <TextBlock Text="User name:" Grid.Row="0" Grid.Column="0" Margin="0,0,10,10" VerticalAlignment="Center"/>
+                    <Border x:Name="username_border" Grid.Row="0" Grid.Column="1" BorderBrush="Gray" BorderThickness="1" CornerRadius="3" Margin="0,0,0,10">
+                        <TextBox x:Name="username" Height="28" FontSize="14" Padding="4" BorderThickness="0">
+                            <Binding Path="Username" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <local:MinLenth/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox>
+                    </Border>
 
-                        <Binding.ValidationRules>
-                            <local:EmailRule/>
-                            <!--validation Rule with parameters-->
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox>
-            </Border>
-            <Border x:Name="phone_border"  BorderBrush="Red" BorderThickness="0">
-                <TextBox Name="phone" Height="30" Width="200" FontSize="20"  >
-                    <Binding  Path="Phone"  ValidatesOnDataErrors="True"  UpdateSourceTrigger="PropertyChanged">
-                        <Binding.ValidationRules>
-                            <local:PhoneRule/>
-                            <!--validation Rule with parameters-->
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox>
-            </Border>
-            <Border x:Name="teacher_border" BorderBrush="Red" BorderThickness="0">
-                <TextBox Name="teacherId" Height="30" Width="200" FontSize="20" Visibility="Hidden">
-                    <Binding Path="TeacherId"  ValidatesOnDataErrors="True"  UpdateSourceTrigger="PropertyChanged">
-                        <Binding.ValidationRules>
-                            <local:TeacherIdRule/>
-                            <!--validation Rule with parameters-->
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox>
-            </Border>
-        </StackPanel>
+                    <!-- Password -->
+                    <TextBlock Text="Password:" Grid.Row="1" Grid.Column="0" Margin="0,0,10,10" VerticalAlignment="Center"/>
+                    <Border x:Name="pass_border" Grid.Row="1" Grid.Column="1" BorderBrush="Gray" BorderThickness="1" CornerRadius="3" Margin="0,0,0,10">
+                        <TextBox x:Name="pass" Height="28" FontSize="14" Padding="4" BorderThickness="0">
+                            <Binding Path="Password" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <local:MinLenth/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox>
+                    </Border>
 
+                    <!-- Confirm Password -->
+                    <TextBlock Text="Confirm Password:" Grid.Row="2" Grid.Column="0" Margin="0,0,10,10" VerticalAlignment="Center"/>
+                    <Border x:Name="confirmPass_border" Grid.Row="2" Grid.Column="1" BorderBrush="Gray" BorderThickness="1" CornerRadius="3" Margin="0,0,0,10">
+                        <TextBox x:Name="confirmPass" Height="28" FontSize="14" Padding="4" BorderThickness="0">
+                        </TextBox>
+                    </Border>
 
+                    <!-- Age -->
+                    <TextBlock Text="Age:" Grid.Row="3" Grid.Column="0" Margin="0,0,10,10" VerticalAlignment="Center"/>
+                    <Border x:Name="age_border" Grid.Row="3" Grid.Column="1" BorderBrush="Gray" BorderThickness="1" CornerRadius="3" Margin="0,0,0,10">
+                        <TextBox x:Name="age" Height="28" FontSize="14" Padding="4" BorderThickness="0">
+                            <Binding Path="Age" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <local:AgeRangeRule/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox>
+                    </Border>
+
+                    <!-- Email -->
+                    <TextBlock Text="Email:" Grid.Row="4" Grid.Column="0" Margin="0,0,10,10" VerticalAlignment="Center"/>
+                    <Border x:Name="email_border" Grid.Row="4" Grid.Column="1" BorderBrush="Gray" BorderThickness="1" CornerRadius="3" Margin="0,0,0,10">
+                        <TextBox x:Name="email" Height="28" FontSize="14" Padding="4" BorderThickness="0">
+                            <Binding Path="Email" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <local:EmailRule/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox>
+                    </Border>
+
+                    <!-- Phone -->
+                    <TextBlock Text="Phone:" Grid.Row="5" Grid.Column="0" Margin="0,0,10,10" VerticalAlignment="Center"/>
+                    <Border x:Name="phone_border" Grid.Row="5" Grid.Column="1" BorderBrush="Gray" BorderThickness="1" CornerRadius="3" Margin="0,0,0,10">
+                        <TextBox x:Name="phone" Height="28" FontSize="14" Padding="4" BorderThickness="0">
+                            <Binding Path="Phone" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <local:PhoneRule/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox>
+                    </Border>
+
+                    <!-- Teacher ID -->
+                    <TextBlock x:Name="idTecherText" Text="Teacher id:" Grid.Row="6" Grid.Column="0" Margin="0,0,10,0"
+                               VerticalAlignment="Center" Visibility="Hidden"/>
+                    <Border x:Name="teacher_border" Grid.Row="6" Grid.Column="1" BorderBrush="Gray" BorderThickness="1" CornerRadius="3" Margin="0,0,0,0" Visibility="Hidden">
+                        <TextBox x:Name="teacherId" Height="28" FontSize="14" Padding="4" BorderThickness="0" >
+                            <Binding Path="TeacherId" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <local:TeacherIdRule/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox>
+                    </Border>
+                </Grid>
+
+                <!-- Sign Up Button -->
+                <Button Content="Sign Up" Width="140" Height="36"
+                        HorizontalAlignment="Center"
+                        FontSize="14" FontWeight="SemiBold"
+                        Background="#007ACC" Foreground="White"
+                        Margin="0,20,0,0"
+                        Click="signup_Click"/>
+            </StackPanel>
+        </Border>
     </Grid>
 </Page>

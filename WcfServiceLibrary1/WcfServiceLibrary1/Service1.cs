@@ -29,16 +29,7 @@ namespace WcfServiceLibrary1
             return worked;
 
         }
-        //public bool AddStudent(string name, string password, string email, string phone, bool admin, int TeacherId)
-        //{
-        //    AllUsers allUsers = new AllUsers();
-        //    ViewDB.UserDB userDB = new ViewDB.UserDB();
-        //    bool worked = false;
-        //    UserInfo user = allUsers.AddStudent(name, password, email, phone, admin);
-        //    if (user != null)
-        //        worked = userDB.AddStudent(user);
-        //    return worked;
-        //}
+
         public bool CheckUserExist(string username)
         {
             AllUsers allUsers = new AllUsers();

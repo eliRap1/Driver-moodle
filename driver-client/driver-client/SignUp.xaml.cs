@@ -38,20 +38,24 @@ namespace driver_client
             string userN = sign.Username;
             string password = sign.Password;
             int age1 = sign.Age;
-            string emailT = sign.Username;
+            string emailT = sign.Email;
             string phone1 = sign.Phone;
             bool isTecher = false;
-            username_border.BorderThickness = new Thickness(0);
-            pass_border.BorderThickness = new Thickness(0);
-            age_border.BorderThickness = new Thickness(0);
-            email_border.BorderThickness = new Thickness(0);
+            //username_border.BorderThickness = new Thickness(0);
+            //pass_border.BorderThickness = new Thickness(0);
+            //age_border.BorderThickness = new Thickness(0);
+            //email_border.BorderThickness = new Thickness(0);
             if(role.SelectedItem == "Teacher")// && pass.Password == "DriverT!" && users.Contains(username.Text))//check if the admin password is right and if the user is in the list of autorized users
             {
                 isTecher = true;
             }
             driver.Service1Client srv = new driver.Service1Client();
             if ((Validation.GetHasError(username) || Validation.GetHasError(age) || Validation.GetHasError(pass)) || Validation.GetHasError(phone) ||
-                Validation.GetHasError(email) || role.SelectedIndex == -1 || Validation.GetHasError(teacherId))
+                Validation.GetHasError(email) || Validation.GetHasError(teacherId))
+            {
+                MessageBox.Show("Change the highlighted fields");
+            }
+            else if(userN == null || password == null || emailT == null || phone1 == null || role.SelectedIndex == -1)
             {
                 MessageBox.Show("Please fill all the fields correctly");
             }
@@ -79,11 +83,14 @@ namespace driver_client
             {
                 teacherId.Visibility = Visibility.Visible;
                 idTecherText.Visibility = Visibility.Visible;
+                teacher_border.Visibility = Visibility.Visible;
             }
             else
             {
                 teacherId.Visibility = Visibility.Hidden;
                 idTecherText.Visibility = Visibility.Hidden;
+                teacher_border.Visibility = Visibility.Hidden;
+
             }
         }
     }
