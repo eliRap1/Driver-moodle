@@ -6,10 +6,10 @@
       xmlns:local="clr-namespace:driver_client"
       mc:Ignorable="d"
       d:DesignHeight="1080" d:DesignWidth="1920"
-      Title="SignUp" Background="LightBlue">
+      Title="SignUp" Background="AliceBlue">
 
     <Grid Margin="20">
-        <Image Source="/picture/background.png" Margin="0,-95,0,-71" Grid.ColumnSpan="100" Grid.RowSpan="100" Opacity="0.4"/>
+        <Image Source="/picture/background1.png" Opacity="0.4" Margin="-290,-190,-290,-101"/>
         <Border CornerRadius="10" Background="White" Padding="40"
                 HorizontalAlignment="Center" VerticalAlignment="Center"
                 MaxWidth="600" MinWidth="300" Width="Auto"
