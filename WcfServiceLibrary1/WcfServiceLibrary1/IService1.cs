@@ -12,8 +12,18 @@ namespace WcfServiceLibrary1
     [ServiceContract]
     public interface IService1
     {
+
         [OperationContract]
-        bool AddUser(string name, string password);
+        UserInfo GetUserById(int id,string table);
+        [OperationContract]
+        AllUsers GetAllUsers();
+        [OperationContract]
+        bool CheckUserPassword(string username, string password);
+        [OperationContract]
+        bool CheckUserExist(string username);
+
+        [OperationContract]
+        bool AddUser(string name, string password, string email, string phone, bool admin, int tID);
     }
 
 

@@ -24,7 +24,7 @@ namespace ViewDB
                     UserInfo s = (UserInfo)entity;
                     s.Username = reader["username"].ToString();
                     s.Password = reader["pass"].ToString();
-                    s.isAdmin = bool.Parse(reader["isAdmin"].ToString());
+                    s.IsAdmin = bool.Parse(reader["isAdmin"].ToString());
                 }
                 catch
                 {
@@ -32,9 +32,9 @@ namespace ViewDB
                 }
             }
         }
-        public UserInfo GetUserById(int id)
+        public UserInfo GetUserById(int id, string table)
         {
-            string sqlStr = "Select * From Users Where id=" + id;
+            string sqlStr = "Select * From " +table+ " Where id=" + id;
             List<Base> list = Select(sqlStr);
             if (list.Count == 1)
             { return (UserInfo)list[0]; }
@@ -47,13 +47,23 @@ namespace ViewDB
             return studs;
         }
 
-        public bool AddStudent(UserInfo user)
+        public bool AddUser(UserInfo user)
         {
-            string sqlstr = $"INSERT INTO Users ([name], [password], [isAdmin]) " + "" +
-                $"VALUES ('{user.Username}', '{user.Password}', {user.isAdmin})";
-
+            string table = "Teacher"; 
+            string sqlstr = "";
+            sqlstr = $"INSERT INTO " + table + " ([username], [password], [email], [phone]) " + "" +
+                $"VALUES ('{user.Username}', '{user.Password}','{user.Email}' ,'{user.Phone}')";
             return SaveChanges(sqlstr) != 0;
 
+        }
+        public bool AddStudent(UserInfo user)
+        {
+            string table = "Student"; 
+            string id = user.TeacherId.ToString();
+            string sqlstr = "";
+            sqlstr = $"INSERT INTO " + table + " ([username], [password], [email], [phone], [teacherId]) " + "" +
+                $"VALUES ('{user.Username}', '{user.Password}','{user.Email}' ,'{user.Phone}', {user.TeacherId})";
+            return SaveChanges(sqlstr) != 0;
         }
     }
 }

@@ -17,8 +17,7 @@ namespace driver_client.driver {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="Base", Namespace="http://schemas.datacontract.org/2004/07/Model")]
     [System.SerializableAttribute()]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(driver_client.driver.City))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(driver_client.driver.Student))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(driver_client.driver.UserInfo))]
     public partial class Base : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
@@ -62,22 +61,102 @@ namespace driver_client.driver {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="City", Namespace="http://schemas.datacontract.org/2004/07/Model")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="UserInfo", Namespace="http://schemas.datacontract.org/2004/07/Model")]
     [System.SerializableAttribute()]
-    public partial class City : driver_client.driver.Base {
+    public partial class UserInfo : driver_client.driver.Base {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CityNameField;
+        private string EmailField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsAdminField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PasswordField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PhoneField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int TeacherIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UsernameField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string CityName {
+        public string Email {
             get {
-                return this.CityNameField;
+                return this.EmailField;
             }
             set {
-                if ((object.ReferenceEquals(this.CityNameField, value) != true)) {
-                    this.CityNameField = value;
-                    this.RaisePropertyChanged("CityName");
+                if ((object.ReferenceEquals(this.EmailField, value) != true)) {
+                    this.EmailField = value;
+                    this.RaisePropertyChanged("Email");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsAdmin {
+            get {
+                return this.IsAdminField;
+            }
+            set {
+                if ((this.IsAdminField.Equals(value) != true)) {
+                    this.IsAdminField = value;
+                    this.RaisePropertyChanged("IsAdmin");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Password {
+            get {
+                return this.PasswordField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PasswordField, value) != true)) {
+                    this.PasswordField = value;
+                    this.RaisePropertyChanged("Password");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Phone {
+            get {
+                return this.PhoneField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PhoneField, value) != true)) {
+                    this.PhoneField = value;
+                    this.RaisePropertyChanged("Phone");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int TeacherId {
+            get {
+                return this.TeacherIdField;
+            }
+            set {
+                if ((this.TeacherIdField.Equals(value) != true)) {
+                    this.TeacherIdField = value;
+                    this.RaisePropertyChanged("TeacherId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Username {
+            get {
+                return this.UsernameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UsernameField, value) != true)) {
+                    this.UsernameField = value;
+                    this.RaisePropertyChanged("Username");
                 }
             }
         }
@@ -85,148 +164,44 @@ namespace driver_client.driver {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Student", Namespace="http://schemas.datacontract.org/2004/07/Model")]
+    [System.Runtime.Serialization.CollectionDataContractAttribute(Name="AllUsers", Namespace="http://schemas.datacontract.org/2004/07/Model", ItemName="UserInfo")]
     [System.SerializableAttribute()]
-    public partial class Student : driver_client.driver.Base {
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int AgeField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private driver_client.driver.City CityField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int CityIdField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string FnameField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool GenderField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string NameField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Age {
-            get {
-                return this.AgeField;
-            }
-            set {
-                if ((this.AgeField.Equals(value) != true)) {
-                    this.AgeField = value;
-                    this.RaisePropertyChanged("Age");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public driver_client.driver.City City {
-            get {
-                return this.CityField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CityField, value) != true)) {
-                    this.CityField = value;
-                    this.RaisePropertyChanged("City");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int CityId {
-            get {
-                return this.CityIdField;
-            }
-            set {
-                if ((this.CityIdField.Equals(value) != true)) {
-                    this.CityIdField = value;
-                    this.RaisePropertyChanged("CityId");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Fname {
-            get {
-                return this.FnameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.FnameField, value) != true)) {
-                    this.FnameField = value;
-                    this.RaisePropertyChanged("Fname");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool Gender {
-            get {
-                return this.GenderField;
-            }
-            set {
-                if ((this.GenderField.Equals(value) != true)) {
-                    this.GenderField = value;
-                    this.RaisePropertyChanged("Gender");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Name {
-            get {
-                return this.NameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.NameField, value) != true)) {
-                    this.NameField = value;
-                    this.RaisePropertyChanged("Name");
-                }
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.CollectionDataContractAttribute(Name="StudentsList", Namespace="http://schemas.datacontract.org/2004/07/Model", ItemName="Student")]
-    [System.SerializableAttribute()]
-    public class StudentsList : System.Collections.Generic.List<driver_client.driver.Student> {
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.CollectionDataContractAttribute(Name="CitiesList", Namespace="http://schemas.datacontract.org/2004/07/Model", ItemName="City")]
-    [System.SerializableAttribute()]
-    public class CitiesList : System.Collections.Generic.List<driver_client.driver.City> {
+    public class AllUsers : System.Collections.Generic.List<driver_client.driver.UserInfo> {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="driver.IService1")]
     public interface IService1 {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddStudent", ReplyAction="http://tempuri.org/IService1/AddStudentResponse")]
-        bool AddStudent(driver_client.driver.Student student);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetUserById", ReplyAction="http://tempuri.org/IService1/GetUserByIdResponse")]
+        driver_client.driver.UserInfo GetUserById(int id, string table);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddStudent", ReplyAction="http://tempuri.org/IService1/AddStudentResponse")]
-        System.Threading.Tasks.Task<bool> AddStudentAsync(driver_client.driver.Student student);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetUserById", ReplyAction="http://tempuri.org/IService1/GetUserByIdResponse")]
+        System.Threading.Tasks.Task<driver_client.driver.UserInfo> GetUserByIdAsync(int id, string table);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllStudents", ReplyAction="http://tempuri.org/IService1/GetAllStudentsResponse")]
-        driver_client.driver.StudentsList GetAllStudents();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllUsers", ReplyAction="http://tempuri.org/IService1/GetAllUsersResponse")]
+        driver_client.driver.AllUsers GetAllUsers();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllStudents", ReplyAction="http://tempuri.org/IService1/GetAllStudentsResponse")]
-        System.Threading.Tasks.Task<driver_client.driver.StudentsList> GetAllStudentsAsync();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllUsers", ReplyAction="http://tempuri.org/IService1/GetAllUsersResponse")]
+        System.Threading.Tasks.Task<driver_client.driver.AllUsers> GetAllUsersAsync();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllCities", ReplyAction="http://tempuri.org/IService1/GetAllCitiesResponse")]
-        driver_client.driver.CitiesList GetAllCities();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CheckUserPassword", ReplyAction="http://tempuri.org/IService1/CheckUserPasswordResponse")]
+        bool CheckUserPassword(string username, string password);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllCities", ReplyAction="http://tempuri.org/IService1/GetAllCitiesResponse")]
-        System.Threading.Tasks.Task<driver_client.driver.CitiesList> GetAllCitiesAsync();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CheckUserPassword", ReplyAction="http://tempuri.org/IService1/CheckUserPasswordResponse")]
+        System.Threading.Tasks.Task<bool> CheckUserPasswordAsync(string username, string password);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetCityById", ReplyAction="http://tempuri.org/IService1/GetCityByIdResponse")]
-        driver_client.driver.City GetCityById(int id);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CheckUserExist", ReplyAction="http://tempuri.org/IService1/CheckUserExistResponse")]
+        bool CheckUserExist(string username);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetCityById", ReplyAction="http://tempuri.org/IService1/GetCityByIdResponse")]
-        System.Threading.Tasks.Task<driver_client.driver.City> GetCityByIdAsync(int id);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CheckUserExist", ReplyAction="http://tempuri.org/IService1/CheckUserExistResponse")]
+        System.Threading.Tasks.Task<bool> CheckUserExistAsync(string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddUser", ReplyAction="http://tempuri.org/IService1/AddUserResponse")]
+        bool AddUser(string name, string password, string email, string phone, bool admin, int tID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddUser", ReplyAction="http://tempuri.org/IService1/AddUserResponse")]
+        System.Threading.Tasks.Task<bool> AddUserAsync(string name, string password, string email, string phone, bool admin, int tID);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -256,36 +231,44 @@ namespace driver_client.driver {
                 base(binding, remoteAddress) {
         }
         
-        public bool AddStudent(driver_client.driver.Student student) {
-            return base.Channel.AddStudent(student);
+        public driver_client.driver.UserInfo GetUserById(int id, string table) {
+            return base.Channel.GetUserById(id, table);
         }
         
-        public System.Threading.Tasks.Task<bool> AddStudentAsync(driver_client.driver.Student student) {
-            return base.Channel.AddStudentAsync(student);
+        public System.Threading.Tasks.Task<driver_client.driver.UserInfo> GetUserByIdAsync(int id, string table) {
+            return base.Channel.GetUserByIdAsync(id, table);
         }
         
-        public driver_client.driver.StudentsList GetAllStudents() {
-            return base.Channel.GetAllStudents();
+        public driver_client.driver.AllUsers GetAllUsers() {
+            return base.Channel.GetAllUsers();
         }
         
-        public System.Threading.Tasks.Task<driver_client.driver.StudentsList> GetAllStudentsAsync() {
-            return base.Channel.GetAllStudentsAsync();
+        public System.Threading.Tasks.Task<driver_client.driver.AllUsers> GetAllUsersAsync() {
+            return base.Channel.GetAllUsersAsync();
         }
         
-        public driver_client.driver.CitiesList GetAllCities() {
-            return base.Channel.GetAllCities();
+        public bool CheckUserPassword(string username, string password) {
+            return base.Channel.CheckUserPassword(username, password);
         }
         
-        public System.Threading.Tasks.Task<driver_client.driver.CitiesList> GetAllCitiesAsync() {
-            return base.Channel.GetAllCitiesAsync();
+        public System.Threading.Tasks.Task<bool> CheckUserPasswordAsync(string username, string password) {
+            return base.Channel.CheckUserPasswordAsync(username, password);
         }
         
-        public driver_client.driver.City GetCityById(int id) {
-            return base.Channel.GetCityById(id);
+        public bool CheckUserExist(string username) {
+            return base.Channel.CheckUserExist(username);
         }
         
-        public System.Threading.Tasks.Task<driver_client.driver.City> GetCityByIdAsync(int id) {
-            return base.Channel.GetCityByIdAsync(id);
+        public System.Threading.Tasks.Task<bool> CheckUserExistAsync(string username) {
+            return base.Channel.CheckUserExistAsync(username);
+        }
+        
+        public bool AddUser(string name, string password, string email, string phone, bool admin, int tID) {
+            return base.Channel.AddUser(name, password, email, phone, admin, tID);
+        }
+        
+        public System.Threading.Tasks.Task<bool> AddUserAsync(string name, string password, string email, string phone, bool admin, int tID) {
+            return base.Channel.AddUserAsync(name, password, email, phone, admin, tID);
         }
     }
 }

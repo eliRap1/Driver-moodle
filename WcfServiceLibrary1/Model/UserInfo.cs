@@ -10,8 +10,15 @@ namespace Model
     {
         private string username;
         private string password;
-        public bool isAdmin { get => isAdmin; set => isAdmin = value; }
+        private string email;
+        private string phone;
+        private bool isAdmin;
+        private int teacherId;
+        public bool IsAdmin { get => isAdmin; set => isAdmin = value; }
         public string Username { get => username; set => username = value; }
         public string Password { get => password; set => password = value; }
+        public string Email { get => email; set => email = value; }
+        public string Phone { get => phone; set => phone = value; }
+        public int TeacherId { get => teacherId; set => teacherId = value; }
     }
 }
