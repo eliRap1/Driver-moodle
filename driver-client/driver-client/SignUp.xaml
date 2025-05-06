@@ -159,7 +159,13 @@
                         Background="#007ACC" Foreground="White"
                         Margin="0,20,0,0"
                         Click="signup_Click"/>
+                <TextBlock HorizontalAlignment="Center" FontSize="12" Foreground="#555">
+                    have an account? 
+                    <Hyperlink Click="LogIn_Click">Log In</Hyperlink>
+                </TextBlock>
             </StackPanel>
+
         </Border>
+        <Frame x:Name="page" Grid.RowSpan="100" Grid.ColumnSpan="100" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0" Panel.ZIndex="100"/>
     </Grid>
 </Page>

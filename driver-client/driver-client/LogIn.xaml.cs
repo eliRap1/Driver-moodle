@@ -20,7 +20,6 @@ namespace driver_client
     /// </summary>
     public partial class LogIn : Page
     {
-        SignUp signup = new SignUp();
         //private Sign sign = new Sign();
         public LogIn()
         {
@@ -53,6 +52,7 @@ namespace driver_client
         }
         private void signUp_Click(object sender, RoutedEventArgs e)
         {
+            SignUp signup = new SignUp();
             page.Navigate(signup);
         }
     }

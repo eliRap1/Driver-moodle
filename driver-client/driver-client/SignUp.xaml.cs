@@ -28,6 +28,7 @@ namespace driver_client
     {
         static List<string> users = new List<string>() {"eli", "moshe", "daniel", "david", "omer", "yossi"};//list of autorized users
         private Sign sign;
+        LogIn login = new LogIn();
 
         public SignUp()
         {
@@ -43,6 +44,11 @@ namespace driver_client
             sign = new Sign();
             this.DataContext = sign;
         }
+        private void LogIn_Click(object sender, RoutedEventArgs e)
+        {
+            page.Navigate(login);
+        }
+
 
         private void signup_Click(object sender, RoutedEventArgs e)
         {
@@ -79,6 +85,7 @@ namespace driver_client
                 if(srv.AddUser(userN, password, emailT, phone1, isTecher, int.Parse(teacherId.Text)))
                 {
                     MessageBox.Show("You are successfully registered");
+                    page.Navigate(login);
                 }
                 else
                 {
