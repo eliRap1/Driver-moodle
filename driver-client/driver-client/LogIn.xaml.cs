@@ -20,11 +20,11 @@ namespace driver_client
     /// </summary>
     public partial class LogIn : Page
     {
-        //private Sign sign = new Sign();
+        static public Sign sign = new Sign();
         public LogIn()
         {
             InitializeComponent();
-            //this.DataContext = sign;
+            this.DataContext = sign;
         }
 
         private void signIn_Click(object sender, RoutedEventArgs e)
@@ -35,13 +35,20 @@ namespace driver_client
             driver.Service1Client srv = new driver.Service1Client();
             if (srv.CheckUserPassword(user, password))
             {
+                sign.Username = user;
+                sign.Password = password;
+                
                 if(srv.CheckUserAdmin(user))
                 {
-                    //page.Navigate(new Admin());
+                    sign.IsTeacher = true;
+                    sign.Id = srv.GetUserID(user, "Teacher");
+                    page.Navigate(new TeacherUI());
                 }
                 else
                 {
-                    //page.Navigate(new Home());
+                    sign.IsTeacher = false;
+                    sign.Id = srv.GetUserID(user, "Student");
+                    page.Navigate(new StudentUI());
                 }
             }
             else

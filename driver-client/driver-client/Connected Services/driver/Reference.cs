@@ -173,6 +173,12 @@ namespace driver_client.driver {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="driver.IService1")]
     public interface IService1 {
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetUserID", ReplyAction="http://tempuri.org/IService1/GetUserIDResponse")]
+        int GetUserID(string username, string table);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetUserID", ReplyAction="http://tempuri.org/IService1/GetUserIDResponse")]
+        System.Threading.Tasks.Task<int> GetUserIDAsync(string username, string table);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetUserById", ReplyAction="http://tempuri.org/IService1/GetUserByIdResponse")]
         driver_client.driver.UserInfo GetUserById(int id, string table);
         
@@ -235,6 +241,14 @@ namespace driver_client.driver {
         
         public Service1Client(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress) {
+        }
+        
+        public int GetUserID(string username, string table) {
+            return base.Channel.GetUserID(username, table);
+        }
+        
+        public System.Threading.Tasks.Task<int> GetUserIDAsync(string username, string table) {
+            return base.Channel.GetUserIDAsync(username, table);
         }
         
         public driver_client.driver.UserInfo GetUserById(int id, string table) {

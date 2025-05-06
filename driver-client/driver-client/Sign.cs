@@ -14,5 +14,7 @@ namespace driver_client
         public string Email { get; set; }
         public string Phone { get; set; }
         public int TeacherId { get; set; }
+        public bool IsTeacher { get; set; }
+        public int Id { get; set; }
     }
 }

@@ -10,7 +10,6 @@
       Background="#F0F4FA">
 
     <Grid>
-        <Frame x:Name="page" Grid.RowSpan="100" Grid.ColumnSpan="100" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0" Panel.ZIndex="100"/>
         <!-- Subtle background image faintly visible -->
         <Image Source="/picture/background.png"
                Stretch="UniformToFill"
@@ -92,5 +91,7 @@
                 </TextBlock>
             </StackPanel>
         </Border>
+        <Frame x:Name="page" Grid.RowSpan="100" Grid.ColumnSpan="100" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0" Panel.ZIndex="100"/>
+
     </Grid>
 </Page>
