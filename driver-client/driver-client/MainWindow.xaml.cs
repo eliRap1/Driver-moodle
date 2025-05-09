@@ -20,8 +20,8 @@ namespace driver_client
     /// </summary>
     public partial class MainWindow : Window
     {
-        LogIn login = new LogIn();
-        SignUp signup = new SignUp();
+        public static LogIn login = new LogIn();
+        public static SignUp signup = new SignUp();
         public MainWindow()
         {
             InitializeComponent();

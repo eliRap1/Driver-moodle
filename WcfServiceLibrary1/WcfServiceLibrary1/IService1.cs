@@ -14,6 +14,8 @@ namespace WcfServiceLibrary1
     {
 
         [OperationContract]
+        int GetUserID(string username, string table);
+        [OperationContract]
         UserInfo GetUserById(int id,string table);
         [OperationContract]
         AllUsers GetAllUsers();

@@ -59,7 +59,10 @@ namespace WcfServiceLibrary1
             AllUsers allUsers = userDB.GetAllStudents();
             return allUsers;
         }
-
+        public int GetUserID(string username, string table)
+        {
+            return userDB.GetUserID(username, table);
+        }
 
     }
 }

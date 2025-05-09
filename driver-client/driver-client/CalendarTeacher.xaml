@@ -5,8 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       mc:Ignorable="d"
       d:DesignHeight="600" d:DesignWidth="800"
-      Title="CalendarTeacher" Background="AliceBlue">
-    
+      Title="CalendarTeacher" Background="#0E1A2B">
 
     <Grid Margin="20">
         <Grid.RowDefinitions>
@@ -14,47 +13,130 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
+
+        <!-- Background image with light opacity -->
         <Image Source="/picture/background.png"
                Stretch="UniformToFill"
-               Opacity="0.7"
-               Grid.RowSpan="3" Margin="-21,-20,-24,-21"/>
-        <TextBlock Text="Set Your Availability" FontSize="24" FontWeight="Bold" Foreground="#2A239A" HorizontalAlignment="Center" Margin="0,10"/>
+               Opacity="0.08"
+               Grid.RowSpan="3"
+               Panel.ZIndex="0"/>
 
-        <StackPanel Grid.Row="1" Orientation="Vertical" Margin="0,20" HorizontalAlignment="Center" VerticalAlignment="Top" Width="400">
+        <!-- Title -->
+        <TextBlock Text="Set Your Availability"
+                   FontSize="30"
+                   FontWeight="Bold"
+                   Foreground="#00E0FF"
+                   HorizontalAlignment="Center"
+                   Margin="0,10"
+                   Panel.ZIndex="1"/>
 
-            <!-- Weekdays Selection -->
-            <GroupBox Header="Available Days" Margin="0,10">
-                <WrapPanel>
-                    <CheckBox Content="Monday" x:Name="MondayCheck"/>
-                    <CheckBox Content="Tuesday" x:Name="TuesdayCheck"/>
-                    <CheckBox Content="Wednesday" x:Name="WednesdayCheck"/>
-                    <CheckBox Content="Thursday" x:Name="ThursdayCheck"/>
-                    <CheckBox Content="Friday" x:Name="FridayCheck"/>
-                    <CheckBox Content="Saturday" x:Name="SaturdayCheck"/>
-                    <CheckBox Content="Sunday" x:Name="SundayCheck"/>
+        <!-- Main content stack -->
+        <StackPanel Grid.Row="1"
+                    Orientation="Vertical"
+                    Margin="0,20"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    Width="420"
+                    Panel.ZIndex="1">
+
+            <!-- Available Days -->
+            <GroupBox Header="Available Days"
+                      Foreground="#00E0FF"
+                      FontWeight="SemiBold"
+                      Margin="0,10"
+                      Background="#1A2E50"
+                      BorderBrush="#00E0FF">
+                <WrapPanel Margin="8">
+                    <CheckBox Content="Monday" x:Name="MondayCheck" Foreground="White" Margin="4"/>
+                    <CheckBox Content="Tuesday" x:Name="TuesdayCheck" Foreground="White" Margin="4"/>
+                    <CheckBox Content="Wednesday" x:Name="WednesdayCheck" Foreground="White" Margin="4"/>
+                    <CheckBox Content="Thursday" x:Name="ThursdayCheck" Foreground="White" Margin="4"/>
+                    <CheckBox Content="Friday" x:Name="FridayCheck" Foreground="White" Margin="4"/>
+                    <CheckBox Content="Saturday" x:Name="SaturdayCheck" Foreground="White" Margin="4"/>
+                    <CheckBox Content="Sunday" x:Name="SundayCheck" Foreground="White" Margin="4"/>
                 </WrapPanel>
             </GroupBox>
 
-            <!-- Time Selection -->
-            <GroupBox Header="Working Hours" Margin="0,10">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <TextBlock Text="From:" VerticalAlignment="Center"/>
-                    <ComboBox x:Name="StartHour" Width="100"/>
-                    <TextBlock Text="To:" VerticalAlignment="Center" Margin="10,0,0,0"/>
-                    <ComboBox x:Name="EndHour" Width="100"/>
+            <!-- Working Hours -->
+            <GroupBox Header="Working Hours"
+                      Foreground="#00E0FF"
+                      FontWeight="SemiBold"
+                      Margin="0,10"
+                      Background="#1A2E50"
+                      BorderBrush="#00E0FF">
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Margin="8">
+                    <TextBlock Text="From:"
+                               VerticalAlignment="Center"
+                               Foreground="White"
+                               Margin="4"/>
+                    <ComboBox x:Name="StartHour"
+                              Width="100"
+                              Background="#102040"
+                              Foreground="Black"
+                              BorderBrush="#00E0FF"
+                              Margin="4"/>
+                    <TextBlock Text="To:"
+                               VerticalAlignment="Center"
+                               Foreground="White"
+                               Margin="10,0,4,0"/>
+                    <ComboBox x:Name="EndHour"
+                              Width="100"
+                              Background="#102040"
+                              Foreground="Black"
+                              BorderBrush="#00E0FF"
+                              Margin="4"/>
                 </StackPanel>
             </GroupBox>
 
-            <!-- Calendar for Unavailable Days -->
-            <GroupBox Header="Unavailable Dates" Margin="0,10">
-                <StackPanel>
-                    <Calendar x:Name="UnavailableCalendar" SelectionMode="MultipleRange"/>
-                    <Button Content="Clear Selection" Width="120" Margin="0,5" Click="ClearSelection_Click"/>
+            <!-- Calendar -->
+            <GroupBox Header="Unavailable Dates"
+                      Foreground="#00E0FF"
+                      FontWeight="SemiBold"
+                      Margin="0,10"
+                      Background="#1A2E50"
+                      BorderBrush="#00E0FF">
+                <StackPanel Margin="8">
+<Calendar x:Name="UnavailableCalendar"
+          SelectionMode="MultipleRange"
+          Background="#89CFF0"
+          Foreground="White"
+          BorderBrush="#00BFFF"
+          Margin="0,0,0,6"
+          FontWeight="Bold"
+          PreviewMouseDown="UnavailableCalendar_PreviewMouseDown"/>
+
+
+                    <Button Content="Clear Selection"
+                            Width="140"
+                            HorizontalAlignment="Center"
+                            Background="#00E0FF"
+                            Foreground="Black"
+                            FontWeight="Bold"
+                            BorderBrush="#00C0CC"
+                            Cursor="Hand"
+                            Click="ClearSelection_Click"/>
                 </StackPanel>
             </GroupBox>
         </StackPanel>
 
         <!-- Save Button -->
-        <Button Content="Save Availability" Grid.Row="2" Width="200" Height="40" HorizontalAlignment="Center" Margin="0,10" Click="SaveAvailability_Click"/>
+        <Button Content="Save Availability"
+                Grid.Row="2"
+                Width="220"
+                Height="50"
+                FontSize="16"
+                HorizontalAlignment="Center"
+                Margin="0,10"
+                Background="#00E0FF"
+                Foreground="Black"
+                FontWeight="Bold"
+                BorderBrush="#00C0CC"
+                Cursor="Hand"
+                Click="SaveAvailability_Click"
+                Panel.ZIndex="1"/>
+        <Frame x:Name="page" Grid.RowSpan="100" Grid.ColumnSpan="100" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0" Panel.ZIndex="100"/>
     </Grid>
 </Page>

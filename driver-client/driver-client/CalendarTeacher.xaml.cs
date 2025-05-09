@@ -53,5 +53,18 @@ namespace driver_client
         {
             UnavailableCalendar.SelectedDates.Clear();
         }
+        private void UnavailableCalendar_PreviewMouseDown(object sender, RoutedEventArgs e)
+        {
+            if (e.OriginalSource is FrameworkElement fe && fe.DataContext is DateTime clickedDate)
+            {
+                if (UnavailableCalendar.SelectedDates.Contains(clickedDate))
+                    UnavailableCalendar.SelectedDates.Remove(clickedDate);
+                else
+                    UnavailableCalendar.SelectedDates.Add(clickedDate);
+
+                e.Handled = true; // Prevent default selection behavior
+            }
+        }
+
     }
 }

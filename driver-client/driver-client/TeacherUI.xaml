@@ -6,38 +6,85 @@
       xmlns:local="clr-namespace:driver_client"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="TeacherUI" Background="Aqua">
+      Title="TeacherUI" Background="#F0F4FF">
 
-    <Grid Background="#ECEFF1" Margin="40">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+    <Grid>
+        <!-- Background image -->
         <Image Source="/picture/background1.png"
                Stretch="UniformToFill"
-               Opacity="0.4"
-               Grid.RowSpan="2" Margin="-40,-40,-42,-39"/>
-        <!-- Header with greeting -->
-        <DockPanel Grid.Row="0" LastChildFill="False" Margin="0 0 0 20">
-            <TextBlock Text="Hello, " FontSize="24" FontWeight="Bold" Foreground="#333"/>
-            <TextBlock x:Name="teacherName" Text="Teacher Name" FontSize="24" FontWeight="Bold" Foreground="#2196F3" Margin="5,0,0,0"/>
-        </DockPanel>
+               Opacity="0.3"
+               Panel.ZIndex="0"/>
 
-        <!-- Main button area -->
-        <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Button Content="Students" Width="220" Height="50" FontSize="18" Margin="0,0,0,15"
-                    Background="#2196F3" Foreground="White" BorderThickness="0" Cursor="Hand"
-                    Click="Students_Click"/>
+        <!-- Main content panel -->
+        <Border CornerRadius="12"
+                Background="White"
+                Opacity="0.95"
+                Padding="30"
+                Margin="40"
+                Panel.ZIndex="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
 
-            <Button Content="Calendar" Width="220" Height="50" FontSize="18" Margin="0,0,0,15"
-                    Background="#2196F3" Foreground="White" BorderThickness="0" Cursor="Hand"
-                    Click="Calendar_Click"/>
+                <!-- Header with greeting -->
+                <DockPanel Grid.Row="0" LastChildFill="False" Margin="0,0,0,20">
+                    <TextBlock Text="Hello," 
+                               FontSize="24" 
+                               FontWeight="Bold" 
+                               Foreground="#333"/>
+                    <TextBlock x:Name="teacherName" 
+                               Text="Teacher Name" 
+                               FontSize="24" 
+                               FontWeight="Bold" 
+                               Foreground="#2196F3" 
+                               Margin="5,0,0,0"/>
+                </DockPanel>
 
-            <Button Content="Test Schedule" Width="220" Height="50" FontSize="18" 
-                    Background="#2196F3" Foreground="White" BorderThickness="0" Cursor="Hand"
-                    Click="TestSchedule_Click"/>
-        </StackPanel>
-        <Frame x:Name="page" Margin="-40,-43,-40,-43" Panel.ZIndex="100" Grid.RowSpan="2"/>
+                <!-- Buttons area -->
+                <StackPanel Grid.Row="1" 
+                            HorizontalAlignment="Center" 
+                            VerticalAlignment="Center" 
+                            >
+                    <Button Content="Students"
+                            Margin="0,0,0,20"
+                            Width="240" Height="50" 
+                            FontSize="18" 
+                            FontWeight="SemiBold"
+                            Background="#2196F3" 
+                            Foreground="White" 
+                            BorderThickness="0" 
+                            Cursor="Hand"
+                            Click="Students_Click"/>
 
+                    <Button Content="Calendar" 
+                            Margin="0,0,0,20"
+                            Width="240" Height="50" 
+                            FontSize="18" 
+                            FontWeight="SemiBold"
+                            Background="#2196F3" 
+                            Foreground="White" 
+                            BorderThickness="0" 
+                            Cursor="Hand"
+                            Click="Calendar_Click"/>
+
+                    <Button Content="Test Schedule" 
+                            Width="240" Height="50" 
+                            FontSize="18" 
+                            FontWeight="SemiBold"
+                            Background="#2196F3" 
+                            Foreground="White" 
+                            BorderThickness="0" 
+                            Cursor="Hand"
+                            Click="TestSchedule_Click"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Navigation frame -->
+        <Frame x:Name="page" 
+               Margin="40"
+               Panel.ZIndex="2"/>
     </Grid>
 </Page>

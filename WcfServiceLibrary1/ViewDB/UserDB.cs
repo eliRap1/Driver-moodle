@@ -71,5 +71,24 @@ namespace ViewDB
                 $"VALUES ('{user.Username}', '{user.Password}','{user.Email}' ,'{user.Phone}', {user.TeacherId})";
             return SaveChanges(sqlstr) != 0;
         }
+        public int GetTeacherId(int id)
+        {
+            string sqlStr = "Select teacherId From Student Where id=" + id;
+            List<Base> list = Select(sqlStr);
+            if (list.Count == 1)
+            { return int.Parse(list[0].Id.ToString()); }
+            else { return -1; }
+        }
+        public int GetUserID(string username, string table)
+        {
+            string sqlStr = "Select id From " + table + " Where username='" + username + "'";
+            List<Base> list = Select(sqlStr);
+            if (list.Count == 1)
+            { 
+                int id = int.Parse(list[0].Id.ToString());
+                return id;
+            }
+            else { return -1; }
+        }
     }
 }
