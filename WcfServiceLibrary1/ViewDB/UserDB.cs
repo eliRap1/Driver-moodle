@@ -67,9 +67,22 @@ namespace ViewDB
             string table = "Student"; 
             string id = user.TeacherId.ToString();
             string sqlstr = "";
-            sqlstr = $"INSERT INTO " + table + " ([username], [password], [email], [phone], [teacherId]) " + "" +
-                $"VALUES ('{user.Username}', '{user.Password}','{user.Email}' ,'{user.Phone}', {user.TeacherId})";
+            sqlstr = $"INSERT INTO " + table + " ([username], [password], [email], [phone], [teacherId],[Confirmed]) " + "" +
+                $"VALUES ('{user.Username}', '{user.Password}','{user.Email}' ,'{user.Phone}', {user.TeacherId}, {false})";
             return SaveChanges(sqlstr) != 0;
+        }
+        public void TeacherConfirm(int sid)
+        {
+            string sqlStr = "Update Student Set Confirmed=1 Where id=" + sid;
+            SaveChanges(sqlStr);
+        }
+        public string GetTeacherUnconfirmed(int tid, int sid)
+        {
+            string sqlStr = "Select [id] From Student Where id=" + sid +"and Confirmed=0";
+            List<Base> list = Select(sqlStr);
+            if (list.Count == 1)
+            { return list[0].Id.ToString(); }
+            else { return null; }
         }
         public int GetTeacherId(int id)
         {
@@ -89,6 +102,20 @@ namespace ViewDB
                 return id;
             }
             else { return -1; }
+        }
+        public bool SetTeacherCalendar(Calendar cal, int teacherId)
+        {
+            string sqlstr = $"INSERT INTO Availability ([TeacherID], [UnavailableDate], [StartTime], [EndTime]) " + "" +
+                $"VALUES ({teacherId}, '{cal.UnavailableDates()}', '{cal.StartTime}', '{cal.EndTime}')";
+            return SaveChanges(sqlstr) != 0;
+        }
+        public Calendar GetTeacherCalendar(int teacherId)
+        {
+            string sqlStr = "Select * From Availability Where TeacherID=" + teacherId;
+            List<Base> list = Select(sqlStr);
+            if (list.Count == 1)
+            { return (Calendar)list[0]; }
+            else { return null; }
         }
     }
 }

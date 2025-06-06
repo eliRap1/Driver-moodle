@@ -26,12 +26,19 @@ namespace WcfServiceLibrary1
                 if (user.IsAdmin)
                     worked = userDB.AddUser(user);
                 else
+                {
                     worked = userDB.AddStudent(user);
+
+                }
+                    
             }
             return worked;
 
         }
+        public void TeacherConfirm(int id, int userId)
+        {
 
+        }
         public bool CheckUserExist(string username)
         {
             allUsers = userDB.GetAllStudents();
@@ -63,6 +70,13 @@ namespace WcfServiceLibrary1
         {
             return userDB.GetUserID(username, table);
         }
-
+        public bool SetTeacherCalendar(Calendar cal, int teacherId)
+        {
+            return userDB.SetTeacherCalendar(cal, teacherId);
+        }
+        public Calendar GetTeacherCalendar(int teacherId)
+        {
+            return userDB.GetTeacherCalendar(teacherId);
+        }
     }
 }

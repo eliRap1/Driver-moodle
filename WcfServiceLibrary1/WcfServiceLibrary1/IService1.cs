@@ -25,7 +25,10 @@ namespace WcfServiceLibrary1
         bool CheckUserAdmin(string username);
         [OperationContract]
         bool CheckUserExist(string username);
-
+        [OperationContract]
+        Calendar GetTeacherCalendar(int teacherId);
+        [OperationContract]
+        bool SetTeacherCalendar(Calendar cal, int teacherId);
         [OperationContract]
         bool AddUser(string name, string password, string email, string phone, bool admin, int tID);
     }
