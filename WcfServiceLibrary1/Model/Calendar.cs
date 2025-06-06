@@ -6,34 +6,33 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    public class Calendar : Base
+    public class Calendars : Base
     {
-        private string name;
-        private DateTime startTime;
-        private DateTime endTime;
-        private List<DateTime> datesUnavailable;
-        public string Name { get => name; set => name = value; }
-        public DateTime StartTime { get => startTime; set => startTime = value; }
-        public DateTime EndTime { get => endTime; set => endTime = value; }
-        public List<DateTime> DatesUnavailable { get => datesUnavailable; set => datesUnavailable = value; }
-        
-        public Calendar() { }
+        private string startTime;
+        private string endTime;
+        private List<string> datesUnavailable;
+        private List<string> availableDays;
+        public string StartTime { get => startTime; set => startTime = value; }
+        public string EndTime { get => endTime; set => endTime = value; }
+        public List<string> DatesUnavailable { get => datesUnavailable; set => datesUnavailable = value; }
+        public List<string> AvailableDays { get => availableDays; set => availableDays = value; }
+        public Calendars() { }
 
-        public Calendar(string name, DateTime startDate, DateTime endDate,  List<DateTime> datesUnavailable)
+        public void SetCalendars(List<string> AVailableDays, string startDate, string endDate,  List<string> datesUnavailable)
         {
-            this.name = name;
+            this.availableDays = AVailableDays;
             this.startTime = startDate;
             this.endTime = endDate;
-            this.DatesUnavailable = datesUnavailable;
+            this.datesUnavailable = datesUnavailable;
         }
-        public string UnavailableDates()
+        public string GetDatesUnavailable()
         {
-            string unavailableDates = "";
-            foreach (DateTime date in DatesUnavailable)
+            string result = "";
+            foreach (string date in datesUnavailable)
             {
-                unavailableDates += date.ToString() + "%";
+                result += date + "%";
             }
-            return unavailableDates;
+            return result;
         }
     }
 }

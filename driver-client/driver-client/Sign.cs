@@ -16,5 +16,7 @@ namespace driver_client
         public int TeacherId { get; set; }
         public bool IsTeacher { get; set; }
         public int Id { get; set; }
+        public string RatingText { get; set; }
+        public string Role { get; set; }
     }
 }

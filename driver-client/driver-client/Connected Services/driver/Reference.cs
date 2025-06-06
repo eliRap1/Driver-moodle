@@ -17,6 +17,7 @@ namespace driver_client.driver {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="Base", Namespace="http://schemas.datacontract.org/2004/07/Model")]
     [System.SerializableAttribute()]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(driver_client.driver.Calendars))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(driver_client.driver.UserInfo))]
     public partial class Base : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -61,9 +62,83 @@ namespace driver_client.driver {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Calendars", Namespace="http://schemas.datacontract.org/2004/07/Model")]
+    [System.SerializableAttribute()]
+    public partial class Calendars : driver_client.driver.Base {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string[] AvailableDaysField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string[] DatesUnavailableField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string EndTimeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string StartTimeField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string[] AvailableDays {
+            get {
+                return this.AvailableDaysField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AvailableDaysField, value) != true)) {
+                    this.AvailableDaysField = value;
+                    this.RaisePropertyChanged("AvailableDays");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string[] DatesUnavailable {
+            get {
+                return this.DatesUnavailableField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DatesUnavailableField, value) != true)) {
+                    this.DatesUnavailableField = value;
+                    this.RaisePropertyChanged("DatesUnavailable");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string EndTime {
+            get {
+                return this.EndTimeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.EndTimeField, value) != true)) {
+                    this.EndTimeField = value;
+                    this.RaisePropertyChanged("EndTime");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string StartTime {
+            get {
+                return this.StartTimeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.StartTimeField, value) != true)) {
+                    this.StartTimeField = value;
+                    this.RaisePropertyChanged("StartTime");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="UserInfo", Namespace="http://schemas.datacontract.org/2004/07/Model")]
     [System.SerializableAttribute()]
     public partial class UserInfo : driver_client.driver.Base {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool ConfirmedField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string EmailField;
@@ -78,10 +153,32 @@ namespace driver_client.driver {
         private string PhoneField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private double RatingField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RatingTextField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RewiewField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int TeacherIdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string UsernameField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Confirmed {
+            get {
+                return this.ConfirmedField;
+            }
+            set {
+                if ((this.ConfirmedField.Equals(value) != true)) {
+                    this.ConfirmedField = value;
+                    this.RaisePropertyChanged("Confirmed");
+                }
+            }
+        }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public string Email {
@@ -131,6 +228,45 @@ namespace driver_client.driver {
                 if ((object.ReferenceEquals(this.PhoneField, value) != true)) {
                     this.PhoneField = value;
                     this.RaisePropertyChanged("Phone");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double Rating {
+            get {
+                return this.RatingField;
+            }
+            set {
+                if ((this.RatingField.Equals(value) != true)) {
+                    this.RatingField = value;
+                    this.RaisePropertyChanged("Rating");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string RatingText {
+            get {
+                return this.RatingTextField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RatingTextField, value) != true)) {
+                    this.RatingTextField = value;
+                    this.RaisePropertyChanged("RatingText");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Rewiew {
+            get {
+                return this.RewiewField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RewiewField, value) != true)) {
+                    this.RewiewField = value;
+                    this.RaisePropertyChanged("Rewiew");
                 }
             }
         }
@@ -208,6 +344,66 @@ namespace driver_client.driver {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CheckUserExist", ReplyAction="http://tempuri.org/IService1/CheckUserExistResponse")]
         System.Threading.Tasks.Task<bool> CheckUserExistAsync(string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetTeacherCalendar", ReplyAction="http://tempuri.org/IService1/GetTeacherCalendarResponse")]
+        driver_client.driver.Calendars GetTeacherCalendar(int teacherId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetTeacherCalendar", ReplyAction="http://tempuri.org/IService1/GetTeacherCalendarResponse")]
+        System.Threading.Tasks.Task<driver_client.driver.Calendars> GetTeacherCalendarAsync(int teacherId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SetTeacherCalendar", ReplyAction="http://tempuri.org/IService1/SetTeacherCalendarResponse")]
+        bool SetTeacherCalendar(driver_client.driver.Calendars cal, int teacherId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SetTeacherCalendar", ReplyAction="http://tempuri.org/IService1/SetTeacherCalendarResponse")]
+        System.Threading.Tasks.Task<bool> SetTeacherCalendarAsync(driver_client.driver.Calendars cal, int teacherId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/TeacherConfirm", ReplyAction="http://tempuri.org/IService1/TeacherConfirmResponse")]
+        void TeacherConfirm(int id, int tid);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/TeacherConfirm", ReplyAction="http://tempuri.org/IService1/TeacherConfirmResponse")]
+        System.Threading.Tasks.Task TeacherConfirmAsync(int id, int tid);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllTeacher", ReplyAction="http://tempuri.org/IService1/GetAllTeacherResponse")]
+        driver_client.driver.AllUsers GetAllTeacher();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllTeacher", ReplyAction="http://tempuri.org/IService1/GetAllTeacherResponse")]
+        System.Threading.Tasks.Task<driver_client.driver.AllUsers> GetAllTeacherAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetTeacherReviews", ReplyAction="http://tempuri.org/IService1/GetTeacherReviewsResponse")]
+        string[] GetTeacherReviews(int tid);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetTeacherReviews", ReplyAction="http://tempuri.org/IService1/GetTeacherReviewsResponse")]
+        System.Threading.Tasks.Task<string[]> GetTeacherReviewsAsync(int tid);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/UpdateRating", ReplyAction="http://tempuri.org/IService1/UpdateRatingResponse")]
+        void UpdateRating(int tid, int rating, string rewiew);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/UpdateRating", ReplyAction="http://tempuri.org/IService1/UpdateRatingResponse")]
+        System.Threading.Tasks.Task UpdateRatingAsync(int tid, int rating, string rewiew);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/IsConfirmed", ReplyAction="http://tempuri.org/IService1/IsConfirmedResponse")]
+        bool IsConfirmed(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/IsConfirmed", ReplyAction="http://tempuri.org/IService1/IsConfirmedResponse")]
+        System.Threading.Tasks.Task<bool> IsConfirmedAsync(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetTeacherStudents", ReplyAction="http://tempuri.org/IService1/GetTeacherStudentsResponse")]
+        driver_client.driver.UserInfo[] GetTeacherStudents(int tid);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetTeacherStudents", ReplyAction="http://tempuri.org/IService1/GetTeacherStudentsResponse")]
+        System.Threading.Tasks.Task<driver_client.driver.UserInfo[]> GetTeacherStudentsAsync(int tid);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/UpdateTeacherId", ReplyAction="http://tempuri.org/IService1/UpdateTeacherIdResponse")]
+        void UpdateTeacherId(int sid, int tid);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/UpdateTeacherId", ReplyAction="http://tempuri.org/IService1/UpdateTeacherIdResponse")]
+        System.Threading.Tasks.Task UpdateTeacherIdAsync(int sid, int tid);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SetCalendars", ReplyAction="http://tempuri.org/IService1/SetCalendarsResponse")]
+        void SetCalendars(string[] AVailableDays, string startDate, string endDate, string[] datesUnavailable, driver_client.driver.Calendars calendars);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SetCalendars", ReplyAction="http://tempuri.org/IService1/SetCalendarsResponse")]
+        System.Threading.Tasks.Task SetCalendarsAsync(string[] AVailableDays, string startDate, string endDate, string[] datesUnavailable, driver_client.driver.Calendars calendars);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddUser", ReplyAction="http://tempuri.org/IService1/AddUserResponse")]
         bool AddUser(string name, string password, string email, string phone, bool admin, int tID);
@@ -289,6 +485,86 @@ namespace driver_client.driver {
         
         public System.Threading.Tasks.Task<bool> CheckUserExistAsync(string username) {
             return base.Channel.CheckUserExistAsync(username);
+        }
+        
+        public driver_client.driver.Calendars GetTeacherCalendar(int teacherId) {
+            return base.Channel.GetTeacherCalendar(teacherId);
+        }
+        
+        public System.Threading.Tasks.Task<driver_client.driver.Calendars> GetTeacherCalendarAsync(int teacherId) {
+            return base.Channel.GetTeacherCalendarAsync(teacherId);
+        }
+        
+        public bool SetTeacherCalendar(driver_client.driver.Calendars cal, int teacherId) {
+            return base.Channel.SetTeacherCalendar(cal, teacherId);
+        }
+        
+        public System.Threading.Tasks.Task<bool> SetTeacherCalendarAsync(driver_client.driver.Calendars cal, int teacherId) {
+            return base.Channel.SetTeacherCalendarAsync(cal, teacherId);
+        }
+        
+        public void TeacherConfirm(int id, int tid) {
+            base.Channel.TeacherConfirm(id, tid);
+        }
+        
+        public System.Threading.Tasks.Task TeacherConfirmAsync(int id, int tid) {
+            return base.Channel.TeacherConfirmAsync(id, tid);
+        }
+        
+        public driver_client.driver.AllUsers GetAllTeacher() {
+            return base.Channel.GetAllTeacher();
+        }
+        
+        public System.Threading.Tasks.Task<driver_client.driver.AllUsers> GetAllTeacherAsync() {
+            return base.Channel.GetAllTeacherAsync();
+        }
+        
+        public string[] GetTeacherReviews(int tid) {
+            return base.Channel.GetTeacherReviews(tid);
+        }
+        
+        public System.Threading.Tasks.Task<string[]> GetTeacherReviewsAsync(int tid) {
+            return base.Channel.GetTeacherReviewsAsync(tid);
+        }
+        
+        public void UpdateRating(int tid, int rating, string rewiew) {
+            base.Channel.UpdateRating(tid, rating, rewiew);
+        }
+        
+        public System.Threading.Tasks.Task UpdateRatingAsync(int tid, int rating, string rewiew) {
+            return base.Channel.UpdateRatingAsync(tid, rating, rewiew);
+        }
+        
+        public bool IsConfirmed(int id) {
+            return base.Channel.IsConfirmed(id);
+        }
+        
+        public System.Threading.Tasks.Task<bool> IsConfirmedAsync(int id) {
+            return base.Channel.IsConfirmedAsync(id);
+        }
+        
+        public driver_client.driver.UserInfo[] GetTeacherStudents(int tid) {
+            return base.Channel.GetTeacherStudents(tid);
+        }
+        
+        public System.Threading.Tasks.Task<driver_client.driver.UserInfo[]> GetTeacherStudentsAsync(int tid) {
+            return base.Channel.GetTeacherStudentsAsync(tid);
+        }
+        
+        public void UpdateTeacherId(int sid, int tid) {
+            base.Channel.UpdateTeacherId(sid, tid);
+        }
+        
+        public System.Threading.Tasks.Task UpdateTeacherIdAsync(int sid, int tid) {
+            return base.Channel.UpdateTeacherIdAsync(sid, tid);
+        }
+        
+        public void SetCalendars(string[] AVailableDays, string startDate, string endDate, string[] datesUnavailable, driver_client.driver.Calendars calendars) {
+            base.Channel.SetCalendars(AVailableDays, startDate, endDate, datesUnavailable, calendars);
+        }
+        
+        public System.Threading.Tasks.Task SetCalendarsAsync(string[] AVailableDays, string startDate, string endDate, string[] datesUnavailable, driver_client.driver.Calendars calendars) {
+            return base.Channel.SetCalendarsAsync(AVailableDays, startDate, endDate, datesUnavailable, calendars);
         }
         
         public bool AddUser(string name, string password, string email, string phone, bool admin, int tID) {

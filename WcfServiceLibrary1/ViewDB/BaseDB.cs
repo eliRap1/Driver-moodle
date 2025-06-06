@@ -51,6 +51,7 @@ namespace ViewDB
                 try 
                 {
                     entity.Id = (int)reader["id"]; //int.Parse(reader["id"].ToString());
+
                 }
                 catch 
                 {
@@ -96,7 +97,40 @@ namespace ViewDB
             }
             return list;
         }
+        protected virtual List<string> SelectRewiew(string sqlCommandTxt)
+        {
+            /*
+            אם זה מעניין אותך:
+תיקונים קטנטנים במצגת(מה שמצאתי היום) :
+שקף 68
+            */
+            List<string> list = new List<string>();
+            try
+            {
+                connection.Open(); //was missing
+                command.CommandText = sqlCommandTxt;
+                reader = command.ExecuteReader();
+                //NULLבנתיים לא בודקים האם אחד השדות הוא 
+                while (reader.Read())
+                {
+                    list.Add(reader["Rewiew"].ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message); //will word is every world, not only in world of Console
 
+                //the output - we'll see in the output window of VisualStudio
+            }
+            finally
+            {
+                if (reader != null)
+                    reader.Close();
+                if (connection.State == ConnectionState.Open)
+                    connection.Close();
+            }
+            return list;
+        }
 
         protected int SaveChanges(string command_text)
         {

@@ -99,7 +99,7 @@
                       Background="#1A2E50"
                       BorderBrush="#00E0FF">
                 <StackPanel Margin="8">
-<Calendar x:Name="UnavailableCalendar"
+                    <Calendar x:Name="UnavailableCalendar"
           SelectionMode="MultipleRange"
           Background="#89CFF0"
           Foreground="White"
@@ -137,6 +137,17 @@
                 Cursor="Hand"
                 Click="SaveAvailability_Click"
                 Panel.ZIndex="1"/>
-        <Frame x:Name="page" Grid.RowSpan="100" Grid.ColumnSpan="100" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0" Panel.ZIndex="100"/>
+        <Button Content="← Back"
+        HorizontalAlignment="Left"
+        VerticalAlignment="Top"
+        Margin="0,10,0,0"
+        Width="80"
+        Background="#00E0FF"
+        Foreground="Black"
+        FontWeight="Bold"
+        BorderBrush="#00C0CC"
+        Cursor="Hand"
+        Click="BackButton_Click"/>
+        <Frame x:Name="page" Grid.RowSpan="3" Margin="-19,-21,-21,-19" Panel.ZIndex="100"/>
     </Grid>
 </Page>

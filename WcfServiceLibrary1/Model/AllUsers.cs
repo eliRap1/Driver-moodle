@@ -24,5 +24,13 @@ namespace Model
             
             return user;
         }
+        public UserInfo GetUser(string name)
+        {
+            return this.FirstOrDefault(x => x.Username == name);
+        }
+        public List<UserInfo> GetAllUsers()
+        {
+            return this.ToList();
+        }
     }
 }

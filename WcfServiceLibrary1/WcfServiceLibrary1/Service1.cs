@@ -35,9 +35,33 @@ namespace WcfServiceLibrary1
             return worked;
 
         }
-        public void TeacherConfirm(int id, int userId)
+        public void UpdateRating(int tid, int rating, string rewiew)
         {
-
+            userDB.UpdateRating(tid, rating, rewiew);
+        }
+        public List<string> GetTeacherReviews(int tid)
+        {
+            return userDB.GetTeacherReviews(tid);
+        }
+        public void UpdateTeacherId(int sid, int tid)
+        {
+            userDB.UpdateTeacherId(sid, tid);
+        }
+        public AllUsers GetAllTeacher()
+        {
+            return userDB.GetAllTeacher();
+        }
+        public void TeacherConfirm(int id, int tID)
+        {
+            userDB.TeacherConfirm(id, tID);
+        }
+        public List<UserInfo> GetTeacherStudents(int tid)
+        {
+            return userDB.GetTeacherStudents(tid);
+        }
+        public bool IsConfirmed(int id)
+        {
+            return userDB.IsConfirmed(id);
         }
         public bool CheckUserExist(string username)
         {
@@ -70,13 +94,17 @@ namespace WcfServiceLibrary1
         {
             return userDB.GetUserID(username, table);
         }
-        public bool SetTeacherCalendar(Calendar cal, int teacherId)
+        public bool SetTeacherCalendar(Calendars cal, int teacherId)
         {
             return userDB.SetTeacherCalendar(cal, teacherId);
         }
-        public Calendar GetTeacherCalendar(int teacherId)
+        public Calendars GetTeacherCalendar(int teacherId)
         {
             return userDB.GetTeacherCalendar(teacherId);
+        }
+        public void SetCalendars(List<string> AVailableDays, string startDate, string endDate, List<string> datesUnavailable, Calendars calendars)
+        {
+            calendars.SetCalendars(AVailableDays, startDate, endDate, datesUnavailable);
         }
     }
 }

@@ -1,13 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Model" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Model" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
   <xs:complexType name="UserInfo">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:Base">
         <xs:sequence>
+          <xs:element minOccurs="0" name="Confirmed" type="xs:boolean" />
           <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="IsAdmin" type="xs:boolean" />
           <xs:element minOccurs="0" name="Password" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="Phone" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Rating" type="xs:double" />
+          <xs:element minOccurs="0" name="RatingText" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Rewiew" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="TeacherId" type="xs:int" />
           <xs:element minOccurs="0" name="Username" nillable="true" type="xs:string" />
         </xs:sequence>
@@ -27,4 +32,23 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="AllUsers" nillable="true" type="tns:AllUsers" />
+  <xs:complexType name="Calendars">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Base">
+        <xs:sequence>
+          <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="AvailableDays" nillable="true" type="q1:ArrayOfstring" />
+          <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="DatesUnavailable" nillable="true" type="q2:ArrayOfstring" />
+          <xs:element minOccurs="0" name="EndTime" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="StartTime" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Calendars" nillable="true" type="tns:Calendars" />
+  <xs:complexType name="ArrayOfUserInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="UserInfo" nillable="true" type="tns:UserInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUserInfo" nillable="true" type="tns:ArrayOfUserInfo" />
 </xs:schema>

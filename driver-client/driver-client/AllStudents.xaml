@@ -1,0 +1,41 @@
+﻿<Page x:Class="driver_client.AllStudents"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:driver_client"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="AllStudents"
+      Background="#0E1A2B">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Button Content="← Back"
+        HorizontalAlignment="Left"
+        VerticalAlignment="Top"
+        Margin="0,10,0,0"
+        Width="80"
+        Background="#00E0FF"
+        Foreground="Black"
+        FontWeight="Bold"
+        BorderBrush="#00C0CC"
+        Cursor="Hand"
+        Click="BackButton_Click"/>
+        <TextBlock Text="Your Students"
+                   FontSize="28"
+                   FontWeight="Bold"
+                   Foreground="#00E0FF"
+                   HorizontalAlignment="Center"
+                   Margin="0,10"/>
+
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+
+            <ItemsControl x:Name="StudentListPanel"/>
+        </ScrollViewer>
+        <Frame x:Name="page" Grid.RowSpan="2" Margin="-22,-22,-24,-19" Panel.ZIndex="100"/>
+    </Grid>
+</Page>

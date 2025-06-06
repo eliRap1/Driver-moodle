@@ -57,8 +57,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AllStudents.xaml.cs">
+      <DependentUpon>AllStudents.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CalendarTeacher.xaml.cs">
       <DependentUpon>CalendarTeacher.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ChooseTeacher.xaml.cs">
+      <DependentUpon>ChooseTeacher.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Rewiews.xaml.cs">
+      <DependentUpon>Rewiews.xaml</DependentUpon>
     </Compile>
     <Compile Include="Sign.cs" />
     <Compile Include="LogIn.xaml.cs">
@@ -74,7 +83,15 @@
       <DependentUpon>TeacherUI.xaml</DependentUpon>
     </Compile>
     <Compile Include="ValidationRules.cs" />
+    <Page Include="AllStudents.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="CalendarTeacher.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ChooseTeacher.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -96,6 +113,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="LogIn.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Rewiews.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -130,7 +151,13 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Connected Services\driver\Arrays.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Connected Services\driver\driver_client.driver.AllUsers1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\driver\driver_client.driver.Calendars.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\driver\driver_client.driver.CitiesList.datasource">

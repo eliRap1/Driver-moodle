@@ -1,5 +1,7 @@
-﻿using System;
+﻿using driver_client.driver;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -27,6 +29,7 @@ namespace driver_client
 
         private void SaveAvailability_Click(object sender, RoutedEventArgs e)
         {
+            // Collect selected day names
             var availableDays = new List<string>();
             if (MondayCheck.IsChecked == true) availableDays.Add("Monday");
             if (TuesdayCheck.IsChecked == true) availableDays.Add("Tuesday");
@@ -36,18 +39,33 @@ namespace driver_client
             if (SaturdayCheck.IsChecked == true) availableDays.Add("Saturday");
             if (SundayCheck.IsChecked == true) availableDays.Add("Sunday");
 
-            string fromTime = StartHour.SelectedItem?.ToString() ?? "N/A";
-            string toTime = EndHour.SelectedItem?.ToString() ?? "N/A";
+            string fromTime = StartHour.SelectedItem?.ToString() ?? "00:00";
+            string toTime = EndHour.SelectedItem?.ToString() ?? "00:00";
 
-            var unavailableDates = UnavailableCalendar.SelectedDates;
+            // Convert selected dates to string format
+            List<string> unavailableDateStrings = UnavailableCalendar.SelectedDates
+                .Select(date => date.ToString("yyyy-MM-dd"))
+                .ToList();
 
-            // You can save these details to a database or display a confirmation
-            MessageBox.Show(
-                $"Available Days: {string.Join(", ", availableDays)}\n" +
-                $"Working Hours: {fromTime} to {toTime}\n" +
-                $"Unavailable Dates: {string.Join(", ", unavailableDates)}",
-                "Availability Saved");
+            try
+            {
+                driver.Service1Client srv = new driver.Service1Client();
+                int teacherId = LogIn.sign.Id;
+                Calendars cal = new Calendars();
+                srv.SetCalendars(availableDays.ToArray(), fromTime, toTime, unavailableDateStrings.ToArray(), cal);
+                cal.StartTime = fromTime;
+                cal.EndTime = toTime;
+                cal.DatesUnavailable = unavailableDateStrings.ToArray();
+                cal.AvailableDays = availableDays.ToArray();
+                srv.SetTeacherCalendar(cal, teacherId);
+                MessageBox.Show("Availability saved successfully!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
         }
+
 
         private void ClearSelection_Click(object sender, RoutedEventArgs e)
         {
@@ -64,6 +82,11 @@ namespace driver_client
 
                 e.Handled = true; // Prevent default selection behavior
             }
+        }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            page.Navigate(new TeacherUI());
         }
 
     }

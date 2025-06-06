@@ -28,7 +28,7 @@ namespace driver_client
 
         private void Students_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show((LogIn.sign.Id).ToString());
+            page.Navigate(new AllStudents(LogIn.sign.Id));
         }
 
         private void Calendar_Click(object sender, RoutedEventArgs e)

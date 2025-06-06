@@ -83,8 +83,7 @@
         </Border>
 
         <!-- Navigation frame -->
-        <Frame x:Name="page" 
-               Margin="40"
+        <Frame x:Name="page"
                Panel.ZIndex="2"/>
     </Grid>
 </Page>

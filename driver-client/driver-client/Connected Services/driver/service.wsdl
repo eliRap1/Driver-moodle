@@ -5,6 +5,7 @@
       <xsd:import namespace="http://tempuri.org/" />
       <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/Model" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IService1_GetUserID_InputMessage">
@@ -43,6 +44,66 @@
   <wsdl:message name="IService1_CheckUserExist_OutputMessage">
     <wsdl:part name="parameters" element="tns:CheckUserExistResponse" />
   </wsdl:message>
+  <wsdl:message name="IService1_GetTeacherCalendar_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTeacherCalendar" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetTeacherCalendar_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTeacherCalendarResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_SetTeacherCalendar_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetTeacherCalendar" />
+  </wsdl:message>
+  <wsdl:message name="IService1_SetTeacherCalendar_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetTeacherCalendarResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_TeacherConfirm_InputMessage">
+    <wsdl:part name="parameters" element="tns:TeacherConfirm" />
+  </wsdl:message>
+  <wsdl:message name="IService1_TeacherConfirm_OutputMessage">
+    <wsdl:part name="parameters" element="tns:TeacherConfirmResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetAllTeacher_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllTeacher" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetAllTeacher_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllTeacherResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetTeacherReviews_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTeacherReviews" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetTeacherReviews_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTeacherReviewsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_UpdateRating_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateRating" />
+  </wsdl:message>
+  <wsdl:message name="IService1_UpdateRating_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateRatingResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_IsConfirmed_InputMessage">
+    <wsdl:part name="parameters" element="tns:IsConfirmed" />
+  </wsdl:message>
+  <wsdl:message name="IService1_IsConfirmed_OutputMessage">
+    <wsdl:part name="parameters" element="tns:IsConfirmedResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetTeacherStudents_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTeacherStudents" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetTeacherStudents_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTeacherStudentsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_UpdateTeacherId_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateTeacherId" />
+  </wsdl:message>
+  <wsdl:message name="IService1_UpdateTeacherId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateTeacherIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_SetCalendars_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetCalendars" />
+  </wsdl:message>
+  <wsdl:message name="IService1_SetCalendars_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetCalendarsResponse" />
+  </wsdl:message>
   <wsdl:message name="IService1_AddUser_InputMessage">
     <wsdl:part name="parameters" element="tns:AddUser" />
   </wsdl:message>
@@ -73,6 +134,46 @@
     <wsdl:operation name="CheckUserExist">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/CheckUserExist" message="tns:IService1_CheckUserExist_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/CheckUserExistResponse" message="tns:IService1_CheckUserExist_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTeacherCalendar">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetTeacherCalendar" message="tns:IService1_GetTeacherCalendar_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetTeacherCalendarResponse" message="tns:IService1_GetTeacherCalendar_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetTeacherCalendar">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/SetTeacherCalendar" message="tns:IService1_SetTeacherCalendar_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/SetTeacherCalendarResponse" message="tns:IService1_SetTeacherCalendar_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="TeacherConfirm">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/TeacherConfirm" message="tns:IService1_TeacherConfirm_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/TeacherConfirmResponse" message="tns:IService1_TeacherConfirm_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllTeacher">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetAllTeacher" message="tns:IService1_GetAllTeacher_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetAllTeacherResponse" message="tns:IService1_GetAllTeacher_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTeacherReviews">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetTeacherReviews" message="tns:IService1_GetTeacherReviews_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetTeacherReviewsResponse" message="tns:IService1_GetTeacherReviews_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateRating">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/UpdateRating" message="tns:IService1_UpdateRating_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/UpdateRatingResponse" message="tns:IService1_UpdateRating_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="IsConfirmed">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/IsConfirmed" message="tns:IService1_IsConfirmed_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/IsConfirmedResponse" message="tns:IService1_IsConfirmed_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTeacherStudents">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetTeacherStudents" message="tns:IService1_GetTeacherStudents_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetTeacherStudentsResponse" message="tns:IService1_GetTeacherStudents_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTeacherId">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/UpdateTeacherId" message="tns:IService1_UpdateTeacherId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/UpdateTeacherIdResponse" message="tns:IService1_UpdateTeacherId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetCalendars">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/SetCalendars" message="tns:IService1_SetCalendars_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/SetCalendarsResponse" message="tns:IService1_SetCalendars_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="AddUser">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/AddUser" message="tns:IService1_AddUser_InputMessage" />
@@ -128,6 +229,96 @@
     </wsdl:operation>
     <wsdl:operation name="CheckUserExist">
       <soap:operation soapAction="http://tempuri.org/IService1/CheckUserExist" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTeacherCalendar">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetTeacherCalendar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetTeacherCalendar">
+      <soap:operation soapAction="http://tempuri.org/IService1/SetTeacherCalendar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TeacherConfirm">
+      <soap:operation soapAction="http://tempuri.org/IService1/TeacherConfirm" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllTeacher">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetAllTeacher" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTeacherReviews">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetTeacherReviews" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateRating">
+      <soap:operation soapAction="http://tempuri.org/IService1/UpdateRating" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsConfirmed">
+      <soap:operation soapAction="http://tempuri.org/IService1/IsConfirmed" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTeacherStudents">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetTeacherStudents" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTeacherId">
+      <soap:operation soapAction="http://tempuri.org/IService1/UpdateTeacherId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetCalendars">
+      <soap:operation soapAction="http://tempuri.org/IService1/SetCalendars" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

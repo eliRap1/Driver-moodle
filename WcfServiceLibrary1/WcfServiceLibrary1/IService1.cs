@@ -26,9 +26,25 @@ namespace WcfServiceLibrary1
         [OperationContract]
         bool CheckUserExist(string username);
         [OperationContract]
-        Calendar GetTeacherCalendar(int teacherId);
+        Calendars GetTeacherCalendar(int teacherId);
         [OperationContract]
-        bool SetTeacherCalendar(Calendar cal, int teacherId);
+        bool SetTeacherCalendar(Calendars cal, int teacherId);
+        [OperationContract]
+        void TeacherConfirm(int id, int tid);
+        [OperationContract]
+        AllUsers GetAllTeacher();
+        [OperationContract]
+        List<string> GetTeacherReviews(int tid);
+        [OperationContract]
+        void UpdateRating(int tid, int rating, string rewiew);
+        [OperationContract]
+        bool IsConfirmed(int id);
+        [OperationContract]
+        List<UserInfo> GetTeacherStudents(int tid);
+        [OperationContract]
+        void UpdateTeacherId(int sid, int tid);
+        [OperationContract]
+        void SetCalendars(List<string> AVailableDays, string startDate, string endDate, List<string> datesUnavailable, Calendars calendars);
         [OperationContract]
         bool AddUser(string name, string password, string email, string phone, bool admin, int tID);
     }
