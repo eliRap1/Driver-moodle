@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.OleDb;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -78,7 +79,7 @@ namespace ViewDB
         public UserInfo GetUserById(int id, string table)
         {
             string sqlStr = "Select * From " +table+ " Where id=" + id;
-            List<Base> list = Select(sqlStr);
+            List<UserInfo> list = Selectu(sqlStr);
             if (list.Count == 1)
             { return (UserInfo)list[0]; }
             else { return null; }
@@ -180,10 +181,42 @@ namespace ViewDB
         }
         public bool SetTeacherCalendar(Calendars cal, int teacherId)
         {
-            string sqlstr = $"INSERT INTO Availability ([TeacherID], [UnavailableDate], [StartTime], [EndTime]) " + "" +
-                $"VALUES ({teacherId}, '{cal.GetDatesUnavailable()}', '{cal.StartTime}', '{cal.EndTime}')";
-            return SaveChanges(sqlstr) != 0;
+            // 1) Check for an existing row
+            string existsSql =
+              "SELECT COUNT(*) FROM [Availability] WHERE [TeacherID] = " + teacherId;
+            int count;
+            using (var cmd = new OleDbCommand(existsSql, connection))
+            {
+                connection.Open();
+                count = (int)cmd.ExecuteScalar();
+                connection.Close();
+            }
+
+            // 2) Based on that, run either UPDATE or INSERT
+            string sql;
+            if (count > 0)
+            {
+                sql = $@"
+          UPDATE [Availability]
+             SET [UnavailableDate] = '{cal.GetDatesUnavailable()}',
+                 [StartTime]       = '{cal.StartTime}',
+                 [EndTime]         = '{cal.EndTime}',
+                 [availableDays]   = '{cal.GetAvailableDays()}'
+           WHERE [TeacherID] = {teacherId}";
+            }
+            else
+            {
+                sql = $@"
+          INSERT INTO [Availability]
+            ([TeacherID],[UnavailableDate],[StartTime],[EndTime],[availableDays])
+          VALUES
+            ({teacherId},'{cal.GetDatesUnavailable()}','{cal.StartTime}','{cal.EndTime}', '{cal.GetAvailableDays()}')";
+            }
+
+            return SaveChanges(sql) != 0;
         }
+
+
         public Calendars GetTeacherCalendar(int teacherId)
         {
             string sqlStr = "Select * From Availability Where TeacherID=" + teacherId;

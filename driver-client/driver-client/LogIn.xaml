@@ -7,91 +7,99 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="LogIn"
-      Background="#F0F4FA">
+      Background="#0E1A2B">
 
-    <Grid>
-        <!-- Subtle background image faintly visible -->
+    <Grid Margin="20">
+        <!-- Subtle background image -->
         <Image Source="/picture/background.png"
                Stretch="UniformToFill"
-               Opacity="0.2"
-               Grid.RowSpan="5"
-               Grid.ColumnSpan="3"/>
+               Opacity="0.06"
+               Panel.ZIndex="0"/>
 
-        <!-- Centered login panel -->
+        <!-- Login Panel -->
         <Border CornerRadius="10"
-                Background="White"
+                Background="#1A2636"
                 Padding="40"
-                Width="400"
+                Width="380"
                 HorizontalAlignment="Center"
-                VerticalAlignment="Center">
-            <Border.Effect>
-                <DropShadowEffect Color="#000000"
-                                  BlurRadius="15"
-                                  ShadowDepth="4"
-                                  Opacity="0.2"/>
-            </Border.Effect>
+                VerticalAlignment="Center"
+                BorderBrush="#00C0CC"
+                BorderThickness="1"
+                Panel.ZIndex="1">
+            <StackPanel>
 
-            <StackPanel Margin="0,0,0,20">
                 <!-- Header -->
                 <TextBlock Text="Log In"
                            FontSize="28"
                            FontWeight="Bold"
-                           Foreground="#2A239A"
-                           HorizontalAlignment="Center"/>
+                           Foreground="#00E0FF"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,20"/>
 
-                <!-- Username field -->
-                <StackPanel>
-                    <TextBlock Text="Username"
-                               FontSize="14"
-                               FontWeight="SemiBold"
-                               Margin="0,0,0,4"
-                               Foreground="#333"/>
+                <!-- Username -->
+                <TextBlock Text="Username"
+                           Foreground="LightGray"
+                           FontWeight="SemiBold"
+                           Margin="0,0,0,6"/>
+                <Border BorderBrush="#00C0CC"
+                        BorderThickness="1"
+                        CornerRadius="3"
+                        Background="#223344"
+                        Margin="0,0,0,10">
                     <TextBox x:Name="username"
-                             Height="36"
-                             FontSize="14"
+                             Height="30"
+                             Background="Transparent"
+                             Foreground="White"
+                             BorderThickness="0"
                              Padding="6"
-                             Background="#E8F0FE"
-                             BorderBrush="#2A239A"
-                             BorderThickness="1"
-                             />
-                </StackPanel>
+                             FocusVisualStyle="{x:Null}"/>
+                </Border>
 
-                <!-- Password field -->
-                <StackPanel>
-                    <TextBlock Text="Password"
-                               FontSize="14"
-                               FontWeight="SemiBold"
-                               Margin="0,0,0,4"
-                               Foreground="#333"/>
+                <!-- Password -->
+                <TextBlock Text="Password"
+                           Foreground="LightGray"
+                           FontWeight="SemiBold"
+                           Margin="0,0,0,6"/>
+                <Border BorderBrush="#00C0CC"
+                        BorderThickness="1"
+                        CornerRadius="3"
+                        Background="#223344"
+                        Margin="0,0,0,20">
                     <PasswordBox x:Name="pass"
-                                 Height="36"
-                                 FontSize="14"
+                                 Height="30"
+                                 Background="Transparent"
+                                 Foreground="White"
+                                 BorderThickness="0"
                                  Padding="6"
-                                 Background="#E8F0FE"
-                                 BorderBrush="#2A239A"
-                                 BorderThickness="1"
-                                 />
-                </StackPanel>
+                                 FocusVisualStyle="{x:Null}"/>
+                </Border>
 
-                <!-- Log In button -->
+                <!-- Log In Button -->
                 <Button x:Name="signIn"
                         Content="Log In"
-                        Height="40"
+                        Height="36"
                         FontSize="16"
                         FontWeight="SemiBold"
-                        Background="#2A239A"
-                        Foreground="White"
-                        Margin="0,20,0,0"
-                        Click="signIn_Click"/>
+                        Background="#00E0FF"
+                        Foreground="Black"
+                        BorderBrush="#00C0CC"
+                        BorderThickness="1"
+                        Cursor="Hand"
+                        Click="signIn_Click"
+                        Margin="0,0,0,20"/>
 
-                <!-- Sign Up link -->
-                <TextBlock HorizontalAlignment="Center" FontSize="12" Foreground="#555">
+                <!-- Sign Up Link -->
+                <TextBlock HorizontalAlignment="Center"
+                           Foreground="LightGray"
+                           FontSize="12">
                     Don't have an account? 
-                    <Hyperlink Click="signUp_Click">Sign Up</Hyperlink>
+                    <Hyperlink Click="signUp_Click" Foreground="#00E0FF">Sign Up</Hyperlink>
                 </TextBlock>
             </StackPanel>
         </Border>
-        <Frame x:Name="page" Grid.RowSpan="100" Grid.ColumnSpan="100" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0" Panel.ZIndex="100"/>
 
+        <!-- Hidden Frame -->
+        <Frame x:Name="page"
+               Panel.ZIndex="2" Margin="-19,-21,-22,-21"/>
     </Grid>
 </Page>

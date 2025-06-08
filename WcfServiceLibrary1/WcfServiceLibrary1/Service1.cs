@@ -102,9 +102,5 @@ namespace WcfServiceLibrary1
         {
             return userDB.GetTeacherCalendar(teacherId);
         }
-        public void SetCalendars(List<string> AVailableDays, string startDate, string endDate, List<string> datesUnavailable, Calendars calendars)
-        {
-            calendars.SetCalendars(AVailableDays, startDate, endDate, datesUnavailable);
-        }
     }
 }

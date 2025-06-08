@@ -44,8 +44,6 @@ namespace WcfServiceLibrary1
         [OperationContract]
         void UpdateTeacherId(int sid, int tid);
         [OperationContract]
-        void SetCalendars(List<string> AVailableDays, string startDate, string endDate, List<string> datesUnavailable, Calendars calendars);
-        [OperationContract]
         bool AddUser(string name, string password, string email, string phone, bool admin, int tID);
     }
 

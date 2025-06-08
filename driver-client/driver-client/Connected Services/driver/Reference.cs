@@ -399,12 +399,6 @@ namespace driver_client.driver {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/UpdateTeacherId", ReplyAction="http://tempuri.org/IService1/UpdateTeacherIdResponse")]
         System.Threading.Tasks.Task UpdateTeacherIdAsync(int sid, int tid);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SetCalendars", ReplyAction="http://tempuri.org/IService1/SetCalendarsResponse")]
-        void SetCalendars(string[] AVailableDays, string startDate, string endDate, string[] datesUnavailable, driver_client.driver.Calendars calendars);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SetCalendars", ReplyAction="http://tempuri.org/IService1/SetCalendarsResponse")]
-        System.Threading.Tasks.Task SetCalendarsAsync(string[] AVailableDays, string startDate, string endDate, string[] datesUnavailable, driver_client.driver.Calendars calendars);
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddUser", ReplyAction="http://tempuri.org/IService1/AddUserResponse")]
         bool AddUser(string name, string password, string email, string phone, bool admin, int tID);
         
@@ -557,14 +551,6 @@ namespace driver_client.driver {
         
         public System.Threading.Tasks.Task UpdateTeacherIdAsync(int sid, int tid) {
             return base.Channel.UpdateTeacherIdAsync(sid, tid);
-        }
-        
-        public void SetCalendars(string[] AVailableDays, string startDate, string endDate, string[] datesUnavailable, driver_client.driver.Calendars calendars) {
-            base.Channel.SetCalendars(AVailableDays, startDate, endDate, datesUnavailable, calendars);
-        }
-        
-        public System.Threading.Tasks.Task SetCalendarsAsync(string[] AVailableDays, string startDate, string endDate, string[] datesUnavailable, driver_client.driver.Calendars calendars) {
-            return base.Channel.SetCalendarsAsync(AVailableDays, startDate, endDate, datesUnavailable, calendars);
         }
         
         public bool AddUser(string name, string password, string email, string phone, bool admin, int tID) {

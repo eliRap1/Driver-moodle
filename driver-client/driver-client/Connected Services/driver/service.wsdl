@@ -98,12 +98,6 @@
   <wsdl:message name="IService1_UpdateTeacherId_OutputMessage">
     <wsdl:part name="parameters" element="tns:UpdateTeacherIdResponse" />
   </wsdl:message>
-  <wsdl:message name="IService1_SetCalendars_InputMessage">
-    <wsdl:part name="parameters" element="tns:SetCalendars" />
-  </wsdl:message>
-  <wsdl:message name="IService1_SetCalendars_OutputMessage">
-    <wsdl:part name="parameters" element="tns:SetCalendarsResponse" />
-  </wsdl:message>
   <wsdl:message name="IService1_AddUser_InputMessage">
     <wsdl:part name="parameters" element="tns:AddUser" />
   </wsdl:message>
@@ -170,10 +164,6 @@
     <wsdl:operation name="UpdateTeacherId">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/UpdateTeacherId" message="tns:IService1_UpdateTeacherId_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/UpdateTeacherIdResponse" message="tns:IService1_UpdateTeacherId_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="SetCalendars">
-      <wsdl:input wsaw:Action="http://tempuri.org/IService1/SetCalendars" message="tns:IService1_SetCalendars_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IService1/SetCalendarsResponse" message="tns:IService1_SetCalendars_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="AddUser">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/AddUser" message="tns:IService1_AddUser_InputMessage" />
@@ -310,15 +300,6 @@
     </wsdl:operation>
     <wsdl:operation name="UpdateTeacherId">
       <soap:operation soapAction="http://tempuri.org/IService1/UpdateTeacherId" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="SetCalendars">
-      <soap:operation soapAction="http://tempuri.org/IService1/SetCalendars" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

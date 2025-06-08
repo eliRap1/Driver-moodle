@@ -210,22 +210,6 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
-  <xs:element name="SetCalendars">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q8="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="AVailableDays" nillable="true" type="q8:ArrayOfstring" />
-        <xs:element minOccurs="0" name="startDate" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="endDate" nillable="true" type="xs:string" />
-        <xs:element xmlns:q9="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="datesUnavailable" nillable="true" type="q9:ArrayOfstring" />
-        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/Model" minOccurs="0" name="calendars" nillable="true" type="q10:Calendars" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="SetCalendarsResponse">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
   <xs:element name="AddUser">
     <xs:complexType>
       <xs:sequence>

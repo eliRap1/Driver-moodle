@@ -52,7 +52,6 @@ namespace driver_client
                 driver.Service1Client srv = new driver.Service1Client();
                 int teacherId = LogIn.sign.Id;
                 Calendars cal = new Calendars();
-                srv.SetCalendars(availableDays.ToArray(), fromTime, toTime, unavailableDateStrings.ToArray(), cal);
                 cal.StartTime = fromTime;
                 cal.EndTime = toTime;
                 cal.DatesUnavailable = unavailableDateStrings.ToArray();

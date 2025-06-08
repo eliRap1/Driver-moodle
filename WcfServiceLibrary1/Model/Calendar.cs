@@ -18,19 +18,21 @@ namespace Model
         public List<string> AvailableDays { get => availableDays; set => availableDays = value; }
         public Calendars() { }
 
-        public void SetCalendars(List<string> AVailableDays, string startDate, string endDate,  List<string> datesUnavailable)
-        {
-            this.availableDays = AVailableDays;
-            this.startTime = startDate;
-            this.endTime = endDate;
-            this.datesUnavailable = datesUnavailable;
-        }
         public string GetDatesUnavailable()
         {
             string result = "";
             foreach (string date in datesUnavailable)
             {
-                result += date + "%";
+                result += date + ",";
+            }
+            return result;
+        }
+        public string GetAvailableDays()
+        {
+            string result = "";
+            foreach (string day in availableDays)
+            {
+                result += day + ",";
             }
             return result;
         }

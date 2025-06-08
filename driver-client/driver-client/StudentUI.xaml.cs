@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace driver_client
 {
@@ -20,9 +21,58 @@ namespace driver_client
     /// </summary>
     public partial class StudentUI : Page
     {
+        private int id;
+        private DispatcherTimer updateAprove;
+
         public StudentUI()
         {
             InitializeComponent();
+            driver.Service1Client srv = new driver.Service1Client();
+            id = srv.GetUserID(LogIn.sign.Username, "Student");
+            updateAprove = new DispatcherTimer(); // POOLING THREAD 
+            updateAprove.Interval = TimeSpan.FromSeconds(5);
+            updateAprove.Tick += CheckIfApproved;
+            updateAprove.Start();
+            CheckIfApproved(null, null);
+
+        }
+
+        private void CheckIfApproved(object sender, EventArgs e)
+        {
+            driver.Service1Client srv = new driver.Service1Client();
+            var student = srv.GetUserById(id, "Student");
+            if (student.Confirmed == true)
+            {
+                WaitingPanel.Visibility = Visibility.Collapsed;
+                StudentPanel.Visibility = Visibility.Visible;
+                updateAprove.Stop();
+            }
+            else
+            {
+                WaitingPanel.Visibility = Visibility.Visible;
+                StudentPanel.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void ScheduleLesson_Click(object sender, RoutedEventArgs e)
+        {
+            // NavigationService.Navigate(new ScheduleLessonPage());
+        }
+
+        private void WriteReview_Click(object sender, RoutedEventArgs e)
+        {
+            // NavigationService.Navigate(new WriteReviewPage());
+        }
+
+        private void ViewLessons_Click(object sender, RoutedEventArgs e)
+        {
+            // NavigationService.Navigate(new ViewLessonsPage());
+        }
+
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            //NavigationService.GoBack();
         }
     }
+
 }
