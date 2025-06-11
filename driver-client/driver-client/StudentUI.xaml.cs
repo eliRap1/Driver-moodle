@@ -23,7 +23,7 @@ namespace driver_client
     {
         private int id;
         private DispatcherTimer updateAprove;
-
+        public static bool madeRewiew = false;
         public StudentUI()
         {
             InitializeComponent();
@@ -34,7 +34,10 @@ namespace driver_client
             updateAprove.Tick += CheckIfApproved;
             updateAprove.Start();
             CheckIfApproved(null, null);
-
+            if(madeRewiew)
+            {
+                writeReview.IsEnabled = false;
+            }
         }
 
         private void CheckIfApproved(object sender, EventArgs e)
@@ -56,12 +59,12 @@ namespace driver_client
 
         private void ScheduleLesson_Click(object sender, RoutedEventArgs e)
         {
-            // NavigationService.Navigate(new ScheduleLessonPage());
+            page.Navigate(new ScheduleLesson());
         }
 
         private void WriteReview_Click(object sender, RoutedEventArgs e)
         {
-            // NavigationService.Navigate(new WriteReviewPage());
+            page.Navigate(new WriteRewiew());
         }
 
         private void ViewLessons_Click(object sender, RoutedEventArgs e)
@@ -72,6 +75,11 @@ namespace driver_client
         private void Back_Click(object sender, RoutedEventArgs e)
         {
             //NavigationService.GoBack();
+        }
+
+        private void Review_Click(object sender, RoutedEventArgs e)
+        {
+            page.Navigate(new ChooseTeacher(false));
         }
     }
 

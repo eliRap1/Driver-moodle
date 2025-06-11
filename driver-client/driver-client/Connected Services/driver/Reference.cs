@@ -393,6 +393,12 @@ namespace driver_client.driver {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetTeacherStudents", ReplyAction="http://tempuri.org/IService1/GetTeacherStudentsResponse")]
         System.Threading.Tasks.Task<driver_client.driver.UserInfo[]> GetTeacherStudentsAsync(int tid);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetTeacherId", ReplyAction="http://tempuri.org/IService1/GetTeacherIdResponse")]
+        int GetTeacherId(int sid);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetTeacherId", ReplyAction="http://tempuri.org/IService1/GetTeacherIdResponse")]
+        System.Threading.Tasks.Task<int> GetTeacherIdAsync(int sid);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/UpdateTeacherId", ReplyAction="http://tempuri.org/IService1/UpdateTeacherIdResponse")]
         void UpdateTeacherId(int sid, int tid);
         
@@ -543,6 +549,14 @@ namespace driver_client.driver {
         
         public System.Threading.Tasks.Task<driver_client.driver.UserInfo[]> GetTeacherStudentsAsync(int tid) {
             return base.Channel.GetTeacherStudentsAsync(tid);
+        }
+        
+        public int GetTeacherId(int sid) {
+            return base.Channel.GetTeacherId(sid);
+        }
+        
+        public System.Threading.Tasks.Task<int> GetTeacherIdAsync(int sid) {
+            return base.Channel.GetTeacherIdAsync(sid);
         }
         
         public void UpdateTeacherId(int sid, int tid) {

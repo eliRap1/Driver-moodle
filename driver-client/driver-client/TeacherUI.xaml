@@ -6,84 +6,73 @@
       xmlns:local="clr-namespace:driver_client"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="TeacherUI" Background="#F0F4FF">
+      Title="TeacherUI"
+      Background="#0E1A2B">
 
-    <Grid>
+    <Grid Margin="20">
         <!-- Background image -->
         <Image Source="/picture/background1.png"
                Stretch="UniformToFill"
-               Opacity="0.3"
+               Opacity="0.06"
                Panel.ZIndex="0"/>
 
-        <!-- Main content panel -->
-        <Border CornerRadius="12"
-                Background="White"
-                Opacity="0.95"
-                Padding="30"
-                Margin="40"
-                Panel.ZIndex="1">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+        <StackPanel Panel.ZIndex="1"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Width="320">
 
-                <!-- Header with greeting -->
-                <DockPanel Grid.Row="0" LastChildFill="False" Margin="0,0,0,20">
-                    <TextBlock Text="Hello," 
-                               FontSize="24" 
-                               FontWeight="Bold" 
-                               Foreground="#333"/>
-                    <TextBlock x:Name="teacherName" 
-                               Text="Teacher Name" 
-                               FontSize="24" 
-                               FontWeight="Bold" 
-                               Foreground="#2196F3" 
-                               Margin="5,0,0,0"/>
-                </DockPanel>
+            <!-- Header -->
+            <TextBlock Text="Welcome,"
+                       FontSize="28"
+                       FontWeight="Bold"
+                       Foreground="White"
+                       HorizontalAlignment="Center"/>
 
-                <!-- Buttons area -->
-                <StackPanel Grid.Row="1" 
-                            HorizontalAlignment="Center" 
-                            VerticalAlignment="Center" 
-                            >
-                    <Button Content="Students"
-                            Margin="0,0,0,20"
-                            Width="240" Height="50" 
-                            FontSize="18" 
-                            FontWeight="SemiBold"
-                            Background="#2196F3" 
-                            Foreground="White" 
-                            BorderThickness="0" 
-                            Cursor="Hand"
-                            Click="Students_Click"/>
+            <TextBlock x:Name="teacherName"
+                       Text="Teacher Name"
+                       FontSize="28"
+                       FontWeight="Bold"
+                       Foreground="#00E0FF"
+                       HorizontalAlignment="Center"
+                       Margin="0,0,0,30"/>
 
-                    <Button Content="Calendar" 
-                            Margin="0,0,0,20"
-                            Width="240" Height="50" 
-                            FontSize="18" 
-                            FontWeight="SemiBold"
-                            Background="#2196F3" 
-                            Foreground="White" 
-                            BorderThickness="0" 
-                            Cursor="Hand"
-                            Click="Calendar_Click"/>
+            <!-- Navigation Buttons -->
+            <Button Content="Students"
+                    Margin="0,10"
+                    Width="280" Height="50"
+                    FontSize="18"
+                    FontWeight="SemiBold"
+                    Background="#00E0FF"
+                    Foreground="Black"
+                    BorderBrush="#00C0CC"
+                    Cursor="Hand"
+                    Click="Students_Click"/>
 
-                    <Button Content="Test Schedule" 
-                            Width="240" Height="50" 
-                            FontSize="18" 
-                            FontWeight="SemiBold"
-                            Background="#2196F3" 
-                            Foreground="White" 
-                            BorderThickness="0" 
-                            Cursor="Hand"
-                            Click="TestSchedule_Click"/>
-                </StackPanel>
-            </Grid>
-        </Border>
+            <Button Content="Calendar"
+                    Margin="0,10"
+                    Width="280" Height="50"
+                    FontSize="18"
+                    FontWeight="SemiBold"
+                    Background="#00E0FF"
+                    Foreground="Black"
+                    BorderBrush="#00C0CC"
+                    Cursor="Hand"
+                    Click="Calendar_Click"/>
 
-        <!-- Navigation frame -->
-        <Frame x:Name="page"
-               Panel.ZIndex="2"/>
+            <Button Content="Test Schedule"
+                    Margin="0,10"
+                    Width="280" Height="50"
+                    FontSize="18"
+                    FontWeight="SemiBold"
+                    Background="#00E0FF"
+                    Foreground="Black"
+                    BorderBrush="#00C0CC"
+                    Cursor="Hand"
+                    Click="TestSchedule_Click"/>
+
+        </StackPanel>
+
+        <!-- Navigation Frame -->
+        <Frame x:Name="page" Panel.ZIndex="100" Margin="-19,-21,-21,-19"/>
     </Grid>
 </Page>

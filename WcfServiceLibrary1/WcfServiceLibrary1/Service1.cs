@@ -17,6 +17,7 @@ namespace WcfServiceLibrary1
         private ViewDB.UserDB userDB = new ViewDB.UserDB();
         private AllUsers allUsers = new AllUsers();
         private AllUsers allAdmins = new AllUsers();
+        private ViewDB.CalnderDB calnderDB = new ViewDB.CalnderDB();
         public bool AddUser(string name, string password,string email, string phone, bool admin,int tID)
         {
             bool worked = false;
@@ -100,7 +101,11 @@ namespace WcfServiceLibrary1
         }
         public Calendars GetTeacherCalendar(int teacherId)
         {
-            return userDB.GetTeacherCalendar(teacherId);
+            return calnderDB.GetTeacherCalendar(teacherId);
+        }
+        public int GetTeacherId(int studentId)
+        {
+            return userDB.GetTeacherId(studentId);
         }
     }
 }

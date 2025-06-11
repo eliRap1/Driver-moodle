@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseDB.cs" />
+    <Compile Include="CalnderDB.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StudentDB.cs" />
     <Compile Include="UserDB.cs" />

@@ -46,7 +46,7 @@ namespace driver_client
             // Add computed RatingText for display
             foreach (var teacher in teachers)
             {
-                teacher.RatingText = $"Rating: {teacher.Rating}/10";
+                teacher.RatingText = $"Rating: {String.Format("{0:0.00}", teacher.Rating)}/5";
             }
 
             TeacherListPanel.Items.Clear();
@@ -163,8 +163,13 @@ namespace driver_client
             {
                 MessageBox.Show($"Viewing reviews for: {selectedTeacher.Username}");
                 updateTeachers.Stop();
-                page.Navigate(new Rewiews(selectedTeacher.Id));
+                page.Navigate(new Rewiews(selectedTeacher.Id, chooseMode));
             }
+        }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            page.Navigate(new StudentUI());
         }
     }
 }

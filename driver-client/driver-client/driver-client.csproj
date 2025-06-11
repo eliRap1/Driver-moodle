@@ -69,6 +69,9 @@
     <Compile Include="Rewiews.xaml.cs">
       <DependentUpon>Rewiews.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ScheduleLesson.xaml.cs">
+      <DependentUpon>ScheduleLesson.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Sign.cs" />
     <Compile Include="LogIn.xaml.cs">
       <DependentUpon>LogIn.xaml</DependentUpon>
@@ -83,6 +86,12 @@
       <DependentUpon>TeacherUI.xaml</DependentUpon>
     </Compile>
     <Compile Include="ValidationRules.cs" />
+    <Compile Include="ViewLessons.xaml.cs">
+      <DependentUpon>ViewLessons.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WriteRewiew.xaml.cs">
+      <DependentUpon>WriteRewiew.xaml</DependentUpon>
+    </Compile>
     <Page Include="AllStudents.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -120,6 +129,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ScheduleLesson.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SignUp.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -129,6 +142,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="TeacherUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewLessons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WriteRewiew.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

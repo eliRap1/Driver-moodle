@@ -42,6 +42,8 @@ namespace WcfServiceLibrary1
         [OperationContract]
         List<UserInfo> GetTeacherStudents(int tid);
         [OperationContract]
+        int GetTeacherId(int sid);
+        [OperationContract]
         void UpdateTeacherId(int sid, int tid);
         [OperationContract]
         bool AddUser(string name, string password, string email, string phone, bool admin, int tID);

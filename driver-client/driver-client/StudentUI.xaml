@@ -66,6 +66,18 @@
                     Height ="45"
                     Cursor="Hand"
                     BorderBrush ="#00C0CC"
+                    Margin="0,10"
+                    x:Name="writeReview"/>
+            
+            <Button Content="View All Reviews"
+                    Click="Review_Click"
+                    Background="#00E0FF"
+                    Foreground ="Black"
+                    FontWeight ="Bold"
+                    FontSize ="16"
+                    Height ="45"
+                    Cursor="Hand"
+                    BorderBrush ="#00C0CC"
                     Margin="0,10"/>
 
             <Button Content="View My Lessons"
@@ -90,5 +102,7 @@
                     BorderBrush ="#00C0CC"
                     Margin="20,30,20,0"/>
         </StackPanel>
+        <Frame x:Name="page" Margin="-19,-21,-21,-19" Panel.ZIndex="100"/>
     </Grid>
+    
 </Page>

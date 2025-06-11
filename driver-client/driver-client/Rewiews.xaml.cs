@@ -23,7 +23,8 @@ namespace driver_client
     {
         private DispatcherTimer updateRewiews;
         private int teacherId;
-        public Rewiews(int teacherId)
+        public bool r;
+        public Rewiews(int teacherId, bool rewiew = true)
         {
             InitializeComponent();
             this.teacherId = teacherId;
@@ -32,6 +33,7 @@ namespace driver_client
             updateRewiews.Interval = TimeSpan.FromSeconds(5);
             updateRewiews.Tick += LoadReviews;
             updateRewiews.Start();
+            r= rewiew;
         }
 
         private void LoadReviews(object sender, EventArgs e)
@@ -77,7 +79,7 @@ namespace driver_client
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
             updateRewiews.Stop();
-            page.Navigate(new ChooseTeacher(true));
+            page.Navigate(new ChooseTeacher(r));
         }
     }
 

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,7 @@ namespace ViewDB
         {
             return new UserInfo();
         }
+        
         protected List<UserInfo> Selectu(string sqlCommandTxt)
         {
             List<UserInfo> list = new List<UserInfo>();
@@ -61,14 +63,18 @@ namespace ViewDB
                     {
                         s.Rewiew = reader["Rewiew"].ToString();
                     }
-                    catch
+                    catch { }
+                    try
                     {
-
+                        s.Rating = (double)reader["Rating"];
                     }
+                    catch { }
                     s.Confirmed = bool.Parse(reader["Confirmed"].ToString());
                     s.Email = reader["email"].ToString();
                     s.Phone = reader["phone"].ToString();
-                    
+                    s.TeacherId = (int)reader["TeacherId"];
+
+
                 }
                 catch
                 {
@@ -106,21 +112,59 @@ namespace ViewDB
             return SaveChanges(sqlstr) != 0;
 
         }
-        public void UpdateRating(int tid, int rating,string rewiew)
+        public object SelectScalar(string query)
         {
-            string sqlStr = "SELECT AVG(rating) FROM Ratings Where teacherID=" + tid;
-            List<Base> list = Select(sqlStr);
-            double avg = double.Parse(list[0].ToString());
-            string sqlStr2 = "SELECT COUNT(*) FROM Ratings Where teacherID=" + tid;
-            List<Base> list2 = Select(sqlStr2);
-            int count = int.Parse(list2[0].ToString());
-            avg = (avg * count + rating) / (count + 1);
-            string sqlStr3 = "Update Teacher Set Rating=" + avg + " Where id=" + tid;
+            try
+            {
+                connection.Open(); //was missing
+                command.CommandText = query;
+                reader = command.ExecuteReader();
+                //NULLבנתיים לא בודקים האם אחד השדות הוא 
+                while (reader.Read())
+                {
+                    return reader[0];
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message); //will word is every world, not only in world of Console
+
+                //the output - we'll see in the output window of VisualStudio
+            }
+            finally
+            {
+                if (reader != null)
+                    reader.Close();
+                if (connection.State == ConnectionState.Open)
+                    connection.Close();
+            }
+            return null;
+        }
+
+        public void UpdateRating(int tid, int rating, string review)
+        {
+            // Get current average
+            string sqlStr = $"SELECT AVG(Rating) FROM Ratings WHERE TeacherID = {tid}";
+            object avgObj = SelectScalar(sqlStr); // you need this helper
+            double avg = avgObj != DBNull.Value ? Convert.ToDouble(avgObj) : 0;
+
+            // Get current count
+            string sqlStr2 = $"SELECT COUNT(*) FROM Ratings WHERE TeacherID = {tid}";
+            object countObj = SelectScalar(sqlStr2); // you need this helper
+            int count = countObj != DBNull.Value ? Convert.ToInt32(countObj) : 0;
+
+            // Calculate new average
+            double newAvg = (avg * count + rating) / (count + 1);
+
+            // Update teacher rating
+            string sqlStr3 = $"UPDATE Teacher SET Rating = {newAvg} WHERE id = {tid}";
             SaveChanges(sqlStr3);
-            string sqlStr4 = "INSERT INTO Ratings ([teacherID], [rating], [rewiew]) " + "" +
-                $"VALUES ({tid}, {rating},'{rewiew}')";
+
+            // Insert new rating and review
+            string sqlStr4 = $"INSERT INTO Ratings (teacherID, rating, rewiew) VALUES ({tid}, {rating}, '{review.Replace("'", "''")}')";
             SaveChanges(sqlStr4);
         }
+
         public void UpdateTeacherId(int sid, int tid)
         {
             string sqlStr = "Update Student Set teacherId=" + tid + " Where id=" + sid;
@@ -154,20 +198,20 @@ namespace ViewDB
         }
         public bool IsConfirmed(int id)
         {
-            string sqlStr = "Select Confirmed From Student Where id=" + id;
+            string sqlStr = "Select * From Student Where id=" + id;
             List<UserInfo> list = Selectu(sqlStr);
             if (list.Count == 1)
             { return list[0].Confirmed; }
             else { return false; }
         }
-        public int GetTeacherId(int id)
-        {
-            string sqlStr = "Select teacherId From Student Where id=" + id;
-            List<Base> list = Select(sqlStr);
-            if (list.Count == 1)
-            { return int.Parse(list[0].Id.ToString()); }
-            else { return -1; }
-        }
+        //public int GetTeacherId(int id)
+        //{
+        //    string sqlStr = "Select teacherId From Student Where id=" + id;
+        //    List<Base> list = Select(sqlStr);
+        //    if (list.Count == 1)
+        //    { return int.Parse(list[0].Id.ToString()); }
+        //    else { return -1; }
+        //}
         public int GetUserID(string username, string table)
         {
             string sqlStr = "Select id From " + table + " Where username='" + username + "'";
@@ -215,15 +259,17 @@ namespace ViewDB
 
             return SaveChanges(sql) != 0;
         }
-
-
-        public Calendars GetTeacherCalendar(int teacherId)
+        public int GetTeacherId(int sid)
         {
-            string sqlStr = "Select * From Availability Where TeacherID=" + teacherId;
-            List<Base> list = Select(sqlStr);
+            string sql = "SELECT * FROM Student WHERE id=" + sid;
+            List<UserInfo> list = Selectu(sql);
             if (list.Count == 1)
-            { return (Calendars)list[0]; }
-            else { return null; }
+            { return list[0].TeacherId; }
+            else { return 0; }
         }
+
+
+
+
     }
 }
