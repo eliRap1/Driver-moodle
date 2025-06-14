@@ -18,10 +18,10 @@ namespace WcfServiceLibrary1
         private AllUsers allUsers = new AllUsers();
         private AllUsers allAdmins = new AllUsers();
         private ViewDB.CalnderDB calnderDB = new ViewDB.CalnderDB();
-        public bool AddUser(string name, string password,string email, string phone, bool admin,int tID)
+        public bool AddUser(string name, string password, string email, string phone, bool admin, int tID)
         {
             bool worked = false;
-            UserInfo user = allUsers.AddUser(name, password, email, phone, admin,tID);
+            UserInfo user = allUsers.AddUser(name, password, email, phone, admin, tID);
             if (user != null)
             {
                 if (user.IsAdmin)
@@ -31,12 +31,20 @@ namespace WcfServiceLibrary1
                     worked = userDB.AddStudent(user);
 
                 }
-                    
+
             }
             return worked;
 
         }
-        public void UpdateRating(int tid, int rating, string rewiew)
+        public void AddLessonToStudent(int id, string less)
+        {
+            userDB.AddLessonToStudent(id, less);
+        }
+        public string GetStudentLessons(int id)
+        {
+            return userDB.GetStudentLessons(id);
+        }
+    public void UpdateRating(int tid, int rating, string rewiew)
         {
             userDB.UpdateRating(tid, rating, rewiew);
         }

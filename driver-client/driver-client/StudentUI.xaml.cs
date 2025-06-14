@@ -69,7 +69,7 @@ namespace driver_client
 
         private void ViewLessons_Click(object sender, RoutedEventArgs e)
         {
-            // NavigationService.Navigate(new ViewLessonsPage());
+            page.Navigate(new ViewLessons());
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)

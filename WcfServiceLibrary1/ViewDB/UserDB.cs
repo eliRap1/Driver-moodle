@@ -73,7 +73,7 @@ namespace ViewDB
                     s.Email = reader["email"].ToString();
                     s.Phone = reader["phone"].ToString();
                     s.TeacherId = (int)reader["TeacherId"];
-
+                    s.Lessons = (string)reader["Lessons"];
 
                 }
                 catch
@@ -268,8 +268,22 @@ namespace ViewDB
             else { return 0; }
         }
 
-
-
+        public void AddLessonToStudent(int id,string less)
+        {
+            string sql = "insert into Student (Lessons) Values (',') where id=" + id;
+            SaveChanges(sql);
+            string all = GetStudentLessons(id)+less;
+            sql = "update Student set [lessons] ='" + all+",' where id=" + id;
+            SaveChanges(sql);
+        }
+        public string GetStudentLessons(int id)
+        {
+            string sql = "SELECT * from Student where id=" + id;
+            List<UserInfo> list = Selectu(sql);
+            if (list.Count == 1)
+            { return list[0].Lessons; }
+            else { return ""; }
+        }
 
     }
 }

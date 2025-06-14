@@ -63,6 +63,9 @@
     <Compile Include="CalendarTeacher.xaml.cs">
       <DependentUpon>CalendarTeacher.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Chat.xaml.cs">
+      <DependentUpon>Chat.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ChooseTeacher.xaml.cs">
       <DependentUpon>ChooseTeacher.xaml</DependentUpon>
     </Compile>
@@ -97,6 +100,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CalendarTeacher.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Chat.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

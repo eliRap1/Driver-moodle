@@ -58,7 +58,6 @@ namespace ViewDB
                     s.EndTime = reader["EndTime"].ToString();
                     s.AvailableDays = reader["availableDays"].ToString().Split(',').ToList();
 
-
                 }
                 catch
                 {

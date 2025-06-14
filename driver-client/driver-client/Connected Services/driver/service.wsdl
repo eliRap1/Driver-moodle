@@ -74,6 +74,18 @@
   <wsdl:message name="IService1_GetTeacherReviews_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetTeacherReviewsResponse" />
   </wsdl:message>
+  <wsdl:message name="IService1_GetStudentLessons_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetStudentLessons" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetStudentLessons_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetStudentLessonsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_AddLessonToStudent_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddLessonToStudent" />
+  </wsdl:message>
+  <wsdl:message name="IService1_AddLessonToStudent_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddLessonToStudentResponse" />
+  </wsdl:message>
   <wsdl:message name="IService1_UpdateRating_InputMessage">
     <wsdl:part name="parameters" element="tns:UpdateRating" />
   </wsdl:message>
@@ -154,6 +166,14 @@
     <wsdl:operation name="GetTeacherReviews">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetTeacherReviews" message="tns:IService1_GetTeacherReviews_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetTeacherReviewsResponse" message="tns:IService1_GetTeacherReviews_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStudentLessons">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetStudentLessons" message="tns:IService1_GetStudentLessons_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetStudentLessonsResponse" message="tns:IService1_GetStudentLessons_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddLessonToStudent">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/AddLessonToStudent" message="tns:IService1_AddLessonToStudent_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/AddLessonToStudentResponse" message="tns:IService1_AddLessonToStudent_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="UpdateRating">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/UpdateRating" message="tns:IService1_UpdateRating_InputMessage" />
@@ -274,6 +294,24 @@
     </wsdl:operation>
     <wsdl:operation name="GetTeacherReviews">
       <soap:operation soapAction="http://tempuri.org/IService1/GetTeacherReviews" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStudentLessons">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetStudentLessons" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddLessonToStudent">
+      <soap:operation soapAction="http://tempuri.org/IService1/AddLessonToStudent" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

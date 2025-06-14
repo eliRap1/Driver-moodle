@@ -26,5 +26,6 @@ namespace Model
         public string RatingText { get => ratingT; set => ratingT = value; }
         public string Rewiew { get; set; }
         public bool Confirmed { get; set; }
+        public string Lessons { get; set; }
     }
 }

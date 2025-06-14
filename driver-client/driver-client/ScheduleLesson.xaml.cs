@@ -1,6 +1,7 @@
 ﻿using driver_client.driver;
 using System;
 using System.Collections.Generic;
+using System.IO.Packaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -102,10 +103,12 @@ namespace driver_client
             }
 
             string selectedDate = lessonDatePicker.SelectedDate.Value.ToShortDateString();
-            string selectedTime = ((ComboBoxItem)lessonTimeComboBox.SelectedItem).Content.ToString();
-
+            string selectedTime = lessonTimeComboBox.SelectedItem.ToString();
+            driver.Service1Client srv = new driver.Service1Client();
+            string date = selectedDate + " " + selectedTime;
+            srv.AddLessonToStudent(LogIn.sign.Id, date);
             MessageBox.Show($"Lesson scheduled for {selectedDate} at {selectedTime}.");
-
+            page.Navigate(new StudentUI());
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)

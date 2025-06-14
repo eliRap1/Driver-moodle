@@ -147,6 +147,9 @@ namespace driver_client.driver {
         private bool IsAdminField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string LessonsField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string PasswordField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -202,6 +205,19 @@ namespace driver_client.driver {
                 if ((this.IsAdminField.Equals(value) != true)) {
                     this.IsAdminField = value;
                     this.RaisePropertyChanged("IsAdmin");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Lessons {
+            get {
+                return this.LessonsField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.LessonsField, value) != true)) {
+                    this.LessonsField = value;
+                    this.RaisePropertyChanged("Lessons");
                 }
             }
         }
@@ -375,6 +391,18 @@ namespace driver_client.driver {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetTeacherReviews", ReplyAction="http://tempuri.org/IService1/GetTeacherReviewsResponse")]
         System.Threading.Tasks.Task<string[]> GetTeacherReviewsAsync(int tid);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetStudentLessons", ReplyAction="http://tempuri.org/IService1/GetStudentLessonsResponse")]
+        string GetStudentLessons(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetStudentLessons", ReplyAction="http://tempuri.org/IService1/GetStudentLessonsResponse")]
+        System.Threading.Tasks.Task<string> GetStudentLessonsAsync(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddLessonToStudent", ReplyAction="http://tempuri.org/IService1/AddLessonToStudentResponse")]
+        void AddLessonToStudent(int id, string less);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddLessonToStudent", ReplyAction="http://tempuri.org/IService1/AddLessonToStudentResponse")]
+        System.Threading.Tasks.Task AddLessonToStudentAsync(int id, string less);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/UpdateRating", ReplyAction="http://tempuri.org/IService1/UpdateRatingResponse")]
         void UpdateRating(int tid, int rating, string rewiew);
         
@@ -525,6 +553,22 @@ namespace driver_client.driver {
         
         public System.Threading.Tasks.Task<string[]> GetTeacherReviewsAsync(int tid) {
             return base.Channel.GetTeacherReviewsAsync(tid);
+        }
+        
+        public string GetStudentLessons(int id) {
+            return base.Channel.GetStudentLessons(id);
+        }
+        
+        public System.Threading.Tasks.Task<string> GetStudentLessonsAsync(int id) {
+            return base.Channel.GetStudentLessonsAsync(id);
+        }
+        
+        public void AddLessonToStudent(int id, string less) {
+            base.Channel.AddLessonToStudent(id, less);
+        }
+        
+        public System.Threading.Tasks.Task AddLessonToStudentAsync(int id, string less) {
+            return base.Channel.AddLessonToStudentAsync(id, less);
         }
         
         public void UpdateRating(int tid, int rating, string rewiew) {

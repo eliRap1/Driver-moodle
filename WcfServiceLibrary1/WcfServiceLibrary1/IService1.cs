@@ -36,6 +36,10 @@ namespace WcfServiceLibrary1
         [OperationContract]
         List<string> GetTeacherReviews(int tid);
         [OperationContract]
+        string GetStudentLessons(int id);
+        [OperationContract]
+        void AddLessonToStudent(int id, string less);
+        [OperationContract]
         void UpdateRating(int tid, int rating, string rewiew);
         [OperationContract]
         bool IsConfirmed(int id);
