@@ -74,12 +74,16 @@ namespace driver_client
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
-            //NavigationService.GoBack();
+            System.Windows.Application.Current.Shutdown();
         }
 
         private void Review_Click(object sender, RoutedEventArgs e)
         {
             page.Navigate(new ChooseTeacher(false));
+        }
+        private void Chat_Click(object sender, RoutedEventArgs e)
+        {
+            page.Navigate(new Chat());
         }
     }
 

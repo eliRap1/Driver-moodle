@@ -1,86 +1,114 @@
 ﻿<Page x:Class="driver_client.ViewLessons"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      mc:Ignorable="d" 
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      mc:Ignorable="d"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ViewLessons"
       Background="#0E1A2B">
 
     <Grid Margin="20">
-        <!-- Background image -->
-        <Image Source="/picture/background.png"
-               Stretch="UniformToFill"
-               Opacity="0.06"
-               Panel.ZIndex="0"/>
-        <Button Content="← Back"
-        HorizontalAlignment="Left"
-        VerticalAlignment="Top"
-        Margin="0,10,0,0"
-        Width="80"
-        Background="#00E0FF"
-        Foreground="Black"
-        FontWeight="Bold"
-        BorderBrush="#00C0CC"
-        Cursor="Hand"
-        Click="BackButton_Click"/>
-        <StackPanel Panel.ZIndex="1">
-            <!-- Title -->
-            <TextBlock Text="My Lessons"
-                       FontSize="28"
-                       FontWeight="Bold"
-                       Foreground="#00E0FF"
-                       HorizontalAlignment="Center"
-                       Margin="0,0,0,20"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Title -->
+        <TextBlock Text="My Lessons"
+                   FontSize="32"
+                   FontWeight="Bold"
+                   Foreground="#00E0FF"
+                   HorizontalAlignment="Center"
+                   Margin="0,0,0,20"/>
+
+        <!-- Main Grid with Split Panels -->
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="5"/>
+                <!-- Splitter -->
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
             <!-- Upcoming Lessons -->
-            <TextBlock Text="Upcoming Lessons"
-                       FontSize="20"
-                       FontWeight="SemiBold"
-                       Foreground="White"
-                       Margin="0,0,0,10"/>
-            <DataGrid x:Name="UpcomingLessonsGrid"
-                      AutoGenerateColumns="False"
-                      CanUserAddRows="False"
-                      HeadersVisibility="Column"
-                      RowBackground="White"
-                      AlternatingRowBackground="#22354D"
-                      GridLinesVisibility="Horizontal"
-                      Foreground="Black"
-                      BorderBrush="#00E0FF"
-                      HorizontalAlignment="Stretch"
-                      Margin="0,0,0,5"
-                      Height="150">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Date" Binding="{Binding Date}" Width="*"/>
-                    <DataGridTextColumn Header="Time" Binding="{Binding Time}" Width="*"/>
-                </DataGrid.Columns>
-            </DataGrid>
+            <StackPanel Grid.Row="0" Margin="0,0,0,10">
+                <TextBlock Text="Upcoming Lessons"
+                           FontSize="22"
+                           FontWeight="Bold"
+                           Foreground="White"
+                           Margin="0,0,0,10"/>
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <DataGrid x:Name="UpcomingLessonsGrid"
+                              AutoGenerateColumns="False"
+                              IsReadOnly="True"
+                              Background="White"
+                              RowBackground="#E0F7FA"
+                              AlternatingRowBackground="#B2EBF2"
+                              FontSize="16"
+                              GridLinesVisibility="None"
+                              BorderBrush="#00E0FF"
+                              BorderThickness="1"
+                              MinHeight="150">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Date" Binding="{Binding Date}" Width="*" />
+                            <DataGridTextColumn Header="Time" Binding="{Binding Time}" Width="*" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </ScrollViewer>
+            </StackPanel>
+
+            <!-- Splitter -->
+            <GridSplitter Grid.Row="1"
+                          Height="5"
+                          Background="#00E0FF"
+                          ShowsPreview="True"
+                          HorizontalAlignment="Stretch"
+                          VerticalAlignment="Center"/>
 
             <!-- Completed Lessons -->
-            <TextBlock Text="Completed Lessons"
-                       FontSize="20"
-                       FontWeight="SemiBold"
-                       Foreground="White"
-                       Margin="0,10,0,10"/>
-            <DataGrid x:Name="CompletedLessonsGrid"
-                      AutoGenerateColumns="False"
-                      CanUserAddRows="False"
-                      HeadersVisibility="Column"
-                      RowBackground="White"
-                      AlternatingRowBackground="#22354D"
-                      GridLinesVisibility="Horizontal"
-                      Foreground="Black"
-                      BorderBrush="#00E0FF"
-                      HorizontalAlignment="Stretch"
-                      Height="150">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Date" Binding="{Binding Date}" Width="*"/>
-                    <DataGridTextColumn Header="Time" Binding="{Binding Time}" Width="*"/>
-                </DataGrid.Columns>
-            </DataGrid>
-        </StackPanel>
-        <Frame x:Name="page" Margin="-19,-21,-21,-19" Panel.ZIndex="100"/>
+            <StackPanel Grid.Row="2" Margin="0,10,0,0">
+                <TextBlock Text="Completed Lessons"
+                           FontSize="22"
+                           FontWeight="Bold"
+                           Foreground="White"
+                           Margin="0,0,0,10"/>
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <DataGrid x:Name="CompletedLessonsGrid"
+                              AutoGenerateColumns="False"
+                              IsReadOnly="True"
+                              Background="White"
+                              RowBackground="#F1F8E9"
+                              AlternatingRowBackground="#DCEDC8"
+                              FontSize="16"
+                              GridLinesVisibility="None"
+                              BorderBrush="#00E0FF"
+                              BorderThickness="1"
+                              MinHeight="150">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Date" Binding="{Binding Date}" Width="*" />
+                            <DataGridTextColumn Header="Time" Binding="{Binding Time}" Width="*" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </ScrollViewer>
+            </StackPanel>
+        </Grid>
+
+        <!-- Back Button -->
+        <Button Grid.Row="2"
+                Content="Back"
+                Click="BackButton_Click"
+                Background="#00E0FF"
+                Foreground="Black"
+                FontWeight="Bold"
+                FontSize="16"
+                Height="45"
+                Width="150"
+                HorizontalAlignment="Center"
+                Margin="0,20,0,0"
+                Cursor="Hand"/>
+        <Frame x:Name="page"  Panel.ZIndex="100" Margin="-22,-22,-21,-21" Grid.RowSpan="3"/>
+
     </Grid>
 </Page>

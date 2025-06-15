@@ -18,6 +18,7 @@ namespace driver_client.driver {
     [System.Runtime.Serialization.DataContractAttribute(Name="Base", Namespace="http://schemas.datacontract.org/2004/07/Model")]
     [System.SerializableAttribute()]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(driver_client.driver.Calendars))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(driver_client.driver.Chats))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(driver_client.driver.UserInfo))]
     public partial class Base : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -126,6 +127,109 @@ namespace driver_client.driver {
                 if ((object.ReferenceEquals(this.StartTimeField, value) != true)) {
                     this.StartTimeField = value;
                     this.RaisePropertyChanged("StartTime");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Chats", Namespace="http://schemas.datacontract.org/2004/07/ViewDB")]
+    [System.SerializableAttribute()]
+    public partial class Chats : driver_client.driver.Base {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsTeacherField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MessageField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime TimeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int UserIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UsernameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int id1Field;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsTeacher {
+            get {
+                return this.IsTeacherField;
+            }
+            set {
+                if ((this.IsTeacherField.Equals(value) != true)) {
+                    this.IsTeacherField = value;
+                    this.RaisePropertyChanged("IsTeacher");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Message {
+            get {
+                return this.MessageField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MessageField, value) != true)) {
+                    this.MessageField = value;
+                    this.RaisePropertyChanged("Message");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime Time {
+            get {
+                return this.TimeField;
+            }
+            set {
+                if ((this.TimeField.Equals(value) != true)) {
+                    this.TimeField = value;
+                    this.RaisePropertyChanged("Time");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int UserId {
+            get {
+                return this.UserIdField;
+            }
+            set {
+                if ((this.UserIdField.Equals(value) != true)) {
+                    this.UserIdField = value;
+                    this.RaisePropertyChanged("UserId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Username {
+            get {
+                return this.UsernameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UsernameField, value) != true)) {
+                    this.UsernameField = value;
+                    this.RaisePropertyChanged("Username");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Name="id")]
+        public int id1 {
+            get {
+                return this.id1Field;
+            }
+            set {
+                if ((this.id1Field.Equals(value) != true)) {
+                    this.id1Field = value;
+                    this.RaisePropertyChanged("id1");
                 }
             }
         }
@@ -433,6 +537,18 @@ namespace driver_client.driver {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/UpdateTeacherId", ReplyAction="http://tempuri.org/IService1/UpdateTeacherIdResponse")]
         System.Threading.Tasks.Task UpdateTeacherIdAsync(int sid, int tid);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddMessage", ReplyAction="http://tempuri.org/IService1/AddMessageResponse")]
+        void AddMessage(string message, int userid, string username, bool IsTeacher);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddMessage", ReplyAction="http://tempuri.org/IService1/AddMessageResponse")]
+        System.Threading.Tasks.Task AddMessageAsync(string message, int userid, string username, bool IsTeacher);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllChat", ReplyAction="http://tempuri.org/IService1/GetAllChatResponse")]
+        driver_client.driver.Chats[] GetAllChat();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllChat", ReplyAction="http://tempuri.org/IService1/GetAllChatResponse")]
+        System.Threading.Tasks.Task<driver_client.driver.Chats[]> GetAllChatAsync();
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddUser", ReplyAction="http://tempuri.org/IService1/AddUserResponse")]
         bool AddUser(string name, string password, string email, string phone, bool admin, int tID);
         
@@ -609,6 +725,22 @@ namespace driver_client.driver {
         
         public System.Threading.Tasks.Task UpdateTeacherIdAsync(int sid, int tid) {
             return base.Channel.UpdateTeacherIdAsync(sid, tid);
+        }
+        
+        public void AddMessage(string message, int userid, string username, bool IsTeacher) {
+            base.Channel.AddMessage(message, userid, username, IsTeacher);
+        }
+        
+        public System.Threading.Tasks.Task AddMessageAsync(string message, int userid, string username, bool IsTeacher) {
+            return base.Channel.AddMessageAsync(message, userid, username, IsTeacher);
+        }
+        
+        public driver_client.driver.Chats[] GetAllChat() {
+            return base.Channel.GetAllChat();
+        }
+        
+        public System.Threading.Tasks.Task<driver_client.driver.Chats[]> GetAllChatAsync() {
+            return base.Channel.GetAllChatAsync();
         }
         
         public bool AddUser(string name, string password, string email, string phone, bool admin, int tID) {

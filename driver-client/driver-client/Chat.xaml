@@ -22,14 +22,17 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
+
             <!-- רשימת הודעות -->
-            <ScrollViewer VerticalScrollBarVisibility="Auto"
-                          Margin="0,0,0,10">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,0,0,10">
                 <StackPanel x:Name="MessagesPanel"
-                            Margin="10"
-                            Orientation="Vertical"
-                            VerticalAlignment="Top"/>
+                Margin="10"
+                Orientation="Vertical"
+                VerticalAlignment="Top"
+                Background="Transparent"
+                />
             </ScrollViewer>
+
 
             <!-- שליחת הודעה -->
             <DockPanel Grid.Row="1" Margin="0,10,0,0">
@@ -56,6 +59,21 @@
                         Height="40"
                         Cursor="Hand"/>
             </DockPanel>
+
         </Grid>
+        <Button Content="← Back"
+HorizontalAlignment="Left"
+VerticalAlignment="Top"
+Margin="0,10,0,0"
+Width="80"
+Background="#00E0FF"
+Foreground="Black"
+FontWeight="Bold"
+BorderBrush="#00C0CC"
+Cursor="Hand"
+Click="BackButton_Click"
+                Panel.ZIndex="99"/>
+        <Frame x:Name="page"  Panel.ZIndex="100" Margin="-22,-22,-21,-21" Grid.RowSpan="3"/>
+
     </Grid>
 </Page>

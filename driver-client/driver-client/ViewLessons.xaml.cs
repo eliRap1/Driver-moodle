@@ -33,44 +33,48 @@ namespace driver_client
         }
         private void LoadLessons()
         {
-            driver.Service1Client client = new driver.Service1Client();
-
-            string dateAndTime = client.GetStudentLessons(LogIn.sign.Id);
-            string[] dateAndTimeSplit = dateAndTime.Split(',');
-            var upcomingLessons = new List<Lesson>();
-            DateTime dateNow = DateTime.Now;
-            int index = -1;
-            for(int i = 0; i < dateAndTimeSplit.Length; i++)
+            try
             {
-                DateTime lessonDate = DateTime.Parse(dateAndTimeSplit[i]);
-                if (lessonDate < dateNow)
+                driver.Service1Client client = new driver.Service1Client();
+
+                string dateAndTime = client.GetStudentLessons(LogIn.sign.Id);
+                string[] dateAndTimeSplit = dateAndTime.Split(',');
+                var upcomingLessons = new List<Lesson>();
+                DateTime dateNow = DateTime.Now;
+                int index = -1;
+                for(int i = 0; i < dateAndTimeSplit.Length; i++)
                 {
-                    string date = dateAndTimeSplit[i].Split(' ')[0];
-                    string time = dateAndTimeSplit[i].Split(' ')[1];
-                    upcomingLessons.Add(new Lesson { Date = date, Time = time});
-                }
-                else
-                {
-                    index = i;
-                    break;
-                }
+                    DateTime lessonDate = DateTime.Parse(dateAndTimeSplit[i]);
+                    if (lessonDate < dateNow)
+                    {
+                        string date = dateAndTimeSplit[i].Split(' ')[0];
+                        string time = dateAndTimeSplit[i].Split(' ')[1];
+                        upcomingLessons.Add(new Lesson { Date = date, Time = time});
+                    }
+                    else
+                    {
+                        index = i;
+                        break;
+                    }
                 
-            }
-            var completedLessons = new List<Lesson>();
-
-            for (int i = index; i < dateAndTimeSplit.Length; i++)
-            {
-                try
-                {
-                    string date = dateAndTimeSplit[i].Split(' ')[0];
-                    string time = dateAndTimeSplit[i].Split(' ')[1];
-                    completedLessons.Add(new Lesson { Date = date, Time = time});
                 }
-                catch { }
-            }
+                var completedLessons = new List<Lesson>();
 
-            UpcomingLessonsGrid.ItemsSource = upcomingLessons;
-            CompletedLessonsGrid.ItemsSource = completedLessons;
+                for (int i = index; i < dateAndTimeSplit.Length; i++)
+                {
+                    try
+                    {
+                        string date = dateAndTimeSplit[i].Split(' ')[0];
+                        string time = dateAndTimeSplit[i].Split(' ')[1];
+                        completedLessons.Add(new Lesson { Date = date, Time = time});
+                    }
+                    catch { }
+                }
+
+                UpcomingLessonsGrid.ItemsSource = completedLessons;
+                CompletedLessonsGrid.ItemsSource = upcomingLessons;
+            }
+            catch { }
         }
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {

@@ -41,5 +41,9 @@ namespace driver_client
         {
 
         }
+        private void Chat_Click(object sender, RoutedEventArgs e)
+        {
+            page.Navigate(new Chat());
+        }
     }
 }

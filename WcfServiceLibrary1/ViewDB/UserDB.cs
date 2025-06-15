@@ -273,7 +273,7 @@ namespace ViewDB
             string sql = "insert into Student (Lessons) Values (',') where id=" + id;
             SaveChanges(sql);
             string all = GetStudentLessons(id)+less;
-            sql = "update Student set [lessons] ='" + all+",' where id=" + id;
+            sql = "update Student set [lessons] ='," + all+",' where id=" + id;
             SaveChanges(sql);
         }
         public string GetStudentLessons(int id)

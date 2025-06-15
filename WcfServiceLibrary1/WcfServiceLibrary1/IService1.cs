@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using ViewDB;
 
 namespace WcfServiceLibrary1
 {
@@ -49,6 +50,10 @@ namespace WcfServiceLibrary1
         int GetTeacherId(int sid);
         [OperationContract]
         void UpdateTeacherId(int sid, int tid);
+        [OperationContract]
+        void AddMessage(string message, int userid, string username, bool IsTeacher);
+        [OperationContract]
+        List<Chats> GetAllChat();
         [OperationContract]
         bool AddUser(string name, string password, string email, string phone, bool admin, int tID);
     }

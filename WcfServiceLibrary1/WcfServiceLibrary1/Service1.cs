@@ -17,6 +17,7 @@ namespace WcfServiceLibrary1
         private ViewDB.UserDB userDB = new ViewDB.UserDB();
         private AllUsers allUsers = new AllUsers();
         private AllUsers allAdmins = new AllUsers();
+        private ChatDB chatDB = new ChatDB();
         private ViewDB.CalnderDB calnderDB = new ViewDB.CalnderDB();
         public bool AddUser(string name, string password, string email, string phone, bool admin, int tID)
         {
@@ -114,6 +115,14 @@ namespace WcfServiceLibrary1
         public int GetTeacherId(int studentId)
         {
             return userDB.GetTeacherId(studentId);
+        }
+        public List<Chats> GetAllChat()
+        {
+            return chatDB.GetAllChat();
+        }
+        public void AddMessage(string message, int userid, string username, bool IsTeacher)
+        {
+            chatDB.AddMessage(message, userid, username, IsTeacher);
         }
     }
 }
