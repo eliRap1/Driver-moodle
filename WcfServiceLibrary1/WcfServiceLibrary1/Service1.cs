@@ -18,6 +18,7 @@ namespace WcfServiceLibrary1
         private AllUsers allUsers = new AllUsers();
         private AllUsers allAdmins = new AllUsers();
         private ChatDB chatDB = new ChatDB();
+        private LessonsDB lessonsDB = new LessonsDB();
         private ViewDB.CalnderDB calnderDB = new ViewDB.CalnderDB();
         public bool AddUser(string name, string password, string email, string phone, bool admin, int tID)
         {
@@ -37,13 +38,21 @@ namespace WcfServiceLibrary1
             return worked;
 
         }
-        public void AddLessonToStudent(int id, string less)
+        public void MarkLessonPaid(int id)
         {
-            userDB.AddLessonToStudent(id, less);
+            lessonsDB.MarkLessonPaid(id);
         }
-        public string GetStudentLessons(int id)
+        public void AddLessonForStudent(int sid, string Date, string time)
         {
-            return userDB.GetStudentLessons(id);
+            lessonsDB.AddLessonForStudent(sid, Date, time);
+        }
+        public List<Lessons> GetAllStudentLessons(int id)
+        {
+            return lessonsDB.GetAllStudentLessons(id);
+        }
+        public List<Lessons> GetAllTeacherLessons(int tid)
+        {
+            return lessonsDB.GetAllTeacherLessons(tid);
         }
     public void UpdateRating(int tid, int rating, string rewiew)
         {

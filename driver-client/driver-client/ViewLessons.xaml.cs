@@ -1,84 +1,92 @@
-﻿using System;
+﻿using driver_client.driver;
+using System;
 using System.Collections.Generic;
-using System.IO.Packaging;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace driver_client
 {
-    /// <summary>
-    /// Interaction logic for ViewLessons.xaml
-    /// </summary>
     public partial class ViewLessons : Page
     {
+        // Display model for the grid
         public class Lesson
         {
+            public int LessonId { get; set; }
             public string Date { get; set; }
             public string Time { get; set; }
+            public string Paid { get; set; }
         }
+
         public ViewLessons()
         {
             InitializeComponent();
             LoadLessons();
         }
+
         private void LoadLessons()
         {
             try
             {
-                driver.Service1Client client = new driver.Service1Client();
+                var client = new Service1Client();
+                List<Lessons> allLessons = client.GetAllStudentLessons(LogIn.sign.Id).ToList();
+                DateTime now = DateTime.Now;
 
-                string dateAndTime = client.GetStudentLessons(LogIn.sign.Id);
-                string[] dateAndTimeSplit = dateAndTime.Split(',');
                 var upcomingLessons = new List<Lesson>();
-                DateTime dateNow = DateTime.Now;
-                int index = -1;
-                for(int i = 0; i < dateAndTimeSplit.Length; i++)
-                {
-                    DateTime lessonDate = DateTime.Parse(dateAndTimeSplit[i]);
-                    if (lessonDate < dateNow)
-                    {
-                        string date = dateAndTimeSplit[i].Split(' ')[0];
-                        string time = dateAndTimeSplit[i].Split(' ')[1];
-                        upcomingLessons.Add(new Lesson { Date = date, Time = time});
-                    }
-                    else
-                    {
-                        index = i;
-                        break;
-                    }
-                
-                }
                 var completedLessons = new List<Lesson>();
 
-                for (int i = index; i < dateAndTimeSplit.Length; i++)
+                foreach (var lesson in allLessons)
                 {
-                    try
+                    if (DateTime.TryParse($"{lesson.Date} {lesson.Time}", out DateTime lessonDateTime))
                     {
-                        string date = dateAndTimeSplit[i].Split(' ')[0];
-                        string time = dateAndTimeSplit[i].Split(' ')[1];
-                        completedLessons.Add(new Lesson { Date = date, Time = time});
+                        var item = new Lesson
+                        {
+                            LessonId = lesson.LessonId,
+                            Date = lessonDateTime.ToString("dd-MM-yyyy"),
+                            Time = lessonDateTime.ToString("HH:mm"),
+                            Paid = lesson.paid ? "Yes" : "No"
+                        };
+
+                        if (lessonDateTime >= now)
+                            upcomingLessons.Add(item);
+                        else
+                            completedLessons.Add(item);
                     }
-                    catch { }
                 }
 
-                UpcomingLessonsGrid.ItemsSource = completedLessons;
-                CompletedLessonsGrid.ItemsSource = upcomingLessons;
+                UpcomingLessonsGrid.ItemsSource = upcomingLessons;
+                CompletedLessonsGrid.ItemsSource = completedLessons;
             }
-            catch { }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to load lessons.\n" + ex.Message,
+                                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
+
+        private void MarkPaid_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button btn && btn.DataContext is Lesson lesson)
+            {
+                try
+                {
+                    var client = new Service1Client();
+                    client.MarkLessonPaid(lesson.LessonId);  // implement on server side
+                    LoadLessons();                            // refresh grids
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Failed to mark lesson as paid.\n" + ex.Message,
+                                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
             page.Navigate(new StudentUI());
         }
+
+        
     }
 }

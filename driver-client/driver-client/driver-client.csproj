@@ -69,6 +69,7 @@
     <Compile Include="ChooseTeacher.xaml.cs">
       <DependentUpon>ChooseTeacher.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ImgConventer.cs" />
     <Compile Include="Rewiews.xaml.cs">
       <DependentUpon>Rewiews.xaml</DependentUpon>
     </Compile>
@@ -197,6 +198,9 @@
     <None Include="Connected Services\driver\driver_client.driver.City.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Connected Services\driver\driver_client.driver.Lessons.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\driver\driver_client.driver.StudentsList.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -256,6 +260,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="picture\background1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="picture\check.jpg" />
+    <Resource Include="picture\cross.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

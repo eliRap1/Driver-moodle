@@ -18,6 +18,7 @@ namespace driver_client.driver {
     [System.Runtime.Serialization.DataContractAttribute(Name="Base", Namespace="http://schemas.datacontract.org/2004/07/Model")]
     [System.SerializableAttribute()]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(driver_client.driver.Calendars))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(driver_client.driver.Lessons))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(driver_client.driver.Chats))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(driver_client.driver.UserInfo))]
     public partial class Base : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -127,6 +128,109 @@ namespace driver_client.driver {
                 if ((object.ReferenceEquals(this.StartTimeField, value) != true)) {
                     this.StartTimeField = value;
                     this.RaisePropertyChanged("StartTime");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Lessons", Namespace="http://schemas.datacontract.org/2004/07/ViewDB")]
+    [System.SerializableAttribute()]
+    public partial class Lessons : driver_client.driver.Base {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int LessonIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int StudentIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int TeacherIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TimeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool paidField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Date {
+            get {
+                return this.DateField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DateField, value) != true)) {
+                    this.DateField = value;
+                    this.RaisePropertyChanged("Date");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int LessonId {
+            get {
+                return this.LessonIdField;
+            }
+            set {
+                if ((this.LessonIdField.Equals(value) != true)) {
+                    this.LessonIdField = value;
+                    this.RaisePropertyChanged("LessonId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int StudentId {
+            get {
+                return this.StudentIdField;
+            }
+            set {
+                if ((this.StudentIdField.Equals(value) != true)) {
+                    this.StudentIdField = value;
+                    this.RaisePropertyChanged("StudentId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int TeacherId {
+            get {
+                return this.TeacherIdField;
+            }
+            set {
+                if ((this.TeacherIdField.Equals(value) != true)) {
+                    this.TeacherIdField = value;
+                    this.RaisePropertyChanged("TeacherId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Time {
+            get {
+                return this.TimeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TimeField, value) != true)) {
+                    this.TimeField = value;
+                    this.RaisePropertyChanged("Time");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool paid {
+            get {
+                return this.paidField;
+            }
+            set {
+                if ((this.paidField.Equals(value) != true)) {
+                    this.paidField = value;
+                    this.RaisePropertyChanged("paid");
                 }
             }
         }
@@ -495,17 +599,23 @@ namespace driver_client.driver {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetTeacherReviews", ReplyAction="http://tempuri.org/IService1/GetTeacherReviewsResponse")]
         System.Threading.Tasks.Task<string[]> GetTeacherReviewsAsync(int tid);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetStudentLessons", ReplyAction="http://tempuri.org/IService1/GetStudentLessonsResponse")]
-        string GetStudentLessons(int id);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllStudentLessons", ReplyAction="http://tempuri.org/IService1/GetAllStudentLessonsResponse")]
+        driver_client.driver.Lessons[] GetAllStudentLessons(int id);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetStudentLessons", ReplyAction="http://tempuri.org/IService1/GetStudentLessonsResponse")]
-        System.Threading.Tasks.Task<string> GetStudentLessonsAsync(int id);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllStudentLessons", ReplyAction="http://tempuri.org/IService1/GetAllStudentLessonsResponse")]
+        System.Threading.Tasks.Task<driver_client.driver.Lessons[]> GetAllStudentLessonsAsync(int id);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddLessonToStudent", ReplyAction="http://tempuri.org/IService1/AddLessonToStudentResponse")]
-        void AddLessonToStudent(int id, string less);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllTeacherLessons", ReplyAction="http://tempuri.org/IService1/GetAllTeacherLessonsResponse")]
+        driver_client.driver.Lessons[] GetAllTeacherLessons(int tid);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddLessonToStudent", ReplyAction="http://tempuri.org/IService1/AddLessonToStudentResponse")]
-        System.Threading.Tasks.Task AddLessonToStudentAsync(int id, string less);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllTeacherLessons", ReplyAction="http://tempuri.org/IService1/GetAllTeacherLessonsResponse")]
+        System.Threading.Tasks.Task<driver_client.driver.Lessons[]> GetAllTeacherLessonsAsync(int tid);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddLessonForStudent", ReplyAction="http://tempuri.org/IService1/AddLessonForStudentResponse")]
+        void AddLessonForStudent(int sid, string Date, string time);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddLessonForStudent", ReplyAction="http://tempuri.org/IService1/AddLessonForStudentResponse")]
+        System.Threading.Tasks.Task AddLessonForStudentAsync(int sid, string Date, string time);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/UpdateRating", ReplyAction="http://tempuri.org/IService1/UpdateRatingResponse")]
         void UpdateRating(int tid, int rating, string rewiew);
@@ -536,6 +646,12 @@ namespace driver_client.driver {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/UpdateTeacherId", ReplyAction="http://tempuri.org/IService1/UpdateTeacherIdResponse")]
         System.Threading.Tasks.Task UpdateTeacherIdAsync(int sid, int tid);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/MarkLessonPaid", ReplyAction="http://tempuri.org/IService1/MarkLessonPaidResponse")]
+        void MarkLessonPaid(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/MarkLessonPaid", ReplyAction="http://tempuri.org/IService1/MarkLessonPaidResponse")]
+        System.Threading.Tasks.Task MarkLessonPaidAsync(int id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddMessage", ReplyAction="http://tempuri.org/IService1/AddMessageResponse")]
         void AddMessage(string message, int userid, string username, bool IsTeacher);
@@ -671,20 +787,28 @@ namespace driver_client.driver {
             return base.Channel.GetTeacherReviewsAsync(tid);
         }
         
-        public string GetStudentLessons(int id) {
-            return base.Channel.GetStudentLessons(id);
+        public driver_client.driver.Lessons[] GetAllStudentLessons(int id) {
+            return base.Channel.GetAllStudentLessons(id);
         }
         
-        public System.Threading.Tasks.Task<string> GetStudentLessonsAsync(int id) {
-            return base.Channel.GetStudentLessonsAsync(id);
+        public System.Threading.Tasks.Task<driver_client.driver.Lessons[]> GetAllStudentLessonsAsync(int id) {
+            return base.Channel.GetAllStudentLessonsAsync(id);
         }
         
-        public void AddLessonToStudent(int id, string less) {
-            base.Channel.AddLessonToStudent(id, less);
+        public driver_client.driver.Lessons[] GetAllTeacherLessons(int tid) {
+            return base.Channel.GetAllTeacherLessons(tid);
         }
         
-        public System.Threading.Tasks.Task AddLessonToStudentAsync(int id, string less) {
-            return base.Channel.AddLessonToStudentAsync(id, less);
+        public System.Threading.Tasks.Task<driver_client.driver.Lessons[]> GetAllTeacherLessonsAsync(int tid) {
+            return base.Channel.GetAllTeacherLessonsAsync(tid);
+        }
+        
+        public void AddLessonForStudent(int sid, string Date, string time) {
+            base.Channel.AddLessonForStudent(sid, Date, time);
+        }
+        
+        public System.Threading.Tasks.Task AddLessonForStudentAsync(int sid, string Date, string time) {
+            return base.Channel.AddLessonForStudentAsync(sid, Date, time);
         }
         
         public void UpdateRating(int tid, int rating, string rewiew) {
@@ -725,6 +849,14 @@ namespace driver_client.driver {
         
         public System.Threading.Tasks.Task UpdateTeacherIdAsync(int sid, int tid) {
             return base.Channel.UpdateTeacherIdAsync(sid, tid);
+        }
+        
+        public void MarkLessonPaid(int id) {
+            base.Channel.MarkLessonPaid(id);
+        }
+        
+        public System.Threading.Tasks.Task MarkLessonPaidAsync(int id) {
+            return base.Channel.MarkLessonPaidAsync(id);
         }
         
         public void AddMessage(string message, int userid, string username, bool IsTeacher) {

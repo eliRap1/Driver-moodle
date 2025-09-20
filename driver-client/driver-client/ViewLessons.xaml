@@ -3,112 +3,148 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:driver_client"
       mc:Ignorable="d"
-      d:DesignHeight="450" d:DesignWidth="800"
       Title="ViewLessons"
-      Background="#0E1A2B">
+      Background="#0E1A2B"
+      d:DesignHeight="600" d:DesignWidth="900">
 
-    <Grid Margin="20">
+    <Page.Resources>
+        <local:ImgConventer x:Key="ImgConventer"/>
+    </Page.Resources>
+
+    <Grid Background="#F5F5F5" Margin="-4,3,-6,-2">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="57*"/>
+            <RowDefinition Height="455*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <!-- Title -->
-        <TextBlock Text="My Lessons"
-                   FontSize="32"
+        <TextBlock Text="📘 Your Driving Lessons"
+                   FontSize="28"
                    FontWeight="Bold"
-                   Foreground="#00E0FF"
+                   Foreground="#333"
                    HorizontalAlignment="Center"
-                   Margin="0,0,0,20"/>
+                   Margin="0,10" Grid.Row="0"/>
 
-        <!-- Main Grid with Split Panels -->
-        <Grid Grid.Row="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="5"/>
-                <!-- Splitter -->
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
+        <Grid Grid.Row="1" Margin="0,20,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
             <!-- Upcoming Lessons -->
-            <StackPanel Grid.Row="0" Margin="0,0,0,10">
-                <TextBlock Text="Upcoming Lessons"
-                           FontSize="22"
-                           FontWeight="Bold"
-                           Foreground="White"
-                           Margin="0,0,0,10"/>
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <Border Grid.Column="0" Padding="10" Background="White" CornerRadius="10" BorderBrush="#DDD" BorderThickness="1">
+                <DockPanel>
+                    <TextBlock Text="Upcoming Lessons"
+                               FontSize="20"
+                               FontWeight="Bold"
+                               Margin="0,0,0,10"
+                               DockPanel.Dock="Top"/>
                     <DataGrid x:Name="UpcomingLessonsGrid"
                               AutoGenerateColumns="False"
                               IsReadOnly="True"
-                              Background="White"
-                              RowBackground="#E0F7FA"
-                              AlternatingRowBackground="#B2EBF2"
-                              FontSize="16"
+                              CanUserAddRows="False"
+                              RowBackground="#E3F2FD"
+                              AlternatingRowBackground="#BBDEFB"
+                              FontSize="14"
+                              HeadersVisibility="Column"
                               GridLinesVisibility="None"
-                              BorderBrush="#00E0FF"
-                              BorderThickness="1"
-                              MinHeight="150">
+                              ColumnHeaderHeight="30">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Date" Binding="{Binding Date}" Width="*" />
-                            <DataGridTextColumn Header="Time" Binding="{Binding Time}" Width="*" />
+                            <DataGridTextColumn Header="ID" Binding="{Binding LessonId}" Width="50"/>
+                            <DataGridTextColumn Header="Date" Binding="{Binding Date}" Width="120"/>
+                            <DataGridTextColumn Header="Time" Binding="{Binding Time}" Width="80"/>
+                            <DataGridTemplateColumn Header="Paid" Width="40">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image Width="16" Height="16"
+                                               Source="{Binding Paid, Converter={StaticResource ImgConventer}}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Action" Width="110">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="Mark as Paid"
+                                                Padding="4,2"
+                                                Margin="4,0"
+                                                Click="MarkPaid_Click"
+                                                Visibility="{Binding Paid, Converter={StaticResource ImgConventer}, ConverterParameter=Visibility}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
-                </ScrollViewer>
-            </StackPanel>
-
-            <!-- Splitter -->
-            <GridSplitter Grid.Row="1"
-                          Height="5"
-                          Background="#00E0FF"
-                          ShowsPreview="True"
-                          HorizontalAlignment="Stretch"
-                          VerticalAlignment="Center"/>
+                </DockPanel>
+            </Border>
 
             <!-- Completed Lessons -->
-            <StackPanel Grid.Row="2" Margin="0,10,0,0">
-                <TextBlock Text="Completed Lessons"
-                           FontSize="22"
-                           FontWeight="Bold"
-                           Foreground="White"
-                           Margin="0,0,0,10"/>
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <Border Grid.Column="1" Padding="10" Background="White" CornerRadius="10" BorderBrush="#DDD" BorderThickness="1">
+                <DockPanel>
+                    <TextBlock Text="Completed Lessons"
+                               FontSize="20"
+                               FontWeight="Bold"
+                               Margin="0,0,0,10"
+                               DockPanel.Dock="Top"/>
                     <DataGrid x:Name="CompletedLessonsGrid"
                               AutoGenerateColumns="False"
                               IsReadOnly="True"
-                              Background="White"
+                              CanUserAddRows="False"
                               RowBackground="#F1F8E9"
                               AlternatingRowBackground="#DCEDC8"
-                              FontSize="16"
+                              FontSize="14"
+                              HeadersVisibility="Column"
                               GridLinesVisibility="None"
-                              BorderBrush="#00E0FF"
-                              BorderThickness="1"
-                              MinHeight="150">
+                              ColumnHeaderHeight="30">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Date" Binding="{Binding Date}" Width="*" />
-                            <DataGridTextColumn Header="Time" Binding="{Binding Time}" Width="*" />
+                            <DataGridTextColumn Header="ID" Binding="{Binding LessonId}" Width="50"/>
+                            <DataGridTextColumn Header="Date" Binding="{Binding Date}" Width="120"/>
+                            <DataGridTextColumn Header="Time" Binding="{Binding Time}" Width="80"/>
+                            <DataGridTemplateColumn Header="Paid" Width="40">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image Width="16" Height="16"
+                                               Source="{Binding Paid, Converter={StaticResource ImgConventer}}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Action" Width="110">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="Mark as Paid"
+                                                Padding="4,2"
+                                                Margin="4,0"
+                                                Click="MarkPaid_Click"
+                                                Visibility="{Binding Paid, Converter={StaticResource ImgConventer}, ConverterParameter=Visibility}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
-                </ScrollViewer>
-            </StackPanel>
+                </DockPanel>
+            </Border>
         </Grid>
 
         <!-- Back Button -->
-        <Button Grid.Row="2"
-                Content="Back"
-                Click="BackButton_Click"
+        <Button Content="Back"
+                Grid.Row="2"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Padding="10,5"
+                Margin="0,20,0,0"
+                Width="80"
+                Height="30"
                 Background="#00E0FF"
                 Foreground="Black"
-                FontWeight="Bold"
                 FontSize="16"
-                Height="45"
-                Width="150"
-                HorizontalAlignment="Center"
-                Margin="0,20,0,0"
-                Cursor="Hand"/>
-        <Frame x:Name="page"  Panel.ZIndex="100" Margin="-22,-22,-21,-21" Grid.RowSpan="3"/>
+                FontWeight="SemiBold"
+                BorderBrush="#00C0CC"
+                BorderThickness="1"
+                Cursor="Hand"
+                Click="BackButton_Click"/>
 
+        <Frame x:Name="page" Panel.ZIndex="100"  Margin="-19,-20,-20,-20" Grid.RowSpan="3"/>
     </Grid>
 </Page>

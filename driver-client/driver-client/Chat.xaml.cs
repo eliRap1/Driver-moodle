@@ -33,7 +33,10 @@ namespace driver_client
         }
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            page.Navigate(new StudentUI());
+            if(LogIn.sign.IsTeacher)
+                page.Navigate(new TeacherUI());
+            else
+                page.Navigate(new StudentUI());
         }
         private void Send_Click(object sender, RoutedEventArgs e)
         {

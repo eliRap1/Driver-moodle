@@ -1,6 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/ViewDB" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/ViewDB" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import namespace="http://schemas.datacontract.org/2004/07/Model" />
+  <xs:complexType name="ArrayOfLessons">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Lessons" nillable="true" type="tns:Lessons" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLessons" nillable="true" type="tns:ArrayOfLessons" />
+  <xs:complexType name="Lessons">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q1="http://schemas.datacontract.org/2004/07/Model" base="q1:Base">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Date" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="LessonId" type="xs:int" />
+          <xs:element minOccurs="0" name="StudentId" type="xs:int" />
+          <xs:element minOccurs="0" name="TeacherId" type="xs:int" />
+          <xs:element minOccurs="0" name="Time" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="paid" type="xs:boolean" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Lessons" nillable="true" type="tns:Lessons" />
   <xs:complexType name="ArrayOfChats">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="Chats" nillable="true" type="tns:Chats" />
@@ -9,7 +30,7 @@
   <xs:element name="ArrayOfChats" nillable="true" type="tns:ArrayOfChats" />
   <xs:complexType name="Chats">
     <xs:complexContent mixed="false">
-      <xs:extension xmlns:q1="http://schemas.datacontract.org/2004/07/Model" base="q1:Base">
+      <xs:extension xmlns:q2="http://schemas.datacontract.org/2004/07/Model" base="q2:Base">
         <xs:sequence>
           <xs:element minOccurs="0" name="IsTeacher" type="xs:boolean" />
           <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />

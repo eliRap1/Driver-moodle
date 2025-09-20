@@ -156,29 +156,44 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="GetStudentLessons">
+  <xs:element name="GetAllStudentLessons">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="id" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="GetStudentLessonsResponse">
+  <xs:element name="GetAllStudentLessonsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="GetStudentLessonsResult" nillable="true" type="xs:string" />
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/ViewDB" minOccurs="0" name="GetAllStudentLessonsResult" nillable="true" type="q7:ArrayOfLessons" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="AddLessonToStudent">
+  <xs:element name="GetAllTeacherLessons">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="id" type="xs:int" />
-        <xs:element minOccurs="0" name="less" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="tid" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="AddLessonToStudentResponse">
+  <xs:element name="GetAllTeacherLessonsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/ViewDB" minOccurs="0" name="GetAllTeacherLessonsResult" nillable="true" type="q8:ArrayOfLessons" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddLessonForStudent">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="sid" type="xs:int" />
+        <xs:element minOccurs="0" name="Date" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="time" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddLessonForStudentResponse">
     <xs:complexType>
       <xs:sequence />
     </xs:complexType>
@@ -221,7 +236,7 @@
   <xs:element name="GetTeacherStudentsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/Model" minOccurs="0" name="GetTeacherStudentsResult" nillable="true" type="q7:ArrayOfUserInfo" />
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/Model" minOccurs="0" name="GetTeacherStudentsResult" nillable="true" type="q9:ArrayOfUserInfo" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -252,6 +267,18 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
+  <xs:element name="MarkLessonPaid">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="id" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="MarkLessonPaidResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
   <xs:element name="AddMessage">
     <xs:complexType>
       <xs:sequence>
@@ -275,7 +302,7 @@
   <xs:element name="GetAllChatResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/ViewDB" minOccurs="0" name="GetAllChatResult" nillable="true" type="q8:ArrayOfChats" />
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/ViewDB" minOccurs="0" name="GetAllChatResult" nillable="true" type="q10:ArrayOfChats" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

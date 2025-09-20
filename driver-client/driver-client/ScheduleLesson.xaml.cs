@@ -33,9 +33,9 @@ namespace driver_client
 
             driver.Service1Client srv = new driver.Service1Client();
 
-            int id = srv.GetTeacherId(LogIn.sign.Id); //this not work idk why
-            Calendars cal = srv.GetTeacherCalendar(id); //this works
-            
+            int id = srv.GetTeacherId(LogIn.sign.Id); 
+            Calendars cal = srv.GetTeacherCalendar(id);
+            List<Lessons> lessons = srv.GetAllStudentLessons(LogIn.sign.Id).ToList();
             if (cal != null)
             {
                 unavailableDates = cal.DatesUnavailable != null ? cal.DatesUnavailable.ToList() : new List<string>();
@@ -51,6 +51,12 @@ namespace driver_client
             }
             while (endTime >= startTime)
             {
+                if (HasTime(startTime, lessons))
+                {
+                    //lessonTimeComboBox.Items.Add("Unavailable");
+                    startTime = startTime.AddHours(1);
+                    continue;
+                }
                 lessonTimeComboBox.Items.Add(startTime.ToString("HH:mm"));
                 startTime = startTime.AddHours(1);
             }
@@ -62,7 +68,18 @@ namespace driver_client
 
             DisableUnavailableDates();
         }
-
+        private bool HasTime(DateTime startTime, List<Lessons> lessons)
+        {
+            foreach (var lesson in lessons)
+            {
+                if (DateTime.TryParse($"{lesson.Date} {lesson.Time}", out DateTime lessonDateTime))
+                {
+                    if (lessonDateTime.Hour == startTime.Hour && lessonDateTime.Minute == startTime.Minute)
+                        return true;
+                }
+            }
+            return false;
+        }
         private void DisableUnavailableDates()
         {
             foreach (var dateStr in unavailableDates)
@@ -105,8 +122,7 @@ namespace driver_client
             string selectedDate = lessonDatePicker.SelectedDate.Value.ToShortDateString();
             string selectedTime = lessonTimeComboBox.SelectedItem.ToString();
             driver.Service1Client srv = new driver.Service1Client();
-            string date = selectedDate + " " + selectedTime;
-            srv.AddLessonToStudent(LogIn.sign.Id, date);
+            srv.AddLessonForStudent(LogIn.sign.Id, selectedDate, selectedTime);
             MessageBox.Show($"Lesson scheduled for {selectedDate} at {selectedTime}.");
             page.Navigate(new StudentUI());
         }

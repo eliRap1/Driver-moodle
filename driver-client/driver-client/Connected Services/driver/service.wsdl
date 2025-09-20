@@ -75,17 +75,23 @@
   <wsdl:message name="IService1_GetTeacherReviews_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetTeacherReviewsResponse" />
   </wsdl:message>
-  <wsdl:message name="IService1_GetStudentLessons_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetStudentLessons" />
+  <wsdl:message name="IService1_GetAllStudentLessons_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllStudentLessons" />
   </wsdl:message>
-  <wsdl:message name="IService1_GetStudentLessons_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetStudentLessonsResponse" />
+  <wsdl:message name="IService1_GetAllStudentLessons_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllStudentLessonsResponse" />
   </wsdl:message>
-  <wsdl:message name="IService1_AddLessonToStudent_InputMessage">
-    <wsdl:part name="parameters" element="tns:AddLessonToStudent" />
+  <wsdl:message name="IService1_GetAllTeacherLessons_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllTeacherLessons" />
   </wsdl:message>
-  <wsdl:message name="IService1_AddLessonToStudent_OutputMessage">
-    <wsdl:part name="parameters" element="tns:AddLessonToStudentResponse" />
+  <wsdl:message name="IService1_GetAllTeacherLessons_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllTeacherLessonsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_AddLessonForStudent_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddLessonForStudent" />
+  </wsdl:message>
+  <wsdl:message name="IService1_AddLessonForStudent_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddLessonForStudentResponse" />
   </wsdl:message>
   <wsdl:message name="IService1_UpdateRating_InputMessage">
     <wsdl:part name="parameters" element="tns:UpdateRating" />
@@ -116,6 +122,12 @@
   </wsdl:message>
   <wsdl:message name="IService1_UpdateTeacherId_OutputMessage">
     <wsdl:part name="parameters" element="tns:UpdateTeacherIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_MarkLessonPaid_InputMessage">
+    <wsdl:part name="parameters" element="tns:MarkLessonPaid" />
+  </wsdl:message>
+  <wsdl:message name="IService1_MarkLessonPaid_OutputMessage">
+    <wsdl:part name="parameters" element="tns:MarkLessonPaidResponse" />
   </wsdl:message>
   <wsdl:message name="IService1_AddMessage_InputMessage">
     <wsdl:part name="parameters" element="tns:AddMessage" />
@@ -180,13 +192,17 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetTeacherReviews" message="tns:IService1_GetTeacherReviews_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetTeacherReviewsResponse" message="tns:IService1_GetTeacherReviews_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetStudentLessons">
-      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetStudentLessons" message="tns:IService1_GetStudentLessons_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetStudentLessonsResponse" message="tns:IService1_GetStudentLessons_OutputMessage" />
+    <wsdl:operation name="GetAllStudentLessons">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetAllStudentLessons" message="tns:IService1_GetAllStudentLessons_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetAllStudentLessonsResponse" message="tns:IService1_GetAllStudentLessons_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="AddLessonToStudent">
-      <wsdl:input wsaw:Action="http://tempuri.org/IService1/AddLessonToStudent" message="tns:IService1_AddLessonToStudent_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IService1/AddLessonToStudentResponse" message="tns:IService1_AddLessonToStudent_OutputMessage" />
+    <wsdl:operation name="GetAllTeacherLessons">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetAllTeacherLessons" message="tns:IService1_GetAllTeacherLessons_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetAllTeacherLessonsResponse" message="tns:IService1_GetAllTeacherLessons_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddLessonForStudent">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/AddLessonForStudent" message="tns:IService1_AddLessonForStudent_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/AddLessonForStudentResponse" message="tns:IService1_AddLessonForStudent_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="UpdateRating">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/UpdateRating" message="tns:IService1_UpdateRating_InputMessage" />
@@ -207,6 +223,10 @@
     <wsdl:operation name="UpdateTeacherId">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/UpdateTeacherId" message="tns:IService1_UpdateTeacherId_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/UpdateTeacherIdResponse" message="tns:IService1_UpdateTeacherId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="MarkLessonPaid">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/MarkLessonPaid" message="tns:IService1_MarkLessonPaid_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/MarkLessonPaidResponse" message="tns:IService1_MarkLessonPaid_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="AddMessage">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/AddMessage" message="tns:IService1_AddMessage_InputMessage" />
@@ -322,8 +342,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetStudentLessons">
-      <soap:operation soapAction="http://tempuri.org/IService1/GetStudentLessons" style="document" />
+    <wsdl:operation name="GetAllStudentLessons">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetAllStudentLessons" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -331,8 +351,17 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="AddLessonToStudent">
-      <soap:operation soapAction="http://tempuri.org/IService1/AddLessonToStudent" style="document" />
+    <wsdl:operation name="GetAllTeacherLessons">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetAllTeacherLessons" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddLessonForStudent">
+      <soap:operation soapAction="http://tempuri.org/IService1/AddLessonForStudent" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -378,6 +407,15 @@
     </wsdl:operation>
     <wsdl:operation name="UpdateTeacherId">
       <soap:operation soapAction="http://tempuri.org/IService1/UpdateTeacherId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MarkLessonPaid">
+      <soap:operation soapAction="http://tempuri.org/IService1/MarkLessonPaid" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
