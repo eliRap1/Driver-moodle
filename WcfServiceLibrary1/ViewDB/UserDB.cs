@@ -17,38 +17,7 @@ namespace ViewDB
         {
             return new UserInfo();
         }
-        
-        protected List<UserInfo> Selectu(string sqlCommandTxt)
-        {
-            List<UserInfo> list = new List<UserInfo>();
-            try
-            {
-                connection.Open(); //was missing
-                command.CommandText = sqlCommandTxt;
-                reader = command.ExecuteReader();
-                //NULLבנתיים לא בודקים האם אחד השדות הוא 
-                while (reader.Read())
-                {
-                    UserInfo entity = new UserInfo(); //יוצר אובייקט מטיפוס המתאים
-                    CreateModel(entity);
-                    list.Add(entity);
-                }
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine(ex.Message); //will word is every world, not only in world of Console
-
-                //the output - we'll see in the output window of VisualStudio
-            }
-            finally
-            {
-                if (reader != null)
-                    reader.Close();
-                if (connection.State == ConnectionState.Open)
-                    connection.Close();
-            }
-            return list;
-        }
+      
         protected override void CreateModel(Base entity)
         {
             base.CreateModel(entity);
@@ -85,7 +54,7 @@ namespace ViewDB
         public UserInfo GetUserById(int id, string table)
         {
             string sqlStr = "Select * From " +table+ " Where id=" + id;
-            List<UserInfo> list = Selectu(sqlStr);
+            List<UserInfo> list = Select(sqlStr).OfType<UserInfo>().ToList();
             if (list.Count == 1)
             { return (UserInfo)list[0]; }
             else { return null; }
@@ -108,7 +77,7 @@ namespace ViewDB
             string table = "Teacher"; 
             string sqlstr = "";
             sqlstr = $"INSERT INTO " + table + " ([username], [password], [email], [phone],[Rating]) " + "" +
-                $"VALUES ('{user.Username}', '{user.Password}','{user.Email}' ,'{user.Phone},{user.Rating}')";
+                $"VALUES ('{user.Username}', '{user.Password}','{user.Email}' ,'{user.Phone}',{user.Rating})";
             return SaveChanges(sqlstr) != 0;
 
         }
@@ -193,13 +162,13 @@ namespace ViewDB
         public List<UserInfo> GetTeacherStudents(int tid)
         {
             string sqlStr = "Select * From Student Where teacherId=" + tid;
-            List<UserInfo> list = Selectu(sqlStr);
+            List<UserInfo> list = Select(sqlStr).OfType<UserInfo>().ToList();
             return list;
         }
         public bool IsConfirmed(int id)
         {
             string sqlStr = "Select * From Student Where id=" + id;
-            List<UserInfo> list = Selectu(sqlStr);
+            List<UserInfo> list = Select(sqlStr).OfType<UserInfo>().ToList();
             if (list.Count == 1)
             { return list[0].Confirmed; }
             else { return false; }
@@ -262,7 +231,7 @@ namespace ViewDB
         public int GetTeacherId(int sid)
         {
             string sql = "SELECT * FROM Student WHERE id=" + sid;
-            List<UserInfo> list = Selectu(sql);
+            List<UserInfo> list = Select(sql).OfType<UserInfo>().ToList();
             if (list.Count == 1)
             { return list[0].TeacherId; }
             else { return 0; }
@@ -279,7 +248,7 @@ namespace ViewDB
         public string GetStudentLessons(int id)
         {
             string sql = "SELECT * from Student where id=" + id;
-            List<UserInfo> list = Selectu(sql);
+            List<UserInfo> list = Select(sql).OfType<UserInfo>().ToList();
             if (list.Count == 1)
             { return list[0].Lessons; }
             else { return ""; }

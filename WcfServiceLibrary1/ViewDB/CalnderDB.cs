@@ -14,37 +14,6 @@ namespace ViewDB
         {
             return new Calendars();
         }
-        protected List<Calendars> SelectCal(string sqlCommandTxt)
-        {
-            List<Calendars> list = new List<Calendars>();
-            try
-            {
-                connection.Open(); //was missing
-                command.CommandText = sqlCommandTxt;
-                reader = command.ExecuteReader();
-                //NULLבנתיים לא בודקים האם אחד השדות הוא 
-                while (reader.Read())
-                {
-                    Calendars entity = new Calendars(); //יוצר אובייקט מטיפוס המתאים
-                    CreateModel(entity);
-                    list.Add(entity);
-                }
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine(ex.Message); //will word is every world, not only in world of Console
-
-                //the output - we'll see in the output window of VisualStudio
-            }
-            finally
-            {
-                if (reader != null)
-                    reader.Close();
-                if (connection.State == ConnectionState.Open)
-                    connection.Close();
-            }
-            return list;
-        }
         protected override void CreateModel(Base entity)
         {
             base.CreateModel(entity);
@@ -68,7 +37,7 @@ namespace ViewDB
         public Calendars GetTeacherCalendar(int teacherId)
         {
             string sqlStr = "Select * From Availability Where TeacherID=" + teacherId;
-            List<Calendars> list = SelectCal(sqlStr);
+            List<Calendars> list = Select(sqlStr).OfType<Calendars>().ToList(); ;
             if (list.Count == 1)
             { return (Calendars)list[0]; }
             else { return null; }

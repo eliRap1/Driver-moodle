@@ -27,37 +27,6 @@ namespace ViewDB
             return new Lessons();
         }
 
-        protected List<Lessons> SelectLessons(string sqlCommandTxt)
-        {
-            List<Lessons> list = new List<Lessons>();
-            try
-            {
-                connection.Open(); //was missing
-                command.CommandText = sqlCommandTxt;
-                reader = command.ExecuteReader();
-                //NULLבנתיים לא בודקים האם אחד השדות הוא 
-                while (reader.Read())
-                {
-                    Lessons entity = new Lessons(); //יוצר אובייקט מטיפוס המתאים
-                    CreateModel(entity);
-                    list.Add(entity);
-                }
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine(ex.Message); //will word is every world, not only in world of Console
-
-                //the output - we'll see in the output window of VisualStudio
-            }
-            finally
-            {
-                if (reader != null)
-                    reader.Close();
-                if (connection.State == ConnectionState.Open)
-                    connection.Close();
-            }
-            return list;
-        }
         protected override void CreateModel(Base entity)
         {
             base.CreateModel(entity);
@@ -83,13 +52,13 @@ namespace ViewDB
         public List<Lessons> GetAllTeacherLessons(int tid)
         {
             string sql = "Select * From Lessons where TeacherID=" + tid;
-            List<Lessons> list = SelectLessons(sql);
+            List<Lessons> list = Select(sql).OfType<Lessons>().ToList();
             return list;
         }
         public List<Lessons> GetAllStudentLessons(int sid)
         {
             string sql = "Select * From Lessons where StudentID=" + sid;
-            List<Lessons> list = SelectLessons(sql);
+            List<Lessons> list = Select(sql).OfType<Lessons>().ToList();
             return list;
         }
         public void AddLessonForStudent(int sid,string Date,string time)
@@ -97,7 +66,7 @@ namespace ViewDB
             UserDB udb = new UserDB();
             int tid = udb.GetTeacherId(sid);
             string sql = $"Select * From Lessons where TeacherID={tid} and StudentID= {sid}";
-            List<Lessons> lst = SelectLessons(sql);
+            List<Lessons> lst = Select(sql).OfType<Lessons>().ToList();
             int lesID = lst.Capacity + 1;
             sql = $"INSERT into Lessons (StudentID, TeacherID,[Date],[Time],LessonsID,paid) VALUES ({sid},{tid},'{Date}','{time}',{lesID},false)";
             SaveChanges(sql);

@@ -14,23 +14,32 @@ namespace WcfServiceLibrary1
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "Service1" in both code and config file together.
     public class Service1 : IService1
     {
-        private ViewDB.UserDB userDB = new ViewDB.UserDB();
-        private AllUsers allUsers = new AllUsers();
-        private AllUsers allAdmins = new AllUsers();
-        private ChatDB chatDB = new ChatDB();
-        private LessonsDB lessonsDB = new LessonsDB();
-        private ViewDB.CalnderDB calnderDB = new ViewDB.CalnderDB();
+        private ViewDB.UserDB userDB = null;// new ViewDB.UserDB();
+        private AllUsers allUsers = null;//new AllUsers();
+        private AllUsers allAdmins = null;//new AllUsers();
+        private ChatDB chatDB = null;//new ChatDB();
+        private LessonsDB lessonsDB = null;//new LessonsDB();
+        private ViewDB.CalnderDB calnderDB = null;//new ViewDB.CalnderDB();
         public bool AddUser(string name, string password, string email, string phone, bool admin, int tID)
         {
             bool worked = false;
-            UserInfo user = allUsers.AddUser(name, password, email, phone, admin, tID);
+
+
+            //TEST. should be created and fill in client by binding
+            UserInfo user = new UserInfo();
+            user.Username = name;
+            user.Password = password;
+            user.Email = email;
+            //worked = new ViewDB.UserDB().AddUser(user);
+
+            user = allUsers.AddUser(name, password, email, phone, admin, tID);
             if (user != null)
             {
                 if (user.IsAdmin)
-                    worked = userDB.AddUser(user);
+                    worked = new ViewDB.UserDB().AddUser(user);
                 else
                 {
-                    worked = userDB.AddStudent(user);
+                    worked = new ViewDB.UserDB().AddStudent(user);
 
                 }
 
@@ -40,98 +49,98 @@ namespace WcfServiceLibrary1
         }
         public void MarkLessonPaid(int id)
         {
-            lessonsDB.MarkLessonPaid(id);
+            new LessonsDB().MarkLessonPaid(id);
         }
         public void AddLessonForStudent(int sid, string Date, string time)
         {
-            lessonsDB.AddLessonForStudent(sid, Date, time);
+            new LessonsDB().AddLessonForStudent(sid, Date, time);
         }
         public List<Lessons> GetAllStudentLessons(int id)
         {
-            return lessonsDB.GetAllStudentLessons(id);
+            return new LessonsDB().GetAllStudentLessons(id);
         }
         public List<Lessons> GetAllTeacherLessons(int tid)
         {
-            return lessonsDB.GetAllTeacherLessons(tid);
+            return new LessonsDB().GetAllTeacherLessons(tid);
         }
     public void UpdateRating(int tid, int rating, string rewiew)
         {
-            userDB.UpdateRating(tid, rating, rewiew);
+            new ViewDB.UserDB().UpdateRating(tid, rating, rewiew);
         }
         public List<string> GetTeacherReviews(int tid)
         {
-            return userDB.GetTeacherReviews(tid);
+            return new ViewDB.UserDB().GetTeacherReviews(tid);
         }
         public void UpdateTeacherId(int sid, int tid)
         {
-            userDB.UpdateTeacherId(sid, tid);
+            new ViewDB.UserDB().UpdateTeacherId(sid, tid);
         }
         public AllUsers GetAllTeacher()
         {
-            return userDB.GetAllTeacher();
+            return new ViewDB.UserDB().GetAllTeacher();
         }
         public void TeacherConfirm(int id, int tID)
         {
-            userDB.TeacherConfirm(id, tID);
+            new ViewDB.UserDB().TeacherConfirm(id, tID);
         }
         public List<UserInfo> GetTeacherStudents(int tid)
         {
-            return userDB.GetTeacherStudents(tid);
+            return new ViewDB.UserDB().GetTeacherStudents(tid);
         }
         public bool IsConfirmed(int id)
         {
-            return userDB.IsConfirmed(id);
+            return new ViewDB.UserDB().IsConfirmed(id);
         }
         public bool CheckUserExist(string username)
         {
-            allUsers = userDB.GetAllStudents();
-            allAdmins = userDB.GetAllTeacher();
+            allUsers = new ViewDB.UserDB().GetAllStudents();
+            allAdmins = new ViewDB.UserDB().GetAllTeacher();
             return allUsers.Any(x => x.Username == username) || allAdmins.Any(x => x.Username == username);
         }
         public bool CheckUserPassword(string username, string password)
         {
-            allUsers = userDB.GetAllStudents();
-            allAdmins = userDB.GetAllTeacher();
+            allUsers = new ViewDB.UserDB().GetAllStudents();
+            allAdmins = new ViewDB.UserDB().GetAllTeacher();
             return allUsers.Any(x => x.Username == username && x.Password == password) || allAdmins.Any(x => x.Username == username && x.Password == password);
         }
         public UserInfo GetUserById(int id, string table)
         {
-            UserInfo user = userDB.GetUserById(id, table);
+            UserInfo user = new ViewDB.UserDB().GetUserById(id, table);
             return user;
         }
         public bool CheckUserAdmin(string username)
         {
-            allAdmins = userDB.GetAllTeacher();
+            allAdmins = new ViewDB.UserDB().GetAllTeacher();
             return allAdmins.Any(x => x.Username == username);
         }
         public AllUsers GetAllUsers()
         {
-            AllUsers allUsers = userDB.GetAllStudents();
+            AllUsers allUsers = new ViewDB.UserDB().GetAllStudents();
             return allUsers;
         }
         public int GetUserID(string username, string table)
         {
-            return userDB.GetUserID(username, table);
+            return new ViewDB.UserDB().GetUserID(username, table);
         }
         public bool SetTeacherCalendar(Calendars cal, int teacherId)
         {
-            return userDB.SetTeacherCalendar(cal, teacherId);
+            return new ViewDB.UserDB().SetTeacherCalendar(cal, teacherId);
         }
         public Calendars GetTeacherCalendar(int teacherId)
         {
-            return calnderDB.GetTeacherCalendar(teacherId);
+            return new ViewDB.CalnderDB().GetTeacherCalendar(teacherId);
         }
         public int GetTeacherId(int studentId)
         {
-            return userDB.GetTeacherId(studentId);
+            return new ViewDB.UserDB().GetTeacherId(studentId);
         }
         public List<Chats> GetAllChat()
         {
-            return chatDB.GetAllChat();
+            return new ChatDB().GetAllChat();
         }
         public void AddMessage(string message, int userid, string username, bool IsTeacher)
         {
-            chatDB.AddMessage(message, userid, username, IsTeacher);
+            new ChatDB().AddMessage(message, userid, username, IsTeacher);
         }
     }
 }

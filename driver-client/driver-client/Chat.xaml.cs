@@ -20,6 +20,7 @@ namespace driver_client
             RefreshTimer.Interval = TimeSpan.FromSeconds(3);
             RefreshTimer.Tick += RefreshMessages;
             RefreshTimer.Start();
+            MessageList.ScrollToEnd();
         }
         private void RefreshMessages(object sender, EventArgs e)
         {
@@ -47,6 +48,7 @@ namespace driver_client
                 srv.AddMessage(message, LogIn.sign.Id, LogIn.sign.Username, LogIn.sign.IsTeacher);
                 AddMessage(LogIn.sign.Username, message, LogIn.sign.IsTeacher, DateTime.Now);
                 MessageTextBox.Clear();
+                MessageList.ScrollToEnd();
             }
         }
 
