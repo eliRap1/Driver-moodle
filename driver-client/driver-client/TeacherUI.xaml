@@ -15,8 +15,9 @@
                Stretch="UniformToFill"
                Opacity="0.06"
                Panel.ZIndex="0"/>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,0,0,10">
 
-        <StackPanel Panel.ZIndex="1"
+            <StackPanel Panel.ZIndex="1"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center"
                     Width="320">
@@ -47,6 +48,17 @@
                     BorderBrush="#00C0CC"
                     Cursor="Hand"
                     Click="Students_Click"/>
+            
+            <Button Content="Lessons Schedule"
+                    Margin="0,10"
+                    Width="280" Height="50"
+                    FontSize="18"
+                    FontWeight="SemiBold"
+                    Background="#00E0FF"
+                    Foreground="Black"
+                    BorderBrush="#00C0CC"
+                    Cursor="Hand"
+                    Click="Schedule_Click"/>
 
             <Button Content="Calendar"
                     Margin="0,10"
@@ -82,7 +94,7 @@
                 Click="Chat_Click"/>
 
         </StackPanel>
-
+        </ScrollViewer>
         <!-- Navigation Frame -->
         <Frame x:Name="page" Panel.ZIndex="100" Margin="-19,-21,-21,-19"/>
     </Grid>

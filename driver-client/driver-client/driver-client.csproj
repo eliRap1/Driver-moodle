@@ -89,6 +89,9 @@
     <Compile Include="TeacherUI.xaml.cs">
       <DependentUpon>TeacherUI.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Teacher_Schedule.xaml.cs">
+      <DependentUpon>Teacher_Schedule.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ValidationRules.cs" />
     <Compile Include="ViewLessons.xaml.cs">
       <DependentUpon>ViewLessons.xaml</DependentUpon>
@@ -150,6 +153,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="TeacherUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Teacher_Schedule.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

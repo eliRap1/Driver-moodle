@@ -41,6 +41,11 @@ namespace driver_client
         {
 
         }
+        private void Schedule_Click(object sender, RoutedEventArgs e)
+        {
+            page.Navigate(new Teacher_Schedule());
+        }
+        
         private void Chat_Click(object sender, RoutedEventArgs e)
         {
             page.Navigate(new Chat());

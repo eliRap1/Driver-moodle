@@ -1,12 +1,13 @@
-﻿using Model;
-using BusinessLogic;
-using ViewDB;
+﻿using BusinessLogic;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Security.Cryptography;
 using System.ServiceModel;
 using System.Text;
+using ViewDB;
 using WcfServiceLibrary1.ContractTypes;
 
 namespace WcfServiceLibrary1
@@ -47,6 +48,10 @@ namespace WcfServiceLibrary1
             return worked;
 
         }
+        //public List<Lessons> GetAllTeacherLessonsForDate(int tid, string date)
+        //{
+        //    return new LessonsDB().GetAllTeacherLessonsForDate(tid, date);
+        //}
         public void MarkLessonPaid(int id)
         {
             new LessonsDB().MarkLessonPaid(id);

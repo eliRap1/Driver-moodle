@@ -55,6 +55,12 @@ namespace ViewDB
             List<Lessons> list = Select(sql).OfType<Lessons>().ToList();
             return list;
         }
+        public List<Lessons> GetAllTeacherLessonsForDate(int tid, string date)
+        {
+            string sql = "Select * From Lessons where TeacherID=" + tid + " and Date='" + date + "'";
+            List<Lessons> list = Select(sql).OfType<Lessons>().ToList();
+            return list;
+        }
         public List<Lessons> GetAllStudentLessons(int sid)
         {
             string sql = "Select * From Lessons where StudentID=" + sid;

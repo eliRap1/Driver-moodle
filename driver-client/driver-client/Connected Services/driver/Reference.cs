@@ -665,6 +665,12 @@ namespace driver_client.driver {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllChat", ReplyAction="http://tempuri.org/IService1/GetAllChatResponse")]
         System.Threading.Tasks.Task<driver_client.driver.Chats[]> GetAllChatAsync();
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllTeacherLessonsForDate", ReplyAction="http://tempuri.org/IService1/GetAllTeacherLessonsForDateResponse")]
+        driver_client.driver.Lessons[] GetAllTeacherLessonsForDate(int tid, string date);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllTeacherLessonsForDate", ReplyAction="http://tempuri.org/IService1/GetAllTeacherLessonsForDateResponse")]
+        System.Threading.Tasks.Task<driver_client.driver.Lessons[]> GetAllTeacherLessonsForDateAsync(int tid, string date);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddUser", ReplyAction="http://tempuri.org/IService1/AddUserResponse")]
         bool AddUser(string name, string password, string email, string phone, bool admin, int tID);
         
@@ -873,6 +879,14 @@ namespace driver_client.driver {
         
         public System.Threading.Tasks.Task<driver_client.driver.Chats[]> GetAllChatAsync() {
             return base.Channel.GetAllChatAsync();
+        }
+        
+        public driver_client.driver.Lessons[] GetAllTeacherLessonsForDate(int tid, string date) {
+            return base.Channel.GetAllTeacherLessonsForDate(tid, date);
+        }
+        
+        public System.Threading.Tasks.Task<driver_client.driver.Lessons[]> GetAllTeacherLessonsForDateAsync(int tid, string date) {
+            return base.Channel.GetAllTeacherLessonsForDateAsync(tid, date);
         }
         
         public bool AddUser(string name, string password, string email, string phone, bool admin, int tID) {

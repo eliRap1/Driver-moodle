@@ -58,6 +58,8 @@ namespace WcfServiceLibrary1
         void AddMessage(string message, int userid, string username, bool IsTeacher);
         [OperationContract]
         List<Chats> GetAllChat();
+        //[OperationContract]
+        //List<Lessons> GetAllTeacherLessonsForDate(int tid, string date);
         [OperationContract]
         bool AddUser(string name, string password, string email, string phone, bool admin, int tID);
     }

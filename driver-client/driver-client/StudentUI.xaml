@@ -8,7 +8,8 @@
       Title="StudentUI"
       Background="#0E1A2B">
 
-    <Grid x:Name="MainGrid" Margin="20">
+    <Grid x:Name="MainGrid" >
+        <Frame x:Name="page" Panel.ZIndex="100"/>
         <!-- Background image -->
         <Image Source="/picture/background.png"
                Stretch="UniformToFill"
@@ -114,7 +115,7 @@
             
         </StackPanel>
         </ScrollViewer>
-        <Frame x:Name="page" Margin="-19,-21,-21,-19" Panel.ZIndex="100"/>
+        
     </Grid>
     
 </Page>
