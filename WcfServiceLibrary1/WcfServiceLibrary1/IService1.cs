@@ -57,11 +57,27 @@ namespace WcfServiceLibrary1
         [OperationContract]
         void AddMessage(string message, int userid, string username, bool IsTeacher);
         [OperationContract]
-        List<Chats> GetAllChat();
-        //[OperationContract]
-        //List<Lessons> GetAllTeacherLessonsForDate(int tid, string date);
+        void AddMessageGlobal(string message, int userid, string username, bool IsTeacher);
         [OperationContract]
-        bool AddUser(string name, string password, string email, string phone, bool admin, int tID);
+        List<Chats> GetAllChatGlobal();
+        [OperationContract]
+        List<Chats> GetChatPrivate(int studentid, int teacherid);
+        [OperationContract]
+        void AddMessagePrivate(string message, int studentid, int teacherid, string username);
+        [OperationContract]
+        bool CheckPaid(int id);
+        [OperationContract]
+        void Pay(Payment payment);
+        [OperationContract]
+        List<Payment> SelectPaymentByPaymentID(int id);
+        [OperationContract]
+        List<Payment> SelectPaymentByTeacherID(int id);
+        [OperationContract]
+        List<Calendars> TeacherSpacialDays(int teacherId);
+        [OperationContract]
+        List<Calendars> GetTeacherUnavailableDates(int teacherId);
+        [OperationContract]
+        List<Payment> SelectPaymentByStudentID(int id);
     }
 
 

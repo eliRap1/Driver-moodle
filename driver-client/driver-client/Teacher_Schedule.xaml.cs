@@ -60,12 +60,12 @@ namespace driver_client
                     var item = new Lesson
                     {
                         LessonId = lesson.LessonId,
-                        Date = lessonDateTime.ToString("dd-MM-yyyy"),
+                        Date = lessonDateTime.ToString("dd/MM/yyyy"),
                         Time = lessonDateTime.ToString("HH:mm"),
                         Status = lesson.paid ? "Yes" : "No"
                     };
 
-                    if (lessonDateTime == selectedDate)
+                    if (lessonDateTime.Date == selectedDate.Date)
                         dateLessons.Add(item);
                     historyLessons.Add(item);
                 }

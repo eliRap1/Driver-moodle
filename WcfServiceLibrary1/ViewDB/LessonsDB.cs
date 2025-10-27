@@ -55,12 +55,12 @@ namespace ViewDB
             List<Lessons> list = Select(sql).OfType<Lessons>().ToList();
             return list;
         }
-        public List<Lessons> GetAllTeacherLessonsForDate(int tid, string date)
-        {
-            string sql = "Select * From Lessons where TeacherID=" + tid + " and Date='" + date + "'";
-            List<Lessons> list = Select(sql).OfType<Lessons>().ToList();
-            return list;
-        }
+        //public List<Lessons> GetAllTeacherLessonsForDate(int tid, string date)
+        //{
+        //    string sql = "Select * From Lessons where TeacherID=" + tid + " and Date='" + date + "'";
+        //    List<Lessons> list = Select(sql).OfType<Lessons>().ToList();
+        //    return list;
+        //}
         public List<Lessons> GetAllStudentLessons(int sid)
         {
             string sql = "Select * From Lessons where StudentID=" + sid;
@@ -71,10 +71,10 @@ namespace ViewDB
         {
             UserDB udb = new UserDB();
             int tid = udb.GetTeacherId(sid);
-            string sql = $"Select * From Lessons where TeacherID={tid} and StudentID= {sid}";
-            List<Lessons> lst = Select(sql).OfType<Lessons>().ToList();
-            int lesID = lst.Capacity + 1;
-            sql = $"INSERT into Lessons (StudentID, TeacherID,[Date],[Time],LessonsID,paid) VALUES ({sid},{tid},'{Date}','{time}',{lesID},false)";
+            //string sql = $"Select * From Lessons where TeacherID={tid} and StudentID= {sid}";//
+            //List<Lessons> lst = Select(sql).OfType<Lessons>().ToList();//
+            //int lesID = lst.Capacity + 1;//pretty useless (just use auto number) in the acsses
+            string sql = $"INSERT into Lessons (StudentID, TeacherID,[Date],[Time],paid) VALUES ({sid},{tid},'{Date}','{time}',0)";
             SaveChanges(sql);
         }
         public void MarkLessonPaid(int id)
@@ -82,6 +82,7 @@ namespace ViewDB
             string sql = $"Update Lessons set paid={true} where id={id}";
             SaveChanges(sql);
         }
+        
 
     }
 }

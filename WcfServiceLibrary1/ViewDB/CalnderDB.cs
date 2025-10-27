@@ -26,6 +26,10 @@ namespace ViewDB
                     s.StartTime = reader["StartTime"].ToString();
                     s.EndTime = reader["EndTime"].ToString();
                     s.AvailableDays = reader["availableDays"].ToString().Split(',').ToList();
+                    s.WorkingHours = reader["WorkingHours"].ToString().Split(',').ToList();
+                    s.SelectedDay = reader["selectedDays"].ToString();
+                    s.AllDay = bool.Parse(reader["AllDay"].ToString());
+                    s.Teacherid = int.Parse(reader["TeacherID"].ToString());
 
                 }
                 catch
@@ -42,5 +46,19 @@ namespace ViewDB
             { return (Calendars)list[0]; }
             else { return null; }
         }
+        public List<Calendars> GetTeacherUnavailableDates(int teacherId)
+        {
+            string sqlStr = "SELECT * FROM TeacherUnavailableDate WHERE TeacherID = " + teacherId;
+            List<Calendars> list = Select(sqlStr).OfType<Calendars>().ToList();
+            return list;
+        }
+
+        public List<Calendars> TeacherSpacialDays(int teacherId)
+        {
+            string sqlStr = "SELECT * FROM TeacherSpacialDays WHERE TeacherID = " + teacherId;
+            List<Calendars> list = Select(sqlStr).OfType<Calendars>().ToList();
+            return list;
+        }
+
     }
 }

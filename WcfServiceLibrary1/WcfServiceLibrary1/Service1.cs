@@ -139,13 +139,50 @@ namespace WcfServiceLibrary1
         {
             return new ViewDB.UserDB().GetTeacherId(studentId);
         }
-        public List<Chats> GetAllChat()
+        public List<Chats> GetAllChatGlobal()
         {
-            return new ChatDB().GetAllChat();
+            return new ChatDB().GetAllChatGlobal();
         }
-        public void AddMessage(string message, int userid, string username, bool IsTeacher)
+        public void AddMessageGlobal(string message, int userid, string username, bool IsTeacher)
         {
-            new ChatDB().AddMessage(message, userid, username, IsTeacher);
+            new ChatDB().AddMessageGlobal(message, userid, username, IsTeacher);
+        }
+        public List<Chats> GetChatPrivate(int studentid, int teacherid)
+        {
+            return new ChatDB().GetChatPrivate(studentid, teacherid);
+        }
+        public void AddMessagePrivate(string message, int studentid, int teacherid,string username)
+        {
+            new ChatDB().AddMessagePrivate(message, studentid, teacherid, username);
+        }
+
+        public List<Payment> SelectPaymentByStudentID(int id)
+        {
+            return new PaymentDB().SelectPaymentByStudentID(id);
+        }
+        public List<Payment> SelectPaymentByTeacherID(int id)
+        {
+            return new PaymentDB().SelectPaymentByTeacherID(id);
+        }
+        public List<Payment> SelectPaymentByPaymentID(int id)
+        {
+            return new PaymentDB().SelectPaymentByPaymentID(id);
+        }
+        public void Pay(Payment payment)
+        {
+            new PaymentDB().Pay(payment);
+        }
+        public bool CheckPaid(int id)
+        {
+            return new PaymentDB().CheckPaid(id);
+        }
+        public List<Calendars> GetTeacherUnavailableDates(int teacherId)
+        {
+            return new ViewDB.CalnderDB().GetTeacherUnavailableDates(teacherId);
+        }
+        public List<Calendars> TeacherSpacialDays(int teacherId)
+        {
+            return new ViewDB.CalnderDB().TeacherSpacialDays(teacherId);
         }
     }
 }
