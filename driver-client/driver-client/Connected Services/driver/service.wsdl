@@ -129,29 +129,77 @@
   <wsdl:message name="IService1_MarkLessonPaid_OutputMessage">
     <wsdl:part name="parameters" element="tns:MarkLessonPaidResponse" />
   </wsdl:message>
-  <wsdl:message name="IService1_AddMessage_InputMessage">
-    <wsdl:part name="parameters" element="tns:AddMessage" />
+  <wsdl:message name="IService1_AddMessageGlobal_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddMessageGlobal" />
   </wsdl:message>
-  <wsdl:message name="IService1_AddMessage_OutputMessage">
-    <wsdl:part name="parameters" element="tns:AddMessageResponse" />
+  <wsdl:message name="IService1_AddMessageGlobal_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddMessageGlobalResponse" />
   </wsdl:message>
-  <wsdl:message name="IService1_GetAllChat_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetAllChat" />
+  <wsdl:message name="IService1_GetAllChatGlobal_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllChatGlobal" />
   </wsdl:message>
-  <wsdl:message name="IService1_GetAllChat_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetAllChatResponse" />
+  <wsdl:message name="IService1_GetAllChatGlobal_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllChatGlobalResponse" />
   </wsdl:message>
-  <wsdl:message name="IService1_GetAllTeacherLessonsForDate_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetAllTeacherLessonsForDate" />
+  <wsdl:message name="IService1_GetChatPrivate_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetChatPrivate" />
   </wsdl:message>
-  <wsdl:message name="IService1_GetAllTeacherLessonsForDate_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetAllTeacherLessonsForDateResponse" />
+  <wsdl:message name="IService1_GetChatPrivate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetChatPrivateResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_AddMessagePrivate_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddMessagePrivate" />
+  </wsdl:message>
+  <wsdl:message name="IService1_AddMessagePrivate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddMessagePrivateResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_CheckPaid_InputMessage">
+    <wsdl:part name="parameters" element="tns:CheckPaid" />
+  </wsdl:message>
+  <wsdl:message name="IService1_CheckPaid_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CheckPaidResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_Pay_InputMessage">
+    <wsdl:part name="parameters" element="tns:Pay" />
+  </wsdl:message>
+  <wsdl:message name="IService1_Pay_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PayResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_SelectPaymentByPaymentID_InputMessage">
+    <wsdl:part name="parameters" element="tns:SelectPaymentByPaymentID" />
+  </wsdl:message>
+  <wsdl:message name="IService1_SelectPaymentByPaymentID_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SelectPaymentByPaymentIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_SelectPaymentByTeacherID_InputMessage">
+    <wsdl:part name="parameters" element="tns:SelectPaymentByTeacherID" />
+  </wsdl:message>
+  <wsdl:message name="IService1_SelectPaymentByTeacherID_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SelectPaymentByTeacherIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_TeacherSpacialDays_InputMessage">
+    <wsdl:part name="parameters" element="tns:TeacherSpacialDays" />
+  </wsdl:message>
+  <wsdl:message name="IService1_TeacherSpacialDays_OutputMessage">
+    <wsdl:part name="parameters" element="tns:TeacherSpacialDaysResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetTeacherUnavailableDates_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTeacherUnavailableDates" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetTeacherUnavailableDates_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTeacherUnavailableDatesResponse" />
   </wsdl:message>
   <wsdl:message name="IService1_AddUser_InputMessage">
     <wsdl:part name="parameters" element="tns:AddUser" />
   </wsdl:message>
   <wsdl:message name="IService1_AddUser_OutputMessage">
     <wsdl:part name="parameters" element="tns:AddUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_SelectPaymentByStudentID_InputMessage">
+    <wsdl:part name="parameters" element="tns:SelectPaymentByStudentID" />
+  </wsdl:message>
+  <wsdl:message name="IService1_SelectPaymentByStudentID_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SelectPaymentByStudentIDResponse" />
   </wsdl:message>
   <wsdl:portType name="IService1">
     <wsdl:operation name="GetUserID">
@@ -234,21 +282,53 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/MarkLessonPaid" message="tns:IService1_MarkLessonPaid_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/MarkLessonPaidResponse" message="tns:IService1_MarkLessonPaid_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="AddMessage">
-      <wsdl:input wsaw:Action="http://tempuri.org/IService1/AddMessage" message="tns:IService1_AddMessage_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IService1/AddMessageResponse" message="tns:IService1_AddMessage_OutputMessage" />
+    <wsdl:operation name="AddMessageGlobal">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/AddMessageGlobal" message="tns:IService1_AddMessageGlobal_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/AddMessageGlobalResponse" message="tns:IService1_AddMessageGlobal_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetAllChat">
-      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetAllChat" message="tns:IService1_GetAllChat_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetAllChatResponse" message="tns:IService1_GetAllChat_OutputMessage" />
+    <wsdl:operation name="GetAllChatGlobal">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetAllChatGlobal" message="tns:IService1_GetAllChatGlobal_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetAllChatGlobalResponse" message="tns:IService1_GetAllChatGlobal_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetAllTeacherLessonsForDate">
-      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetAllTeacherLessonsForDate" message="tns:IService1_GetAllTeacherLessonsForDate_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetAllTeacherLessonsForDateResponse" message="tns:IService1_GetAllTeacherLessonsForDate_OutputMessage" />
+    <wsdl:operation name="GetChatPrivate">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetChatPrivate" message="tns:IService1_GetChatPrivate_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetChatPrivateResponse" message="tns:IService1_GetChatPrivate_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddMessagePrivate">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/AddMessagePrivate" message="tns:IService1_AddMessagePrivate_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/AddMessagePrivateResponse" message="tns:IService1_AddMessagePrivate_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckPaid">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/CheckPaid" message="tns:IService1_CheckPaid_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/CheckPaidResponse" message="tns:IService1_CheckPaid_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Pay">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/Pay" message="tns:IService1_Pay_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/PayResponse" message="tns:IService1_Pay_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SelectPaymentByPaymentID">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/SelectPaymentByPaymentID" message="tns:IService1_SelectPaymentByPaymentID_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/SelectPaymentByPaymentIDResponse" message="tns:IService1_SelectPaymentByPaymentID_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SelectPaymentByTeacherID">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/SelectPaymentByTeacherID" message="tns:IService1_SelectPaymentByTeacherID_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/SelectPaymentByTeacherIDResponse" message="tns:IService1_SelectPaymentByTeacherID_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="TeacherSpacialDays">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/TeacherSpacialDays" message="tns:IService1_TeacherSpacialDays_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/TeacherSpacialDaysResponse" message="tns:IService1_TeacherSpacialDays_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTeacherUnavailableDates">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetTeacherUnavailableDates" message="tns:IService1_GetTeacherUnavailableDates_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetTeacherUnavailableDatesResponse" message="tns:IService1_GetTeacherUnavailableDates_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="AddUser">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/AddUser" message="tns:IService1_AddUser_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/AddUserResponse" message="tns:IService1_AddUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SelectPaymentByStudentID">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/SelectPaymentByStudentID" message="tns:IService1_SelectPaymentByStudentID_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/SelectPaymentByStudentIDResponse" message="tns:IService1_SelectPaymentByStudentID_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IService1" type="tns:IService1">
@@ -433,8 +513,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="AddMessage">
-      <soap:operation soapAction="http://tempuri.org/IService1/AddMessage" style="document" />
+    <wsdl:operation name="AddMessageGlobal">
+      <soap:operation soapAction="http://tempuri.org/IService1/AddMessageGlobal" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -442,8 +522,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetAllChat">
-      <soap:operation soapAction="http://tempuri.org/IService1/GetAllChat" style="document" />
+    <wsdl:operation name="GetAllChatGlobal">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetAllChatGlobal" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -451,8 +531,71 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetAllTeacherLessonsForDate">
-      <soap:operation soapAction="http://tempuri.org/IService1/GetAllTeacherLessonsForDate" style="document" />
+    <wsdl:operation name="GetChatPrivate">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetChatPrivate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddMessagePrivate">
+      <soap:operation soapAction="http://tempuri.org/IService1/AddMessagePrivate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckPaid">
+      <soap:operation soapAction="http://tempuri.org/IService1/CheckPaid" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Pay">
+      <soap:operation soapAction="http://tempuri.org/IService1/Pay" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectPaymentByPaymentID">
+      <soap:operation soapAction="http://tempuri.org/IService1/SelectPaymentByPaymentID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectPaymentByTeacherID">
+      <soap:operation soapAction="http://tempuri.org/IService1/SelectPaymentByTeacherID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TeacherSpacialDays">
+      <soap:operation soapAction="http://tempuri.org/IService1/TeacherSpacialDays" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTeacherUnavailableDates">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetTeacherUnavailableDates" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -462,6 +605,15 @@
     </wsdl:operation>
     <wsdl:operation name="AddUser">
       <soap:operation soapAction="http://tempuri.org/IService1/AddUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectPaymentByStudentID">
+      <soap:operation soapAction="http://tempuri.org/IService1/SelectPaymentByStudentID" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

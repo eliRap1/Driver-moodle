@@ -105,8 +105,7 @@
           Foreground="White"
           BorderBrush="#00BFFF"
           Margin="0,0,0,6"
-          FontWeight="Bold"
-          PreviewMouseDown="UnavailableCalendar_PreviewMouseDown"/>
+          FontWeight="Bold"/>
 
 
                     <Button Content="Clear Selection"
@@ -121,6 +120,81 @@
                 </StackPanel>
             </GroupBox>
         </StackPanel>
+        <Button Content="SpecialDays" Grid.Row="1" Margin="0,0,0,390" Width="200" Height="30" FontSize="16"
+                Background="#00E0FF" Foreground="Black" FontWeight="Bold" BorderBrush="#00C0CC" 
+                Cursor="Hand" 
+                Click="SpacialDays_Click"></Button>
+        <!-- Special Days -->
+        <GroupBox Header="Special Working Days" Grid.Row="1" Visibility="Collapsed" x:Name="SpecialDaysGroupBox" Panel.ZIndex="1"
+          Foreground="#00E0FF"
+          FontWeight="SemiBold"
+          Margin="0,0,0,4"
+          Background="#1A2E50"
+          BorderBrush="#00E0FF">
+            <StackPanel Margin="8">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <DatePicker x:Name="SpecialDatePicker"
+                        Width="150"
+                        Margin="4"/>
+                    <TextBlock Text="From:" VerticalAlignment="Center" Foreground="White" Margin="4"/>
+                    <ComboBox x:Name="SpecialStartHour"
+                      Width="80"
+                      Background="#102040"
+                      Foreground="Black"
+                      BorderBrush="#00E0FF"
+                      Margin="4"/>
+                    <TextBlock Text="To:" VerticalAlignment="Center" Foreground="White" Margin="4"/>
+                    <ComboBox x:Name="SpecialEndHour"
+                      Width="80"
+                      Background="#102040"
+                      Foreground="Black"
+                      BorderBrush="#00E0FF"
+                      Margin="4"/>
+                    <Button Content="Add"
+                    Background="#00E0FF"
+                    Foreground="Black"
+                    FontWeight="Bold"
+                    BorderBrush="#00C0CC"
+                    Cursor="Hand"
+                    Margin="6,0"
+                    Click="AddSpecialDay_Click"/>
+                </StackPanel>
+
+                <ListView x:Name="SpecialDaysList"
+                  Margin="6"
+                  Height="120"
+                  Background="#102040"
+                  Foreground="White"
+                  BorderBrush="#00E0FF">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Date" DisplayMemberBinding="{Binding Date}" Width="120"/>
+                            <GridViewColumn Header="From" DisplayMemberBinding="{Binding StartTime}" Width="80"/>
+                            <GridViewColumn Header="To" DisplayMemberBinding="{Binding EndTime}" Width="80"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
+                <Button Content="Remove Selected"
+                Width="160"
+                HorizontalAlignment="Center"
+                Background="#00E0FF"
+                Foreground="Black"
+                FontWeight="Bold"
+                BorderBrush="#00C0CC"
+                Cursor="Hand"
+                Click="RemoveSpecialDay_Click"/>
+                <Button Content="Back to Availabillity" Margin="10"
+                Width="160"
+                HorizontalAlignment="Center"
+                Background="#00E0FF"
+                Foreground="Black"
+                FontWeight="Bold"
+                BorderBrush="#00C0CC"
+                Cursor="Hand"
+                Click="BackToAvailabillity_Click"/>
+            </StackPanel>
+        </GroupBox>
 
         <!-- Save Button -->
         <Button Content="Save Availability"

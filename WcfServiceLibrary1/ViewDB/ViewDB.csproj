@@ -45,6 +45,7 @@
     <Compile Include="CalnderDB.cs" />
     <Compile Include="ChatDB.cs" />
     <Compile Include="LessonsDB.cs" />
+    <Compile Include="PaymentDB.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StudentDB.cs" />
     <Compile Include="UserDB.cs" />

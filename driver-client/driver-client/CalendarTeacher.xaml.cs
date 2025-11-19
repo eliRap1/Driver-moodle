@@ -1,6 +1,7 @@
 ﻿using driver_client.driver;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -9,10 +10,13 @@ namespace driver_client
 {
     public partial class CalendarTeacher : Page
     {
+        private ObservableCollection<SpecialDay> specialDays = new ObservableCollection<SpecialDay>();
+
         public CalendarTeacher(Sign sign)
         {
             InitializeComponent();
             LoadHourOptions();
+            SpecialDaysList.ItemsSource = specialDays;
         }
 
         private void LoadHourOptions()
@@ -22,14 +26,50 @@ namespace driver_client
                 string time = $"{hour:00}:00";
                 StartHour.Items.Add(time);
                 EndHour.Items.Add(time);
+                SpecialStartHour.Items.Add(time);
+                SpecialEndHour.Items.Add(time);
             }
             StartHour.SelectedIndex = 0;
             EndHour.SelectedIndex = 1;
+            SpecialStartHour.SelectedIndex = 0;
+            SpecialEndHour.SelectedIndex = 1;
+        }
+
+        private void AddSpecialDay_Click(object sender, RoutedEventArgs e)
+        {
+            if (SpecialDatePicker.SelectedDate == null) return;
+            if(SpecialStartHour.SelectedItem == null || SpecialEndHour.SelectedItem == null) return;
+            if(specialDays.Any(d => d.Date == SpecialDatePicker.SelectedDate.Value)) return;
+            var day = new SpecialDay
+            {
+                Date = SpecialDatePicker.SelectedDate.Value,
+                StartTime = SpecialStartHour.SelectedItem?.ToString() ?? "00:00",
+                EndTime = SpecialEndHour.SelectedItem?.ToString() ?? "00:00"
+            };
+
+            specialDays.Add(day);
+        }
+
+        private void RemoveSpecialDay_Click(object sender, RoutedEventArgs e)
+        {
+            if (SpecialDaysList.SelectedItem is SpecialDay selected)
+                specialDays.Remove(selected);
+        }
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            page.Navigate(new TeacherUI());
+        }
+        private void ClearSelection_Click(object sender, RoutedEventArgs e)
+        {
+            specialDays.Clear();
+        }
+        private void BackToAvailabillity_Click(object sender, RoutedEventArgs e)
+        {
+            SpecialDaysGroupBox.Visibility = Visibility.Collapsed;  //need to update
         }
 
         private void SaveAvailability_Click(object sender, RoutedEventArgs e)
         {
-            // Collect selected day names
             var availableDays = new List<string>();
             if (MondayCheck.IsChecked == true) availableDays.Add("Monday");
             if (TuesdayCheck.IsChecked == true) availableDays.Add("Tuesday");
@@ -42,20 +82,22 @@ namespace driver_client
             string fromTime = StartHour.SelectedItem?.ToString() ?? "00:00";
             string toTime = EndHour.SelectedItem?.ToString() ?? "00:00";
 
-            // Convert selected dates to string format
-            List<string> unavailableDateStrings = UnavailableCalendar.SelectedDates
-                .Select(date => date.ToString("yyyy-MM-dd"))
-                .ToList();
+            var unavailableDateStrings = UnavailableCalendar.SelectedDates
+                .Select(d => d.ToString("yyyy-MM-dd")).ToList();
 
             try
             {
                 driver.Service1Client srv = new driver.Service1Client();
                 int teacherId = LogIn.sign.Id;
-                Calendars cal = new Calendars();
-                cal.StartTime = fromTime;
-                cal.EndTime = toTime;
-                cal.DatesUnavailable = unavailableDateStrings.ToArray();
-                cal.AvailableDays = availableDays.ToArray();
+                Calendars cal = new Calendars
+                {
+                    StartTime = fromTime,
+                    EndTime = toTime,
+                    DatesUnavailable = unavailableDateStrings.ToArray(),
+                    AvailableDays = availableDays.ToArray(),
+                    SpecialDaysList = specialDays.ToArray()
+                };
+
                 srv.SetTeacherCalendar(cal, teacherId);
                 MessageBox.Show("Availability saved successfully!");
             }
@@ -65,28 +107,9 @@ namespace driver_client
             }
         }
 
-
-        private void ClearSelection_Click(object sender, RoutedEventArgs e)
+        private void SpacialDays_Click(object sender, RoutedEventArgs e)
         {
-            UnavailableCalendar.SelectedDates.Clear();
+            SpecialDaysGroupBox.Visibility = Visibility.Visible;
         }
-        private void UnavailableCalendar_PreviewMouseDown(object sender, RoutedEventArgs e)
-        {
-            if (e.OriginalSource is FrameworkElement fe && fe.DataContext is DateTime clickedDate)
-            {
-                if (UnavailableCalendar.SelectedDates.Contains(clickedDate))
-                    UnavailableCalendar.SelectedDates.Remove(clickedDate);
-                else
-                    UnavailableCalendar.SelectedDates.Add(clickedDate);
-
-                e.Handled = true; // Prevent default selection behavior
-            }
-        }
-
-        private void BackButton_Click(object sender, RoutedEventArgs e)
-        {
-            page.Navigate(new TeacherUI());
-        }
-
     }
 }

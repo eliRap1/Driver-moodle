@@ -192,42 +192,7 @@ namespace ViewDB
             }
             else { return -1; }
         }
-        public bool SetTeacherCalendar(Calendars cal, int teacherId)
-        {
-            // 1) Check for an existing row
-            string existsSql =
-              "SELECT COUNT(*) FROM [Availability] WHERE [TeacherID] = " + teacherId;
-            int count;
-            using (var cmd = new OleDbCommand(existsSql, connection))
-            {
-                connection.Open();
-                count = (int)cmd.ExecuteScalar();
-                connection.Close();
-            }
 
-            // 2) Based on that, run either UPDATE or INSERT
-            string sql;
-            if (count > 0)
-            {
-                sql = $@"
-          UPDATE [Availability]
-             SET [UnavailableDate] = '{cal.GetDatesUnavailable()}',
-                 [StartTime]       = '{cal.StartTime}',
-                 [EndTime]         = '{cal.EndTime}',
-                 [availableDays]   = '{cal.GetAvailableDays()}'
-           WHERE [TeacherID] = {teacherId}";
-            }
-            else
-            {
-                sql = $@"
-          INSERT INTO [Availability]
-            ([TeacherID],[UnavailableDate],[StartTime],[EndTime],[availableDays])
-          VALUES
-            ({teacherId},'{cal.GetDatesUnavailable()}','{cal.StartTime}','{cal.EndTime}', '{cal.GetAvailableDays()}')";
-            }
-
-            return SaveChanges(sql) != 0;
-        }
         public int GetTeacherId(int sid)
         {
             string sql = "SELECT * FROM Student WHERE id=" + sid;

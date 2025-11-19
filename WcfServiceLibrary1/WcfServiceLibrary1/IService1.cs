@@ -55,8 +55,6 @@ namespace WcfServiceLibrary1
         [OperationContract]
         void MarkLessonPaid(int id);
         [OperationContract]
-        void AddMessage(string message, int userid, string username, bool IsTeacher);
-        [OperationContract]
         void AddMessageGlobal(string message, int userid, string username, bool IsTeacher);
         [OperationContract]
         List<Chats> GetAllChatGlobal();
@@ -76,6 +74,8 @@ namespace WcfServiceLibrary1
         List<Calendars> TeacherSpacialDays(int teacherId);
         [OperationContract]
         List<Calendars> GetTeacherUnavailableDates(int teacherId);
+        [OperationContract]
+        bool AddUser(string name, string password, string email, string phone, bool admin, int tID);
         [OperationContract]
         List<Payment> SelectPaymentByStudentID(int id);
     }

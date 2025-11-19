@@ -129,7 +129,7 @@ namespace WcfServiceLibrary1
         }
         public bool SetTeacherCalendar(Calendars cal, int teacherId)
         {
-            return new ViewDB.UserDB().SetTeacherCalendar(cal, teacherId);
+            return new ViewDB.CalnderDB().SetTeacherCalendar(cal, teacherId);
         }
         public Calendars GetTeacherCalendar(int teacherId)
         {

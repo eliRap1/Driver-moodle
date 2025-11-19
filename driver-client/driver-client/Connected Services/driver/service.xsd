@@ -279,7 +279,7 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
-  <xs:element name="AddMessage">
+  <xs:element name="AddMessageGlobal">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="message" nillable="true" type="xs:string" />
@@ -289,35 +289,132 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="AddMessageResponse">
+  <xs:element name="AddMessageGlobalResponse">
     <xs:complexType>
       <xs:sequence />
     </xs:complexType>
   </xs:element>
-  <xs:element name="GetAllChat">
+  <xs:element name="GetAllChatGlobal">
     <xs:complexType>
       <xs:sequence />
     </xs:complexType>
   </xs:element>
-  <xs:element name="GetAllChatResponse">
+  <xs:element name="GetAllChatGlobalResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/ViewDB" minOccurs="0" name="GetAllChatResult" nillable="true" type="q10:ArrayOfChats" />
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/ViewDB" minOccurs="0" name="GetAllChatGlobalResult" nillable="true" type="q10:ArrayOfChats" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="GetAllTeacherLessonsForDate">
+  <xs:element name="GetChatPrivate">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="tid" type="xs:int" />
-        <xs:element minOccurs="0" name="date" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="studentid" type="xs:int" />
+        <xs:element minOccurs="0" name="teacherid" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="GetAllTeacherLessonsForDateResponse">
+  <xs:element name="GetChatPrivateResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/ViewDB" minOccurs="0" name="GetAllTeacherLessonsForDateResult" nillable="true" type="q11:ArrayOfLessons" />
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/ViewDB" minOccurs="0" name="GetChatPrivateResult" nillable="true" type="q11:ArrayOfChats" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddMessagePrivate">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="message" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="studentid" type="xs:int" />
+        <xs:element minOccurs="0" name="teacherid" type="xs:int" />
+        <xs:element minOccurs="0" name="username" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddMessagePrivateResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CheckPaid">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="id" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CheckPaidResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="CheckPaidResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Pay">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/ViewDB" minOccurs="0" name="payment" nillable="true" type="q12:Payment" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PayResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SelectPaymentByPaymentID">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="id" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SelectPaymentByPaymentIDResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/ViewDB" minOccurs="0" name="SelectPaymentByPaymentIDResult" nillable="true" type="q13:ArrayOfPayment" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SelectPaymentByTeacherID">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="id" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SelectPaymentByTeacherIDResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/ViewDB" minOccurs="0" name="SelectPaymentByTeacherIDResult" nillable="true" type="q14:ArrayOfPayment" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="TeacherSpacialDays">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="teacherId" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="TeacherSpacialDaysResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/Model" minOccurs="0" name="TeacherSpacialDaysResult" nillable="true" type="q15:ArrayOfCalendars" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTeacherUnavailableDates">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="teacherId" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTeacherUnavailableDatesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/Model" minOccurs="0" name="GetTeacherUnavailableDatesResult" nillable="true" type="q16:ArrayOfCalendars" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -337,6 +434,20 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="AddUserResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SelectPaymentByStudentID">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="id" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SelectPaymentByStudentIDResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/ViewDB" minOccurs="0" name="SelectPaymentByStudentIDResult" nillable="true" type="q17:ArrayOfPayment" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

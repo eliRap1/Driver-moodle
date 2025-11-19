@@ -25,11 +25,11 @@ namespace driver_client
         private void RefreshMessages(object sender, EventArgs e)
         {
             driver.Service1Client srv = new driver.Service1Client();
-            List<Chats> messages = srv.GetAllChat().ToList();
+            List<Chats> messages = srv.GetAllChatGlobal().ToList();
             MessagesPanel.Children.Clear();
             foreach (var message in messages)
             {
-                AddMessage(message.Username, message.Message, message.IsTeacher, message.Time);
+                AddMessage(message.Username, message.Message, message.IsTeacher, message.SentAt);
             }
         }
         private void BackButton_Click(object sender, RoutedEventArgs e)
@@ -45,7 +45,7 @@ namespace driver_client
             if (!string.IsNullOrEmpty(message))
             {
                 driver.Service1Client srv = new driver.Service1Client();
-                srv.AddMessage(message, LogIn.sign.Id, LogIn.sign.Username, LogIn.sign.IsTeacher);
+                srv.AddMessageGlobal(message, LogIn.sign.Id, LogIn.sign.Username, LogIn.sign.IsTeacher);
                 AddMessage(LogIn.sign.Username, message, LogIn.sign.IsTeacher, DateTime.Now);
                 MessageTextBox.Clear();
                 MessageList.ScrollToEnd();

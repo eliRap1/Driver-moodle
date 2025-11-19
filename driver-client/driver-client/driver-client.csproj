@@ -208,6 +208,9 @@
     <None Include="Connected Services\driver\driver_client.driver.Lessons.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Connected Services\driver\driver_client.driver.Payment.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\driver\driver_client.driver.StudentsList.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
