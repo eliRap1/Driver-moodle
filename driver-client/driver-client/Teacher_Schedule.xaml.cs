@@ -77,7 +77,7 @@ namespace driver_client
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
-            
+            page.Navigate(new TeacherUI());
         }
 
         // mock data for now

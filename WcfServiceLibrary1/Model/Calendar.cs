@@ -23,14 +23,14 @@ namespace Model
 
         public string StartTime { get => startTime; set => startTime = value; }
         public string EndTime { get => endTime; set => endTime = value; }
+        public List<UnavailableDay> UnavailableDays { get; set; } = new List<UnavailableDay>();
         public List<string> DatesUnavailable { get => datesUnavailable; set => datesUnavailable = value; }
         public List<string> AvailableDays { get => availableDays; set => availableDays = value; }
         public string UnavailableDate { get => unavailableDate; set => unavailableDate = value; }
         public string SelectedDate { get => selectedDate; set => selectedDate = value; }
         public string SelectedDay { get => selectedDay; set => selectedDay = value; }
 
-        // 🐞 Fixed recursive property
-        public List<string> WorkingHours { get => workingHours; set => workingHours = value; }
+        public List<string> WorkingHours { get => workingHours; set => workingHours = value; } //useless - rms
 
         public bool AllDay { get => allDay; set => allDay = value; }
         public int Teacherid { get => teacherid; set => teacherid = value; }
@@ -44,6 +44,14 @@ namespace Model
         public string GetAvailableDays()
         {
             return availableDays != null ? string.Join(",", availableDays) : "";
+        }
+
+        // New helper to return CSV for older code paths if needed
+        public string GetUnavailableDaysAsCsv()
+        {
+            return UnavailableDays != null
+                ? string.Join(",", UnavailableDays.Select(d => d.Date.ToString("yyyy-MM-dd")))
+                : "";
         }
     }
 
@@ -59,7 +67,19 @@ namespace Model
             return $"{Date:yyyy-MM-dd} ({StartTime}-{EndTime})";
         }
     }
+    public class UnavailableDay
+    {
+        public DateTime Date { get; set; }
+        public bool AllDay { get; set; }
+        public string StartTime { get; set; } // store as "HH:mm"
+        public string EndTime { get; set; }   // store as "HH:mm"
 
+        public override string ToString()
+        {
+            if (AllDay) return $"{Date:yyyy-MM-dd} (All Day)";
+            return $"{Date:yyyy-MM-dd} ({StartTime}-{EndTime})";
+        }
+    }
     public class CalendarLst : List<Calendars>
     {
         public CalendarLst(IEnumerable<Base> list)

@@ -100,6 +100,9 @@ namespace driver_client.driver {
         private string UnavailableDateField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private driver_client.driver.UnavailableDay[] UnavailableDaysField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string[] WorkingHoursField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
@@ -228,6 +231,19 @@ namespace driver_client.driver {
                 if ((object.ReferenceEquals(this.UnavailableDateField, value) != true)) {
                     this.UnavailableDateField = value;
                     this.RaisePropertyChanged("UnavailableDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public driver_client.driver.UnavailableDay[] UnavailableDays {
+            get {
+                return this.UnavailableDaysField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UnavailableDaysField, value) != true)) {
+                    this.UnavailableDaysField = value;
+                    this.RaisePropertyChanged("UnavailableDays");
                 }
             }
         }
@@ -843,6 +859,99 @@ namespace driver_client.driver {
             }
             set {
                 this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime Date {
+            get {
+                return this.DateField;
+            }
+            set {
+                if ((this.DateField.Equals(value) != true)) {
+                    this.DateField = value;
+                    this.RaisePropertyChanged("Date");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string EndTime {
+            get {
+                return this.EndTimeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.EndTimeField, value) != true)) {
+                    this.EndTimeField = value;
+                    this.RaisePropertyChanged("EndTime");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string StartTime {
+            get {
+                return this.StartTimeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.StartTimeField, value) != true)) {
+                    this.StartTimeField = value;
+                    this.RaisePropertyChanged("StartTime");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="UnavailableDay", Namespace="http://schemas.datacontract.org/2004/07/Model")]
+    [System.SerializableAttribute()]
+    public partial class UnavailableDay : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool AllDayField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime DateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string EndTimeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string StartTimeField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool AllDay {
+            get {
+                return this.AllDayField;
+            }
+            set {
+                if ((this.AllDayField.Equals(value) != true)) {
+                    this.AllDayField = value;
+                    this.RaisePropertyChanged("AllDay");
+                }
             }
         }
         

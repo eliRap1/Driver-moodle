@@ -47,6 +47,7 @@
           <xs:element minOccurs="0" name="StartTime" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="Teacherid" type="xs:int" />
           <xs:element minOccurs="0" name="UnavailableDate" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="UnavailableDays" nillable="true" type="tns:ArrayOfUnavailableDay" />
           <xs:element xmlns:q3="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="WorkingHours" nillable="true" type="q3:ArrayOfstring" />
         </xs:sequence>
       </xs:extension>
@@ -67,6 +68,21 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="SpecialDay" nillable="true" type="tns:SpecialDay" />
+  <xs:complexType name="ArrayOfUnavailableDay">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="UnavailableDay" nillable="true" type="tns:UnavailableDay" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUnavailableDay" nillable="true" type="tns:ArrayOfUnavailableDay" />
+  <xs:complexType name="UnavailableDay">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AllDay" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Date" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="EndTime" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StartTime" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UnavailableDay" nillable="true" type="tns:UnavailableDay" />
   <xs:complexType name="ArrayOfUserInfo">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="UserInfo" nillable="true" type="tns:UserInfo" />

@@ -92,33 +92,41 @@
             </GroupBox>
 
             <!-- Calendar -->
-            <GroupBox Header="Unavailable Dates"
-                      Foreground="#00E0FF"
-                      FontWeight="SemiBold"
-                      Margin="0,10"
-                      Background="#1A2E50"
-                      BorderBrush="#00E0FF">
+            <GroupBox Header="Unavailable Days"
+          Foreground="#00E0FF"
+          FontWeight="SemiBold"
+          Margin="0,10"
+          Background="#1A2E50"
+          BorderBrush="#00E0FF">
                 <StackPanel Margin="8">
-                    <Calendar x:Name="UnavailableCalendar"
-          SelectionMode="MultipleRange"
-          Background="#89CFF0"
-          Foreground="White"
-          BorderBrush="#00BFFF"
-          Margin="0,0,0,6"
-          FontWeight="Bold"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,6">
+                        <DatePicker x:Name="UnavailableDatePicker" Width="140" Margin="4"/>
+                        <CheckBox x:Name="UnavailableAllDay" Content="All Day" Foreground="White" Margin="8"/>
+                        <TextBlock Text="From:" VerticalAlignment="Center" Foreground="White" Margin="6,0,0,0"/>
+                        <ComboBox x:Name="UnavailableStartHour" Width="80" Margin="4" Background="#102040" Foreground="Black" BorderBrush="#00E0FF"/>
+                        <TextBlock Text="To:" VerticalAlignment="Center" Foreground="White" Margin="6,0,0,0"/>
+                        <ComboBox x:Name="UnavailableEndHour" Width="80" Margin="4" Background="#102040" Foreground="Black" BorderBrush="#00E0FF"/>
+                        <Button Content="Add" Width="80" Margin="8,0,0,0" Click="AddUnavailableDay_Click"
+                    Background="#00E0FF" Foreground="Black" FontWeight="Bold" BorderBrush="#00C0CC" Cursor="Hand"/>
+                    </StackPanel>
 
+                    <ListView x:Name="UnavailableDaysList" Height="130" Margin="4" Background="#102040" Foreground="White" BorderBrush="#00E0FF">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Date" DisplayMemberBinding="{Binding Date}" Width="120"/>
+                                <GridViewColumn Header="All Day" DisplayMemberBinding="{Binding AllDay}" Width="60"/>
+                                <GridViewColumn Header="From" DisplayMemberBinding="{Binding StartTime}" Width="80"/>
+                                <GridViewColumn Header="To" DisplayMemberBinding="{Binding EndTime}" Width="80"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
 
-                    <Button Content="Clear Selection"
-                            Width="140"
-                            HorizontalAlignment="Center"
-                            Background="#00E0FF"
-                            Foreground="Black"
-                            FontWeight="Bold"
-                            BorderBrush="#00C0CC"
-                            Cursor="Hand"
-                            Click="ClearSelection_Click"/>
+                    <Button Content="Remove Selected" Width="160" HorizontalAlignment="Center" Margin="6" Background="#00E0FF" Foreground="Black" FontWeight="Bold" BorderBrush="#00C0CC" Cursor="Hand"/> 
+                <!--Click="RemoveUnavailableDay_Click"-->
+                
                 </StackPanel>
             </GroupBox>
+
         </StackPanel>
         <Button Content="SpecialDays" Grid.Row="1" Margin="0,0,0,390" Width="200" Height="30" FontSize="16"
                 Background="#00E0FF" Foreground="Black" FontWeight="Bold" BorderBrush="#00C0CC" 

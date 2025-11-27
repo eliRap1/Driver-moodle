@@ -107,5 +107,6 @@
                     Click="Back_Click"
                     />
         </StackPanel>
+        <Frame x:Name="page" Panel.ZIndex="100" Margin="-27,-18,-16,-13"/>
     </Grid>
 </Page>
