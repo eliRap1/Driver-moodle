@@ -43,6 +43,8 @@ namespace ViewDB
                     s.Phone = reader["phone"].ToString();
                     s.TeacherId = (int)reader["TeacherId"];
                     s.Lessons = (string)reader["Lessons"];
+                    s.LessonPrice = (int)reader["lessonPrice"];
+
 
                 }
                 catch
@@ -51,6 +53,7 @@ namespace ViewDB
                 }
             }
         }
+        
         public UserInfo GetUserById(int id, string table)
         {
             string sqlStr = "Select * From " +table+ " Where id=" + id;

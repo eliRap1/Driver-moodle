@@ -15,6 +15,8 @@ namespace WcfServiceLibrary1
     {
 
         [OperationContract]
+        void CancelLesson(int lessonId);
+        [OperationContract]
         int GetUserID(string username, string table);
         [OperationContract]
         UserInfo GetUserById(int id,string table);

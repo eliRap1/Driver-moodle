@@ -9,6 +9,12 @@
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/ViewDB" />
     </xsd:schema>
   </wsdl:types>
+  <wsdl:message name="IService1_CancelLesson_InputMessage">
+    <wsdl:part name="parameters" element="tns:CancelLesson" />
+  </wsdl:message>
+  <wsdl:message name="IService1_CancelLesson_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CancelLessonResponse" />
+  </wsdl:message>
   <wsdl:message name="IService1_GetUserID_InputMessage">
     <wsdl:part name="parameters" element="tns:GetUserID" />
   </wsdl:message>
@@ -202,6 +208,10 @@
     <wsdl:part name="parameters" element="tns:SelectPaymentByStudentIDResponse" />
   </wsdl:message>
   <wsdl:portType name="IService1">
+    <wsdl:operation name="CancelLesson">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/CancelLesson" message="tns:IService1_CancelLesson_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/CancelLessonResponse" message="tns:IService1_CancelLesson_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetUserID">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetUserID" message="tns:IService1_GetUserID_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetUserIDResponse" message="tns:IService1_GetUserID_OutputMessage" />
@@ -333,6 +343,15 @@
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IService1" type="tns:IService1">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CancelLesson">
+      <soap:operation soapAction="http://tempuri.org/IService1/CancelLesson" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetUserID">
       <soap:operation soapAction="http://tempuri.org/IService1/GetUserID" style="document" />
       <wsdl:input>

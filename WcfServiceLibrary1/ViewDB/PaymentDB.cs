@@ -84,8 +84,9 @@ namespace ViewDB
                 payment.ParcialAmount = payment.Amount/payment.NumberOfPayments; 
             }
             string sql = "Insert into [Payments]"
-                + "(StudentID,TeacherID,Amount,PaymentDate,PaymentMethod,NumberOfPayments,paid,ParcialAmount)"
+                + "(PaymentID, StudentID,TeacherID,Amount,PaymentDate,PaymentMethod,NumberOfPayments,paid,ParcialAmount)"
                 + "Values("
+                + payment.PaymentID + ","
                 + payment.StudentID + ","
                 + payment.TeacherID + ","
                 + payment.Amount + ","
@@ -93,7 +94,7 @@ namespace ViewDB
                 + "'" + payment.PaymentMethod + "',"
                 + payment.NumberOfPayments + ","
                 + payment.paid + "," + payment.ParcialAmount+")";
-
+            SaveChanges(sql);
         }
         public bool CheckPaid(int id)
         {

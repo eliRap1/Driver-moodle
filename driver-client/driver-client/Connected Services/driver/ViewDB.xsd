@@ -11,6 +11,7 @@
     <xs:complexContent mixed="false">
       <xs:extension xmlns:q1="http://schemas.datacontract.org/2004/07/Model" base="q1:Base">
         <xs:sequence>
+          <xs:element minOccurs="0" name="Canceled" type="xs:int" />
           <xs:element minOccurs="0" name="Date" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="LessonId" type="xs:int" />
           <xs:element minOccurs="0" name="StudentId" type="xs:int" />

@@ -1,43 +1,93 @@
 ﻿using driver_client.driver;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace driver_client
 {
-    /// <summary>
-    /// Interaction logic for Teacher_Schedule.xaml
-    /// </summary>
     public partial class Teacher_Schedule : Page
     {
-        // simple model for lessons
-        public class Lesson
+        // Wrapper class for UI display
+        public class LessonDisplay
         {
-            public string StudentID { get; set; }
-            public string LessonTime { get; set; }
             public int LessonId { get; set; }
+            public int StudentId { get; set; }
             public string Date { get; set; }
             public string Time { get; set; }
-            public string Status { get; set; }
+            public string PaidStatus { get; set; }
+            public DateTime RawDateTime { get; set; }
+
+            public string StatusText { get; set; }
+            public string StatusColor { get; set; }
+            public Visibility CanCancel { get; set; }
+            public string PaidButtonText { get; set; }
         }
 
         public Teacher_Schedule()
         {
             InitializeComponent();
-            LessonDatePicker.SelectedDate = DateTime.Now; // set today as default
+            LessonDatePicker.SelectedDate = DateTime.Now;
+
+            LoadAll();
         }
 
+        // ------------ MASTER LOAD ------------
+        private void LoadAll()
+        {
+            try
+            {
+                var srv = new Service1Client();
+                List<Lessons> raw = srv.GetAllTeacherLessons(LogIn.sign.Id).ToList();
+
+                List<LessonDisplay> all = new List<LessonDisplay>();
+
+                foreach (var l in raw)
+                {
+                    if (!DateTime.TryParseExact($"{l.Date} {l.Time}",
+                        "dd-MM-yyyy HH:mm",
+                        CultureInfo.InvariantCulture,
+                        DateTimeStyles.None,
+                        out DateTime dt))
+                    {
+                        // try fallback (your history format)
+                        if (!DateTime.TryParse($"{l.Date} {l.Time}", out dt))
+                            continue;
+                    }
+
+                    all.Add(new LessonDisplay
+                    {
+                        LessonId = l.LessonId,
+                        StudentId = l.StudentId,
+                        Date = dt.ToString("dd/MM/yyyy"),
+                        Time = dt.ToString("HH:mm"),
+                        PaidStatus = l.paid ? "Yes" : "No",
+                        RawDateTime = dt
+                    });
+                }
+
+                // HISTORY (all lessons)
+                HistoryLessons.ItemsSource = all.OrderByDescending(x => x.RawDateTime).ToList();
+
+                // UPCOMING = future only
+                UpcomingLessons.ItemsSource = all
+                    .Where(x => x.RawDateTime > DateTime.Now)
+                    .OrderBy(x => x.RawDateTime)
+                    .ToList();
+
+                // SELECTED DATE tab is filled only when button clicked.
+                // But we can pre-load today's lessons:
+                ShowLessonsForDate(DateTime.Now, all);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to load lessons.\n" + ex.Message);
+            }
+        }
+
+        // ------------ SHOW LESSONS FOR SELECTED DATE ------------
         private void ShowLessons_Click(object sender, RoutedEventArgs e)
         {
             if (LessonDatePicker.SelectedDate == null)
@@ -46,54 +96,119 @@ namespace driver_client
                 return;
             }
 
-            DateTime selectedDate = LessonDatePicker.SelectedDate.Value;
-            string dateString = selectedDate.ToString("dd-MM-yyyy");
-            //List<Lessons> lessons = GetLessonsForDate(dateString);
-            List<Lessons> allLessons = GetAllLessons(selectedDate);
-            var historyLessons = new List<Lesson>();
-            var dateLessons = new List<Lesson>();
+            var srv = new Service1Client();
+            List<Lessons> raw = srv.GetAllTeacherLessons(LogIn.sign.Id).ToList();
 
-            foreach (var lesson in allLessons)
-            {
-                if (DateTime.TryParse($"{lesson.Date} {lesson.Time}", out DateTime lessonDateTime))
-                {
-                    var item = new Lesson
-                    {
-                        LessonId = lesson.LessonId,
-                        Date = lessonDateTime.ToString("dd/MM/yyyy"),
-                        Time = lessonDateTime.ToString("HH:mm"),
-                        Status = lesson.paid ? "Yes" : "No"
-                    };
+            List<LessonDisplay> all = ConvertToDisplay(raw);
 
-                    if (lessonDateTime.Date == selectedDate.Date)
-                        dateLessons.Add(item);
-                    historyLessons.Add(item);
-                }
-            }
-            DayLessons.ItemsSource = dateLessons;
-            HistoryLessons.ItemsSource = historyLessons;
-
+            ShowLessonsForDate(LessonDatePicker.SelectedDate.Value, all);
         }
+
+        private void ShowLessonsForDate(DateTime day, List<LessonDisplay> all)
+        {
+            var filtered = all.Where(x => x.RawDateTime.Date == day.Date).ToList();
+            DayLessons.ItemsSource = filtered;
+        }
+
+        // Convert raw lessons to display format
+        private List<LessonDisplay> ConvertToDisplay(List<Lessons> raw)
+        {
+            List<LessonDisplay> list = new List<LessonDisplay>();
+
+            foreach (var l in raw)
+            {
+                if (!DateTime.TryParseExact($"{l.Date} {l.Time}",
+                        "dd-MM-yyyy HH:mm",
+                        CultureInfo.InvariantCulture,
+                        DateTimeStyles.None,
+                        out DateTime dt))
+                {
+                    if (!DateTime.TryParse($"{l.Date} {l.Time}", out dt))
+                        continue;
+                }
+
+                list.Add(new LessonDisplay
+                {
+                    LessonId = l.LessonId,
+                    StudentId = l.StudentId,
+                    Date = dt.ToString("dd/MM/yyyy"),
+                    Time = dt.ToString("HH:mm"),
+                    PaidStatus = l.paid ? "Yes" : "No",
+                    RawDateTime = dt,
+
+                    // NEW FIELDS
+                    StatusText = l.Canceled == 1 ? "Canceled" : "Active",
+                    StatusColor = l.Canceled == 1 ? "Red" : "Lime",
+
+                    PaidButtonText = l.paid ? "Paid" : "Mark Paid",
+
+                    // Cancel only if future AND not canceled
+                    CanCancel = (dt > DateTime.Now && l.Canceled == 0)
+                ? Visibility.Visible
+                : Visibility.Collapsed
+                });
+
+            }
+
+            return list;
+        }
+
+        // ------------ CANCEL A LESSON ------------
+        private void CancelLesson_Click(object sender, RoutedEventArgs e)
+        {
+            Button btn = (Button)sender;
+            var lesson = btn.CommandParameter as LessonDisplay;
+
+            if (lesson == null)
+                return;
+
+            if (MessageBox.Show(
+                $"Cancel lesson ID {lesson.LessonId}?",
+                "Confirm Cancel",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Warning) == MessageBoxResult.No)
+                return;
+
+            try
+            {
+                var srv = new Service1Client();
+                srv.CancelLesson(lesson.LessonId);
+
+                MessageBox.Show("Lesson canceled.");
+
+                LoadAll();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to cancel lesson.\n" + ex.Message);
+            }
+        }
+
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
             page.Navigate(new TeacherUI());
         }
-
-        // mock data for now
-        //private List<Lessons> GetLessonsForDate(string date)
-        //{
-        //    driver.Service1Client srv = new driver.Service1Client();
-        //    List<Lessons> sample = srv.GetAllTeacherLessonsForDate(LogIn.sign.Id, date).ToList<Lessons>();
-        //    return sample;
-        //}
-
-        private List<Lessons> GetAllLessons(DateTime date)
+        private void TogglePaid_Click(object sender, RoutedEventArgs e)
         {
-            driver.Service1Client srv = new driver.Service1Client();
-            List<Lessons> sample = srv.GetAllTeacherLessons(LogIn.sign.Id).ToList<Lessons>();
-
-            return sample;
+            try
+            {
+                var srv = new Service1Client();
+                Payment pay = new Payment();
+                pay.StudentID = ((LessonDisplay)DayLessons.SelectedItem).StudentId;
+                pay.PaymentID = ((LessonDisplay)DayLessons.SelectedItem).LessonId;
+                pay.TeacherID = LogIn.sign.Id;
+                pay.PaymentMethod = "Teacher";
+                pay.PaymentDate = DateTime.Now;
+                pay.NumberOfPayments = 1;
+                pay.paid = true;
+                pay.Amount = int.Parse(srv.GetUserById(LogIn.sign.Id, "Teacher").LessonPrice);
+                srv.Pay(pay);
+                    srv.MarkLessonPaid(((LessonDisplay)DayLessons.SelectedItem).LessonId);
+            }
+            catch (Exception ex) {
+                MessageBox.Show("Click on the lesson then mark as paid.\n" + ex.Message);
+            }
         }
     }
 }

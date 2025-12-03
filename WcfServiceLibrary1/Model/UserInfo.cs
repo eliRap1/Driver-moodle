@@ -16,6 +16,7 @@ namespace Model
         private int teacherId;
         private double rating;
         private string ratingT;
+        private int lessonPrice;
         public bool IsAdmin { get => isAdmin; set => isAdmin = value; }
         public string Username { get => username; set => username = value; }
         public string Password { get => password; set => password = value; }
@@ -27,5 +28,6 @@ namespace Model
         public string Rewiew { get; set; }
         public bool Confirmed { get; set; }
         public string Lessons { get; set; }
+        public int LessonPrice { get => lessonPrice; set => lessonPrice = value; }
     }
 }

@@ -8,6 +8,7 @@
           <xs:element minOccurs="0" name="Confirmed" type="xs:boolean" />
           <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="IsAdmin" type="xs:boolean" />
+          <xs:element minOccurs="0" name="LessonPrice" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="Lessons" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="Password" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="Phone" nillable="true" type="xs:string" />

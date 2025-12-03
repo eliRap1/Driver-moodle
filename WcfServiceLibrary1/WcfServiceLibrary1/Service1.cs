@@ -48,10 +48,10 @@ namespace WcfServiceLibrary1
             return worked;
 
         }
-        //public List<Lessons> GetAllTeacherLessonsForDate(int tid, string date)
-        //{
-        //    return new LessonsDB().GetAllTeacherLessonsForDate(tid, date);
-        //}
+        public void CancelLesson(int lessonId)
+        {
+            new LessonsDB().CancelLesson(lessonId);
+        }
         public void MarkLessonPaid(int id)
         {
             new LessonsDB().MarkLessonPaid(id);
