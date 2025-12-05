@@ -31,22 +31,22 @@
                         Margin="0,0,0,20">
 
 
-                <!-- ▬▬▬ UPCOMING LESSONS ▬▬▬ -->
                 <TabItem Header="Upcoming Lessons">
                     <ListView x:Name="UpcomingLessons"
                               Background="#1B2D47"
                               Foreground="White"
                               BorderThickness="0"
-                              Margin="0,10,0,0">
+                              Margin="0,10,0,0"
+                              SelectionMode="Single">
 
                         <ListView.View>
                             <GridView>
-
-                                <GridViewColumn Header="Student ID" Width="120" DisplayMemberBinding="{Binding StudentId}"/>
+                                <GridViewColumn Header="Student ID" Width="80" DisplayMemberBinding="{Binding StudentId}"/>
+                                <GridViewColumn Header="Student Name" Width="150" DisplayMemberBinding="{Binding StudentName}"/>
+                                
                                 <GridViewColumn Header="Date" Width="100" DisplayMemberBinding="{Binding Date}"/>
                                 <GridViewColumn Header="Time" Width="100" DisplayMemberBinding="{Binding Time}"/>
 
-                                <!-- CANCELED / ACTIVE STATUS -->
                                 <GridViewColumn Header="Status" Width="120">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
@@ -57,7 +57,6 @@
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
 
-                                <!-- PAID TOGGLE -->
                                 <GridViewColumn Header="Paid" Width="100">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
@@ -71,7 +70,6 @@
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
 
-                                <!-- CANCEL ONLY FOR UPCOMING -->
                                 <GridViewColumn Header="Cancel" Width="120">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
@@ -88,13 +86,11 @@
 
                             </GridView>
                         </ListView.View>
-
                     </ListView>
                 </TabItem>
 
 
 
-                <!-- ▬▬▬ SCHEDULED LESSONS BY DATE ▬▬▬ -->
                 <TabItem Header="Scheduled Lessons">
                     <StackPanel>
 
@@ -108,29 +104,24 @@
                             <DatePicker x:Name="LessonDatePicker"
                                         Width="200"
                                         Background="White"
-                                        Foreground="Black"/>
-
-                            <Button Content="Show Lessons"
-                                    Margin="15,0,0,0"
-                                    Padding="10,5"
-                                    Background="#00E0FF"
-                                    Foreground="Black"
-                                    FontWeight="Bold"
-                                    Click="ShowLessons_Click"/>
+                                        Foreground="Black"
+                                        SelectedDateChanged="LessonDatePicker_SelectedDateChanged"/>
                         </StackPanel>
 
                         <ListView x:Name="DayLessons"
                                   Background="#1B2D47"
                                   Foreground="White"
                                   BorderThickness="0"
-                                  Margin="0,10,0,0">
+                                  Margin="0,10,0,0"
+                                  SelectionMode="Single">
 
                             <ListView.View>
                                 <GridView>
-                                    <GridViewColumn Header="Student ID" Width="120" DisplayMemberBinding="{Binding StudentId}"/>
+                                    <GridViewColumn Header="Student ID" Width="80" DisplayMemberBinding="{Binding StudentId}"/>
+                                    <GridViewColumn Header="Student Name" Width="150" DisplayMemberBinding="{Binding StudentName}"/>
+
                                     <GridViewColumn Header="Time" Width="100" DisplayMemberBinding="{Binding Time}"/>
 
-                                    <!-- STATUS -->
                                     <GridViewColumn Header="Status" Width="120">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
@@ -141,7 +132,6 @@
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
 
-                                    <!-- PAID TOGGLE -->
                                     <GridViewColumn Header="Paid" Width="120">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
@@ -165,23 +155,22 @@
 
 
 
-                <!-- ▬▬▬ HISTORY ▬▬▬ -->
                 <TabItem Header="Lesson History">
-
                     <ListView x:Name="HistoryLessons"
                               Background="#1B2D47"
                               Foreground="White"
                               BorderThickness="0"
-                              Margin="0,10,0,0">
+                              Margin="0,10,0,0"
+                              SelectionMode="Single">
 
                         <ListView.View>
                             <GridView>
-
-                                <GridViewColumn Header="Student ID" Width="120" DisplayMemberBinding="{Binding StudentId}"/>
+                                <GridViewColumn Header="Student ID" Width="80" DisplayMemberBinding="{Binding StudentId}"/>
+                                <GridViewColumn Header="Student Name" Width="150" DisplayMemberBinding="{Binding StudentName}"/>
+                                
                                 <GridViewColumn Header="Date" Width="100" DisplayMemberBinding="{Binding Date}"/>
                                 <GridViewColumn Header="Time" Width="100" DisplayMemberBinding="{Binding Time}"/>
 
-                                <!-- STATUS -->
                                 <GridViewColumn Header="Status" Width="120">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
@@ -192,7 +181,6 @@
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
 
-                                <!-- PAID TOGGLE -->
                                 <GridViewColumn Header="Paid" Width="120">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
@@ -208,9 +196,7 @@
 
                             </GridView>
                         </ListView.View>
-
                     </ListView>
-
                 </TabItem>
 
             </TabControl>
@@ -229,7 +215,7 @@
 
         <Frame x:Name="page"
                Panel.ZIndex="100"
-               Margin="-27,-18,-16,-13"/>
+               Margin="-20,-20,-20,-20"/>
 
     </Grid>
 </Page>

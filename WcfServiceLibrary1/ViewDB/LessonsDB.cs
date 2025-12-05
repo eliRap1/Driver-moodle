@@ -85,7 +85,7 @@ namespace ViewDB
         }
         public void MarkLessonPaid(int id)
         {
-            string sql = $"Update Lessons set paid={true} where id={id}";
+            string sql = "UPDATE Lessons SET Paid = True WHERE LessonId = " + id;
             SaveChanges(sql);
         }
         

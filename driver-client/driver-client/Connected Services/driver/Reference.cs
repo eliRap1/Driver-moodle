@@ -683,7 +683,7 @@ namespace driver_client.driver {
         private bool IsAdminField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string LessonPriceField;
+        private int LessonPriceField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string LessonsField;
@@ -749,12 +749,12 @@ namespace driver_client.driver {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string LessonPrice {
+        public int LessonPrice {
             get {
                 return this.LessonPriceField;
             }
             set {
-                if ((object.ReferenceEquals(this.LessonPriceField, value) != true)) {
+                if ((this.LessonPriceField.Equals(value) != true)) {
                     this.LessonPriceField = value;
                     this.RaisePropertyChanged("LessonPrice");
                 }
