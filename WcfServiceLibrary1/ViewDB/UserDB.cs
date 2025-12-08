@@ -42,8 +42,11 @@ namespace ViewDB
                     s.Email = reader["email"].ToString();
                     s.Phone = reader["phone"].ToString();
                     s.TeacherId = (int)reader["TeacherId"];
-                    s.Lessons = (string)reader["Lessons"];
+                    if (s.TeacherId != 0)
+                        s.StudentId = (int)reader["id"];
+                    //s.Lessons = (string)reader["Lessons"];
                     s.LessonPrice = (int)reader["lessonPrice"];
+                    
 
 
                 }

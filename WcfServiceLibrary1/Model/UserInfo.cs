@@ -23,6 +23,7 @@ namespace Model
         public string Email { get => email; set => email = value; }
         public string Phone { get => phone; set => phone = value; }
         public int TeacherId { get => teacherId; set => teacherId = value; }
+        public int StudentId { get; set; }
         public double Rating { get => rating; set => rating = value; }
         public string RatingText { get => ratingT; set => ratingT = value; }
         public string Rewiew { get; set; }

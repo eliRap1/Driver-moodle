@@ -704,6 +704,9 @@ namespace driver_client.driver {
         private string RewiewField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int StudentIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int TeacherIdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -835,6 +838,19 @@ namespace driver_client.driver {
                 if ((object.ReferenceEquals(this.RewiewField, value) != true)) {
                     this.RewiewField = value;
                     this.RaisePropertyChanged("Rewiew");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int StudentId {
+            get {
+                return this.StudentIdField;
+            }
+            set {
+                if ((this.StudentIdField.Equals(value) != true)) {
+                    this.StudentIdField = value;
+                    this.RaisePropertyChanged("StudentId");
                 }
             }
         }

@@ -24,6 +24,12 @@ namespace Model
             
             return user;
         }
+        public void SetStudentId(string name,int studentId)
+        {
+            var student = this.FirstOrDefault(x => x.Username == name);
+            if (student != null)
+                student.StudentId = studentId;
+        }
         public UserInfo GetUser(string name)
         {
             return this.FirstOrDefault(x => x.Username == name);

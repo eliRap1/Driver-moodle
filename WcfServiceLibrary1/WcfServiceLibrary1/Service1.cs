@@ -24,9 +24,6 @@ namespace WcfServiceLibrary1
         public bool AddUser(string name, string password, string email, string phone, bool admin, int tID)
         {
             bool worked = false;
-
-
-            //TEST. should be created and fill in client by binding
             UserInfo user = new UserInfo();
             user.Username = name;
             user.Password = password;
@@ -41,7 +38,8 @@ namespace WcfServiceLibrary1
                 else
                 {
                     worked = new ViewDB.UserDB().AddStudent(user);
-
+                    int sid = new ViewDB.UserDB().GetUserID(name, "Student");
+                    allUsers.SetStudentId(name, sid);
                 }
 
             }

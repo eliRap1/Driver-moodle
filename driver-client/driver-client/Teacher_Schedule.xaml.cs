@@ -132,13 +132,14 @@ namespace driver_client
                 var uniqueStudentIds = raw.Select(x => x.StudentId).Distinct();
 
                 // 2. Fetch details for each student
+                AllUsers allStudents = srv.GetAllUsers();
                 Dictionary<int, string> studentLookup = new Dictionary<int, string>();
                 foreach (var id in uniqueStudentIds)
                 {
-                    var studentUser = srv.GetUserById(id, "Student");
-                    if (studentUser != null)
+                    var student = allStudents.FirstOrDefault(x => x.StudentId == id);
+                    if (student != null)
                     {
-                        studentLookup[id] = studentUser.Username;
+                        studentLookup[id] = student.Username;
                     }
                 }
                 // ---------------------------------------------------------

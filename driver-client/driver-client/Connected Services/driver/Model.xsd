@@ -15,6 +15,7 @@
           <xs:element minOccurs="0" name="Rating" type="xs:double" />
           <xs:element minOccurs="0" name="RatingText" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="Rewiew" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="StudentId" type="xs:int" />
           <xs:element minOccurs="0" name="TeacherId" type="xs:int" />
           <xs:element minOccurs="0" name="Username" nillable="true" type="xs:string" />
         </xs:sequence>
