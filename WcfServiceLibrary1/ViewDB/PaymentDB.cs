@@ -83,9 +83,15 @@ namespace ViewDB
             { 
                 payment.ParcialAmount = payment.Amount/payment.NumberOfPayments; 
             }
+            if(payment.paid)
+            {
+                string sql1 = "UPDATE Lessons SET Paid = True WHERE LessonId = " + payment.PaymentID;
+                SaveChanges(sql1);
+            }
             string sql = "Insert into [Payments]"
-                + "(StudentID,TeacherID,Amount,PaymentDate,PaymentMethod,NumberOfPayments,paid,ParcialAmount)"
+                + "(PaymentID, StudentID,TeacherID,Amount,PaymentDate,PaymentMethod,NumberOfPayments,paid,ParcialAmount)"
                 + "Values("
+                + payment.PaymentID + ","
                 + payment.StudentID + ","
                 + payment.TeacherID + ","
                 + payment.Amount + ","
@@ -93,7 +99,7 @@ namespace ViewDB
                 + "'" + payment.PaymentMethod + "',"
                 + payment.NumberOfPayments + ","
                 + payment.paid + "," + payment.ParcialAmount+")";
-
+            SaveChanges(sql);
         }
         public bool CheckPaid(int id)
         {

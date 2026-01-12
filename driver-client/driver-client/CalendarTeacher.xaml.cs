@@ -104,6 +104,7 @@ namespace driver_client
         private void BackToAvailabillity_Click(object sender, RoutedEventArgs e)
         {
             SpecialDaysGroupBox.Visibility = Visibility.Collapsed;  //need to update
+            UnavailableDaysGroupBox.Visibility = Visibility.Collapsed;
         }
 
         private void SaveAvailability_Click(object sender, RoutedEventArgs e)
@@ -149,6 +150,11 @@ namespace driver_client
         private void SpacialDays_Click(object sender, RoutedEventArgs e)
         {
             SpecialDaysGroupBox.Visibility = Visibility.Visible;
+        }
+
+        private void UnavailableDays_Click(object sender, RoutedEventArgs e)
+        {
+            UnavailableDaysGroupBox.Visibility = Visibility.Visible;
         }
     }
 }

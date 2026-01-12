@@ -269,6 +269,9 @@ namespace driver_client.driver {
     public partial class Lessons : driver_client.driver.Base {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CanceledField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string DateField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -285,6 +288,19 @@ namespace driver_client.driver {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool paidField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Canceled {
+            get {
+                return this.CanceledField;
+            }
+            set {
+                if ((this.CanceledField.Equals(value) != true)) {
+                    this.CanceledField = value;
+                    this.RaisePropertyChanged("Canceled");
+                }
+            }
+        }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public string Date {
@@ -667,6 +683,9 @@ namespace driver_client.driver {
         private bool IsAdminField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int LessonPriceField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string LessonsField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -683,6 +702,9 @@ namespace driver_client.driver {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string RewiewField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int StudentIdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int TeacherIdField;
@@ -725,6 +747,19 @@ namespace driver_client.driver {
                 if ((this.IsAdminField.Equals(value) != true)) {
                     this.IsAdminField = value;
                     this.RaisePropertyChanged("IsAdmin");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int LessonPrice {
+            get {
+                return this.LessonPriceField;
+            }
+            set {
+                if ((this.LessonPriceField.Equals(value) != true)) {
+                    this.LessonPriceField = value;
+                    this.RaisePropertyChanged("LessonPrice");
                 }
             }
         }
@@ -803,6 +838,19 @@ namespace driver_client.driver {
                 if ((object.ReferenceEquals(this.RewiewField, value) != true)) {
                     this.RewiewField = value;
                     this.RaisePropertyChanged("Rewiew");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int StudentId {
+            get {
+                return this.StudentIdField;
+            }
+            set {
+                if ((this.StudentIdField.Equals(value) != true)) {
+                    this.StudentIdField = value;
+                    this.RaisePropertyChanged("StudentId");
                 }
             }
         }
@@ -1014,6 +1062,12 @@ namespace driver_client.driver {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="driver.IService1")]
     public interface IService1 {
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CancelLesson", ReplyAction="http://tempuri.org/IService1/CancelLessonResponse")]
+        void CancelLesson(int lessonId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CancelLesson", ReplyAction="http://tempuri.org/IService1/CancelLessonResponse")]
+        System.Threading.Tasks.Task CancelLessonAsync(int lessonId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetUserID", ReplyAction="http://tempuri.org/IService1/GetUserIDResponse")]
         int GetUserID(string username, string table);
@@ -1233,6 +1287,14 @@ namespace driver_client.driver {
         
         public Service1Client(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress) {
+        }
+        
+        public void CancelLesson(int lessonId) {
+            base.Channel.CancelLesson(lessonId);
+        }
+        
+        public System.Threading.Tasks.Task CancelLessonAsync(int lessonId) {
+            return base.Channel.CancelLessonAsync(lessonId);
         }
         
         public int GetUserID(string username, string table) {

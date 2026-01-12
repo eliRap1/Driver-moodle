@@ -71,8 +71,8 @@ namespace driver_client
                 try
                 {
                     var client = new Service1Client();
-                    client.MarkLessonPaid(lesson.LessonId);  // implement on server side
-                    LoadLessons();                            // refresh grids
+                    client.MarkLessonPaid(lesson.LessonId);  
+                    LoadLessons();                            
                 }
                 catch (Exception ex)
                 {

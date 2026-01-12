@@ -17,7 +17,7 @@ namespace ViewDB
         public bool paid { get; set; }
         public string Date { get; set; }
         public string Time { get; set; }
-
+        public int Canceled { get; set; }
     }
 
     public class LessonsDB : BaseDB
@@ -41,6 +41,7 @@ namespace ViewDB
                     s.paid = bool.Parse(reader["paid"].ToString());
                     s.Date = reader["Date"].ToString();
                     s.Time = reader["Time"].ToString();
+                    s.Canceled = (int)reader["Canceled"];
 
                 }
                 catch
@@ -48,6 +49,11 @@ namespace ViewDB
                     Console.WriteLine("No ID in DB");
                 }
             }
+        }
+        public void CancelLesson(int lessonId)
+        {
+            string sql = "UPDATE Lessons SET Canceled = 1 WHERE LessonId = " + lessonId;
+            SaveChanges(sql);
         }
         public List<Lessons> GetAllTeacherLessons(int tid)
         {
@@ -79,7 +85,7 @@ namespace ViewDB
         }
         public void MarkLessonPaid(int id)
         {
-            string sql = $"Update Lessons set paid={true} where id={id}";
+            string sql = "UPDATE Lessons SET Paid = True WHERE LessonId = " + id;
             SaveChanges(sql);
         }
         

@@ -20,13 +20,10 @@ namespace WcfServiceLibrary1
         private AllUsers allAdmins = null;//new AllUsers();
         private ChatDB chatDB = null;//new ChatDB();
         private LessonsDB lessonsDB = null;//new LessonsDB();
-        private ViewDB.CalnderDB calnderDB = null;//new ViewDB.CalnderDB();
+        private ViewDB.CalendarDB calnderDB = null;//new ViewDB.CalnderDB();
         public bool AddUser(string name, string password, string email, string phone, bool admin, int tID)
         {
             bool worked = false;
-
-
-            //TEST. should be created and fill in client by binding
             UserInfo user = new UserInfo();
             user.Username = name;
             user.Password = password;
@@ -41,17 +38,18 @@ namespace WcfServiceLibrary1
                 else
                 {
                     worked = new ViewDB.UserDB().AddStudent(user);
-
+                    int sid = new ViewDB.UserDB().GetUserID(name, "Student");
+                    allUsers.SetStudentId(name, sid);
                 }
 
             }
             return worked;
 
         }
-        //public List<Lessons> GetAllTeacherLessonsForDate(int tid, string date)
-        //{
-        //    return new LessonsDB().GetAllTeacherLessonsForDate(tid, date);
-        //}
+        public void CancelLesson(int lessonId)
+        {
+            new LessonsDB().CancelLesson(lessonId);
+        }
         public void MarkLessonPaid(int id)
         {
             new LessonsDB().MarkLessonPaid(id);
@@ -129,11 +127,11 @@ namespace WcfServiceLibrary1
         }
         public bool SetTeacherCalendar(Calendars cal, int teacherId)
         {
-            return new ViewDB.CalnderDB().SetTeacherCalendar(cal, teacherId);
+            return new ViewDB.CalendarDB().SetTeacherCalendar(cal, teacherId);
         }
         public Calendars GetTeacherCalendar(int teacherId)
         {
-            return new ViewDB.CalnderDB().GetTeacherCalendar(teacherId);
+            return new ViewDB.CalendarDB().GetTeacherCalendar(teacherId);
         }
         public int GetTeacherId(int studentId)
         {
@@ -178,11 +176,11 @@ namespace WcfServiceLibrary1
         }
         public List<Calendars> GetTeacherUnavailableDates(int teacherId)
         {
-            return new ViewDB.CalnderDB().GetTeacherUnavailableDates(teacherId);
+            return new ViewDB.CalendarDB().GetTeacherUnavailableDates(teacherId);
         }
         public List<Calendars> TeacherSpacialDays(int teacherId)
         {
-            return new ViewDB.CalnderDB().TeacherSpacialDays(teacherId);
+            return new ViewDB.CalendarDB().TeacherSpacialDays(teacherId);
         }
     }
 }
