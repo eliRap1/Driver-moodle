@@ -1,0 +1,68 @@
+﻿@page
+@model TeacherHomeModel
+@{
+    ViewData["Title"] = Model.IsAdmin ? "Admin Dashboard" : "Teacher Dashboard";
+    Layout = "_Layout";
+}
+
+<div class="text-center">
+    <h1 class="display-4" style="color: #00E0FF;">
+        Welcome, @Model.Username!
+        @if (Model.IsAdmin)
+        {
+            <span class="badge bg-danger">ADMIN</span>
+        }
+    </h1>
+    <p class="lead">@(Model.IsAdmin ? "Administrator Dashboard" : "Teacher Dashboard")</p>
+</div>
+
+<div class="row mt-5">
+    <div class="col-md-4">
+        <div class="card text-center" style="background-color: #1B2D47; border: 2px solid #00E0FF;">
+            <div class="card-body">
+                <h5 class="card-title" style="color: #00E0FF;">
+                    📚 @(Model.IsAdmin ? "All Students" : "My Students")
+                </h5>
+                <p class="card-text">
+                    @if (Model.IsAdmin)
+                    {
+                        <text>View and manage all students in the database</text>
+                    }
+                    else
+                    {
+                        <text>View and manage your students</text>
+                    }
+                </p>
+                <a asp-page="/Teacher/AllStudents" class="btn btn-primary">View Students</a>
+            </div>
+        </div>
+    </div>
+
+    @if (Model.IsAdmin)
+    {
+        <div class="col-md-4">
+            <div class="card text-center" style="background-color: #1B2D47; border: 2px solid #00E0FF;">
+                <div class="card-body">
+                    <h5 class="card-title" style="color: #00E0FF;">👨‍🏫 All Teachers</h5>
+                    <p class="card-text">View and manage all teachers in the database</p>
+                    <a asp-page="/Teacher/AllTeachers" class="btn btn-primary">View Teachers</a>
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="col-md-4">
+        <div class="card text-center" style="background-color: #1B2D47; border: 2px solid #00E0FF;">
+            <div class="card-body">
+                <h5 class="card-title" style="color: #00E0FF;">📊 Statistics</h5>
+                <p class="card-text">
+                    @(Model.IsAdmin ? "Total" : "My") Students: <strong>@Model.TotalStudents</strong>
+                </p>
+                @if (Model.IsAdmin)
+                {
+                    <p class="card-text">Total Teachers: <strong>@Model.TotalTeachers</strong></p>
+                }
+            </div>
+        </div>
+    </div>
+</div>

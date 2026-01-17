@@ -1,0 +1,50 @@
+﻿@page
+@model StudentHomeModel
+@{
+    ViewData["Title"] = "Student Dashboard";
+    Layout = "_Layout";
+}
+
+<div class="text-center">
+    <h1 class="display-4" style="color: #00E0FF;">Welcome, @Model.Username!</h1>
+    <p class="lead">Student Dashboard</p>
+</div>
+
+@if (!Model.IsConfirmed)
+{
+    <div class="alert alert-warning text-center mt-4">
+        <h4>⏳ Waiting for Teacher Approval</h4>
+        <p>Your account is pending confirmation by your teacher.</p>
+    </div>
+}
+else
+{
+    <div class="row mt-5">
+        <div class="col-md-6">
+            <div class="card text-center" style="background-color: #1B2D47; border: 2px solid #00E0FF;">
+                <div class="card-body">
+                    <h5 class="card-title" style="color: #00E0FF;">📅 My Lessons</h5>
+                    <p class="card-text">View and manage your scheduled lessons</p>
+                    <a href="#" class="btn btn-primary">View Lessons</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card text-center" style="background-color: #1B2D47; border: 2px solid #00E0FF;">
+                <div class="card-body">
+                    <h5 class="card-title" style="color: #00E0FF;">✍️ Write Review</h5>
+                    <p class="card-text">Share your experience with your teacher</p>
+                    <a href="#" class="btn btn-primary">Write Review</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mt-4" style="background-color: #1B2D47; border: 2px solid #00E0FF;">
+        <div class="card-body">
+            <h5 class="card-title" style="color: #00E0FF;">Your Teacher Information</h5>
+            <p><strong>Teacher ID:</strong> @Model.TeacherId</p>
+        </div>
+    </div>
+}
