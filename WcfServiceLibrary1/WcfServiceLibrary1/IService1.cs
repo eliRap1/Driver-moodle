@@ -79,6 +79,8 @@ namespace WcfServiceLibrary1
         [OperationContract]
         bool AddUser(string name, string password, string email, string phone, bool admin, int tID);
         [OperationContract]
+        void MigrateAllPasswords();
+        [OperationContract]
         List<Payment> SelectPaymentByStudentID(int id);
     }
 

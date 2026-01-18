@@ -1,16 +1,13 @@
 ﻿using Model;
 using System;
 using System.Collections.Generic;
-using System.Data;
+using System.Data.OleDb;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ViewDB
 {
-    public class Lessons :Base
+    public class Lessons : Base
     {
-        //public int Id { get; set; }
         public int LessonId { get; set; }
         public int StudentId { get; set; }
         public int TeacherId { get; set; }
@@ -42,53 +39,73 @@ namespace ViewDB
                     s.Date = reader["Date"].ToString();
                     s.Time = reader["Time"].ToString();
                     s.Canceled = (int)reader["Canceled"];
-
                 }
-                catch
+                catch (Exception ex)
                 {
-                    Console.WriteLine("No ID in DB");
+                    Console.WriteLine("CreateModel Error: " + ex.Message);
                 }
             }
         }
+
+        /// <summary>
+        /// SECURE: Cancel lesson with parameterized query
+        /// </summary>
         public void CancelLesson(int lessonId)
         {
-            string sql = "UPDATE Lessons SET Canceled = 1 WHERE LessonId = " + lessonId;
-            SaveChanges(sql);
+            string sql = "UPDATE [Lessons] SET Canceled = 1 WHERE LessonId = ?";
+            SaveChanges(sql, new OleDbParameter("@lessonId", lessonId));
         }
+
+        /// <summary>
+        /// SECURE: Get all lessons for a teacher
+        /// </summary>
         public List<Lessons> GetAllTeacherLessons(int tid)
         {
-            string sql = "Select * From Lessons where TeacherID=" + tid;
-            List<Lessons> list = Select(sql).OfType<Lessons>().ToList();
-            return list;
+            string sql = "SELECT * FROM [Lessons] WHERE TeacherID = ?";
+            return Select(sql, new OleDbParameter("@tid", tid))
+                .OfType<Lessons>()
+                .ToList();
         }
-        //public List<Lessons> GetAllTeacherLessonsForDate(int tid, string date)
-        //{
-        //    string sql = "Select * From Lessons where TeacherID=" + tid + " and Date='" + date + "'";
-        //    List<Lessons> list = Select(sql).OfType<Lessons>().ToList();
-        //    return list;
-        //}
+
+        /// <summary>
+        /// SECURE: Get all lessons for a student
+        /// </summary>
         public List<Lessons> GetAllStudentLessons(int sid)
         {
-            string sql = "Select * From Lessons where StudentID=" + sid;
-            List<Lessons> list = Select(sql).OfType<Lessons>().ToList();
-            return list;
+            string sql = "SELECT * FROM [Lessons] WHERE StudentID = ?";
+            return Select(sql, new OleDbParameter("@sid", sid))
+                .OfType<Lessons>()
+                .ToList();
         }
-        public void AddLessonForStudent(int sid,string Date,string time)
+
+        /// <summary>
+        /// SECURE: Add lesson for student
+        /// </summary>
+        public void AddLessonForStudent(int sid, string date, string time)
         {
             UserDB udb = new UserDB();
             int tid = udb.GetTeacherId(sid);
-            //string sql = $"Select * From Lessons where TeacherID={tid} and StudentID= {sid}";//
-            //List<Lessons> lst = Select(sql).OfType<Lessons>().ToList();//
-            //int lesID = lst.Capacity + 1;//pretty useless (just use auto number) in the acsses
-            string sql = $"INSERT into Lessons (StudentID, TeacherID,[Date],[Time],paid) VALUES ({sid},{tid},'{Date}','{time}',0)";
-            SaveChanges(sql);
+
+            string sql = "INSERT INTO [Lessons] (StudentID, TeacherID, [Date], [Time], paid) " +
+                        "VALUES (?, ?, ?, ?, ?)";
+
+            SaveChanges(sql,
+                new OleDbParameter("@sid", sid),
+                new OleDbParameter("@tid", tid),
+                new OleDbParameter("@date", date),
+                new OleDbParameter("@time", time),
+                new OleDbParameter("@paid", false));
         }
+
+        /// <summary>
+        /// SECURE: Mark lesson as paid
+        /// </summary>
         public void MarkLessonPaid(int id)
         {
-            string sql = "UPDATE Lessons SET Paid = True WHERE LessonId = " + id;
-            SaveChanges(sql);
+            string sql = "UPDATE [Lessons] SET Paid = ? WHERE LessonId = ?";
+            SaveChanges(sql,
+                new OleDbParameter("@paid", true),
+                new OleDbParameter("@id", id));
         }
-        
-
     }
 }

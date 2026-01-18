@@ -2,17 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.OleDb; // ACCESS זה של Ole
+using System.Data.OleDb;
 
 namespace ViewDB
 {
-    //כל המחלקות של התיקיה מיועדות לקבל נתונים מבסיס נתונים ולתרגם אותם לאובייקטים של
-    //MyModel
-
     public abstract class BaseDB
     {
-        private int id; // Identification number (of person, course etc.)
-
         private static string connectionString = null;
         protected OleDbConnection connection;
         protected OleDbCommand command;
@@ -31,62 +26,58 @@ namespace ViewDB
         {
             if (connectionString == null)
             {
-                string ApplicationBaseFolder = AppDomain.CurrentDomain.BaseDirectory;  // directory of EXE file, at bin/debug directory
-                connectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + ApplicationBaseFolder + "\\..\\..\\..\\ViewDB\\UsersDataBase.accdb;Persist Security Info=True";
+                string ApplicationBaseFolder = AppDomain.CurrentDomain.BaseDirectory;
+                connectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" +
+                    ApplicationBaseFolder + "\\..\\..\\..\\ViewDB\\UsersDataBase.accdb;Persist Security Info=True";
             }
             return new OleDbConnection(connectionString);
         }
 
-        protected List<Base> CreateModel()
-        {
-            return null;
-        }
-        //  protected abstract List<Base> Select();
-
-
         protected virtual void CreateModel(Base entity)
         {
-            if (entity != null) //האם הצלחתי בהמרה, האם הטיפוס מתאים?
+            if (entity != null)
             {
-                try 
+                try
                 {
-                    entity.Id = (int)reader["id"]; //int.Parse(reader["id"].ToString());
-
+                    entity.Id = (int)reader["id"];
                 }
-                catch 
+                catch
                 {
                     Console.WriteLine("No ID in DB.");
                 }
             }
         }
 
-
-        protected virtual List<Base> Select(string sqlCommandTxt)
+        /// <summary>
+        /// SECURE: Execute SELECT with parameterized query
+        /// </summary>
+        protected virtual List<Base> Select(string sqlCommandTxt, params OleDbParameter[] parameters)
         {
-            /*
-            אם זה מעניין אותך:
-תיקונים קטנטנים במצגת(מה שמצאתי היום) :
-שקף 68
-            */
             List<Base> list = new List<Base>();
             try
             {
-                connection.Open(); //was missing
+                connection.Open();
                 command.CommandText = sqlCommandTxt;
-                reader = command.ExecuteReader(); 
-                //NULLבנתיים לא בודקים האם אחד השדות הוא 
+                command.Parameters.Clear();
+
+                // Add parameters if provided
+                if (parameters != null && parameters.Length > 0)
+                {
+                    command.Parameters.AddRange(parameters);
+                }
+
+                reader = command.ExecuteReader();
+
                 while (reader.Read())
                 {
-                    Base entity = NewEntity(); //יוצר אובייקט מטיפוס המתאים
+                    Base entity = NewEntity();
                     CreateModel(entity);
                     list.Add(entity);
                 }
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine(ex.Message); //will word is every world, not only in world of Console
-
-                //the output - we'll see in the output window of VisualStudio
+                System.Diagnostics.Debug.WriteLine("Select Error: " + ex.Message);
             }
             finally
             {
@@ -97,20 +88,26 @@ namespace ViewDB
             }
             return list;
         }
-        protected virtual List<string> SelectRewiew(string sqlCommandTxt)
+
+        /// <summary>
+        /// SECURE: Execute SELECT for reviews with parameterized query
+        /// </summary>
+        protected virtual List<string> SelectReview(string sqlCommandTxt, params OleDbParameter[] parameters)
         {
-            /*
-            אם זה מעניין אותך:
-תיקונים קטנטנים במצגת(מה שמצאתי היום) :
-שקף 68
-            */
             List<string> list = new List<string>();
             try
             {
-                connection.Open(); //was missing
+                connection.Open();
                 command.CommandText = sqlCommandTxt;
+                command.Parameters.Clear();
+
+                if (parameters != null && parameters.Length > 0)
+                {
+                    command.Parameters.AddRange(parameters);
+                }
+
                 reader = command.ExecuteReader();
-                //NULLבנתיים לא בודקים האם אחד השדות הוא 
+
                 while (reader.Read())
                 {
                     list.Add(reader["Rewiew"].ToString());
@@ -118,9 +115,7 @@ namespace ViewDB
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine(ex.Message); //will word is every world, not only in world of Console
-
-                //the output - we'll see in the output window of VisualStudio
+                System.Diagnostics.Debug.WriteLine("SelectReview Error: " + ex.Message);
             }
             finally
             {
@@ -132,20 +127,30 @@ namespace ViewDB
             return list;
         }
 
-        protected int SaveChanges(string command_text)
+        /// <summary>
+        /// SECURE: Execute INSERT/UPDATE/DELETE with parameterized query
+        /// </summary>
+        protected int SaveChanges(string commandText, params OleDbParameter[] parameters)
         {
-            OleDbCommand command = new OleDbCommand();
             int records = 0;
+            OleDbCommand cmd = new OleDbCommand();
             try
             {
-                command.Connection = this.connection;
-                command.CommandText = command_text;
+                cmd.Connection = connection;
+                cmd.CommandText = commandText;
+                cmd.Parameters.Clear();
+
+                if (parameters != null && parameters.Length > 0)
+                {
+                    cmd.Parameters.AddRange(parameters);
+                }
+
                 connection.Open();
-                records = command.ExecuteNonQuery();
+                records = cmd.ExecuteNonQuery();
             }
             catch (Exception e)
             {
-                System.Diagnostics.Debug.WriteLine(e.Message + "\nSQL:" + command.CommandText);
+                System.Diagnostics.Debug.WriteLine("SaveChanges Error: " + e.Message + "\nSQL:" + cmd.CommandText);
             }
             finally
             {
@@ -153,6 +158,37 @@ namespace ViewDB
                     connection.Close();
             }
             return records;
+        }
+
+        /// <summary>
+        /// SECURE: Execute SELECT and return single scalar value
+        /// </summary>
+        protected object SelectScalar(string query, params OleDbParameter[] parameters)
+        {
+            try
+            {
+                command.CommandText = query;
+                command.Parameters.Clear();
+
+                if (parameters != null && parameters.Length > 0)
+                {
+                    command.Parameters.AddRange(parameters);
+                }
+
+                connection.Open();
+                object result = command.ExecuteScalar();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("SelectScalar Error: " + ex.Message);
+                return null;
+            }
+            finally
+            {
+                if (connection.State == ConnectionState.Open)
+                    connection.Close();
+            }
         }
     }
 }

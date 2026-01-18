@@ -25,6 +25,8 @@ namespace driver_client
         {
             InitializeComponent();
             this.DataContext = sign;
+            //driver.Service1Client srv = new driver.Service1Client();
+            //
         }
 
         private void signIn_Click(object sender, RoutedEventArgs e)

@@ -3,184 +3,251 @@ using Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
-using System.Security.Cryptography;
-using System.ServiceModel;
-using System.Text;
 using ViewDB;
-using WcfServiceLibrary1.ContractTypes;
+using Model.Helpers;
 
 namespace WcfServiceLibrary1
 {
-    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "Service1" in both code and config file together.
     public class Service1 : IService1
     {
-        private ViewDB.UserDB userDB = null;// new ViewDB.UserDB();
-        private AllUsers allUsers = null;//new AllUsers();
-        private AllUsers allAdmins = null;//new AllUsers();
-        private ChatDB chatDB = null;//new ChatDB();
-        private LessonsDB lessonsDB = null;//new LessonsDB();
-        private ViewDB.CalendarDB calnderDB = null;//new ViewDB.CalnderDB();
+        private ViewDB.UserDB userDB = new ViewDB.UserDB();
+        private AllUsers allUsers = new AllUsers();
+        private ChatDB chatDB = new ChatDB();
+        private LessonsDB lessonsDB = new LessonsDB();
+        private ViewDB.CalendarDB calendarDB = new ViewDB.CalendarDB();
+
         public bool AddUser(string name, string password, string email, string phone, bool admin, int tID)
         {
-            bool worked = false;
-            UserInfo user = new UserInfo();
-            user.Username = name;
-            user.Password = password;
-            user.Email = email;
-            //worked = new ViewDB.UserDB().AddUser(user);
-
-            user = allUsers.AddUser(name, password, email, phone, admin, tID);
-            if (user != null)
+            // Validate all inputs before processing
+            if (!SecurityHelper.IsSafeString(name, 50) ||
+                !SecurityHelper.IsSafeString(email, 100) ||
+                string.IsNullOrEmpty(password))
             {
-                if (user.IsAdmin)
-                    worked = new ViewDB.UserDB().AddUser(user);
-                else
+                return false;
+            }
+
+            bool worked = false;
+            UserInfo user = new UserInfo
+            {
+                Username = name,
+                Password = password, // Will be hashed in UserDB.AddUser/AddStudent
+                Email = email,
+                Phone = phone,
+                IsAdmin = admin,
+                TeacherId = tID
+            };
+
+            // Check if user already exists
+            if (CheckUserExist(name))
+            {
+                return false;
+            }
+
+            if (admin)
+            {
+                worked = userDB.AddUser(user);
+            }
+            else
+            {
+                worked = userDB.AddStudent(user);
+                if (worked)
                 {
-                    worked = new ViewDB.UserDB().AddStudent(user);
-                    int sid = new ViewDB.UserDB().GetUserID(name, "Student");
+                    int sid = userDB.GetUserID(name, "Student");
                     allUsers.SetStudentId(name, sid);
                 }
-
             }
-            return worked;
 
+            return worked;
         }
+
         public void CancelLesson(int lessonId)
         {
-            new LessonsDB().CancelLesson(lessonId);
+            lessonsDB.CancelLesson(lessonId);
         }
+
         public void MarkLessonPaid(int id)
         {
-            new LessonsDB().MarkLessonPaid(id);
+            lessonsDB.MarkLessonPaid(id);
         }
+
         public void AddLessonForStudent(int sid, string Date, string time)
         {
-            new LessonsDB().AddLessonForStudent(sid, Date, time);
+            lessonsDB.AddLessonForStudent(sid, Date, time);
         }
+
         public List<Lessons> GetAllStudentLessons(int id)
         {
-            return new LessonsDB().GetAllStudentLessons(id);
+            return lessonsDB.GetAllStudentLessons(id);
         }
+
         public List<Lessons> GetAllTeacherLessons(int tid)
         {
-            return new LessonsDB().GetAllTeacherLessons(tid);
+            return lessonsDB.GetAllTeacherLessons(tid);
         }
-    public void UpdateRating(int tid, int rating, string rewiew)
+
+        public void UpdateRating(int tid, int rating, string rewiew)
         {
-            new ViewDB.UserDB().UpdateRating(tid, rating, rewiew);
+            if (rating < 1 || rating > 5)
+                throw new ArgumentException("Rating must be between 1 and 5");
+
+            userDB.UpdateRating(tid, rating, rewiew);
         }
+
         public List<string> GetTeacherReviews(int tid)
         {
-            return new ViewDB.UserDB().GetTeacherReviews(tid);
+            return userDB.GetTeacherReviews(tid);
         }
+
         public void UpdateTeacherId(int sid, int tid)
         {
-            new ViewDB.UserDB().UpdateTeacherId(sid, tid);
+            userDB.UpdateTeacherId(sid, tid);
         }
+
         public AllUsers GetAllTeacher()
         {
-            return new ViewDB.UserDB().GetAllTeacher();
+            return userDB.GetAllTeacher();
         }
+
         public void TeacherConfirm(int id, int tID)
         {
-            new ViewDB.UserDB().TeacherConfirm(id, tID);
+            userDB.TeacherConfirm(id, tID);
         }
+
         public List<UserInfo> GetTeacherStudents(int tid)
         {
-            return new ViewDB.UserDB().GetTeacherStudents(tid);
+            return userDB.GetTeacherStudents(tid);
         }
+
         public bool IsConfirmed(int id)
         {
-            return new ViewDB.UserDB().IsConfirmed(id);
+            return userDB.IsConfirmed(id);
         }
+
         public bool CheckUserExist(string username)
         {
-            allUsers = new ViewDB.UserDB().GetAllStudents();
-            allAdmins = new ViewDB.UserDB().GetAllTeacher();
-            return allUsers.Any(x => x.Username == username) || allAdmins.Any(x => x.Username == username);
+
+            if (!SecurityHelper.IsSafeString(username, 50))
+                return false;
+
+            allUsers = userDB.GetAllStudents();
+            var allAdmins = userDB.GetAllTeacher();
+            
+            return allUsers.Any(x => x.Username == username) || 
+                   allAdmins.Any(x => x.Username == username);
         }
+
+        /// <summary>
+        /// SECURE: Now uses hash verification instead of plain text comparison
+        /// </summary>
         public bool CheckUserPassword(string username, string password)
         {
-            allUsers = new ViewDB.UserDB().GetAllStudents();
-            allAdmins = new ViewDB.UserDB().GetAllTeacher();
-            return allUsers.Any(x => x.Username == username && x.Password == password) || allAdmins.Any(x => x.Username == username && x.Password == password);
+            if (!SecurityHelper.IsSafeString(username, 50) || 
+                string.IsNullOrEmpty(password))
+            {
+                return false;
+            }
+
+            // Verify password using hash comparison
+            return userDB.VerifyUserPassword(username, password);
         }
+
         public UserInfo GetUserById(int id, string table)
         {
-            UserInfo user = new ViewDB.UserDB().GetUserById(id, table);
-            return user;
+            // Validation is done in UserDB
+            return userDB.GetUserById(id, table);
         }
+
         public bool CheckUserAdmin(string username)
         {
-            allAdmins = new ViewDB.UserDB().GetAllTeacher();
+            if (!SecurityHelper.IsSafeString(username, 50))
+                return false;
+
+            var allAdmins = userDB.GetAllTeacher();
             return allAdmins.Any(x => x.Username == username);
         }
+
         public AllUsers GetAllUsers()
         {
-            AllUsers allUsers = new ViewDB.UserDB().GetAllStudents();
-            return allUsers;
+            return userDB.GetAllStudents();
         }
+
         public int GetUserID(string username, string table)
         {
-            return new ViewDB.UserDB().GetUserID(username, table);
+            return userDB.GetUserID(username, table);
         }
+
         public bool SetTeacherCalendar(Calendars cal, int teacherId)
         {
-            return new ViewDB.CalendarDB().SetTeacherCalendar(cal, teacherId);
+            return calendarDB.SetTeacherCalendar(cal, teacherId);
         }
+
         public Calendars GetTeacherCalendar(int teacherId)
         {
-            return new ViewDB.CalendarDB().GetTeacherCalendar(teacherId);
+            return calendarDB.GetTeacherCalendar(teacherId);
         }
+
         public int GetTeacherId(int studentId)
         {
-            return new ViewDB.UserDB().GetTeacherId(studentId);
+            return userDB.GetTeacherId(studentId);
         }
+
         public List<Chats> GetAllChatGlobal()
         {
-            return new ChatDB().GetAllChatGlobal();
+            return chatDB.GetAllChatGlobal();
         }
+
         public void AddMessageGlobal(string message, int userid, string username, bool IsTeacher)
         {
-            new ChatDB().AddMessageGlobal(message, userid, username, IsTeacher);
+            chatDB.AddMessageGlobal(message, userid, username, IsTeacher);
         }
+
         public List<Chats> GetChatPrivate(int studentid, int teacherid)
         {
-            return new ChatDB().GetChatPrivate(studentid, teacherid);
+            return chatDB.GetChatPrivate(studentid, teacherid);
         }
-        public void AddMessagePrivate(string message, int studentid, int teacherid,string username)
+
+        public void AddMessagePrivate(string message, int studentid, int teacherid, string username)
         {
-            new ChatDB().AddMessagePrivate(message, studentid, teacherid, username);
+            chatDB.AddMessagePrivate(message, studentid, teacherid, username);
         }
 
         public List<Payment> SelectPaymentByStudentID(int id)
         {
             return new PaymentDB().SelectPaymentByStudentID(id);
         }
+
         public List<Payment> SelectPaymentByTeacherID(int id)
         {
             return new PaymentDB().SelectPaymentByTeacherID(id);
         }
+
         public List<Payment> SelectPaymentByPaymentID(int id)
         {
             return new PaymentDB().SelectPaymentByPaymentID(id);
         }
+
         public void Pay(Payment payment)
         {
             new PaymentDB().Pay(payment);
         }
+
         public bool CheckPaid(int id)
         {
             return new PaymentDB().CheckPaid(id);
         }
+
         public List<Calendars> GetTeacherUnavailableDates(int teacherId)
         {
-            return new ViewDB.CalendarDB().GetTeacherUnavailableDates(teacherId);
+            return calendarDB.GetTeacherUnavailableDates(teacherId);
         }
+
         public List<Calendars> TeacherSpacialDays(int teacherId)
         {
-            return new ViewDB.CalendarDB().TeacherSpacialDays(teacherId);
+            return calendarDB.TeacherSpacialDays(teacherId);
+        }
+        public void MigrateAllPasswords()
+        {
+            userDB.MigrateAllPasswords();
         }
     }
 }

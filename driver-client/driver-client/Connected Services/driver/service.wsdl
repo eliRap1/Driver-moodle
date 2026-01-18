@@ -201,6 +201,12 @@
   <wsdl:message name="IService1_AddUser_OutputMessage">
     <wsdl:part name="parameters" element="tns:AddUserResponse" />
   </wsdl:message>
+  <wsdl:message name="IService1_MigrateAllPasswords_InputMessage">
+    <wsdl:part name="parameters" element="tns:MigrateAllPasswords" />
+  </wsdl:message>
+  <wsdl:message name="IService1_MigrateAllPasswords_OutputMessage">
+    <wsdl:part name="parameters" element="tns:MigrateAllPasswordsResponse" />
+  </wsdl:message>
   <wsdl:message name="IService1_SelectPaymentByStudentID_InputMessage">
     <wsdl:part name="parameters" element="tns:SelectPaymentByStudentID" />
   </wsdl:message>
@@ -335,6 +341,10 @@
     <wsdl:operation name="AddUser">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/AddUser" message="tns:IService1_AddUser_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/AddUserResponse" message="tns:IService1_AddUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="MigrateAllPasswords">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/MigrateAllPasswords" message="tns:IService1_MigrateAllPasswords_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/MigrateAllPasswordsResponse" message="tns:IService1_MigrateAllPasswords_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="SelectPaymentByStudentID">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/SelectPaymentByStudentID" message="tns:IService1_SelectPaymentByStudentID_InputMessage" />
@@ -624,6 +634,15 @@
     </wsdl:operation>
     <wsdl:operation name="AddUser">
       <soap:operation soapAction="http://tempuri.org/IService1/AddUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MigrateAllPasswords">
+      <soap:operation soapAction="http://tempuri.org/IService1/MigrateAllPasswords" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

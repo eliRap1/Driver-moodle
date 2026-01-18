@@ -1255,6 +1255,12 @@ namespace driver_client.driver {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddUser", ReplyAction="http://tempuri.org/IService1/AddUserResponse")]
         System.Threading.Tasks.Task<bool> AddUserAsync(string name, string password, string email, string phone, bool admin, int tID);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/MigrateAllPasswords", ReplyAction="http://tempuri.org/IService1/MigrateAllPasswordsResponse")]
+        void MigrateAllPasswords();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/MigrateAllPasswords", ReplyAction="http://tempuri.org/IService1/MigrateAllPasswordsResponse")]
+        System.Threading.Tasks.Task MigrateAllPasswordsAsync();
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SelectPaymentByStudentID", ReplyAction="http://tempuri.org/IService1/SelectPaymentByStudentIDResponse")]
         driver_client.driver.Payment[] SelectPaymentByStudentID(int id);
         
@@ -1543,6 +1549,14 @@ namespace driver_client.driver {
         
         public System.Threading.Tasks.Task<bool> AddUserAsync(string name, string password, string email, string phone, bool admin, int tID) {
             return base.Channel.AddUserAsync(name, password, email, phone, admin, tID);
+        }
+        
+        public void MigrateAllPasswords() {
+            base.Channel.MigrateAllPasswords();
+        }
+        
+        public System.Threading.Tasks.Task MigrateAllPasswordsAsync() {
+            return base.Channel.MigrateAllPasswordsAsync();
         }
         
         public driver_client.driver.Payment[] SelectPaymentByStudentID(int id) {

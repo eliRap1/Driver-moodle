@@ -449,6 +449,16 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="MigrateAllPasswords">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="MigrateAllPasswordsResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
   <xs:element name="SelectPaymentByStudentID">
     <xs:complexType>
       <xs:sequence>

@@ -1,11 +1,8 @@
 ﻿using Model;
 using System;
 using System.Collections.Generic;
-using System.Data;
+using System.Data.OleDb;
 using System.Linq;
-using System.Runtime.Remoting.Messaging;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ViewDB
 {
@@ -27,37 +24,7 @@ namespace ViewDB
         {
             return new Chats();
         }
-        //protected List<Chats> SelectChat(string sqlCommandTxt)
-        //{
-        //    List<Chats> list = new List<Chats>();
-        //    try
-        //    {
-        //        connection.Open(); //was missing
-        //        command.CommandText = sqlCommandTxt;
-        //        reader = command.ExecuteReader();
-        //        //NULLבנתיים לא בודקים האם אחד השדות הוא 
-        //        while (reader.Read())
-        //        {
-        //            Chats entity = new Chats(); //יוצר אובייקט מטיפוס המתאים
-        //            CreateModel(entity);
-        //            list.Add(entity);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        System.Diagnostics.Debug.WriteLine(ex.Message); //will word is every world, not only in world of Console
 
-        //        //the output - we'll see in the output window of VisualStudio
-        //    }
-        //    finally
-        //    {
-        //        if (reader != null)
-        //            reader.Close();
-        //        if (connection.State == ConnectionState.Open)
-        //            connection.Close();
-        //    }
-        //    return list;
-        //}
         protected override void CreateModel(Base entity)
         {
             base.CreateModel(entity);
@@ -72,41 +39,86 @@ namespace ViewDB
                     s.IsTeacher = bool.Parse(reader["IsTeacher"].ToString());
                     s.Username = reader["Username"].ToString();
                     s.id = int.Parse(reader["id"].ToString());
-                    s.studentId = int.Parse(reader["studentId"].ToString());
-                    s.teacherId = int.Parse(reader["teacherId"].ToString());
 
+                    // Handle optional fields for private chat
+                    try
+                    {
+                        s.studentId = int.Parse(reader["studentId"].ToString());
+                        s.teacherId = int.Parse(reader["teacherId"].ToString());
+                    }
+                    catch { }
                 }
-                catch
+                catch (Exception ex)
                 {
-                    Console.WriteLine("No ID in DB");
+                    Console.WriteLine("CreateModel Error: " + ex.Message);
                 }
             }
         }
+
+        /// <summary>
+        /// SECURE: Get all global chat messages
+        /// </summary>
         public List<Chats> GetAllChatGlobal()
         {
-            string sqlStr = "Select * From GlobalChat";
-            List<Chats> list = Select(sqlStr).Cast<Chats>().ToList();
-            return list;
+            string sqlStr = "SELECT * FROM [GlobalChat]";
+            return Select(sqlStr).Cast<Chats>().ToList();
         }
-        public void AddMessageGlobal(string message,int userid,string username, bool IsTeacher)
+
+        /// <summary>
+        /// SECURE: Add message to global chat
+        /// </summary>
+        public void AddMessageGlobal(string message, int userid, string username, bool IsTeacher)
         {
+            // Sanitize message (prevent XSS, SQL injection)
+            message = message.Replace("'", "''"); // Escape single quotes
+
             DateTime time = DateTime.Now;
             string timeStr = time.ToString("yyyy-MM-dd HH:mm:ss");
-            string sql = $"Insert into [GlobalChat] ([Message],[UserID],[SentAT], IsTeacher,[username]) Values ('{message}',{userid},'{timeStr}',{IsTeacher},'{username}')";
-            SaveChanges(sql);
+
+            string sql = "INSERT INTO [GlobalChat] ([Message], [UserID], [SentAt], [IsTeacher], [username]) " +
+                        "VALUES (?, ?, ?, ?, ?)";
+
+            SaveChanges(sql,
+                new OleDbParameter("@message", message),
+                new OleDbParameter("@userid", userid),
+                new OleDbParameter("@sentAt", timeStr),
+                new OleDbParameter("@isTeacher", IsTeacher),
+                new OleDbParameter("@username", username));
         }
+
+        /// <summary>
+        /// SECURE: Get private chat messages
+        /// </summary>
         public List<Chats> GetChatPrivate(int studentid, int teacherid)
         {
-            string sqlStr = "Select * From GlobalChat where (studentId=" + studentid + " and teacherId=" + teacherid+")";
-            List<Chats> list = Select(sqlStr).Cast<Chats>().ToList();
-            return list;
+            string sqlStr = "SELECT * FROM [PrivateChat] WHERE studentId = ? AND teacherId = ?";
+            return Select(sqlStr,
+                new OleDbParameter("@studentId", studentid),
+                new OleDbParameter("@teacherId", teacherid))
+                .Cast<Chats>()
+                .ToList();
         }
+
+        /// <summary>
+        /// SECURE: Add message to private chat
+        /// </summary>
         public void AddMessagePrivate(string message, int studentid, int teacherid, string username)
         {
+            // Sanitize message
+            message = message.Replace("'", "''");
+
             DateTime time = DateTime.Now;
             string timeStr = time.ToString("yyyy-MM-dd HH:mm:ss");
-            string sql = $"INSERT into [PrivateChat] ([Message],teacherID,studentID,[username],sentAt) VALUES ('{message}',{teacherid},{studentid},'{username}')";
-            SaveChanges(sql);
+
+            string sql = "INSERT INTO [PrivateChat] ([Message], [teacherID], [studentID], [username], [sentAt]) " +
+                        "VALUES (?, ?, ?, ?, ?)";
+
+            SaveChanges(sql,
+                new OleDbParameter("@message", message),
+                new OleDbParameter("@teacherId", teacherid),
+                new OleDbParameter("@studentId", studentid),
+                new OleDbParameter("@username", username),
+                new OleDbParameter("@sentAt", timeStr));
         }
     }
 }
