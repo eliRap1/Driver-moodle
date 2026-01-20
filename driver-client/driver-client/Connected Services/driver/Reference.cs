@@ -18,6 +18,7 @@ namespace driver_client.driver {
     [System.Runtime.Serialization.DataContractAttribute(Name="Base", Namespace="http://schemas.datacontract.org/2004/07/Model")]
     [System.SerializableAttribute()]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(driver_client.driver.Calendars))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(driver_client.driver.SupportTicket))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(driver_client.driver.Lessons))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(driver_client.driver.Chats))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(driver_client.driver.Payment))]
@@ -257,6 +258,253 @@ namespace driver_client.driver {
                 if ((object.ReferenceEquals(this.WorkingHoursField, value) != true)) {
                     this.WorkingHoursField = value;
                     this.RaisePropertyChanged("WorkingHours");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="SupportTicket", Namespace="http://schemas.datacontract.org/2004/07/Model")]
+    [System.SerializableAttribute()]
+    public partial class SupportTicket : driver_client.driver.Base {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AdminNotesField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AssignedToField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> ClosedAtField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime CreatedAtField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescriptionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private driver_client.driver.TicketMessage[] MessagesField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PriorityField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ResolutionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string StatusField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SubjectField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int TicketIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> UpdatedAtField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int UserIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UserTypeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UsernameField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AdminNotes {
+            get {
+                return this.AdminNotesField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AdminNotesField, value) != true)) {
+                    this.AdminNotesField = value;
+                    this.RaisePropertyChanged("AdminNotes");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AssignedTo {
+            get {
+                return this.AssignedToField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AssignedToField, value) != true)) {
+                    this.AssignedToField = value;
+                    this.RaisePropertyChanged("AssignedTo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> ClosedAt {
+            get {
+                return this.ClosedAtField;
+            }
+            set {
+                if ((this.ClosedAtField.Equals(value) != true)) {
+                    this.ClosedAtField = value;
+                    this.RaisePropertyChanged("ClosedAt");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime CreatedAt {
+            get {
+                return this.CreatedAtField;
+            }
+            set {
+                if ((this.CreatedAtField.Equals(value) != true)) {
+                    this.CreatedAtField = value;
+                    this.RaisePropertyChanged("CreatedAt");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Description {
+            get {
+                return this.DescriptionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescriptionField, value) != true)) {
+                    this.DescriptionField = value;
+                    this.RaisePropertyChanged("Description");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public driver_client.driver.TicketMessage[] Messages {
+            get {
+                return this.MessagesField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MessagesField, value) != true)) {
+                    this.MessagesField = value;
+                    this.RaisePropertyChanged("Messages");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Priority {
+            get {
+                return this.PriorityField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PriorityField, value) != true)) {
+                    this.PriorityField = value;
+                    this.RaisePropertyChanged("Priority");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Resolution {
+            get {
+                return this.ResolutionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ResolutionField, value) != true)) {
+                    this.ResolutionField = value;
+                    this.RaisePropertyChanged("Resolution");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Status {
+            get {
+                return this.StatusField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.StatusField, value) != true)) {
+                    this.StatusField = value;
+                    this.RaisePropertyChanged("Status");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Subject {
+            get {
+                return this.SubjectField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SubjectField, value) != true)) {
+                    this.SubjectField = value;
+                    this.RaisePropertyChanged("Subject");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int TicketId {
+            get {
+                return this.TicketIdField;
+            }
+            set {
+                if ((this.TicketIdField.Equals(value) != true)) {
+                    this.TicketIdField = value;
+                    this.RaisePropertyChanged("TicketId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> UpdatedAt {
+            get {
+                return this.UpdatedAtField;
+            }
+            set {
+                if ((this.UpdatedAtField.Equals(value) != true)) {
+                    this.UpdatedAtField = value;
+                    this.RaisePropertyChanged("UpdatedAt");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int UserId {
+            get {
+                return this.UserIdField;
+            }
+            set {
+                if ((this.UserIdField.Equals(value) != true)) {
+                    this.UserIdField = value;
+                    this.RaisePropertyChanged("UserId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UserType {
+            get {
+                return this.UserTypeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UserTypeField, value) != true)) {
+                    this.UserTypeField = value;
+                    this.RaisePropertyChanged("UserType");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Username {
+            get {
+                return this.UsernameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UsernameField, value) != true)) {
+                    this.UsernameField = value;
+                    this.RaisePropertyChanged("Username");
                 }
             }
         }
@@ -526,6 +774,12 @@ namespace driver_client.driver {
         private int AmountField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int LessonIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NotesField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int NumberOfPaymentsField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -539,6 +793,9 @@ namespace driver_client.driver {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string PaymentMethodField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string StatusField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int StudentIDField;
@@ -558,6 +815,32 @@ namespace driver_client.driver {
                 if ((this.AmountField.Equals(value) != true)) {
                     this.AmountField = value;
                     this.RaisePropertyChanged("Amount");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int LessonId {
+            get {
+                return this.LessonIdField;
+            }
+            set {
+                if ((this.LessonIdField.Equals(value) != true)) {
+                    this.LessonIdField = value;
+                    this.RaisePropertyChanged("LessonId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Notes {
+            get {
+                return this.NotesField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NotesField, value) != true)) {
+                    this.NotesField = value;
+                    this.RaisePropertyChanged("Notes");
                 }
             }
         }
@@ -623,6 +906,19 @@ namespace driver_client.driver {
                 if ((object.ReferenceEquals(this.PaymentMethodField, value) != true)) {
                     this.PaymentMethodField = value;
                     this.RaisePropertyChanged("PaymentMethod");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Status {
+            get {
+                return this.StatusField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.StatusField, value) != true)) {
+                    this.StatusField = value;
+                    this.RaisePropertyChanged("Status");
                 }
             }
         }
@@ -1054,6 +1350,131 @@ namespace driver_client.driver {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="TicketMessage", Namespace="http://schemas.datacontract.org/2004/07/Model")]
+    [System.SerializableAttribute()]
+    public partial class TicketMessage : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsAdminField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MessageField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int MessageIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SenderUsernameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime SentAtField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int TicketIdField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsAdmin {
+            get {
+                return this.IsAdminField;
+            }
+            set {
+                if ((this.IsAdminField.Equals(value) != true)) {
+                    this.IsAdminField = value;
+                    this.RaisePropertyChanged("IsAdmin");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Message {
+            get {
+                return this.MessageField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MessageField, value) != true)) {
+                    this.MessageField = value;
+                    this.RaisePropertyChanged("Message");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int MessageId {
+            get {
+                return this.MessageIdField;
+            }
+            set {
+                if ((this.MessageIdField.Equals(value) != true)) {
+                    this.MessageIdField = value;
+                    this.RaisePropertyChanged("MessageId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SenderUsername {
+            get {
+                return this.SenderUsernameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SenderUsernameField, value) != true)) {
+                    this.SenderUsernameField = value;
+                    this.RaisePropertyChanged("SenderUsername");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime SentAt {
+            get {
+                return this.SentAtField;
+            }
+            set {
+                if ((this.SentAtField.Equals(value) != true)) {
+                    this.SentAtField = value;
+                    this.RaisePropertyChanged("SentAt");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int TicketId {
+            get {
+                return this.TicketIdField;
+            }
+            set {
+                if ((this.TicketIdField.Equals(value) != true)) {
+                    this.TicketIdField = value;
+                    this.RaisePropertyChanged("TicketId");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.CollectionDataContractAttribute(Name="AllUsers", Namespace="http://schemas.datacontract.org/2004/07/Model", ItemName="UserInfo")]
     [System.SerializableAttribute()]
     public class AllUsers : System.Collections.Generic.List<driver_client.driver.UserInfo> {
@@ -1266,6 +1687,72 @@ namespace driver_client.driver {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SelectPaymentByStudentID", ReplyAction="http://tempuri.org/IService1/SelectPaymentByStudentIDResponse")]
         System.Threading.Tasks.Task<driver_client.driver.Payment[]> SelectPaymentByStudentIDAsync(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CreateSupportTicket", ReplyAction="http://tempuri.org/IService1/CreateSupportTicketResponse")]
+        int CreateSupportTicket(driver_client.driver.SupportTicket ticket);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CreateSupportTicket", ReplyAction="http://tempuri.org/IService1/CreateSupportTicketResponse")]
+        System.Threading.Tasks.Task<int> CreateSupportTicketAsync(driver_client.driver.SupportTicket ticket);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetUserTickets", ReplyAction="http://tempuri.org/IService1/GetUserTicketsResponse")]
+        driver_client.driver.SupportTicket[] GetUserTickets(int userId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetUserTickets", ReplyAction="http://tempuri.org/IService1/GetUserTicketsResponse")]
+        System.Threading.Tasks.Task<driver_client.driver.SupportTicket[]> GetUserTicketsAsync(int userId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllTickets", ReplyAction="http://tempuri.org/IService1/GetAllTicketsResponse")]
+        driver_client.driver.SupportTicket[] GetAllTickets();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllTickets", ReplyAction="http://tempuri.org/IService1/GetAllTicketsResponse")]
+        System.Threading.Tasks.Task<driver_client.driver.SupportTicket[]> GetAllTicketsAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetTicketById", ReplyAction="http://tempuri.org/IService1/GetTicketByIdResponse")]
+        driver_client.driver.SupportTicket GetTicketById(int ticketId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetTicketById", ReplyAction="http://tempuri.org/IService1/GetTicketByIdResponse")]
+        System.Threading.Tasks.Task<driver_client.driver.SupportTicket> GetTicketByIdAsync(int ticketId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/UpdateTicketStatus", ReplyAction="http://tempuri.org/IService1/UpdateTicketStatusResponse")]
+        void UpdateTicketStatus(int ticketId, string status, string assignedTo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/UpdateTicketStatus", ReplyAction="http://tempuri.org/IService1/UpdateTicketStatusResponse")]
+        System.Threading.Tasks.Task UpdateTicketStatusAsync(int ticketId, string status, string assignedTo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CloseTicket", ReplyAction="http://tempuri.org/IService1/CloseTicketResponse")]
+        void CloseTicket(int ticketId, string resolution, string adminNotes);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CloseTicket", ReplyAction="http://tempuri.org/IService1/CloseTicketResponse")]
+        System.Threading.Tasks.Task CloseTicketAsync(int ticketId, string resolution, string adminNotes);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddTicketMessage", ReplyAction="http://tempuri.org/IService1/AddTicketMessageResponse")]
+        void AddTicketMessage(driver_client.driver.TicketMessage message);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddTicketMessage", ReplyAction="http://tempuri.org/IService1/AddTicketMessageResponse")]
+        System.Threading.Tasks.Task AddTicketMessageAsync(driver_client.driver.TicketMessage message);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetTicketMessages", ReplyAction="http://tempuri.org/IService1/GetTicketMessagesResponse")]
+        driver_client.driver.TicketMessage[] GetTicketMessages(int ticketId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetTicketMessages", ReplyAction="http://tempuri.org/IService1/GetTicketMessagesResponse")]
+        System.Threading.Tasks.Task<driver_client.driver.TicketMessage[]> GetTicketMessagesAsync(int ticketId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetTeacherIncome", ReplyAction="http://tempuri.org/IService1/GetTeacherIncomeResponse")]
+        decimal GetTeacherIncome(int teacherId, System.DateTime fromDate, System.DateTime toDate);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetTeacherIncome", ReplyAction="http://tempuri.org/IService1/GetTeacherIncomeResponse")]
+        System.Threading.Tasks.Task<decimal> GetTeacherIncomeAsync(int teacherId, System.DateTime fromDate, System.DateTime toDate);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetOutstandingPayments", ReplyAction="http://tempuri.org/IService1/GetOutstandingPaymentsResponse")]
+        driver_client.driver.Payment[] GetOutstandingPayments(int studentId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetOutstandingPayments", ReplyAction="http://tempuri.org/IService1/GetOutstandingPaymentsResponse")]
+        System.Threading.Tasks.Task<driver_client.driver.Payment[]> GetOutstandingPaymentsAsync(int studentId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetOverduePayments", ReplyAction="http://tempuri.org/IService1/GetOverduePaymentsResponse")]
+        driver_client.driver.Payment[] GetOverduePayments();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetOverduePayments", ReplyAction="http://tempuri.org/IService1/GetOverduePaymentsResponse")]
+        System.Threading.Tasks.Task<driver_client.driver.Payment[]> GetOverduePaymentsAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1565,6 +2052,94 @@ namespace driver_client.driver {
         
         public System.Threading.Tasks.Task<driver_client.driver.Payment[]> SelectPaymentByStudentIDAsync(int id) {
             return base.Channel.SelectPaymentByStudentIDAsync(id);
+        }
+        
+        public int CreateSupportTicket(driver_client.driver.SupportTicket ticket) {
+            return base.Channel.CreateSupportTicket(ticket);
+        }
+        
+        public System.Threading.Tasks.Task<int> CreateSupportTicketAsync(driver_client.driver.SupportTicket ticket) {
+            return base.Channel.CreateSupportTicketAsync(ticket);
+        }
+        
+        public driver_client.driver.SupportTicket[] GetUserTickets(int userId) {
+            return base.Channel.GetUserTickets(userId);
+        }
+        
+        public System.Threading.Tasks.Task<driver_client.driver.SupportTicket[]> GetUserTicketsAsync(int userId) {
+            return base.Channel.GetUserTicketsAsync(userId);
+        }
+        
+        public driver_client.driver.SupportTicket[] GetAllTickets() {
+            return base.Channel.GetAllTickets();
+        }
+        
+        public System.Threading.Tasks.Task<driver_client.driver.SupportTicket[]> GetAllTicketsAsync() {
+            return base.Channel.GetAllTicketsAsync();
+        }
+        
+        public driver_client.driver.SupportTicket GetTicketById(int ticketId) {
+            return base.Channel.GetTicketById(ticketId);
+        }
+        
+        public System.Threading.Tasks.Task<driver_client.driver.SupportTicket> GetTicketByIdAsync(int ticketId) {
+            return base.Channel.GetTicketByIdAsync(ticketId);
+        }
+        
+        public void UpdateTicketStatus(int ticketId, string status, string assignedTo) {
+            base.Channel.UpdateTicketStatus(ticketId, status, assignedTo);
+        }
+        
+        public System.Threading.Tasks.Task UpdateTicketStatusAsync(int ticketId, string status, string assignedTo) {
+            return base.Channel.UpdateTicketStatusAsync(ticketId, status, assignedTo);
+        }
+        
+        public void CloseTicket(int ticketId, string resolution, string adminNotes) {
+            base.Channel.CloseTicket(ticketId, resolution, adminNotes);
+        }
+        
+        public System.Threading.Tasks.Task CloseTicketAsync(int ticketId, string resolution, string adminNotes) {
+            return base.Channel.CloseTicketAsync(ticketId, resolution, adminNotes);
+        }
+        
+        public void AddTicketMessage(driver_client.driver.TicketMessage message) {
+            base.Channel.AddTicketMessage(message);
+        }
+        
+        public System.Threading.Tasks.Task AddTicketMessageAsync(driver_client.driver.TicketMessage message) {
+            return base.Channel.AddTicketMessageAsync(message);
+        }
+        
+        public driver_client.driver.TicketMessage[] GetTicketMessages(int ticketId) {
+            return base.Channel.GetTicketMessages(ticketId);
+        }
+        
+        public System.Threading.Tasks.Task<driver_client.driver.TicketMessage[]> GetTicketMessagesAsync(int ticketId) {
+            return base.Channel.GetTicketMessagesAsync(ticketId);
+        }
+        
+        public decimal GetTeacherIncome(int teacherId, System.DateTime fromDate, System.DateTime toDate) {
+            return base.Channel.GetTeacherIncome(teacherId, fromDate, toDate);
+        }
+        
+        public System.Threading.Tasks.Task<decimal> GetTeacherIncomeAsync(int teacherId, System.DateTime fromDate, System.DateTime toDate) {
+            return base.Channel.GetTeacherIncomeAsync(teacherId, fromDate, toDate);
+        }
+        
+        public driver_client.driver.Payment[] GetOutstandingPayments(int studentId) {
+            return base.Channel.GetOutstandingPayments(studentId);
+        }
+        
+        public System.Threading.Tasks.Task<driver_client.driver.Payment[]> GetOutstandingPaymentsAsync(int studentId) {
+            return base.Channel.GetOutstandingPaymentsAsync(studentId);
+        }
+        
+        public driver_client.driver.Payment[] GetOverduePayments() {
+            return base.Channel.GetOverduePayments();
+        }
+        
+        public System.Threading.Tasks.Task<driver_client.driver.Payment[]> GetOverduePaymentsAsync() {
+            return base.Channel.GetOverduePaymentsAsync();
         }
     }
 }

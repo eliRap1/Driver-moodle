@@ -213,6 +213,72 @@
   <wsdl:message name="IService1_SelectPaymentByStudentID_OutputMessage">
     <wsdl:part name="parameters" element="tns:SelectPaymentByStudentIDResponse" />
   </wsdl:message>
+  <wsdl:message name="IService1_CreateSupportTicket_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateSupportTicket" />
+  </wsdl:message>
+  <wsdl:message name="IService1_CreateSupportTicket_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateSupportTicketResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetUserTickets_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserTickets" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetUserTickets_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserTicketsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetAllTickets_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllTickets" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetAllTickets_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllTicketsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetTicketById_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTicketById" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetTicketById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTicketByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_UpdateTicketStatus_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateTicketStatus" />
+  </wsdl:message>
+  <wsdl:message name="IService1_UpdateTicketStatus_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateTicketStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_CloseTicket_InputMessage">
+    <wsdl:part name="parameters" element="tns:CloseTicket" />
+  </wsdl:message>
+  <wsdl:message name="IService1_CloseTicket_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CloseTicketResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_AddTicketMessage_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddTicketMessage" />
+  </wsdl:message>
+  <wsdl:message name="IService1_AddTicketMessage_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddTicketMessageResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetTicketMessages_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTicketMessages" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetTicketMessages_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTicketMessagesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetTeacherIncome_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTeacherIncome" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetTeacherIncome_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTeacherIncomeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetOutstandingPayments_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetOutstandingPayments" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetOutstandingPayments_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetOutstandingPaymentsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetOverduePayments_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetOverduePayments" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetOverduePayments_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetOverduePaymentsResponse" />
+  </wsdl:message>
   <wsdl:portType name="IService1">
     <wsdl:operation name="CancelLesson">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/CancelLesson" message="tns:IService1_CancelLesson_InputMessage" />
@@ -349,6 +415,50 @@
     <wsdl:operation name="SelectPaymentByStudentID">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/SelectPaymentByStudentID" message="tns:IService1_SelectPaymentByStudentID_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/SelectPaymentByStudentIDResponse" message="tns:IService1_SelectPaymentByStudentID_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateSupportTicket">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/CreateSupportTicket" message="tns:IService1_CreateSupportTicket_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/CreateSupportTicketResponse" message="tns:IService1_CreateSupportTicket_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserTickets">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetUserTickets" message="tns:IService1_GetUserTickets_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetUserTicketsResponse" message="tns:IService1_GetUserTickets_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllTickets">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetAllTickets" message="tns:IService1_GetAllTickets_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetAllTicketsResponse" message="tns:IService1_GetAllTickets_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTicketById">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetTicketById" message="tns:IService1_GetTicketById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetTicketByIdResponse" message="tns:IService1_GetTicketById_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTicketStatus">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/UpdateTicketStatus" message="tns:IService1_UpdateTicketStatus_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/UpdateTicketStatusResponse" message="tns:IService1_UpdateTicketStatus_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CloseTicket">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/CloseTicket" message="tns:IService1_CloseTicket_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/CloseTicketResponse" message="tns:IService1_CloseTicket_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddTicketMessage">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/AddTicketMessage" message="tns:IService1_AddTicketMessage_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/AddTicketMessageResponse" message="tns:IService1_AddTicketMessage_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTicketMessages">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetTicketMessages" message="tns:IService1_GetTicketMessages_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetTicketMessagesResponse" message="tns:IService1_GetTicketMessages_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTeacherIncome">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetTeacherIncome" message="tns:IService1_GetTeacherIncome_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetTeacherIncomeResponse" message="tns:IService1_GetTeacherIncome_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOutstandingPayments">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetOutstandingPayments" message="tns:IService1_GetOutstandingPayments_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetOutstandingPaymentsResponse" message="tns:IService1_GetOutstandingPayments_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOverduePayments">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetOverduePayments" message="tns:IService1_GetOverduePayments_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetOverduePaymentsResponse" message="tns:IService1_GetOverduePayments_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IService1" type="tns:IService1">
@@ -652,6 +762,105 @@
     </wsdl:operation>
     <wsdl:operation name="SelectPaymentByStudentID">
       <soap:operation soapAction="http://tempuri.org/IService1/SelectPaymentByStudentID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateSupportTicket">
+      <soap:operation soapAction="http://tempuri.org/IService1/CreateSupportTicket" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserTickets">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetUserTickets" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllTickets">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetAllTickets" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTicketById">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetTicketById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTicketStatus">
+      <soap:operation soapAction="http://tempuri.org/IService1/UpdateTicketStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CloseTicket">
+      <soap:operation soapAction="http://tempuri.org/IService1/CloseTicket" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddTicketMessage">
+      <soap:operation soapAction="http://tempuri.org/IService1/AddTicketMessage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTicketMessages">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetTicketMessages" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTeacherIncome">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetTeacherIncome" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOutstandingPayments">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetOutstandingPayments" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOverduePayments">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetOverduePayments" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

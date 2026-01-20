@@ -39,16 +39,23 @@ namespace driver_client
 
         private void TestSchedule_Click(object sender, RoutedEventArgs e)
         {
-
+            // TODO: Implement test schedule
         }
+
         private void Schedule_Click(object sender, RoutedEventArgs e)
         {
             page.Navigate(new Teacher_Schedule());
         }
-        
+
         private void Chat_Click(object sender, RoutedEventArgs e)
         {
             page.Navigate(new Chat());
+        }
+
+        // ← ADD THIS NEW METHOD
+        private void SupportTickets_Click(object sender, RoutedEventArgs e)
+        {
+            page.Navigate(new MyTickets());
         }
     }
 }

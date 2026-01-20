@@ -145,6 +145,6 @@
                 Cursor="Hand"
                 Click="BackButton_Click"/>
 
-        <Frame x:Name="page" Panel.ZIndex="100"   Grid.RowSpan="3" Margin="0,-6,0,0"/>
+        <Frame x:Name="page" Panel.ZIndex="100"   Grid.RowSpan="3" />
     </Grid>
 </Page>

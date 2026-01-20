@@ -253,11 +253,7 @@ namespace driver_client
             {
                 var srv = new Service1Client();
 
-                // 1. Mark the lesson itself as paid in the Lessons table (must be done before creating Payment record)
-                // Note: The order you had them in was a bit mixed. I'll put MarkLessonPaid first, 
-                // assuming it's required for the Payment object logic to work cleanly.
-
-                // 2. Create the Payment record
+                // Create the Payment record
                 Payment pay = new Payment
                 {
                     StudentID = lessonToUpdate.StudentId,
@@ -267,20 +263,19 @@ namespace driver_client
                     PaymentDate = DateTime.Now,
                     NumberOfPayments = 1,
                     paid = true,
-                    // Get LessonPrice from the logged-in teacher
-                    Amount = srv.GetUserById(LogIn.sign.Id, "Teacher").LessonPrice
+                    Amount = LogIn.sign.LessonPrice  // *** FIX: Use from Sign class ***
                 };
 
                 srv.Pay(pay);
 
-                MessageBox.Show($"Lesson ID {lessonToUpdate.LessonId} successfully marked as paid.");
+                MessageBox.Show($"Lesson ID {lessonToUpdate.LessonId} successfully marked as paid for {LogIn.sign.LessonPrice} ₪.");
 
                 // Reload all lists to reflect the status change on all tabs
                 LoadAll();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Failed to update paid status.\nEnsure all required data is available (e.g., Lesson Price).\n" + ex.Message);
+                MessageBox.Show("Failed to update paid status.\n" + ex.Message);
             }
         }
 

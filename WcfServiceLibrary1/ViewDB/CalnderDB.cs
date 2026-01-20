@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ViewDB
 {
@@ -29,9 +27,7 @@ namespace ViewDB
                     if (HasColumn(reader, "UnavailableDate") && HasColumn(reader, "AllDay")
                         && !HasColumn(reader, "availableDays"))
                     {
-                        // ========================================
                         // TeacherUnavailableDate table
-                        // ========================================
                         var u = new UnavailableDay();
 
                         DateTime dt;
@@ -51,15 +47,12 @@ namespace ViewDB
                             s.UnavailableDays = new List<UnavailableDay>();
                         s.UnavailableDays.Add(u);
 
-                        // Also set TeacherID if available
                         if (HasColumn(reader, "TeacherID"))
                             s.Teacherid = int.Parse(reader["TeacherID"].ToString());
                     }
                     else if (HasColumn(reader, "SelectedDate") && HasColumn(reader, "SelectedDay"))
                     {
-                        // ========================================
                         // TeacherSpacialDays table
-                        // ========================================
                         var sd = new SpecialDay();
 
                         DateTime dt;
@@ -75,15 +68,12 @@ namespace ViewDB
                             s.SpecialDaysList = new List<SpecialDay>();
                         s.SpecialDaysList.Add(sd);
 
-                        // Also set TeacherID if available
                         if (HasColumn(reader, "TeacherID"))
                             s.Teacherid = int.Parse(reader["TeacherID"].ToString());
                     }
                     else if (HasColumn(reader, "availableDays"))
                     {
-                        // ========================================
                         // Availability table
-                        // ========================================
                         s.StartTime = reader["startTime"] != DBNull.Value ? reader["startTime"].ToString() : "08:00";
                         s.EndTime = reader["endTime"] != DBNull.Value ? reader["endTime"].ToString() : "20:00";
 
@@ -92,7 +82,6 @@ namespace ViewDB
                             ? new List<string>()
                             : availDays.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
 
-                        // Optional fields that may not exist
                         if (HasColumn(reader, "UnavailableDate"))
                         {
                             string unavailDates = reader["UnavailableDate"] != DBNull.Value ? reader["UnavailableDate"].ToString() : "";
@@ -140,15 +129,18 @@ namespace ViewDB
             return false;
         }
 
+        /// <summary>
+        /// SECURE: Get teacher calendar with parameterized queries
+        /// </summary>
         public Calendars GetTeacherCalendar(int teacherId)
         {
             Calendars result = new Calendars();
 
-            // ---------------------------
             // 1) Load WEEKLY availability
-            // ---------------------------
-            string sqlAvailability = $"SELECT * FROM Availability WHERE TeacherID = {teacherId}";
-            List<Calendars> list = Select(sqlAvailability).OfType<Calendars>().ToList();
+            string sqlAvailability = "SELECT * FROM [Availability] WHERE TeacherID = ?";
+            List<Calendars> list = Select(sqlAvailability, new OleDbParameter("@teacherId", teacherId))
+                .OfType<Calendars>()
+                .ToList();
 
             if (list.Count > 0)
             {
@@ -161,18 +153,17 @@ namespace ViewDB
             }
             else
             {
-                // fallback defaults if Availability missing
                 result.Teacherid = teacherId;
                 result.AvailableDays = new List<string>();
                 result.StartTime = "08:00";
                 result.EndTime = "20:00";
             }
 
-            // -----------------------------------
             // 2) Load TeacherUnavailableDate rows
-            // -----------------------------------
-            string sqlUnavailable = $"SELECT * FROM TeacherUnavailableDate WHERE TeacherID = {teacherId}";
-            List<Calendars> unavailableRows = Select(sqlUnavailable).OfType<Calendars>().ToList();
+            string sqlUnavailable = "SELECT * FROM [TeacherUnavailableDate] WHERE TeacherID = ?";
+            List<Calendars> unavailableRows = Select(sqlUnavailable, new OleDbParameter("@teacherId", teacherId))
+                .OfType<Calendars>()
+                .ToList();
 
             if (result.UnavailableDays == null)
                 result.UnavailableDays = new List<UnavailableDay>();
@@ -194,11 +185,11 @@ namespace ViewDB
                 }
             }
 
-            // -----------------------------------
             // 3) Load TeacherSpacialDays rows
-            // -----------------------------------
-            string sqlSpecial = $"SELECT * FROM TeacherSpacialDays WHERE TeacherID = {teacherId}";
-            List<Calendars> specialRows = Select(sqlSpecial).OfType<Calendars>().ToList();
+            string sqlSpecial = "SELECT * FROM [TeacherSpacialDays] WHERE TeacherID = ?";
+            List<Calendars> specialRows = Select(sqlSpecial, new OleDbParameter("@teacherId", teacherId))
+                .OfType<Calendars>()
+                .ToList();
 
             if (result.SpecialDaysList == null)
                 result.SpecialDaysList = new List<SpecialDay>();
@@ -224,27 +215,34 @@ namespace ViewDB
 
         public List<Calendars> GetTeacherUnavailableDates(int teacherId)
         {
-            string sqlStr = "SELECT * FROM TeacherUnavailableDate WHERE TeacherID = " + teacherId;
-            List<Calendars> list = Select(sqlStr).OfType<Calendars>().ToList();
-            return list;
+            string sqlStr = "SELECT * FROM [TeacherUnavailableDate] WHERE TeacherID = ?";
+            return Select(sqlStr, new OleDbParameter("@teacherId", teacherId))
+                .OfType<Calendars>()
+                .ToList();
         }
 
         public List<Calendars> TeacherSpacialDays(int teacherId)
         {
-            string sqlStr = "SELECT * FROM TeacherSpacialDays WHERE TeacherID = " + teacherId;
-            List<Calendars> list = Select(sqlStr).OfType<Calendars>().ToList();
-            return list;
+            string sqlStr = "SELECT * FROM [TeacherSpacialDays] WHERE TeacherID = ?";
+            return Select(sqlStr, new OleDbParameter("@teacherId", teacherId))
+                .OfType<Calendars>()
+                .ToList();
         }
 
+        /// <summary>
+        /// SECURE: Set teacher calendar with parameterized queries
+        /// </summary>
         public bool SetTeacherCalendar(Calendars cal, int teacherId)
         {
             bool success = true;
 
             try
             {
-                // --- 1️⃣ Check if Availability row exists
-                string existsSql = $"SELECT * FROM [Availability] WHERE [TeacherID] = {teacherId}";
-                bool exists = Select(existsSql).OfType<Calendars>().Any();
+                // 1) Check if Availability row exists
+                string existsSql = "SELECT * FROM [Availability] WHERE TeacherID = ?";
+                bool exists = Select(existsSql, new OleDbParameter("@teacherId", teacherId))
+                    .OfType<Calendars>()
+                    .Any();
 
                 string startTime = cal.StartTime ?? "08:00";
                 string endTime = cal.EndTime ?? "20:00";
@@ -252,30 +250,40 @@ namespace ViewDB
                     ? string.Join(",", cal.AvailableDays)
                     : "";
 
-                // --- 2️⃣ Insert or Update Availability
+                // 2) Insert or Update Availability
                 string sql;
+                OleDbParameter[] parameters;
+
                 if (exists)
                 {
-                    sql = $@"
-                UPDATE [Availability]
-                SET [startTime] = '{startTime}',
-                    [endTime]   = '{endTime}',
-                    [availableDays] = '{availableDays}'
-                WHERE [TeacherID] = {teacherId}";
+                    sql = @"UPDATE [Availability] 
+                            SET [startTime] = ?, [endTime] = ?, [availableDays] = ?
+                            WHERE [TeacherID] = ?";
+                    parameters = new[]
+                    {
+                        new OleDbParameter("@startTime", startTime),
+                        new OleDbParameter("@endTime", endTime),
+                        new OleDbParameter("@availableDays", availableDays),
+                        new OleDbParameter("@teacherId", teacherId)
+                    };
                 }
                 else
                 {
-                    sql = $@"
-                INSERT INTO [Availability] 
-                    ([TeacherID],[startTime],[endTime],[availableDays])
-                VALUES
-                    ({teacherId},'{startTime}','{endTime}','{availableDays}')";
+                    sql = @"INSERT INTO [Availability] ([TeacherID], [startTime], [endTime], [availableDays])
+                            VALUES (?, ?, ?, ?)";
+                    parameters = new[]
+                    {
+                        new OleDbParameter("@teacherId", teacherId),
+                        new OleDbParameter("@startTime", startTime),
+                        new OleDbParameter("@endTime", endTime),
+                        new OleDbParameter("@availableDays", availableDays)
+                    };
                 }
-                SaveChanges(sql);
+                SaveChanges(sql, parameters);
 
-                // --- 3️⃣ Update TeacherUnavailableDate table
-                string deleteUnavailable = $"DELETE FROM [TeacherUnavailableDate] WHERE [TeacherID] = {teacherId}";
-                SaveChanges(deleteUnavailable);
+                // 3) Update TeacherUnavailableDate table
+                string deleteUnavailable = "DELETE FROM [TeacherUnavailableDate] WHERE TeacherID = ?";
+                SaveChanges(deleteUnavailable, new OleDbParameter("@teacherId", teacherId));
 
                 if (cal.UnavailableDays != null && cal.UnavailableDays.Count > 0)
                 {
@@ -283,22 +291,23 @@ namespace ViewDB
                     {
                         if (u.Date != DateTime.MinValue)
                         {
-                            string allDayStr = u.AllDay ? "True" : "False";
-                            string st = string.IsNullOrEmpty(u.StartTime) ? "" : u.StartTime;
-                            string et = string.IsNullOrEmpty(u.EndTime) ? "" : u.EndTime;
+                            string insertUnavailable = @"INSERT INTO [TeacherUnavailableDate] 
+                                ([TeacherID], [UnavailableDate], [AllDay], [startTime], [endTime])
+                                VALUES (?, ?, ?, ?, ?)";
 
-                            string insertUnavailable = $@"
-            INSERT INTO [TeacherUnavailableDate] 
-                ([TeacherID],[UnavailableDate],[AllDay],[startTime],[endTime])
-            VALUES ({teacherId}, #{u.Date:MM/dd/yyyy}#, {allDayStr}, '{st}', '{et}')";
-                            SaveChanges(insertUnavailable);
+                            SaveChanges(insertUnavailable,
+                                new OleDbParameter("@teacherId", teacherId),
+                                new OleDbParameter("@unavailableDate", u.Date),
+                                new OleDbParameter("@allDay", u.AllDay),
+                                new OleDbParameter("@startTime", u.StartTime ?? ""),
+                                new OleDbParameter("@endTime", u.EndTime ?? ""));
                         }
                     }
                 }
 
-                // --- 4️⃣ Update TeacherSpacialDays
-                string deleteSpecial = $"DELETE FROM [TeacherSpacialDays] WHERE [TeacherID] = {teacherId}";
-                SaveChanges(deleteSpecial);
+                // 4) Update TeacherSpacialDays
+                string deleteSpecial = "DELETE FROM [TeacherSpacialDays] WHERE TeacherID = ?";
+                SaveChanges(deleteSpecial, new OleDbParameter("@teacherId", teacherId));
 
                 if (cal.SpecialDaysList != null && cal.SpecialDaysList.Count > 0)
                 {
@@ -309,12 +318,15 @@ namespace ViewDB
                             string st = string.IsNullOrEmpty(sp.StartTime) ? "08:00" : sp.StartTime;
                             string et = string.IsNullOrEmpty(sp.EndTime) ? "20:00" : sp.EndTime;
 
-                            string insertSpecial = $@"
-                    INSERT INTO [TeacherSpacialDays] 
-                        ([TeacherID],[SelectedDate],[startTime],[endTime])
-                    VALUES 
-                        ({teacherId}, #{sp.Date:MM/dd/yyyy}#, '{st}', '{et}')";
-                            SaveChanges(insertSpecial);
+                            string insertSpecial = @"INSERT INTO [TeacherSpacialDays] 
+                                ([TeacherID], [SelectedDate], [startTime], [endTime])
+                                VALUES (?, ?, ?, ?)";
+
+                            SaveChanges(insertSpecial,
+                                new OleDbParameter("@teacherId", teacherId),
+                                new OleDbParameter("@selectedDate", sp.Date),
+                                new OleDbParameter("@startTime", st),
+                                new OleDbParameter("@endTime", et));
                         }
                     }
                 }

@@ -97,4 +97,51 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfCalendars" nillable="true" type="tns:ArrayOfCalendars" />
+  <xs:complexType name="SupportTicket">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Base">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AdminNotes" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="AssignedTo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ClosedAt" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="CreatedAt" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Messages" nillable="true" type="tns:ArrayOfTicketMessage" />
+          <xs:element minOccurs="0" name="Priority" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Resolution" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Status" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Subject" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="TicketId" type="xs:int" />
+          <xs:element minOccurs="0" name="UpdatedAt" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="UserId" type="xs:int" />
+          <xs:element minOccurs="0" name="UserType" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Username" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="SupportTicket" nillable="true" type="tns:SupportTicket" />
+  <xs:complexType name="ArrayOfTicketMessage">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TicketMessage" nillable="true" type="tns:TicketMessage" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTicketMessage" nillable="true" type="tns:ArrayOfTicketMessage" />
+  <xs:complexType name="TicketMessage">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="IsAdmin" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MessageId" type="xs:int" />
+      <xs:element minOccurs="0" name="SenderUsername" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SentAt" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="TicketId" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TicketMessage" nillable="true" type="tns:TicketMessage" />
+  <xs:complexType name="ArrayOfSupportTicket">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="SupportTicket" nillable="true" type="tns:SupportTicket" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSupportTicket" nillable="true" type="tns:ArrayOfSupportTicket" />
 </xs:schema>

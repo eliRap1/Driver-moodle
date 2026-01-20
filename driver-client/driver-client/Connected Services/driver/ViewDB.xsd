@@ -51,11 +51,14 @@
       <xs:extension xmlns:q3="http://schemas.datacontract.org/2004/07/Model" base="q3:Base">
         <xs:sequence>
           <xs:element minOccurs="0" name="Amount" type="xs:int" />
+          <xs:element minOccurs="0" name="LessonId" type="xs:int" />
+          <xs:element minOccurs="0" name="Notes" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="NumberOfPayments" type="xs:int" />
           <xs:element minOccurs="0" name="ParcialAmount" type="xs:int" />
           <xs:element minOccurs="0" name="PaymentDate" type="xs:dateTime" />
           <xs:element minOccurs="0" name="PaymentID" type="xs:int" />
           <xs:element minOccurs="0" name="PaymentMethod" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Status" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="StudentID" type="xs:int" />
           <xs:element minOccurs="0" name="TeacherID" type="xs:int" />
           <xs:element minOccurs="0" name="paid" type="xs:boolean" />

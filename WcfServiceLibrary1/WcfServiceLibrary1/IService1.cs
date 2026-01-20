@@ -82,6 +82,42 @@ namespace WcfServiceLibrary1
         void MigrateAllPasswords();
         [OperationContract]
         List<Payment> SelectPaymentByStudentID(int id);
+
+        // Support Tickets
+        [OperationContract]
+        int CreateSupportTicket(SupportTicket ticket);
+
+        [OperationContract]
+        List<SupportTicket> GetUserTickets(int userId);
+
+        [OperationContract]
+        List<SupportTicket> GetAllTickets();
+
+        [OperationContract]
+        SupportTicket GetTicketById(int ticketId);
+
+        [OperationContract]
+        void UpdateTicketStatus(int ticketId, string status, string assignedTo);
+
+        [OperationContract]
+        void CloseTicket(int ticketId, string resolution, string adminNotes);
+
+        [OperationContract]
+        void AddTicketMessage(TicketMessage message);
+
+        [OperationContract]
+        List<TicketMessage> GetTicketMessages(int ticketId);
+
+        // Enhanced Payments
+        [OperationContract]
+        decimal GetTeacherIncome(int teacherId, DateTime fromDate, DateTime toDate);
+
+        [OperationContract]
+        List<Payment> GetOutstandingPayments(int studentId);
+
+        [OperationContract]
+        List<Payment> GetOverduePayments();
+
     }
 
 

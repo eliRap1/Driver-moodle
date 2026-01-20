@@ -34,7 +34,7 @@ namespace driver_client
             updateAprove.Tick += CheckIfApproved;
             updateAprove.Start();
             CheckIfApproved(null, null);
-            if(madeRewiew)
+            if (madeRewiew)
             {
                 writeReview.IsEnabled = false;
             }
@@ -81,9 +81,16 @@ namespace driver_client
         {
             page.Navigate(new ChooseTeacher(false));
         }
+
         private void Chat_Click(object sender, RoutedEventArgs e)
         {
             page.Navigate(new Chat());
+        }
+
+        // ← ADD THIS NEW METHOD
+        private void SupportTickets_Click(object sender, RoutedEventArgs e)
+        {
+            page.Navigate(new MyTickets());
         }
     }
 

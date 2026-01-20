@@ -22,14 +22,14 @@
                     HorizontalAlignment="Center"
                     Width="320">
 
-            <!-- Header -->
-            <TextBlock Text="Welcome,"
+                <!-- Header -->
+                <TextBlock Text="Welcome,"
                        FontSize="28"
                        FontWeight="Bold"
                        Foreground="White"
                        HorizontalAlignment="Center"/>
 
-            <TextBlock x:Name="teacherName"
+                <TextBlock x:Name="teacherName"
                        Text="Teacher Name"
                        FontSize="28"
                        FontWeight="Bold"
@@ -37,8 +37,8 @@
                        HorizontalAlignment="Center"
                        Margin="0,0,0,30"/>
 
-            <!-- Navigation Buttons -->
-            <Button Content="Students"
+                <!-- Navigation Buttons -->
+                <Button Content="Students"
                     Margin="0,10"
                     Width="280" Height="50"
                     FontSize="18"
@@ -48,8 +48,8 @@
                     BorderBrush="#00C0CC"
                     Cursor="Hand"
                     Click="Students_Click"/>
-            
-            <Button Content="Lessons Schedule"
+
+                <Button Content="Lessons Schedule"
                     Margin="0,10"
                     Width="280" Height="50"
                     FontSize="18"
@@ -60,7 +60,7 @@
                     Cursor="Hand"
                     Click="Schedule_Click"/>
 
-            <Button Content="Calendar"
+                <Button Content="Calendar"
                     Margin="0,10"
                     Width="280" Height="50"
                     FontSize="18"
@@ -71,7 +71,7 @@
                     Cursor="Hand"
                     Click="Calendar_Click"/>
 
-            <Button Content="Test Schedule"
+                <Button Content="Test Schedule"
                     Margin="0,10"
                     Width="280" Height="50"
                     FontSize="18"
@@ -81,8 +81,8 @@
                     BorderBrush="#00C0CC"
                     Cursor="Hand"
                     Click="TestSchedule_Click"/>
-            
-            <Button Content="Chat"
+
+                <Button Content="Chat"
                 Margin="0,10"
                 Width="280" Height="50"
                 FontSize="18"
@@ -93,7 +93,18 @@
                 Cursor="Hand"
                 Click="Chat_Click"/>
 
-        </StackPanel>
+                <Button Content="🎫 Support Tickets"
+                Margin="0,10"
+                Width="280" Height="50"
+                FontSize="18"
+                FontWeight="SemiBold"
+                Background="#00E0FF"
+                Foreground="Black"
+                BorderBrush="#00C0CC"
+                Cursor="Hand"
+                Click="SupportTickets_Click"/>
+
+            </StackPanel>
         </ScrollViewer>
         <!-- Navigation Frame -->
         <Frame x:Name="page" Panel.ZIndex="100" Margin="-19,-21,-21,-19"/>

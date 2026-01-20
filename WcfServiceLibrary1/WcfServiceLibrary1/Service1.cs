@@ -249,5 +249,85 @@ namespace WcfServiceLibrary1
         {
             userDB.MigrateAllPasswords();
         }
+
+        public int CreateSupportTicket(SupportTicket ticket)
+        {
+            try
+            {
+                System.Diagnostics.Debug.WriteLine("=== CreateSupportTicket Called ===");
+                System.Diagnostics.Debug.WriteLine($"UserId: {ticket.UserId}");
+                System.Diagnostics.Debug.WriteLine($"Username: {ticket.Username}");
+                System.Diagnostics.Debug.WriteLine($"UserType: {ticket.UserType}");
+                System.Diagnostics.Debug.WriteLine($"Subject: {ticket.Subject}");
+                System.Diagnostics.Debug.WriteLine($"Description: {ticket.Description}");
+                System.Diagnostics.Debug.WriteLine($"Status: {ticket.Status}");
+                System.Diagnostics.Debug.WriteLine($"Priority: {ticket.Priority}");
+                System.Diagnostics.Debug.WriteLine($"CreatedAt: {ticket.CreatedAt}");
+
+                int result = new SupportTicketDB().CreateTicket(ticket);
+
+                System.Diagnostics.Debug.WriteLine($"Ticket created with ID: {result}");
+                return result;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"ERROR: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"Stack: {ex.StackTrace}");
+                throw;
+            }
+        }
+
+        public List<SupportTicket> GetUserTickets(int userId)
+        {
+            return new SupportTicketDB().GetUserTickets(userId);
+        }
+
+        public List<SupportTicket> GetAllTickets()
+        {
+            return new SupportTicketDB().GetAllTickets();
+        }
+
+        public SupportTicket GetTicketById(int ticketId)
+        {
+            return new SupportTicketDB().GetTicketById(ticketId);
+        }
+
+        public void UpdateTicketStatus(int ticketId, string status, string assignedTo)
+        {
+            new SupportTicketDB().UpdateTicketStatus(ticketId, status, assignedTo);
+        }
+
+        public void CloseTicket(int ticketId, string resolution, string adminNotes)
+        {
+            new SupportTicketDB().CloseTicket(ticketId, resolution, adminNotes);
+        }
+
+        public void AddTicketMessage(TicketMessage message)
+        {
+            new SupportTicketDB().AddTicketMessage(message);
+        }
+
+        public List<TicketMessage> GetTicketMessages(int ticketId)
+        {
+            return new SupportTicketDB().GetTicketMessages(ticketId);
+        }
+
+        // Enhanced Payments
+        public decimal GetTeacherIncome(int teacherId, DateTime fromDate, DateTime toDate)
+        {
+            return new PaymentDB().GetTeacherIncome(teacherId, fromDate, toDate);
+        }
+
+        public List<Payment> GetOutstandingPayments(int studentId)
+        {
+            return new PaymentDB().GetOutstandingPayments(studentId);
+        }
+
+        public List<Payment> GetOverduePayments()
+        {
+            return new PaymentDB().GetOverduePayments();
+        }
+
+
     }
 }

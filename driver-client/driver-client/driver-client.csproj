@@ -69,7 +69,13 @@
     <Compile Include="ChooseTeacher.xaml.cs">
       <DependentUpon>ChooseTeacher.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CreateTicket.xaml.cs">
+      <DependentUpon>CreateTicket.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ImgConventer.cs" />
+    <Compile Include="MyTicket.xaml.cs">
+      <DependentUpon>MyTicket.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Rewiews.xaml.cs">
       <DependentUpon>Rewiews.xaml</DependentUpon>
     </Compile>
@@ -91,6 +97,9 @@
     </Compile>
     <Compile Include="Teacher_Schedule.xaml.cs">
       <DependentUpon>Teacher_Schedule.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TicketDetails.xaml.cs">
+      <DependentUpon>TicketDetails.xaml</DependentUpon>
     </Compile>
     <Compile Include="ValidationRules.cs" />
     <Compile Include="ViewLessons.xaml.cs">
@@ -115,6 +124,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="CreateTicket.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -133,6 +146,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="LogIn.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MyTicket.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -157,6 +174,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Teacher_Schedule.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TicketDetails.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -212,6 +233,12 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\driver\driver_client.driver.StudentsList.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\driver\driver_client.driver.SupportTicket.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\driver\driver_client.driver.TicketMessage.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\driver\driver_client.driver.UserInfo1.datasource">

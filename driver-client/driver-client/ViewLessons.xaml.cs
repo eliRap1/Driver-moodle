@@ -16,6 +16,8 @@ namespace driver_client
             public string Date { get; set; }
             public string Time { get; set; }
             public string Paid { get; set; }
+            public bool IsPaid { get; set; }
+            public DateTime DateTime { get; set; }
         }
 
         public ViewLessons()
@@ -37,25 +39,47 @@ namespace driver_client
 
                 foreach (var lesson in allLessons)
                 {
-                    if (DateTime.TryParse($"{lesson.Date} {lesson.Time}", out DateTime lessonDateTime))
-                    {
-                        var item = new Lesson
-                        {
-                            LessonId = lesson.LessonId,
-                            Date = lessonDateTime.ToString("dd-MM-yyyy"),
-                            Time = lessonDateTime.ToString("HH:mm"),
-                            Paid = lesson.paid ? "Yes" : "No"
-                        };
+                    // Skip cancelled lessons
+                    if (lesson.Canceled == 1)
+                        continue;
 
-                        if (lessonDateTime >= now)
-                            upcomingLessons.Add(item);
-                        else
-                            completedLessons.Add(item);
+                    DateTime lessonDateTime;
+
+                    // Try to parse the date and time
+                    if (!DateTime.TryParse($"{lesson.Date} {lesson.Time}", out lessonDateTime))
+                    {
+                        // If standard parsing fails, try different formats
+                        if (!DateTime.TryParseExact($"{lesson.Date} {lesson.Time}",
+                            new[] { "dd-MM-yyyy HH:mm", "dd/MM/yyyy HH:mm", "yyyy-MM-dd HH:mm" },
+                            System.Globalization.CultureInfo.InvariantCulture,
+                            System.Globalization.DateTimeStyles.None,
+                            out lessonDateTime))
+                        {
+                            continue; // Skip this lesson if we can't parse the date
+                        }
                     }
+
+                    var item = new Lesson
+                    {
+                        LessonId = lesson.LessonId,
+                        Date = lessonDateTime.ToString("dd-MM-yyyy"),
+                        Time = lessonDateTime.ToString("HH:mm"),
+                        Paid = lesson.paid ? "Yes" : "No",
+                        IsPaid = lesson.paid,
+                        DateTime = lessonDateTime
+                    };
+
+                    // Upcoming: future lessons
+                    if (lessonDateTime >= now)
+                        upcomingLessons.Add(item);
+                    // Completed: past lessons
+                    else
+                        completedLessons.Add(item);
                 }
 
-                UpcomingLessonsGrid.ItemsSource = upcomingLessons;
-                CompletedLessonsGrid.ItemsSource = completedLessons;
+                // Sort by date/time
+                UpcomingLessonsGrid.ItemsSource = upcomingLessons.OrderBy(l => l.DateTime).ToList();
+                CompletedLessonsGrid.ItemsSource = completedLessons.OrderByDescending(l => l.DateTime).ToList();
             }
             catch (Exception ex)
             {
@@ -70,9 +94,19 @@ namespace driver_client
             {
                 try
                 {
-                    var client = new Service1Client();
-                    client.MarkLessonPaid(lesson.LessonId);  
-                    LoadLessons();                            
+                    var result = MessageBox.Show(
+                        $"Mark lesson on {lesson.Date} at {lesson.Time} as paid?",
+                        "Confirm Payment",
+                        MessageBoxButton.YesNo,
+                        MessageBoxImage.Question);
+
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        var client = new Service1Client();
+                        client.MarkLessonPaid(lesson.LessonId);
+                        MessageBox.Show("Lesson marked as paid!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                        LoadLessons(); // Refresh the list
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -86,7 +120,5 @@ namespace driver_client
         {
             page.Navigate(new StudentUI());
         }
-
-        
     }
 }
