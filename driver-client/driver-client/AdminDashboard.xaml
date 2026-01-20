@@ -1,0 +1,195 @@
+﻿<Page x:Class="driver_client.AdminDashboard"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="900"
+      Title="AdminDashboard"
+      Background="#0E1A2B">
+
+    <Grid Margin="20">
+        <!-- Background -->
+        <Image Source="/picture/background.png"
+               Stretch="UniformToFill"
+               Opacity="0.06"
+               Panel.ZIndex="0"/>
+
+        <Grid Panel.ZIndex="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Header -->
+            <StackPanel Grid.Row="0" Margin="0,0,0,20">
+                <TextBlock Text="🛡️ Admin Dashboard"
+                           FontSize="32"
+                           FontWeight="Bold"
+                           Foreground="#00E0FF"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,10"/>
+
+                <TextBlock x:Name="WelcomeText"
+                           Text="Welcome, Admin"
+                           FontSize="18"
+                           Foreground="White"
+                           HorizontalAlignment="Center"/>
+            </StackPanel>
+
+            <!-- Main Content -->
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+
+                    <!-- Statistics Cards -->
+                    <TextBlock Text="System Overview"
+                               FontSize="20"
+                               FontWeight="Bold"
+                               Foreground="#00E0FF"
+                               Margin="0,0,0,15"/>
+
+                    <Grid Margin="0,0,0,30">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Total Users -->
+                        <Border Grid.Column="0" Background="#1B2D47" CornerRadius="10" Padding="20" Margin="0,0,10,0">
+                            <StackPanel>
+                                <TextBlock Text="👥" FontSize="32" HorizontalAlignment="Center"/>
+                                <TextBlock x:Name="TotalUsersText" Text="0" FontSize="28" FontWeight="Bold" 
+                                           Foreground="#00E0FF" HorizontalAlignment="Center"/>
+                                <TextBlock Text="Total Users" FontSize="14" Foreground="LightGray" 
+                                           HorizontalAlignment="Center" Margin="0,5,0,0"/>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Open Tickets -->
+                        <Border Grid.Column="1" Background="#1B2D47" CornerRadius="10" Padding="20" Margin="0,0,10,0">
+                            <StackPanel>
+                                <TextBlock Text="🎫" FontSize="32" HorizontalAlignment="Center"/>
+                                <TextBlock x:Name="OpenTicketsText" Text="0" FontSize="28" FontWeight="Bold" 
+                                           Foreground="#F39C12" HorizontalAlignment="Center"/>
+                                <TextBlock Text="Open Tickets" FontSize="14" Foreground="LightGray" 
+                                           HorizontalAlignment="Center" Margin="0,5,0,0"/>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Lessons Today -->
+                        <Border Grid.Column="2" Background="#1B2D47" CornerRadius="10" Padding="20" Margin="0,0,10,0">
+                            <StackPanel>
+                                <TextBlock Text="📅" FontSize="32" HorizontalAlignment="Center"/>
+                                <TextBlock x:Name="LessonsTodayText" Text="0" FontSize="28" FontWeight="Bold" 
+                                           Foreground="#2ECC71" HorizontalAlignment="Center"/>
+                                <TextBlock Text="Lessons Today" FontSize="14" Foreground="LightGray" 
+                                           HorizontalAlignment="Center" Margin="0,5,0,0"/>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Pending Payments -->
+                        <Border Grid.Column="3" Background="#1B2D47" CornerRadius="10" Padding="20">
+                            <StackPanel>
+                                <TextBlock Text="💰" FontSize="32" HorizontalAlignment="Center"/>
+                                <TextBlock x:Name="PendingPaymentsText" Text="0" FontSize="28" FontWeight="Bold" 
+                                           Foreground="#E74C3C" HorizontalAlignment="Center"/>
+                                <TextBlock Text="Pending Payments" FontSize="14" Foreground="LightGray" 
+                                           HorizontalAlignment="Center" Margin="0,5,0,0"/>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+
+                    <!-- Quick Actions -->
+                    <TextBlock Text="Quick Actions"
+                               FontSize="20"
+                               FontWeight="Bold"
+                               Foreground="#00E0FF"
+                               Margin="0,0,0,15"/>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Manage Tickets -->
+                        <Border Grid.Column="0" Background="#1B2D47" CornerRadius="10" Padding="20" 
+                                Margin="0,0,10,0" Cursor="Hand" MouseLeftButtonDown="ManageTickets_Click">
+                            <StackPanel>
+                                <TextBlock Text="🎫" FontSize="48" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+                                <TextBlock Text="Manage Tickets" FontSize="16" FontWeight="Bold" 
+                                           Foreground="White" HorizontalAlignment="Center" TextWrapping="Wrap"/>
+                                <TextBlock Text="View and respond to support tickets" FontSize="12" 
+                                           Foreground="LightGray" HorizontalAlignment="Center" 
+                                           TextWrapping="Wrap" Margin="0,5,0,0"/>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- User Management -->
+                        <Border Grid.Column="1" Background="#1B2D47" CornerRadius="10" Padding="20" 
+                                Margin="0,0,10,0" Cursor="Hand" MouseLeftButtonDown="ManageUsers_Click">
+                            <StackPanel>
+                                <TextBlock Text="👥" FontSize="48" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+                                <TextBlock Text="User Management" FontSize="16" FontWeight="Bold" 
+                                           Foreground="White" HorizontalAlignment="Center" TextWrapping="Wrap"/>
+                                <TextBlock Text="Edit users, reset passwords" FontSize="12" 
+                                           Foreground="LightGray" HorizontalAlignment="Center" 
+                                           TextWrapping="Wrap" Margin="0,5,0,0"/>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- System Reports -->
+                        <Border Grid.Column="2" Background="#1B2D47" CornerRadius="10" Padding="20" 
+                                Cursor="Hand" MouseLeftButtonDown="ViewReports_Click">
+                            <StackPanel>
+                                <TextBlock Text="📊" FontSize="48" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+                                <TextBlock Text="System Reports" FontSize="16" FontWeight="Bold" 
+                                           Foreground="White" HorizontalAlignment="Center" TextWrapping="Wrap"/>
+                                <TextBlock Text="View analytics and reports" FontSize="12" 
+                                           Foreground="LightGray" HorizontalAlignment="Center" 
+                                           TextWrapping="Wrap" Margin="0,5,0,0"/>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+
+                    <!-- Recent Activity -->
+                    <TextBlock Text="Recent Activity"
+                               FontSize="20"
+                               FontWeight="Bold"
+                               Foreground="#00E0FF"
+                               Margin="0,30,0,15"/>
+
+                    <Border Background="#1B2D47" CornerRadius="10" Padding="15">
+                        <ScrollViewer MaxHeight="200" VerticalScrollBarVisibility="Auto">
+                            <StackPanel x:Name="ActivityPanel">
+                                <TextBlock Text="Loading activity..." 
+                                           Foreground="LightGray" 
+                                           FontStyle="Italic"/>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </Border>
+
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+
+        <!-- Back Button -->
+        <Button Content="← Back"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Width="100"
+                Height="40"
+                Background="#00E0FF"
+                Foreground="Black"
+                FontWeight="Bold"
+                BorderBrush="#00C0CC"
+                Cursor="Hand"
+                Click="Back_Click"
+                Panel.ZIndex="2"/>
+
+        <Frame x:Name="page" Panel.ZIndex="100" Margin="-20,-20,-20,-20"/>
+    </Grid>
+</Page>
