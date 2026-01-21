@@ -48,7 +48,7 @@ namespace ViewDB
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("CreateModel Error: " + ex.Message);
+                    System.Diagnostics.Debug.WriteLine("SupportTicketDB CreateModel Error: " + ex.Message);
                 }
             }
         }
@@ -60,11 +60,18 @@ namespace ViewDB
         {
             try
             {
+                System.Diagnostics.Debug.WriteLine("=== CreateTicket in DB ===");
+
+                // Get next TicketId
+                int nextId = GetNextTicketId();
+                System.Diagnostics.Debug.WriteLine($"Next TicketId: {nextId}");
+
                 string sql = @"INSERT INTO [SupportTickets] 
-                    ([UserId], [Username], [UserType], [Subject], [Description], [Status], [Priority], [CreatedAt]) 
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                    ([TicketId], [UserId], [Username], [UserType], [Subject], [Description], [Status], [Priority], [CreatedAt]) 
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
                 int rowsAffected = SaveChanges(sql,
+                    new OleDbParameter("@ticketId", nextId),
                     new OleDbParameter("@userId", ticket.UserId),
                     new OleDbParameter("@username", ticket.Username),
                     new OleDbParameter("@userType", ticket.UserType),
@@ -74,12 +81,11 @@ namespace ViewDB
                     new OleDbParameter("@priority", ticket.Priority ?? "Medium"),
                     new OleDbParameter("@createdAt", ticket.CreatedAt));
 
+                System.Diagnostics.Debug.WriteLine($"Rows affected: {rowsAffected}");
+
                 if (rowsAffected > 0)
                 {
-                    // Get the newly created ticket ID
-                    string getIdSql = "SELECT MAX(TicketId) FROM [SupportTickets]";
-                    object result = SelectScalar(getIdSql);
-                    return result != null && result != DBNull.Value ? Convert.ToInt32(result) : 0;
+                    return nextId;
                 }
 
                 return 0;
@@ -88,7 +94,25 @@ namespace ViewDB
             {
                 System.Diagnostics.Debug.WriteLine("CreateTicket Error: " + ex.Message);
                 System.Diagnostics.Debug.WriteLine("Stack Trace: " + ex.StackTrace);
-                throw; // Re-throw to see the error in the client
+                throw;
+            }
+        }
+
+        private int GetNextTicketId()
+        {
+            try
+            {
+                string sql = "SELECT MAX(TicketId) FROM [SupportTickets]";
+                object result = SelectScalar(sql);
+                if (result != null && result != DBNull.Value)
+                {
+                    return Convert.ToInt32(result) + 1;
+                }
+                return 1;
+            }
+            catch
+            {
+                return 1;
             }
         }
 
@@ -137,19 +161,48 @@ namespace ViewDB
         }
 
         /// <summary>
-        /// Update ticket status
+        /// FIXED: Update ticket status - now properly updates the database
         /// </summary>
         public void UpdateTicketStatus(int ticketId, string status, string assignedTo = null)
         {
-            string sql = @"UPDATE [SupportTickets] 
-                SET Status = ?, UpdatedAt = ?, AssignedTo = ?
-                WHERE TicketId = ?";
+            try
+            {
+                System.Diagnostics.Debug.WriteLine($"UpdateTicketStatus: TicketId={ticketId}, Status={status}, AssignedTo={assignedTo}");
 
-            SaveChanges(sql,
-                new OleDbParameter("@status", status),
-                new OleDbParameter("@updatedAt", DateTime.Now),
-                new OleDbParameter("@assignedTo", (object)assignedTo ?? DBNull.Value),
-                new OleDbParameter("@ticketId", ticketId));
+                string sql;
+                int result;
+
+                if (!string.IsNullOrEmpty(assignedTo))
+                {
+                    sql = @"UPDATE [SupportTickets] 
+                        SET [Status] = ?, [UpdatedAt] = ?, [AssignedTo] = ?
+                        WHERE [TicketId] = ?";
+
+                    result = SaveChanges(sql,
+                        new OleDbParameter("@status", status),
+                        new OleDbParameter("@updatedAt", DateTime.Now),
+                        new OleDbParameter("@assignedTo", assignedTo),
+                        new OleDbParameter("@ticketId", ticketId));
+                }
+                else
+                {
+                    sql = @"UPDATE [SupportTickets] 
+                        SET [Status] = ?, [UpdatedAt] = ?
+                        WHERE [TicketId] = ?";
+
+                    result = SaveChanges(sql,
+                        new OleDbParameter("@status", status),
+                        new OleDbParameter("@updatedAt", DateTime.Now),
+                        new OleDbParameter("@ticketId", ticketId));
+                }
+
+                System.Diagnostics.Debug.WriteLine($"UpdateTicketStatus result: {result} rows affected");
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"UpdateTicketStatus Error: {ex.Message}");
+                throw;
+            }
         }
 
         /// <summary>
@@ -157,81 +210,138 @@ namespace ViewDB
         /// </summary>
         public void CloseTicket(int ticketId, string resolution, string adminNotes = null)
         {
-            string sql = @"UPDATE [SupportTickets] 
-                SET Status = 'Closed', Resolution = ?, AdminNotes = ?, ClosedAt = ?, UpdatedAt = ?
-                WHERE TicketId = ?";
+            try
+            {
+                string sql = @"UPDATE [SupportTickets] 
+                    SET [Status] = ?, [Resolution] = ?, [AdminNotes] = ?, [ClosedAt] = ?, [UpdatedAt] = ?
+                    WHERE [TicketId] = ?";
 
-            SaveChanges(sql,
-                new OleDbParameter("@resolution", resolution),
-                new OleDbParameter("@adminNotes", (object)adminNotes ?? DBNull.Value),
-                new OleDbParameter("@closedAt", DateTime.Now),
-                new OleDbParameter("@updatedAt", DateTime.Now),
-                new OleDbParameter("@ticketId", ticketId));
+                int result = SaveChanges(sql,
+                    new OleDbParameter("@status", "Closed"),
+                    new OleDbParameter("@resolution", resolution ?? ""),
+                    new OleDbParameter("@adminNotes", adminNotes ?? ""),
+                    new OleDbParameter("@closedAt", DateTime.Now),
+                    new OleDbParameter("@updatedAt", DateTime.Now),
+                    new OleDbParameter("@ticketId", ticketId));
+
+                System.Diagnostics.Debug.WriteLine($"CloseTicket result: {result} rows affected");
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"CloseTicket Error: {ex.Message}");
+                throw;
+            }
         }
 
         /// <summary>
-        /// Add a message to a ticket
+        /// FIXED: Add a message to a ticket - now properly inserts and updates
         /// </summary>
         public void AddTicketMessage(TicketMessage message)
         {
-            string sql = @"INSERT INTO [TicketMessages] 
-                (TicketId, SenderUsername, IsAdmin, Message, SentAt) 
-                VALUES (?, ?, ?, ?, ?)";
-
-            SaveChanges(sql,
-                new OleDbParameter("@ticketId", message.TicketId),
-                new OleDbParameter("@senderUsername", message.SenderUsername),
-                new OleDbParameter("@isAdmin", message.IsAdmin),
-                new OleDbParameter("@message", message.Message),
-                new OleDbParameter("@sentAt", message.SentAt));
-
-            // Update ticket's UpdatedAt
-            string updateSql = "UPDATE [SupportTickets] SET UpdatedAt = ? WHERE TicketId = ?";
-            SaveChanges(updateSql,
-                new OleDbParameter("@updatedAt", DateTime.Now),
-                new OleDbParameter("@ticketId", message.TicketId));
-        }
-
-        /// <summary>
-        /// Get all messages for a ticket
-        /// </summary>
-        public List<TicketMessage> GetTicketMessages(int ticketId)
-        {
-            string sql = "SELECT * FROM [TicketMessages] WHERE TicketId = ? ORDER BY SentAt ASC";
-            List<TicketMessage> messages = new List<TicketMessage>();
-
             try
             {
-                connection.Open();
-                command.CommandText = sql;
-                command.Parameters.Clear();
-                command.Parameters.Add(new OleDbParameter("@ticketId", ticketId));
+                System.Diagnostics.Debug.WriteLine($"AddTicketMessage: TicketId={message.TicketId}, Sender={message.SenderUsername}");
 
-                reader = command.ExecuteReader();
+                // Get next MessageId
+                int nextId = GetNextMessageId();
+                System.Diagnostics.Debug.WriteLine($"Next MessageId: {nextId}");
 
-                while (reader.Read())
+                string sql = @"INSERT INTO [TicketMessages] 
+                    ([MessageId], [TicketId], [SenderUsername], [IsAdmin], [Message], [SentAt]) 
+                    VALUES (?, ?, ?, ?, ?, ?)";
+
+                int result = SaveChanges(sql,
+                    new OleDbParameter("@messageId", nextId),
+                    new OleDbParameter("@ticketId", message.TicketId),
+                    new OleDbParameter("@senderUsername", message.SenderUsername),
+                    new OleDbParameter("@isAdmin", message.IsAdmin),
+                    new OleDbParameter("@message", message.Message),
+                    new OleDbParameter("@sentAt", message.SentAt));
+
+                System.Diagnostics.Debug.WriteLine($"Message insert result: {result} rows affected");
+
+                // Update ticket's UpdatedAt
+                if (result > 0)
                 {
-                    messages.Add(new TicketMessage
-                    {
-                        MessageId = (int)reader["MessageId"],
-                        TicketId = (int)reader["TicketId"],
-                        SenderUsername = reader["SenderUsername"].ToString(),
-                        IsAdmin = bool.Parse(reader["IsAdmin"].ToString()),
-                        Message = reader["Message"].ToString(),
-                        SentAt = DateTime.Parse(reader["SentAt"].ToString())
-                    });
+                    string updateSql = "UPDATE [SupportTickets] SET [UpdatedAt] = ? WHERE [TicketId] = ?";
+                    int updateResult = SaveChanges(updateSql,
+                        new OleDbParameter("@updatedAt", DateTime.Now),
+                        new OleDbParameter("@ticketId", message.TicketId));
+
+                    System.Diagnostics.Debug.WriteLine($"Ticket UpdatedAt result: {updateResult} rows affected");
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine("GetTicketMessages Error: " + ex.Message);
+                System.Diagnostics.Debug.WriteLine($"AddTicketMessage Error: {ex.Message}");
+                throw;
+            }
+        }
+
+        private int GetNextMessageId()
+        {
+            try
+            {
+                string sql = "SELECT MAX(MessageId) FROM [TicketMessages]";
+                object result = SelectScalar(sql);
+                if (result != null && result != DBNull.Value)
+                {
+                    return Convert.ToInt32(result) + 1;
+                }
+                return 1;
+            }
+            catch
+            {
+                return 1;
+            }
+        }
+
+        /// <summary>
+        /// FIXED: Get all messages for a ticket
+        /// </summary>
+        public List<TicketMessage> GetTicketMessages(int ticketId)
+        {
+            List<TicketMessage> messages = new List<TicketMessage>();
+
+            OleDbConnection conn = null;
+            OleDbCommand cmd = null;
+            OleDbDataReader rdr = null;
+
+            try
+            {
+                conn = BaseDB.GetConnection();
+                conn.Open();
+
+                string sql = "SELECT * FROM [TicketMessages] WHERE TicketId = ? ORDER BY SentAt ASC";
+                cmd = new OleDbCommand(sql, conn);
+                cmd.Parameters.Add(new OleDbParameter("@ticketId", ticketId));
+
+                rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    var msg = new TicketMessage
+                    {
+                        MessageId = (int)rdr["MessageId"],
+                        TicketId = (int)rdr["TicketId"],
+                        SenderUsername = rdr["SenderUsername"].ToString(),
+                        IsAdmin = bool.Parse(rdr["IsAdmin"].ToString()),
+                        Message = rdr["Message"].ToString(),
+                        SentAt = DateTime.Parse(rdr["SentAt"].ToString())
+                    };
+                    messages.Add(msg);
+                }
+
+                System.Diagnostics.Debug.WriteLine($"GetTicketMessages: Found {messages.Count} messages for ticket {ticketId}");
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("GetTicketMessages Error: " + ex.Message);
             }
             finally
             {
-                if (reader != null)
-                    reader.Close();
-                if (connection.State == System.Data.ConnectionState.Open)
-                    connection.Close();
+                if (rdr != null) rdr.Close();
+                if (conn != null && conn.State == System.Data.ConnectionState.Open) conn.Close();
             }
 
             return messages;
@@ -242,7 +352,7 @@ namespace ViewDB
         /// </summary>
         public void UpdateTicketPriority(int ticketId, string priority)
         {
-            string sql = "UPDATE [SupportTickets] SET Priority = ?, UpdatedAt = ? WHERE TicketId = ?";
+            string sql = "UPDATE [SupportTickets] SET [Priority] = ?, [UpdatedAt] = ? WHERE [TicketId] = ?";
             SaveChanges(sql,
                 new OleDbParameter("@priority", priority),
                 new OleDbParameter("@updatedAt", DateTime.Now),

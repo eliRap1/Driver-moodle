@@ -18,6 +18,7 @@ namespace driver_client
         public int Id { get; set; }
         public string RatingText { get; set; }
         public string Role { get; set; }
-        public int LessonPrice { get; set; } = 200; // Default lesson price
+        public int LessonPrice { get; set; } = 200;
+        public string PaymentMethods { get; set; } = "Cash,Credit Card,Bank Transfer";
     }
 }

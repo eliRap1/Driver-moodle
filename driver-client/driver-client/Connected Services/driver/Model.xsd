@@ -1,16 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Model" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Model" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:complexType name="Base">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Base" nillable="true" type="tns:Base" />
   <xs:complexType name="UserInfo">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:Base">
         <xs:sequence>
           <xs:element minOccurs="0" name="Confirmed" type="xs:boolean" />
+          <xs:element minOccurs="0" name="CustomLessonPrice" type="xs:int" />
+          <xs:element minOccurs="0" name="DiscountPercent" type="xs:int" />
           <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="IsAdmin" type="xs:boolean" />
           <xs:element minOccurs="0" name="LessonPrice" type="xs:int" />
           <xs:element minOccurs="0" name="Lessons" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="Password" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="PaymentMethods" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="Phone" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="Rating" type="xs:double" />
           <xs:element minOccurs="0" name="RatingText" nillable="true" type="xs:string" />
@@ -23,18 +32,18 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="UserInfo" nillable="true" type="tns:UserInfo" />
-  <xs:complexType name="Base">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Id" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="Base" nillable="true" type="tns:Base" />
   <xs:complexType name="AllUsers">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="UserInfo" nillable="true" type="tns:UserInfo" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="AllUsers" nillable="true" type="tns:AllUsers" />
+  <xs:complexType name="ArrayOfUserInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="UserInfo" nillable="true" type="tns:UserInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUserInfo" nillable="true" type="tns:ArrayOfUserInfo" />
   <xs:complexType name="Calendars">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:Base">
@@ -85,12 +94,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="UnavailableDay" nillable="true" type="tns:UnavailableDay" />
-  <xs:complexType name="ArrayOfUserInfo">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="UserInfo" nillable="true" type="tns:UserInfo" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfUserInfo" nillable="true" type="tns:ArrayOfUserInfo" />
   <xs:complexType name="ArrayOfCalendars">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="Calendars" nillable="true" type="tns:Calendars" />

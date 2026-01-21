@@ -16,9 +16,10 @@ namespace WcfServiceLibrary1
         private LessonsDB lessonsDB = new LessonsDB();
         private ViewDB.CalendarDB calendarDB = new ViewDB.CalendarDB();
 
-        public bool AddUser(string name, string password, string email, string phone, bool admin, int tID)
+        // ==================== USER OPERATIONS ====================
+
+        public bool AddUser(string name, string password, string email, string phone, bool admin, int tID, int lessonPrice = 200)
         {
-            // Validate all inputs before processing
             if (!SecurityHelper.IsSafeString(name, 50) ||
                 !SecurityHelper.IsSafeString(email, 100) ||
                 string.IsNullOrEmpty(password))
@@ -26,29 +27,32 @@ namespace WcfServiceLibrary1
                 return false;
             }
 
-            bool worked = false;
-            UserInfo user = new UserInfo
-            {
-                Username = name,
-                Password = password, // Will be hashed in UserDB.AddUser/AddStudent
-                Email = email,
-                Phone = phone,
-                IsAdmin = admin,
-                TeacherId = tID
-            };
-
-            // Check if user already exists
             if (CheckUserExist(name))
             {
                 return false;
             }
 
+            UserInfo user = new UserInfo
+            {
+                Username = name,
+                Password = password,
+                Email = email,
+                Phone = phone,
+                IsAdmin = admin,
+                TeacherId = tID,
+                LessonPrice = lessonPrice > 0 ? lessonPrice : 200
+            };
+
+            bool worked = false;
+
             if (admin)
             {
+                // Teacher registration
                 worked = userDB.AddUser(user);
             }
             else
             {
+                // Student registration
                 worked = userDB.AddStudent(user);
                 if (worked)
                 {
@@ -59,6 +63,134 @@ namespace WcfServiceLibrary1
 
             return worked;
         }
+
+        public bool CheckUserExist(string username)
+        {
+            if (!SecurityHelper.IsSafeString(username, 50))
+                return false;
+
+            allUsers = userDB.GetAllStudents();
+            var allAdmins = userDB.GetAllTeacher();
+
+            return allUsers.Any(x => x.Username == username) ||
+                   allAdmins.Any(x => x.Username == username);
+        }
+
+        public bool CheckUserPassword(string username, string password)
+        {
+            if (!SecurityHelper.IsSafeString(username, 50) ||
+                string.IsNullOrEmpty(password))
+            {
+                return false;
+            }
+
+            return userDB.VerifyUserPassword(username, password);
+        }
+
+        public UserInfo GetUserById(int id, string table)
+        {
+            return userDB.GetUserById(id, table);
+        }
+
+        public bool CheckUserAdmin(string username)
+        {
+            if (!SecurityHelper.IsSafeString(username, 50))
+                return false;
+
+            var allAdmins = userDB.GetAllTeacher();
+            return allAdmins.Any(x => x.Username == username);
+        }
+
+        public bool IsUserAdmin(string username)
+        {
+            return userDB.IsUserAdmin(username);
+        }
+
+        public AllUsers GetAllUsers()
+        {
+            return userDB.GetAllStudents();
+        }
+
+        public AllUsers GetAllTeacher()
+        {
+            return userDB.GetAllTeacher();
+        }
+
+        public int GetUserID(string username, string table)
+        {
+            return userDB.GetUserID(username, table);
+        }
+
+        public void TeacherConfirm(int id, int tID)
+        {
+            userDB.TeacherConfirm(id, tID);
+        }
+
+        public List<UserInfo> GetTeacherStudents(int tid)
+        {
+            return userDB.GetTeacherStudents(tid);
+        }
+
+        public bool IsConfirmed(int id)
+        {
+            return userDB.IsConfirmed(id);
+        }
+
+        public int GetTeacherId(int studentId)
+        {
+            return userDB.GetTeacherId(studentId);
+        }
+
+        public void UpdateTeacherId(int sid, int tid)
+        {
+            userDB.UpdateTeacherId(sid, tid);
+        }
+
+        // ==================== ADMIN OPERATIONS ====================
+
+        public void SetAdminStatus(int teacherId, bool isAdmin)
+        {
+            userDB.SetAdminStatus(teacherId, isAdmin);
+        }
+
+        public void UpdateStudentCredentials(int studentId, string email, string phone, int teacherId)
+        {
+            userDB.UpdateStudentCredentials(studentId, email, phone, teacherId);
+        }
+
+        public void UpdateStudentTeacher(int studentId, int newTeacherId)
+        {
+            userDB.UpdateStudentTeacher(studentId, newTeacherId);
+        }
+
+        public void ResetPassword(int userId, string table, string newPassword)
+        {
+            userDB.ResetPassword(userId, table, newPassword);
+        }
+
+        // ==================== PRICING OPERATIONS ====================
+
+        public void UpdateLessonPrice(int teacherId, int price)
+        {
+            userDB.UpdateLessonPrice(teacherId, price);
+        }
+
+        public void SetStudentLessonPrice(int studentId, int price)
+        {
+            userDB.SetStudentLessonPrice(studentId, price);
+        }
+
+        public int GetStudentLessonPrice(int studentId)
+        {
+            return userDB.GetStudentLessonPrice(studentId);
+        }
+
+        public void UpdatePaymentMethods(int teacherId, string paymentMethods)
+        {
+            userDB.UpdatePaymentMethods(teacherId, paymentMethods);
+        }
+
+        // ==================== LESSON OPERATIONS ====================
 
         public void CancelLesson(int lessonId)
         {
@@ -85,6 +217,8 @@ namespace WcfServiceLibrary1
             return lessonsDB.GetAllTeacherLessons(tid);
         }
 
+        // ==================== RATING OPERATIONS ====================
+
         public void UpdateRating(int tid, int rating, string rewiew)
         {
             if (rating < 1 || rating > 5)
@@ -98,83 +232,7 @@ namespace WcfServiceLibrary1
             return userDB.GetTeacherReviews(tid);
         }
 
-        public void UpdateTeacherId(int sid, int tid)
-        {
-            userDB.UpdateTeacherId(sid, tid);
-        }
-
-        public AllUsers GetAllTeacher()
-        {
-            return userDB.GetAllTeacher();
-        }
-
-        public void TeacherConfirm(int id, int tID)
-        {
-            userDB.TeacherConfirm(id, tID);
-        }
-
-        public List<UserInfo> GetTeacherStudents(int tid)
-        {
-            return userDB.GetTeacherStudents(tid);
-        }
-
-        public bool IsConfirmed(int id)
-        {
-            return userDB.IsConfirmed(id);
-        }
-
-        public bool CheckUserExist(string username)
-        {
-
-            if (!SecurityHelper.IsSafeString(username, 50))
-                return false;
-
-            allUsers = userDB.GetAllStudents();
-            var allAdmins = userDB.GetAllTeacher();
-            
-            return allUsers.Any(x => x.Username == username) || 
-                   allAdmins.Any(x => x.Username == username);
-        }
-
-        /// <summary>
-        /// SECURE: Now uses hash verification instead of plain text comparison
-        /// </summary>
-        public bool CheckUserPassword(string username, string password)
-        {
-            if (!SecurityHelper.IsSafeString(username, 50) || 
-                string.IsNullOrEmpty(password))
-            {
-                return false;
-            }
-
-            // Verify password using hash comparison
-            return userDB.VerifyUserPassword(username, password);
-        }
-
-        public UserInfo GetUserById(int id, string table)
-        {
-            // Validation is done in UserDB
-            return userDB.GetUserById(id, table);
-        }
-
-        public bool CheckUserAdmin(string username)
-        {
-            if (!SecurityHelper.IsSafeString(username, 50))
-                return false;
-
-            var allAdmins = userDB.GetAllTeacher();
-            return allAdmins.Any(x => x.Username == username);
-        }
-
-        public AllUsers GetAllUsers()
-        {
-            return userDB.GetAllStudents();
-        }
-
-        public int GetUserID(string username, string table)
-        {
-            return userDB.GetUserID(username, table);
-        }
+        // ==================== CALENDAR OPERATIONS ====================
 
         public bool SetTeacherCalendar(Calendars cal, int teacherId)
         {
@@ -186,10 +244,17 @@ namespace WcfServiceLibrary1
             return calendarDB.GetTeacherCalendar(teacherId);
         }
 
-        public int GetTeacherId(int studentId)
+        public List<Calendars> GetTeacherUnavailableDates(int teacherId)
         {
-            return userDB.GetTeacherId(studentId);
+            return calendarDB.GetTeacherUnavailableDates(teacherId);
         }
+
+        public List<Calendars> TeacherSpacialDays(int teacherId)
+        {
+            return calendarDB.TeacherSpacialDays(teacherId);
+        }
+
+        // ==================== CHAT OPERATIONS ====================
 
         public List<Chats> GetAllChatGlobal()
         {
@@ -211,6 +276,8 @@ namespace WcfServiceLibrary1
             chatDB.AddMessagePrivate(message, studentid, teacherid, username);
         }
 
+        // ==================== PAYMENT OPERATIONS ====================
+
         public List<Payment> SelectPaymentByStudentID(int id)
         {
             return new PaymentDB().SelectPaymentByStudentID(id);
@@ -228,7 +295,24 @@ namespace WcfServiceLibrary1
 
         public void Pay(Payment payment)
         {
-            new PaymentDB().Pay(payment);
+            try
+            {
+                System.Diagnostics.Debug.WriteLine($"=== Pay called ===");
+                System.Diagnostics.Debug.WriteLine($"StudentID: {payment.StudentID}");
+                System.Diagnostics.Debug.WriteLine($"TeacherID: {payment.TeacherID}");
+                System.Diagnostics.Debug.WriteLine($"LessonId: {payment.LessonId}");
+                System.Diagnostics.Debug.WriteLine($"Amount: {payment.Amount}");
+                System.Diagnostics.Debug.WriteLine($"Paid: {payment.paid}");
+
+                new PaymentDB().Pay(payment);
+
+                System.Diagnostics.Debug.WriteLine("Payment completed successfully");
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Pay Error: {ex.Message}");
+                throw;
+            }
         }
 
         public bool CheckPaid(int id)
@@ -236,19 +320,22 @@ namespace WcfServiceLibrary1
             return new PaymentDB().CheckPaid(id);
         }
 
-        public List<Calendars> GetTeacherUnavailableDates(int teacherId)
+        public decimal GetTeacherIncome(int teacherId, DateTime fromDate, DateTime toDate)
         {
-            return calendarDB.GetTeacherUnavailableDates(teacherId);
+            return new PaymentDB().GetTeacherIncome(teacherId, fromDate, toDate);
         }
 
-        public List<Calendars> TeacherSpacialDays(int teacherId)
+        public List<Payment> GetOutstandingPayments(int studentId)
         {
-            return calendarDB.TeacherSpacialDays(teacherId);
+            return new PaymentDB().GetOutstandingPayments(studentId);
         }
-        public void MigrateAllPasswords()
+
+        public List<Payment> GetOverduePayments()
         {
-            userDB.MigrateAllPasswords();
+            return new PaymentDB().GetOverduePayments();
         }
+
+        // ==================== SUPPORT TICKET OPERATIONS ====================
 
         public int CreateSupportTicket(SupportTicket ticket)
         {
@@ -259,10 +346,6 @@ namespace WcfServiceLibrary1
                 System.Diagnostics.Debug.WriteLine($"Username: {ticket.Username}");
                 System.Diagnostics.Debug.WriteLine($"UserType: {ticket.UserType}");
                 System.Diagnostics.Debug.WriteLine($"Subject: {ticket.Subject}");
-                System.Diagnostics.Debug.WriteLine($"Description: {ticket.Description}");
-                System.Diagnostics.Debug.WriteLine($"Status: {ticket.Status}");
-                System.Diagnostics.Debug.WriteLine($"Priority: {ticket.Priority}");
-                System.Diagnostics.Debug.WriteLine($"CreatedAt: {ticket.CreatedAt}");
 
                 int result = new SupportTicketDB().CreateTicket(ticket);
 
@@ -271,8 +354,7 @@ namespace WcfServiceLibrary1
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"ERROR: {ex.Message}");
-                System.Diagnostics.Debug.WriteLine($"Stack: {ex.StackTrace}");
+                System.Diagnostics.Debug.WriteLine($"CreateSupportTicket Error: {ex.Message}");
                 throw;
             }
         }
@@ -294,7 +376,20 @@ namespace WcfServiceLibrary1
 
         public void UpdateTicketStatus(int ticketId, string status, string assignedTo)
         {
-            new SupportTicketDB().UpdateTicketStatus(ticketId, status, assignedTo);
+            try
+            {
+                System.Diagnostics.Debug.WriteLine($"=== UpdateTicketStatus called ===");
+                System.Diagnostics.Debug.WriteLine($"TicketId: {ticketId}, Status: {status}, AssignedTo: {assignedTo}");
+
+                new SupportTicketDB().UpdateTicketStatus(ticketId, status, assignedTo);
+
+                System.Diagnostics.Debug.WriteLine("UpdateTicketStatus completed");
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"UpdateTicketStatus Error: {ex.Message}");
+                throw;
+            }
         }
 
         public void CloseTicket(int ticketId, string resolution, string adminNotes)
@@ -304,7 +399,23 @@ namespace WcfServiceLibrary1
 
         public void AddTicketMessage(TicketMessage message)
         {
-            new SupportTicketDB().AddTicketMessage(message);
+            try
+            {
+                System.Diagnostics.Debug.WriteLine($"=== AddTicketMessage called ===");
+                System.Diagnostics.Debug.WriteLine($"TicketId: {message.TicketId}");
+                System.Diagnostics.Debug.WriteLine($"Sender: {message.SenderUsername}");
+                System.Diagnostics.Debug.WriteLine($"IsAdmin: {message.IsAdmin}");
+                System.Diagnostics.Debug.WriteLine($"Message: {message.Message}");
+
+                new SupportTicketDB().AddTicketMessage(message);
+
+                System.Diagnostics.Debug.WriteLine("AddTicketMessage completed");
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"AddTicketMessage Error: {ex.Message}");
+                throw;
+            }
         }
 
         public List<TicketMessage> GetTicketMessages(int ticketId)
@@ -312,22 +423,16 @@ namespace WcfServiceLibrary1
             return new SupportTicketDB().GetTicketMessages(ticketId);
         }
 
-        // Enhanced Payments
-        public decimal GetTeacherIncome(int teacherId, DateTime fromDate, DateTime toDate)
+        public void UpdateTicketPriority(int ticketId, string priority)
         {
-            return new PaymentDB().GetTeacherIncome(teacherId, fromDate, toDate);
+            new SupportTicketDB().UpdateTicketPriority(ticketId, priority);
         }
 
-        public List<Payment> GetOutstandingPayments(int studentId)
+        // ==================== MIGRATION ====================
+
+        public void MigrateAllPasswords()
         {
-            return new PaymentDB().GetOutstandingPayments(studentId);
+            userDB.MigrateAllPasswords();
         }
-
-        public List<Payment> GetOverduePayments()
-        {
-            return new PaymentDB().GetOverduePayments();
-        }
-
-
     }
 }

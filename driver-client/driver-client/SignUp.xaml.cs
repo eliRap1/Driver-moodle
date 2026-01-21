@@ -16,20 +16,19 @@ using System.Windows.Shapes;
 
 namespace driver_client
 {
-    /// <summary>
-    /// Interaction logic for SignUp.xaml
-    /// </summary>
     public class RoleOption
     {
         public string Name { get; set; }
         public string Icon { get; set; }
     }
+
     public partial class SignUp : Page
     {
         public static int Tid = 0;
-        static List<string> users = new List<string>() {"eli", "moshe", "daniel", "david", "omer", "yossi"};//list of autorized users
+        static List<string> users = new List<string>() { "eli", "moshe", "daniel", "david", "omer", "yossi" };
         private Sign sign;
         LogIn login = new LogIn();
+
         public SignUp(int i = 0)
         {
             InitializeComponent();
@@ -40,17 +39,18 @@ namespace driver_client
                 new RoleOption { Name = "Teacher", Icon = "picture/driver.png" }
             };
             role.ItemsSource = options;
-            role.SelectedIndex = i;     
+            role.SelectedIndex = i;
             sign = new Sign();
             sign.TeacherId = Tid;
+            sign.LessonPrice = 200; // Default lesson price
             this.DataContext = sign;
         }
+
         private void LogIn_Click(object sender, RoutedEventArgs e)
         {
             this.DataContext = null;
             page.Navigate(login);
         }
-
 
         private void signup_Click(object sender, RoutedEventArgs e)
         {
@@ -59,74 +59,169 @@ namespace driver_client
             int age1 = sign.Age;
             string emailT = sign.Email;
             string phone1 = sign.Phone;
-            bool isTecher = false;
+            bool isTeacher = false;
 
-            if(role.SelectedIndex == 2)// && pass.Password == "DriverT!" && users.Contains(username.Text))//check if the admin password is right and if the user is in the list of autorized users
+            if (role.SelectedIndex == 2)
             {
-                isTecher = true;
+                isTeacher = true;
             }
+
             driver.Service1Client srv = new driver.Service1Client();
-            if ((Validation.GetHasError(username) || Validation.GetHasError(age) || Validation.GetHasError(pass)) || Validation.GetHasError(phone) ||
-                Validation.GetHasError(email) || (isTecher && Validation.GetHasError(teacherId)))
+
+            // Basic validation
+            if ((Validation.GetHasError(username) || Validation.GetHasError(age) || Validation.GetHasError(pass)) ||
+                Validation.GetHasError(phone) || Validation.GetHasError(email))
             {
                 MessageBox.Show("Change the highlighted fields");
+                return;
             }
-            else if(userN == null || password == null || emailT == null || phone1 == null || role.SelectedIndex == -1 || role.SelectedIndex == 0 || age1 == -1 || (!isTecher && teacherId.Text == "0"))
+
+            // Teacher-specific validation
+            if (isTeacher && Validation.GetHasError(lessonPrice))
+            {
+                MessageBox.Show("Please enter a valid lesson price");
+                return;
+            }
+
+            // Student-specific validation
+            if (!isTeacher && Validation.GetHasError(teacherId))
+            {
+                MessageBox.Show("Please enter a valid teacher ID");
+                return;
+            }
+
+            if (userN == null || password == null || emailT == null || phone1 == null ||
+                role.SelectedIndex == -1 || role.SelectedIndex == 0 || age1 == -1 ||
+                (!isTeacher && teacherId.Text == "0"))
             {
                 MessageBox.Show("Please fill all the fields correctly");
+                return;
             }
-            else if(password != confirmPass.Text)
+
+            if (password != confirmPass.Text)
             {
                 MessageBox.Show("Passwords don't match");
+                return;
             }
-            else if(!srv.CheckUserExist(userN))
+
+            if (srv.CheckUserExist(userN))
             {
-                int tid = int.Parse(teacherId.Text);
-                if(srv.AddUser(userN, password, emailT, phone1, isTecher, tid))
+                MessageBox.Show("Username already exists");
+                return;
+            }
+
+            // Get lesson price for teachers
+            int lessonPriceValue = 200;
+            if (isTeacher)
+            {
+                if (!int.TryParse(lessonPrice.Text, out lessonPriceValue) || lessonPriceValue < 0)
                 {
-                    MessageBox.Show("You are successfully registered");
-                    if(tid == -1)
+                    lessonPriceValue = 200;
+                }
+            }
+
+            // Get teacher ID for students
+            int tid = 0;
+            if (!isTeacher)
+            {
+                int.TryParse(teacherId.Text, out tid);
+            }
+
+            // Register user
+            if (srv.AddUser(userN, password, emailT, phone1, isTeacher, tid, lessonPriceValue))
+            {
+                MessageBox.Show("You are successfully registered");
+
+                // If teacher, save payment methods
+                if (isTeacher)
+                {
+                    try
                     {
-                        page.Navigate(new ChooseTeacher(true));
+                        int newTeacherId = srv.GetUserID(userN, "Teacher");
+                        string paymentMethods = GetSelectedPaymentMethods();
+                        srv.UpdatePaymentMethods(newTeacherId, paymentMethods);
                     }
-                    page.Navigate(login);
+                    catch (Exception ex)
+                    {
+                        System.Diagnostics.Debug.WriteLine($"Error updating payment methods: {ex.Message}");
+                    }
+                }
+
+                // Navigate
+                if (tid == -1)
+                {
+                    page.Navigate(new ChooseTeacher(true));
                 }
                 else
                 {
-                    MessageBox.Show("Error!");
+                    page.Navigate(login);
                 }
             }
             else
             {
-                MessageBox.Show("Username already exist");
+                MessageBox.Show("Error!");
             }
+        }
 
+        private string GetSelectedPaymentMethods()
+        {
+            List<string> methods = new List<string>();
+
+            if (chkCash.IsChecked == true) methods.Add("Cash");
+            if (chkCreditCard.IsChecked == true) methods.Add("Credit Card");
+            if (chkBankTransfer.IsChecked == true) methods.Add("Bank Transfer");
+            if (chkBit.IsChecked == true) methods.Add("Bit");
+            if (chkPaybox.IsChecked == true) methods.Add("Paybox");
+
+            return methods.Count > 0 ? string.Join(",", methods) : "Cash";
         }
 
         private void role_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (role.SelectedIndex == 1)
+            if (role.SelectedIndex == 1) // Student
             {
+                // Show student fields
                 teacherId.Visibility = Visibility.Visible;
                 idTecherText.Visibility = Visibility.Visible;
                 teacher_border.Visibility = Visibility.Visible;
-                notSure.Visibility = Visibility.Visible;
+
+                // Hide teacher fields
+                lessonPriceText.Visibility = Visibility.Hidden;
+                lessonPrice_border.Visibility = Visibility.Hidden;
+                paymentMethodsText.Visibility = Visibility.Hidden;
+                paymentMethods_border.Visibility = Visibility.Hidden;
             }
-            else
+            else if (role.SelectedIndex == 2) // Teacher
             {
+                // Hide student fields
                 teacherId.Visibility = Visibility.Hidden;
                 idTecherText.Visibility = Visibility.Hidden;
                 teacher_border.Visibility = Visibility.Hidden;
-                notSure.Visibility = Visibility.Hidden;
+
+                // Show teacher fields
+                lessonPriceText.Visibility = Visibility.Visible;
+                lessonPrice_border.Visibility = Visibility.Visible;
+                paymentMethodsText.Visibility = Visibility.Visible;
+                paymentMethods_border.Visibility = Visibility.Visible;
+            }
+            else // Choose (not selected)
+            {
+                // Hide all role-specific fields
+                teacherId.Visibility = Visibility.Hidden;
+                idTecherText.Visibility = Visibility.Hidden;
+                teacher_border.Visibility = Visibility.Hidden;
+                lessonPriceText.Visibility = Visibility.Hidden;
+                lessonPrice_border.Visibility = Visibility.Hidden;
+                paymentMethodsText.Visibility = Visibility.Hidden;
+                paymentMethods_border.Visibility = Visibility.Hidden;
             }
         }
 
         private void notSure_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("You are transferd to the choose teacher page");
+            MessageBox.Show("You are transferred to the choose teacher page");
             page.Navigate(new ChooseTeacher(true));
             this.DataContext = null;
-            
         }
     }
 }

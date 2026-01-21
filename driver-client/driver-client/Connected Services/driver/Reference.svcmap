@@ -25,9 +25,9 @@
     <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="b964b869-1c6d-4e03-a7c3-e77045291358" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/WcfServiceLibrary1/Service1/mex" />
     <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="ff48649f-4f4f-46f7-a16c-20bd5984b27d" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/WcfServiceLibrary1/Service1/mex" />
     <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="57cc019e-7b84-40ab-bc17-caf527e28522" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/WcfServiceLibrary1/Service1/mex" />
+    <MetadataFile FileName="ViewDB.xsd" MetadataType="Schema" ID="7cf1c8e1-9214-49ff-b0f1-e14faa2601d6" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/WcfServiceLibrary1/Service1/mex" />
     <MetadataFile FileName="Model.xsd" MetadataType="Schema" ID="5b536cb9-46ed-40d1-8af9-e51be07940c3" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/WcfServiceLibrary1/Service1/mex" />
     <MetadataFile FileName="Arrays.xsd" MetadataType="Schema" ID="a90f7382-536b-4f80-8dda-e146bbff15e2" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/WcfServiceLibrary1/Service1/mex" />
-    <MetadataFile FileName="ViewDB.xsd" MetadataType="Schema" ID="7cf1c8e1-9214-49ff-b0f1-e14faa2601d6" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/WcfServiceLibrary1/Service1/mex" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

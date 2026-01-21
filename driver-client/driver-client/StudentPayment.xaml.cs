@@ -197,7 +197,12 @@ namespace driver_client
             }
             else
             {
-                InstallmentInfoText.Visibility = Visibility.Collapsed;
+                try
+                {
+
+                    //InstallmentInfoText.Visibility = Visibility.Collapsed;
+                }
+                catch { }
             }
         }
 

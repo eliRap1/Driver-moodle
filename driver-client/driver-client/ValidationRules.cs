@@ -14,8 +14,6 @@ namespace driver_client
 {
     public class AgeRangeRule : ValidationRule
     {
-
-        // validation check
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             int age = 0;
@@ -25,16 +23,13 @@ namespace driver_client
                 if (((string)value).Length > 0)
                     age = Int32.Parse((String)value);
             }
-            // check if all digits
             catch (Exception e)
             {
                 return new ValidationResult(false, "Illegal characters or " + e.Message);
             }
 
-            //  check age range
             if ((age < min) || (age > max))
             {
-                //MessageBox.Show("Please enter an age in the range: " + min + " - " + max + ".");
                 return new ValidationResult(false,
                   "Please enter an age in the range: " + min + " - " + max + ".");
             }
@@ -45,20 +40,14 @@ namespace driver_client
         }
     }
 
-
-
-
     public class TeacherIdRule : ValidationRule
     {
-
-        // validation check
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             string id = (string)value;
-            if (id == ""  || id == "-")
+            if (id == "" || id == "-")
             {
-                return new ValidationResult(false,
-          "Please enter a legal Techaer id.");
+                return new ValidationResult(false, "Please enter a legal Teacher id.");
             }
             else
             {
@@ -68,9 +57,7 @@ namespace driver_client
                 }
                 catch
                 {
-                    //MessageBox.Show("Please enter a legal Techaer id.");
-                    return new ValidationResult(false,
-                                  "Please enter a legal Techaer id.");  // is incorrect
+                    return new ValidationResult(false, "Please enter a legal Teacher id.");
                 }
                 try
                 {
@@ -78,75 +65,59 @@ namespace driver_client
                     UserInfo user = srv.GetUserById(int.Parse(id), "Teacher");
                     if (user != null)
                     {
-                        return ValidationResult.ValidResult;  // correct
+                        return ValidationResult.ValidResult;
                     }
                     else
                     {
-                        //MessageBox.Show("Please enter a legal Techaer id.");
-                        return new ValidationResult(false,
-                                  "Please enter a legal Techaer id.");  // is incorrect
+                        return new ValidationResult(false, "Please enter a legal Teacher id.");
                     }
                 }
                 catch
                 {
-
-                    return new ValidationResult(false,
-                                  "Please enter a legal Techaer id.");  // is incorrect
+                    return new ValidationResult(false, "Please enter a legal Teacher id.");
                 }
             }
         }
     }
+
     public class EmailRule : ValidationRule
     {
-
-        // validation check
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-            // Regular Expressions Quick Start
-            // https://en.wikipedia.org/wiki/Regular_expression
-            // https://www.regular-expressions.info/quickstart.html
-            //  Exampels:   https://www.regular-expressions.info/examples.html
-            //              https://code.tutsplus.com/tutorials/8-regular-expressions-you-should-know--net-6149
             string email = (string)value;
             Regex regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
             Match match = regex.Match(email);
             if (match.Success)
-                return ValidationResult.ValidResult;  // correct
+                return ValidationResult.ValidResult;
             else
-                return new ValidationResult(false,
-                          "Please enter a legal Email.");  // is incorrect
+                return new ValidationResult(false, "Please enter a legal Email.");
         }
     }
+
     public class PhoneRule : ValidationRule
     {
-
-        // validation check
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             string phone = (string)value;
-            //
             if (Regex.Match(phone, "\\^?[1-9][0-9]{8}$").Success)
-                return ValidationResult.ValidResult;  // correct
+                return ValidationResult.ValidResult;
             else
-                return new ValidationResult(false,
-                          "Please enter a legal phone.");  // is incorrect
+                return new ValidationResult(false, "Please enter a legal phone.");
         }
     }
+
     public class isAdminRule : ValidationRule
     {
-
-        // validation check
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             string admin = (string)value;
-            //
             if (admin == "Student" || admin == "Teacher")
-                return ValidationResult.ValidResult;  // correct
+                return ValidationResult.ValidResult;
             else
-                return new ValidationResult(false,
-                          "Please select a role");  // is incorrect
+                return new ValidationResult(false, "Please select a role");
         }
     }
+
     public class MinLenth : ValidationRule
     {
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
@@ -158,14 +129,32 @@ namespace driver_client
             }
             else
             {
-                //username_border.BorderThickness = new Thickness(2);
-                //pass_border.BorderThickness = new Thickness(2);
-                //MessageBox.Show("Password and Username must be at least 4 characters long", "Incorrect password/username length", MessageBoxButton.OK, MessageBoxImage.Error);
                 return new ValidationResult(false,
-                          "Password and Username must be at least 4 characters long\", \"Incorrect password/username length");
+                          "Password and Username must be at least 4 characters long");
             }
         }
     }
 
+    //Validation rule for lesson price
+    public class LessonPriceRule : ValidationRule
+    {
+        public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+        {
+            string priceStr = (string)value;
 
+            if (string.IsNullOrEmpty(priceStr))
+                return new ValidationResult(false, "Please enter a lesson price");
+
+            if (!int.TryParse(priceStr, out int price))
+                return new ValidationResult(false, "Please enter a valid number");
+
+            if (price < 0)
+                return new ValidationResult(false, "Price cannot be negative");
+
+            if (price > 10000)
+                return new ValidationResult(false, "Price seems too high. Maximum is 10,000");
+
+            return ValidationResult.ValidResult;
+        }
+    }
 }

@@ -15,14 +15,133 @@ namespace driver_client.driver {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Lessons", Namespace="http://schemas.datacontract.org/2004/07/ViewDB")]
+    [System.SerializableAttribute()]
+    public partial class Lessons : driver_client.driver.Base {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CanceledField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int LessonIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int StudentIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int TeacherIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TimeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool paidField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Canceled {
+            get {
+                return this.CanceledField;
+            }
+            set {
+                if ((this.CanceledField.Equals(value) != true)) {
+                    this.CanceledField = value;
+                    this.RaisePropertyChanged("Canceled");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Date {
+            get {
+                return this.DateField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DateField, value) != true)) {
+                    this.DateField = value;
+                    this.RaisePropertyChanged("Date");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int LessonId {
+            get {
+                return this.LessonIdField;
+            }
+            set {
+                if ((this.LessonIdField.Equals(value) != true)) {
+                    this.LessonIdField = value;
+                    this.RaisePropertyChanged("LessonId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int StudentId {
+            get {
+                return this.StudentIdField;
+            }
+            set {
+                if ((this.StudentIdField.Equals(value) != true)) {
+                    this.StudentIdField = value;
+                    this.RaisePropertyChanged("StudentId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int TeacherId {
+            get {
+                return this.TeacherIdField;
+            }
+            set {
+                if ((this.TeacherIdField.Equals(value) != true)) {
+                    this.TeacherIdField = value;
+                    this.RaisePropertyChanged("TeacherId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Time {
+            get {
+                return this.TimeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TimeField, value) != true)) {
+                    this.TimeField = value;
+                    this.RaisePropertyChanged("Time");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool paid {
+            get {
+                return this.paidField;
+            }
+            set {
+                if ((this.paidField.Equals(value) != true)) {
+                    this.paidField = value;
+                    this.RaisePropertyChanged("paid");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="Base", Namespace="http://schemas.datacontract.org/2004/07/Model")]
     [System.SerializableAttribute()]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(driver_client.driver.Calendars))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(driver_client.driver.SupportTicket))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(driver_client.driver.Lessons))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(driver_client.driver.Chats))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(driver_client.driver.Payment))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(driver_client.driver.UserInfo))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(driver_client.driver.Calendars))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(driver_client.driver.SupportTicket))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(driver_client.driver.Lessons))]
     public partial class Base : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
@@ -60,6 +179,603 @@ namespace driver_client.driver {
             System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
             if ((propertyChanged != null)) {
                 propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Chats", Namespace="http://schemas.datacontract.org/2004/07/ViewDB")]
+    [System.SerializableAttribute()]
+    public partial class Chats : driver_client.driver.Base {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsTeacherField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MessageField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime SentAtField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int UserIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UsernameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int id1Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int studentIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int teacherIdField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsTeacher {
+            get {
+                return this.IsTeacherField;
+            }
+            set {
+                if ((this.IsTeacherField.Equals(value) != true)) {
+                    this.IsTeacherField = value;
+                    this.RaisePropertyChanged("IsTeacher");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Message {
+            get {
+                return this.MessageField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MessageField, value) != true)) {
+                    this.MessageField = value;
+                    this.RaisePropertyChanged("Message");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime SentAt {
+            get {
+                return this.SentAtField;
+            }
+            set {
+                if ((this.SentAtField.Equals(value) != true)) {
+                    this.SentAtField = value;
+                    this.RaisePropertyChanged("SentAt");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int UserId {
+            get {
+                return this.UserIdField;
+            }
+            set {
+                if ((this.UserIdField.Equals(value) != true)) {
+                    this.UserIdField = value;
+                    this.RaisePropertyChanged("UserId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Username {
+            get {
+                return this.UsernameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UsernameField, value) != true)) {
+                    this.UsernameField = value;
+                    this.RaisePropertyChanged("Username");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Name="id")]
+        public int id1 {
+            get {
+                return this.id1Field;
+            }
+            set {
+                if ((this.id1Field.Equals(value) != true)) {
+                    this.id1Field = value;
+                    this.RaisePropertyChanged("id1");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int studentId {
+            get {
+                return this.studentIdField;
+            }
+            set {
+                if ((this.studentIdField.Equals(value) != true)) {
+                    this.studentIdField = value;
+                    this.RaisePropertyChanged("studentId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int teacherId {
+            get {
+                return this.teacherIdField;
+            }
+            set {
+                if ((this.teacherIdField.Equals(value) != true)) {
+                    this.teacherIdField = value;
+                    this.RaisePropertyChanged("teacherId");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Payment", Namespace="http://schemas.datacontract.org/2004/07/ViewDB")]
+    [System.SerializableAttribute()]
+    public partial class Payment : driver_client.driver.Base {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int AmountField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int LessonIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NotesField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int NumberOfPaymentsField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int ParcialAmountField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime PaymentDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PaymentIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PaymentMethodField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string StatusField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int StudentIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int TeacherIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool paidField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Amount {
+            get {
+                return this.AmountField;
+            }
+            set {
+                if ((this.AmountField.Equals(value) != true)) {
+                    this.AmountField = value;
+                    this.RaisePropertyChanged("Amount");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int LessonId {
+            get {
+                return this.LessonIdField;
+            }
+            set {
+                if ((this.LessonIdField.Equals(value) != true)) {
+                    this.LessonIdField = value;
+                    this.RaisePropertyChanged("LessonId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Notes {
+            get {
+                return this.NotesField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NotesField, value) != true)) {
+                    this.NotesField = value;
+                    this.RaisePropertyChanged("Notes");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int NumberOfPayments {
+            get {
+                return this.NumberOfPaymentsField;
+            }
+            set {
+                if ((this.NumberOfPaymentsField.Equals(value) != true)) {
+                    this.NumberOfPaymentsField = value;
+                    this.RaisePropertyChanged("NumberOfPayments");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ParcialAmount {
+            get {
+                return this.ParcialAmountField;
+            }
+            set {
+                if ((this.ParcialAmountField.Equals(value) != true)) {
+                    this.ParcialAmountField = value;
+                    this.RaisePropertyChanged("ParcialAmount");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime PaymentDate {
+            get {
+                return this.PaymentDateField;
+            }
+            set {
+                if ((this.PaymentDateField.Equals(value) != true)) {
+                    this.PaymentDateField = value;
+                    this.RaisePropertyChanged("PaymentDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int PaymentID {
+            get {
+                return this.PaymentIDField;
+            }
+            set {
+                if ((this.PaymentIDField.Equals(value) != true)) {
+                    this.PaymentIDField = value;
+                    this.RaisePropertyChanged("PaymentID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string PaymentMethod {
+            get {
+                return this.PaymentMethodField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PaymentMethodField, value) != true)) {
+                    this.PaymentMethodField = value;
+                    this.RaisePropertyChanged("PaymentMethod");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Status {
+            get {
+                return this.StatusField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.StatusField, value) != true)) {
+                    this.StatusField = value;
+                    this.RaisePropertyChanged("Status");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int StudentID {
+            get {
+                return this.StudentIDField;
+            }
+            set {
+                if ((this.StudentIDField.Equals(value) != true)) {
+                    this.StudentIDField = value;
+                    this.RaisePropertyChanged("StudentID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int TeacherID {
+            get {
+                return this.TeacherIDField;
+            }
+            set {
+                if ((this.TeacherIDField.Equals(value) != true)) {
+                    this.TeacherIDField = value;
+                    this.RaisePropertyChanged("TeacherID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool paid {
+            get {
+                return this.paidField;
+            }
+            set {
+                if ((this.paidField.Equals(value) != true)) {
+                    this.paidField = value;
+                    this.RaisePropertyChanged("paid");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="UserInfo", Namespace="http://schemas.datacontract.org/2004/07/Model")]
+    [System.SerializableAttribute()]
+    public partial class UserInfo : driver_client.driver.Base {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool ConfirmedField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CustomLessonPriceField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int DiscountPercentField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string EmailField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsAdminField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int LessonPriceField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string LessonsField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PasswordField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PaymentMethodsField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PhoneField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private double RatingField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RatingTextField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RewiewField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int StudentIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int TeacherIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UsernameField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Confirmed {
+            get {
+                return this.ConfirmedField;
+            }
+            set {
+                if ((this.ConfirmedField.Equals(value) != true)) {
+                    this.ConfirmedField = value;
+                    this.RaisePropertyChanged("Confirmed");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CustomLessonPrice {
+            get {
+                return this.CustomLessonPriceField;
+            }
+            set {
+                if ((this.CustomLessonPriceField.Equals(value) != true)) {
+                    this.CustomLessonPriceField = value;
+                    this.RaisePropertyChanged("CustomLessonPrice");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int DiscountPercent {
+            get {
+                return this.DiscountPercentField;
+            }
+            set {
+                if ((this.DiscountPercentField.Equals(value) != true)) {
+                    this.DiscountPercentField = value;
+                    this.RaisePropertyChanged("DiscountPercent");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Email {
+            get {
+                return this.EmailField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.EmailField, value) != true)) {
+                    this.EmailField = value;
+                    this.RaisePropertyChanged("Email");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsAdmin {
+            get {
+                return this.IsAdminField;
+            }
+            set {
+                if ((this.IsAdminField.Equals(value) != true)) {
+                    this.IsAdminField = value;
+                    this.RaisePropertyChanged("IsAdmin");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int LessonPrice {
+            get {
+                return this.LessonPriceField;
+            }
+            set {
+                if ((this.LessonPriceField.Equals(value) != true)) {
+                    this.LessonPriceField = value;
+                    this.RaisePropertyChanged("LessonPrice");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Lessons {
+            get {
+                return this.LessonsField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.LessonsField, value) != true)) {
+                    this.LessonsField = value;
+                    this.RaisePropertyChanged("Lessons");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Password {
+            get {
+                return this.PasswordField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PasswordField, value) != true)) {
+                    this.PasswordField = value;
+                    this.RaisePropertyChanged("Password");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string PaymentMethods {
+            get {
+                return this.PaymentMethodsField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PaymentMethodsField, value) != true)) {
+                    this.PaymentMethodsField = value;
+                    this.RaisePropertyChanged("PaymentMethods");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Phone {
+            get {
+                return this.PhoneField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PhoneField, value) != true)) {
+                    this.PhoneField = value;
+                    this.RaisePropertyChanged("Phone");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double Rating {
+            get {
+                return this.RatingField;
+            }
+            set {
+                if ((this.RatingField.Equals(value) != true)) {
+                    this.RatingField = value;
+                    this.RaisePropertyChanged("Rating");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string RatingText {
+            get {
+                return this.RatingTextField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RatingTextField, value) != true)) {
+                    this.RatingTextField = value;
+                    this.RaisePropertyChanged("RatingText");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Rewiew {
+            get {
+                return this.RewiewField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RewiewField, value) != true)) {
+                    this.RewiewField = value;
+                    this.RaisePropertyChanged("Rewiew");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int StudentId {
+            get {
+                return this.StudentIdField;
+            }
+            set {
+                if ((this.StudentIdField.Equals(value) != true)) {
+                    this.StudentIdField = value;
+                    this.RaisePropertyChanged("StudentId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int TeacherId {
+            get {
+                return this.TeacherIdField;
+            }
+            set {
+                if ((this.TeacherIdField.Equals(value) != true)) {
+                    this.TeacherIdField = value;
+                    this.RaisePropertyChanged("TeacherId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Username {
+            get {
+                return this.UsernameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UsernameField, value) != true)) {
+                    this.UsernameField = value;
+                    this.RaisePropertyChanged("Username");
+                }
             }
         }
     }
@@ -512,674 +1228,6 @@ namespace driver_client.driver {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Lessons", Namespace="http://schemas.datacontract.org/2004/07/ViewDB")]
-    [System.SerializableAttribute()]
-    public partial class Lessons : driver_client.driver.Base {
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int CanceledField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string DateField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int LessonIdField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int StudentIdField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int TeacherIdField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string TimeField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool paidField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Canceled {
-            get {
-                return this.CanceledField;
-            }
-            set {
-                if ((this.CanceledField.Equals(value) != true)) {
-                    this.CanceledField = value;
-                    this.RaisePropertyChanged("Canceled");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Date {
-            get {
-                return this.DateField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.DateField, value) != true)) {
-                    this.DateField = value;
-                    this.RaisePropertyChanged("Date");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int LessonId {
-            get {
-                return this.LessonIdField;
-            }
-            set {
-                if ((this.LessonIdField.Equals(value) != true)) {
-                    this.LessonIdField = value;
-                    this.RaisePropertyChanged("LessonId");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int StudentId {
-            get {
-                return this.StudentIdField;
-            }
-            set {
-                if ((this.StudentIdField.Equals(value) != true)) {
-                    this.StudentIdField = value;
-                    this.RaisePropertyChanged("StudentId");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int TeacherId {
-            get {
-                return this.TeacherIdField;
-            }
-            set {
-                if ((this.TeacherIdField.Equals(value) != true)) {
-                    this.TeacherIdField = value;
-                    this.RaisePropertyChanged("TeacherId");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Time {
-            get {
-                return this.TimeField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.TimeField, value) != true)) {
-                    this.TimeField = value;
-                    this.RaisePropertyChanged("Time");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool paid {
-            get {
-                return this.paidField;
-            }
-            set {
-                if ((this.paidField.Equals(value) != true)) {
-                    this.paidField = value;
-                    this.RaisePropertyChanged("paid");
-                }
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Chats", Namespace="http://schemas.datacontract.org/2004/07/ViewDB")]
-    [System.SerializableAttribute()]
-    public partial class Chats : driver_client.driver.Base {
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool IsTeacherField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string MessageField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.DateTime SentAtField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int UserIdField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string UsernameField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int id1Field;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int studentIdField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int teacherIdField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool IsTeacher {
-            get {
-                return this.IsTeacherField;
-            }
-            set {
-                if ((this.IsTeacherField.Equals(value) != true)) {
-                    this.IsTeacherField = value;
-                    this.RaisePropertyChanged("IsTeacher");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Message {
-            get {
-                return this.MessageField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.MessageField, value) != true)) {
-                    this.MessageField = value;
-                    this.RaisePropertyChanged("Message");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.DateTime SentAt {
-            get {
-                return this.SentAtField;
-            }
-            set {
-                if ((this.SentAtField.Equals(value) != true)) {
-                    this.SentAtField = value;
-                    this.RaisePropertyChanged("SentAt");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int UserId {
-            get {
-                return this.UserIdField;
-            }
-            set {
-                if ((this.UserIdField.Equals(value) != true)) {
-                    this.UserIdField = value;
-                    this.RaisePropertyChanged("UserId");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Username {
-            get {
-                return this.UsernameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.UsernameField, value) != true)) {
-                    this.UsernameField = value;
-                    this.RaisePropertyChanged("Username");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(Name="id")]
-        public int id1 {
-            get {
-                return this.id1Field;
-            }
-            set {
-                if ((this.id1Field.Equals(value) != true)) {
-                    this.id1Field = value;
-                    this.RaisePropertyChanged("id1");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int studentId {
-            get {
-                return this.studentIdField;
-            }
-            set {
-                if ((this.studentIdField.Equals(value) != true)) {
-                    this.studentIdField = value;
-                    this.RaisePropertyChanged("studentId");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int teacherId {
-            get {
-                return this.teacherIdField;
-            }
-            set {
-                if ((this.teacherIdField.Equals(value) != true)) {
-                    this.teacherIdField = value;
-                    this.RaisePropertyChanged("teacherId");
-                }
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Payment", Namespace="http://schemas.datacontract.org/2004/07/ViewDB")]
-    [System.SerializableAttribute()]
-    public partial class Payment : driver_client.driver.Base {
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int AmountField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int LessonIdField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string NotesField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int NumberOfPaymentsField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int ParcialAmountField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.DateTime PaymentDateField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int PaymentIDField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string PaymentMethodField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string StatusField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int StudentIDField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int TeacherIDField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool paidField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Amount {
-            get {
-                return this.AmountField;
-            }
-            set {
-                if ((this.AmountField.Equals(value) != true)) {
-                    this.AmountField = value;
-                    this.RaisePropertyChanged("Amount");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int LessonId {
-            get {
-                return this.LessonIdField;
-            }
-            set {
-                if ((this.LessonIdField.Equals(value) != true)) {
-                    this.LessonIdField = value;
-                    this.RaisePropertyChanged("LessonId");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Notes {
-            get {
-                return this.NotesField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.NotesField, value) != true)) {
-                    this.NotesField = value;
-                    this.RaisePropertyChanged("Notes");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int NumberOfPayments {
-            get {
-                return this.NumberOfPaymentsField;
-            }
-            set {
-                if ((this.NumberOfPaymentsField.Equals(value) != true)) {
-                    this.NumberOfPaymentsField = value;
-                    this.RaisePropertyChanged("NumberOfPayments");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int ParcialAmount {
-            get {
-                return this.ParcialAmountField;
-            }
-            set {
-                if ((this.ParcialAmountField.Equals(value) != true)) {
-                    this.ParcialAmountField = value;
-                    this.RaisePropertyChanged("ParcialAmount");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.DateTime PaymentDate {
-            get {
-                return this.PaymentDateField;
-            }
-            set {
-                if ((this.PaymentDateField.Equals(value) != true)) {
-                    this.PaymentDateField = value;
-                    this.RaisePropertyChanged("PaymentDate");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int PaymentID {
-            get {
-                return this.PaymentIDField;
-            }
-            set {
-                if ((this.PaymentIDField.Equals(value) != true)) {
-                    this.PaymentIDField = value;
-                    this.RaisePropertyChanged("PaymentID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string PaymentMethod {
-            get {
-                return this.PaymentMethodField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.PaymentMethodField, value) != true)) {
-                    this.PaymentMethodField = value;
-                    this.RaisePropertyChanged("PaymentMethod");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Status {
-            get {
-                return this.StatusField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.StatusField, value) != true)) {
-                    this.StatusField = value;
-                    this.RaisePropertyChanged("Status");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int StudentID {
-            get {
-                return this.StudentIDField;
-            }
-            set {
-                if ((this.StudentIDField.Equals(value) != true)) {
-                    this.StudentIDField = value;
-                    this.RaisePropertyChanged("StudentID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int TeacherID {
-            get {
-                return this.TeacherIDField;
-            }
-            set {
-                if ((this.TeacherIDField.Equals(value) != true)) {
-                    this.TeacherIDField = value;
-                    this.RaisePropertyChanged("TeacherID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool paid {
-            get {
-                return this.paidField;
-            }
-            set {
-                if ((this.paidField.Equals(value) != true)) {
-                    this.paidField = value;
-                    this.RaisePropertyChanged("paid");
-                }
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="UserInfo", Namespace="http://schemas.datacontract.org/2004/07/Model")]
-    [System.SerializableAttribute()]
-    public partial class UserInfo : driver_client.driver.Base {
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool ConfirmedField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string EmailField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool IsAdminField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int LessonPriceField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string LessonsField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string PasswordField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string PhoneField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private double RatingField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string RatingTextField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string RewiewField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int StudentIdField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int TeacherIdField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string UsernameField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool Confirmed {
-            get {
-                return this.ConfirmedField;
-            }
-            set {
-                if ((this.ConfirmedField.Equals(value) != true)) {
-                    this.ConfirmedField = value;
-                    this.RaisePropertyChanged("Confirmed");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Email {
-            get {
-                return this.EmailField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.EmailField, value) != true)) {
-                    this.EmailField = value;
-                    this.RaisePropertyChanged("Email");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool IsAdmin {
-            get {
-                return this.IsAdminField;
-            }
-            set {
-                if ((this.IsAdminField.Equals(value) != true)) {
-                    this.IsAdminField = value;
-                    this.RaisePropertyChanged("IsAdmin");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int LessonPrice {
-            get {
-                return this.LessonPriceField;
-            }
-            set {
-                if ((this.LessonPriceField.Equals(value) != true)) {
-                    this.LessonPriceField = value;
-                    this.RaisePropertyChanged("LessonPrice");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Lessons {
-            get {
-                return this.LessonsField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.LessonsField, value) != true)) {
-                    this.LessonsField = value;
-                    this.RaisePropertyChanged("Lessons");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Password {
-            get {
-                return this.PasswordField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.PasswordField, value) != true)) {
-                    this.PasswordField = value;
-                    this.RaisePropertyChanged("Password");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Phone {
-            get {
-                return this.PhoneField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.PhoneField, value) != true)) {
-                    this.PhoneField = value;
-                    this.RaisePropertyChanged("Phone");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public double Rating {
-            get {
-                return this.RatingField;
-            }
-            set {
-                if ((this.RatingField.Equals(value) != true)) {
-                    this.RatingField = value;
-                    this.RaisePropertyChanged("Rating");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string RatingText {
-            get {
-                return this.RatingTextField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.RatingTextField, value) != true)) {
-                    this.RatingTextField = value;
-                    this.RaisePropertyChanged("RatingText");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Rewiew {
-            get {
-                return this.RewiewField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.RewiewField, value) != true)) {
-                    this.RewiewField = value;
-                    this.RaisePropertyChanged("Rewiew");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int StudentId {
-            get {
-                return this.StudentIdField;
-            }
-            set {
-                if ((this.StudentIdField.Equals(value) != true)) {
-                    this.StudentIdField = value;
-                    this.RaisePropertyChanged("StudentId");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int TeacherId {
-            get {
-                return this.TeacherIdField;
-            }
-            set {
-                if ((this.TeacherIdField.Equals(value) != true)) {
-                    this.TeacherIdField = value;
-                    this.RaisePropertyChanged("TeacherId");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Username {
-            get {
-                return this.UsernameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.UsernameField, value) != true)) {
-                    this.UsernameField = value;
-                    this.RaisePropertyChanged("Username");
-                }
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="SpecialDay", Namespace="http://schemas.datacontract.org/2004/07/Model")]
     [System.SerializableAttribute()]
     public partial class SpecialDay : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -1490,6 +1538,30 @@ namespace driver_client.driver {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CancelLesson", ReplyAction="http://tempuri.org/IService1/CancelLessonResponse")]
         System.Threading.Tasks.Task CancelLessonAsync(int lessonId);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllStudentLessons", ReplyAction="http://tempuri.org/IService1/GetAllStudentLessonsResponse")]
+        driver_client.driver.Lessons[] GetAllStudentLessons(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllStudentLessons", ReplyAction="http://tempuri.org/IService1/GetAllStudentLessonsResponse")]
+        System.Threading.Tasks.Task<driver_client.driver.Lessons[]> GetAllStudentLessonsAsync(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllTeacherLessons", ReplyAction="http://tempuri.org/IService1/GetAllTeacherLessonsResponse")]
+        driver_client.driver.Lessons[] GetAllTeacherLessons(int tid);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllTeacherLessons", ReplyAction="http://tempuri.org/IService1/GetAllTeacherLessonsResponse")]
+        System.Threading.Tasks.Task<driver_client.driver.Lessons[]> GetAllTeacherLessonsAsync(int tid);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddLessonForStudent", ReplyAction="http://tempuri.org/IService1/AddLessonForStudentResponse")]
+        void AddLessonForStudent(int sid, string Date, string time);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddLessonForStudent", ReplyAction="http://tempuri.org/IService1/AddLessonForStudentResponse")]
+        System.Threading.Tasks.Task AddLessonForStudentAsync(int sid, string Date, string time);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/MarkLessonPaid", ReplyAction="http://tempuri.org/IService1/MarkLessonPaidResponse")]
+        void MarkLessonPaid(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/MarkLessonPaid", ReplyAction="http://tempuri.org/IService1/MarkLessonPaidResponse")]
+        System.Threading.Tasks.Task MarkLessonPaidAsync(int id);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetUserID", ReplyAction="http://tempuri.org/IService1/GetUserIDResponse")]
         int GetUserID(string username, string table);
         
@@ -1507,6 +1579,12 @@ namespace driver_client.driver {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllUsers", ReplyAction="http://tempuri.org/IService1/GetAllUsersResponse")]
         System.Threading.Tasks.Task<driver_client.driver.AllUsers> GetAllUsersAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllTeacher", ReplyAction="http://tempuri.org/IService1/GetAllTeacherResponse")]
+        driver_client.driver.AllUsers GetAllTeacher();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllTeacher", ReplyAction="http://tempuri.org/IService1/GetAllTeacherResponse")]
+        System.Threading.Tasks.Task<driver_client.driver.AllUsers> GetAllTeacherAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CheckUserPassword", ReplyAction="http://tempuri.org/IService1/CheckUserPasswordResponse")]
         bool CheckUserPassword(string username, string password);
@@ -1526,59 +1604,17 @@ namespace driver_client.driver {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CheckUserExist", ReplyAction="http://tempuri.org/IService1/CheckUserExistResponse")]
         System.Threading.Tasks.Task<bool> CheckUserExistAsync(string username);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetTeacherCalendar", ReplyAction="http://tempuri.org/IService1/GetTeacherCalendarResponse")]
-        driver_client.driver.Calendars GetTeacherCalendar(int teacherId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddUser", ReplyAction="http://tempuri.org/IService1/AddUserResponse")]
+        bool AddUser(string name, string password, string email, string phone, bool admin, int tID, int lessonPrice);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetTeacherCalendar", ReplyAction="http://tempuri.org/IService1/GetTeacherCalendarResponse")]
-        System.Threading.Tasks.Task<driver_client.driver.Calendars> GetTeacherCalendarAsync(int teacherId);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SetTeacherCalendar", ReplyAction="http://tempuri.org/IService1/SetTeacherCalendarResponse")]
-        bool SetTeacherCalendar(driver_client.driver.Calendars cal, int teacherId);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SetTeacherCalendar", ReplyAction="http://tempuri.org/IService1/SetTeacherCalendarResponse")]
-        System.Threading.Tasks.Task<bool> SetTeacherCalendarAsync(driver_client.driver.Calendars cal, int teacherId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddUser", ReplyAction="http://tempuri.org/IService1/AddUserResponse")]
+        System.Threading.Tasks.Task<bool> AddUserAsync(string name, string password, string email, string phone, bool admin, int tID, int lessonPrice);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/TeacherConfirm", ReplyAction="http://tempuri.org/IService1/TeacherConfirmResponse")]
         void TeacherConfirm(int id, int tid);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/TeacherConfirm", ReplyAction="http://tempuri.org/IService1/TeacherConfirmResponse")]
         System.Threading.Tasks.Task TeacherConfirmAsync(int id, int tid);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllTeacher", ReplyAction="http://tempuri.org/IService1/GetAllTeacherResponse")]
-        driver_client.driver.AllUsers GetAllTeacher();
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllTeacher", ReplyAction="http://tempuri.org/IService1/GetAllTeacherResponse")]
-        System.Threading.Tasks.Task<driver_client.driver.AllUsers> GetAllTeacherAsync();
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetTeacherReviews", ReplyAction="http://tempuri.org/IService1/GetTeacherReviewsResponse")]
-        string[] GetTeacherReviews(int tid);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetTeacherReviews", ReplyAction="http://tempuri.org/IService1/GetTeacherReviewsResponse")]
-        System.Threading.Tasks.Task<string[]> GetTeacherReviewsAsync(int tid);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllStudentLessons", ReplyAction="http://tempuri.org/IService1/GetAllStudentLessonsResponse")]
-        driver_client.driver.Lessons[] GetAllStudentLessons(int id);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllStudentLessons", ReplyAction="http://tempuri.org/IService1/GetAllStudentLessonsResponse")]
-        System.Threading.Tasks.Task<driver_client.driver.Lessons[]> GetAllStudentLessonsAsync(int id);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllTeacherLessons", ReplyAction="http://tempuri.org/IService1/GetAllTeacherLessonsResponse")]
-        driver_client.driver.Lessons[] GetAllTeacherLessons(int tid);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllTeacherLessons", ReplyAction="http://tempuri.org/IService1/GetAllTeacherLessonsResponse")]
-        System.Threading.Tasks.Task<driver_client.driver.Lessons[]> GetAllTeacherLessonsAsync(int tid);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddLessonForStudent", ReplyAction="http://tempuri.org/IService1/AddLessonForStudentResponse")]
-        void AddLessonForStudent(int sid, string Date, string time);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddLessonForStudent", ReplyAction="http://tempuri.org/IService1/AddLessonForStudentResponse")]
-        System.Threading.Tasks.Task AddLessonForStudentAsync(int sid, string Date, string time);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/UpdateRating", ReplyAction="http://tempuri.org/IService1/UpdateRatingResponse")]
-        void UpdateRating(int tid, int rating, string rewiew);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/UpdateRating", ReplyAction="http://tempuri.org/IService1/UpdateRatingResponse")]
-        System.Threading.Tasks.Task UpdateRatingAsync(int tid, int rating, string rewiew);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/IsConfirmed", ReplyAction="http://tempuri.org/IService1/IsConfirmedResponse")]
         bool IsConfirmed(int id);
@@ -1604,11 +1640,95 @@ namespace driver_client.driver {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/UpdateTeacherId", ReplyAction="http://tempuri.org/IService1/UpdateTeacherIdResponse")]
         System.Threading.Tasks.Task UpdateTeacherIdAsync(int sid, int tid);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/MarkLessonPaid", ReplyAction="http://tempuri.org/IService1/MarkLessonPaidResponse")]
-        void MarkLessonPaid(int id);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/IsUserAdmin", ReplyAction="http://tempuri.org/IService1/IsUserAdminResponse")]
+        bool IsUserAdmin(string username);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/MarkLessonPaid", ReplyAction="http://tempuri.org/IService1/MarkLessonPaidResponse")]
-        System.Threading.Tasks.Task MarkLessonPaidAsync(int id);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/IsUserAdmin", ReplyAction="http://tempuri.org/IService1/IsUserAdminResponse")]
+        System.Threading.Tasks.Task<bool> IsUserAdminAsync(string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SetAdminStatus", ReplyAction="http://tempuri.org/IService1/SetAdminStatusResponse")]
+        void SetAdminStatus(int teacherId, bool isAdmin);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SetAdminStatus", ReplyAction="http://tempuri.org/IService1/SetAdminStatusResponse")]
+        System.Threading.Tasks.Task SetAdminStatusAsync(int teacherId, bool isAdmin);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/UpdateStudentCredentials", ReplyAction="http://tempuri.org/IService1/UpdateStudentCredentialsResponse")]
+        void UpdateStudentCredentials(int studentId, string email, string phone, int teacherId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/UpdateStudentCredentials", ReplyAction="http://tempuri.org/IService1/UpdateStudentCredentialsResponse")]
+        System.Threading.Tasks.Task UpdateStudentCredentialsAsync(int studentId, string email, string phone, int teacherId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/UpdateStudentTeacher", ReplyAction="http://tempuri.org/IService1/UpdateStudentTeacherResponse")]
+        void UpdateStudentTeacher(int studentId, int newTeacherId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/UpdateStudentTeacher", ReplyAction="http://tempuri.org/IService1/UpdateStudentTeacherResponse")]
+        System.Threading.Tasks.Task UpdateStudentTeacherAsync(int studentId, int newTeacherId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/ResetPassword", ReplyAction="http://tempuri.org/IService1/ResetPasswordResponse")]
+        void ResetPassword(int userId, string table, string newPassword);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/ResetPassword", ReplyAction="http://tempuri.org/IService1/ResetPasswordResponse")]
+        System.Threading.Tasks.Task ResetPasswordAsync(int userId, string table, string newPassword);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/UpdateLessonPrice", ReplyAction="http://tempuri.org/IService1/UpdateLessonPriceResponse")]
+        void UpdateLessonPrice(int teacherId, int price);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/UpdateLessonPrice", ReplyAction="http://tempuri.org/IService1/UpdateLessonPriceResponse")]
+        System.Threading.Tasks.Task UpdateLessonPriceAsync(int teacherId, int price);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SetStudentLessonPrice", ReplyAction="http://tempuri.org/IService1/SetStudentLessonPriceResponse")]
+        void SetStudentLessonPrice(int studentId, int price);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SetStudentLessonPrice", ReplyAction="http://tempuri.org/IService1/SetStudentLessonPriceResponse")]
+        System.Threading.Tasks.Task SetStudentLessonPriceAsync(int studentId, int price);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetStudentLessonPrice", ReplyAction="http://tempuri.org/IService1/GetStudentLessonPriceResponse")]
+        int GetStudentLessonPrice(int studentId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetStudentLessonPrice", ReplyAction="http://tempuri.org/IService1/GetStudentLessonPriceResponse")]
+        System.Threading.Tasks.Task<int> GetStudentLessonPriceAsync(int studentId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/UpdatePaymentMethods", ReplyAction="http://tempuri.org/IService1/UpdatePaymentMethodsResponse")]
+        void UpdatePaymentMethods(int teacherId, string paymentMethods);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/UpdatePaymentMethods", ReplyAction="http://tempuri.org/IService1/UpdatePaymentMethodsResponse")]
+        System.Threading.Tasks.Task UpdatePaymentMethodsAsync(int teacherId, string paymentMethods);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetTeacherCalendar", ReplyAction="http://tempuri.org/IService1/GetTeacherCalendarResponse")]
+        driver_client.driver.Calendars GetTeacherCalendar(int teacherId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetTeacherCalendar", ReplyAction="http://tempuri.org/IService1/GetTeacherCalendarResponse")]
+        System.Threading.Tasks.Task<driver_client.driver.Calendars> GetTeacherCalendarAsync(int teacherId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SetTeacherCalendar", ReplyAction="http://tempuri.org/IService1/SetTeacherCalendarResponse")]
+        bool SetTeacherCalendar(driver_client.driver.Calendars cal, int teacherId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SetTeacherCalendar", ReplyAction="http://tempuri.org/IService1/SetTeacherCalendarResponse")]
+        System.Threading.Tasks.Task<bool> SetTeacherCalendarAsync(driver_client.driver.Calendars cal, int teacherId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/TeacherSpacialDays", ReplyAction="http://tempuri.org/IService1/TeacherSpacialDaysResponse")]
+        driver_client.driver.Calendars[] TeacherSpacialDays(int teacherId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/TeacherSpacialDays", ReplyAction="http://tempuri.org/IService1/TeacherSpacialDaysResponse")]
+        System.Threading.Tasks.Task<driver_client.driver.Calendars[]> TeacherSpacialDaysAsync(int teacherId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetTeacherUnavailableDates", ReplyAction="http://tempuri.org/IService1/GetTeacherUnavailableDatesResponse")]
+        driver_client.driver.Calendars[] GetTeacherUnavailableDates(int teacherId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetTeacherUnavailableDates", ReplyAction="http://tempuri.org/IService1/GetTeacherUnavailableDatesResponse")]
+        System.Threading.Tasks.Task<driver_client.driver.Calendars[]> GetTeacherUnavailableDatesAsync(int teacherId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/UpdateRating", ReplyAction="http://tempuri.org/IService1/UpdateRatingResponse")]
+        void UpdateRating(int tid, int rating, string rewiew);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/UpdateRating", ReplyAction="http://tempuri.org/IService1/UpdateRatingResponse")]
+        System.Threading.Tasks.Task UpdateRatingAsync(int tid, int rating, string rewiew);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetTeacherReviews", ReplyAction="http://tempuri.org/IService1/GetTeacherReviewsResponse")]
+        string[] GetTeacherReviews(int tid);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetTeacherReviews", ReplyAction="http://tempuri.org/IService1/GetTeacherReviewsResponse")]
+        System.Threading.Tasks.Task<string[]> GetTeacherReviewsAsync(int tid);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddMessageGlobal", ReplyAction="http://tempuri.org/IService1/AddMessageGlobalResponse")]
         void AddMessageGlobal(string message, int userid, string username, bool IsTeacher);
@@ -1658,35 +1778,29 @@ namespace driver_client.driver {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SelectPaymentByTeacherID", ReplyAction="http://tempuri.org/IService1/SelectPaymentByTeacherIDResponse")]
         System.Threading.Tasks.Task<driver_client.driver.Payment[]> SelectPaymentByTeacherIDAsync(int id);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/TeacherSpacialDays", ReplyAction="http://tempuri.org/IService1/TeacherSpacialDaysResponse")]
-        driver_client.driver.Calendars[] TeacherSpacialDays(int teacherId);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/TeacherSpacialDays", ReplyAction="http://tempuri.org/IService1/TeacherSpacialDaysResponse")]
-        System.Threading.Tasks.Task<driver_client.driver.Calendars[]> TeacherSpacialDaysAsync(int teacherId);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetTeacherUnavailableDates", ReplyAction="http://tempuri.org/IService1/GetTeacherUnavailableDatesResponse")]
-        driver_client.driver.Calendars[] GetTeacherUnavailableDates(int teacherId);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetTeacherUnavailableDates", ReplyAction="http://tempuri.org/IService1/GetTeacherUnavailableDatesResponse")]
-        System.Threading.Tasks.Task<driver_client.driver.Calendars[]> GetTeacherUnavailableDatesAsync(int teacherId);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddUser", ReplyAction="http://tempuri.org/IService1/AddUserResponse")]
-        bool AddUser(string name, string password, string email, string phone, bool admin, int tID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddUser", ReplyAction="http://tempuri.org/IService1/AddUserResponse")]
-        System.Threading.Tasks.Task<bool> AddUserAsync(string name, string password, string email, string phone, bool admin, int tID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/MigrateAllPasswords", ReplyAction="http://tempuri.org/IService1/MigrateAllPasswordsResponse")]
-        void MigrateAllPasswords();
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/MigrateAllPasswords", ReplyAction="http://tempuri.org/IService1/MigrateAllPasswordsResponse")]
-        System.Threading.Tasks.Task MigrateAllPasswordsAsync();
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SelectPaymentByStudentID", ReplyAction="http://tempuri.org/IService1/SelectPaymentByStudentIDResponse")]
         driver_client.driver.Payment[] SelectPaymentByStudentID(int id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SelectPaymentByStudentID", ReplyAction="http://tempuri.org/IService1/SelectPaymentByStudentIDResponse")]
         System.Threading.Tasks.Task<driver_client.driver.Payment[]> SelectPaymentByStudentIDAsync(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetTeacherIncome", ReplyAction="http://tempuri.org/IService1/GetTeacherIncomeResponse")]
+        decimal GetTeacherIncome(int teacherId, System.DateTime fromDate, System.DateTime toDate);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetTeacherIncome", ReplyAction="http://tempuri.org/IService1/GetTeacherIncomeResponse")]
+        System.Threading.Tasks.Task<decimal> GetTeacherIncomeAsync(int teacherId, System.DateTime fromDate, System.DateTime toDate);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetOutstandingPayments", ReplyAction="http://tempuri.org/IService1/GetOutstandingPaymentsResponse")]
+        driver_client.driver.Payment[] GetOutstandingPayments(int studentId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetOutstandingPayments", ReplyAction="http://tempuri.org/IService1/GetOutstandingPaymentsResponse")]
+        System.Threading.Tasks.Task<driver_client.driver.Payment[]> GetOutstandingPaymentsAsync(int studentId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetOverduePayments", ReplyAction="http://tempuri.org/IService1/GetOverduePaymentsResponse")]
+        driver_client.driver.Payment[] GetOverduePayments();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetOverduePayments", ReplyAction="http://tempuri.org/IService1/GetOverduePaymentsResponse")]
+        System.Threading.Tasks.Task<driver_client.driver.Payment[]> GetOverduePaymentsAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CreateSupportTicket", ReplyAction="http://tempuri.org/IService1/CreateSupportTicketResponse")]
         int CreateSupportTicket(driver_client.driver.SupportTicket ticket);
@@ -1736,23 +1850,17 @@ namespace driver_client.driver {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetTicketMessages", ReplyAction="http://tempuri.org/IService1/GetTicketMessagesResponse")]
         System.Threading.Tasks.Task<driver_client.driver.TicketMessage[]> GetTicketMessagesAsync(int ticketId);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetTeacherIncome", ReplyAction="http://tempuri.org/IService1/GetTeacherIncomeResponse")]
-        decimal GetTeacherIncome(int teacherId, System.DateTime fromDate, System.DateTime toDate);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/UpdateTicketPriority", ReplyAction="http://tempuri.org/IService1/UpdateTicketPriorityResponse")]
+        void UpdateTicketPriority(int ticketId, string priority);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetTeacherIncome", ReplyAction="http://tempuri.org/IService1/GetTeacherIncomeResponse")]
-        System.Threading.Tasks.Task<decimal> GetTeacherIncomeAsync(int teacherId, System.DateTime fromDate, System.DateTime toDate);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/UpdateTicketPriority", ReplyAction="http://tempuri.org/IService1/UpdateTicketPriorityResponse")]
+        System.Threading.Tasks.Task UpdateTicketPriorityAsync(int ticketId, string priority);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetOutstandingPayments", ReplyAction="http://tempuri.org/IService1/GetOutstandingPaymentsResponse")]
-        driver_client.driver.Payment[] GetOutstandingPayments(int studentId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/MigrateAllPasswords", ReplyAction="http://tempuri.org/IService1/MigrateAllPasswordsResponse")]
+        void MigrateAllPasswords();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetOutstandingPayments", ReplyAction="http://tempuri.org/IService1/GetOutstandingPaymentsResponse")]
-        System.Threading.Tasks.Task<driver_client.driver.Payment[]> GetOutstandingPaymentsAsync(int studentId);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetOverduePayments", ReplyAction="http://tempuri.org/IService1/GetOverduePaymentsResponse")]
-        driver_client.driver.Payment[] GetOverduePayments();
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetOverduePayments", ReplyAction="http://tempuri.org/IService1/GetOverduePaymentsResponse")]
-        System.Threading.Tasks.Task<driver_client.driver.Payment[]> GetOverduePaymentsAsync();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/MigrateAllPasswords", ReplyAction="http://tempuri.org/IService1/MigrateAllPasswordsResponse")]
+        System.Threading.Tasks.Task MigrateAllPasswordsAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1790,6 +1898,38 @@ namespace driver_client.driver {
             return base.Channel.CancelLessonAsync(lessonId);
         }
         
+        public driver_client.driver.Lessons[] GetAllStudentLessons(int id) {
+            return base.Channel.GetAllStudentLessons(id);
+        }
+        
+        public System.Threading.Tasks.Task<driver_client.driver.Lessons[]> GetAllStudentLessonsAsync(int id) {
+            return base.Channel.GetAllStudentLessonsAsync(id);
+        }
+        
+        public driver_client.driver.Lessons[] GetAllTeacherLessons(int tid) {
+            return base.Channel.GetAllTeacherLessons(tid);
+        }
+        
+        public System.Threading.Tasks.Task<driver_client.driver.Lessons[]> GetAllTeacherLessonsAsync(int tid) {
+            return base.Channel.GetAllTeacherLessonsAsync(tid);
+        }
+        
+        public void AddLessonForStudent(int sid, string Date, string time) {
+            base.Channel.AddLessonForStudent(sid, Date, time);
+        }
+        
+        public System.Threading.Tasks.Task AddLessonForStudentAsync(int sid, string Date, string time) {
+            return base.Channel.AddLessonForStudentAsync(sid, Date, time);
+        }
+        
+        public void MarkLessonPaid(int id) {
+            base.Channel.MarkLessonPaid(id);
+        }
+        
+        public System.Threading.Tasks.Task MarkLessonPaidAsync(int id) {
+            return base.Channel.MarkLessonPaidAsync(id);
+        }
+        
         public int GetUserID(string username, string table) {
             return base.Channel.GetUserID(username, table);
         }
@@ -1812,6 +1952,14 @@ namespace driver_client.driver {
         
         public System.Threading.Tasks.Task<driver_client.driver.AllUsers> GetAllUsersAsync() {
             return base.Channel.GetAllUsersAsync();
+        }
+        
+        public driver_client.driver.AllUsers GetAllTeacher() {
+            return base.Channel.GetAllTeacher();
+        }
+        
+        public System.Threading.Tasks.Task<driver_client.driver.AllUsers> GetAllTeacherAsync() {
+            return base.Channel.GetAllTeacherAsync();
         }
         
         public bool CheckUserPassword(string username, string password) {
@@ -1838,20 +1986,12 @@ namespace driver_client.driver {
             return base.Channel.CheckUserExistAsync(username);
         }
         
-        public driver_client.driver.Calendars GetTeacherCalendar(int teacherId) {
-            return base.Channel.GetTeacherCalendar(teacherId);
+        public bool AddUser(string name, string password, string email, string phone, bool admin, int tID, int lessonPrice) {
+            return base.Channel.AddUser(name, password, email, phone, admin, tID, lessonPrice);
         }
         
-        public System.Threading.Tasks.Task<driver_client.driver.Calendars> GetTeacherCalendarAsync(int teacherId) {
-            return base.Channel.GetTeacherCalendarAsync(teacherId);
-        }
-        
-        public bool SetTeacherCalendar(driver_client.driver.Calendars cal, int teacherId) {
-            return base.Channel.SetTeacherCalendar(cal, teacherId);
-        }
-        
-        public System.Threading.Tasks.Task<bool> SetTeacherCalendarAsync(driver_client.driver.Calendars cal, int teacherId) {
-            return base.Channel.SetTeacherCalendarAsync(cal, teacherId);
+        public System.Threading.Tasks.Task<bool> AddUserAsync(string name, string password, string email, string phone, bool admin, int tID, int lessonPrice) {
+            return base.Channel.AddUserAsync(name, password, email, phone, admin, tID, lessonPrice);
         }
         
         public void TeacherConfirm(int id, int tid) {
@@ -1860,54 +2000,6 @@ namespace driver_client.driver {
         
         public System.Threading.Tasks.Task TeacherConfirmAsync(int id, int tid) {
             return base.Channel.TeacherConfirmAsync(id, tid);
-        }
-        
-        public driver_client.driver.AllUsers GetAllTeacher() {
-            return base.Channel.GetAllTeacher();
-        }
-        
-        public System.Threading.Tasks.Task<driver_client.driver.AllUsers> GetAllTeacherAsync() {
-            return base.Channel.GetAllTeacherAsync();
-        }
-        
-        public string[] GetTeacherReviews(int tid) {
-            return base.Channel.GetTeacherReviews(tid);
-        }
-        
-        public System.Threading.Tasks.Task<string[]> GetTeacherReviewsAsync(int tid) {
-            return base.Channel.GetTeacherReviewsAsync(tid);
-        }
-        
-        public driver_client.driver.Lessons[] GetAllStudentLessons(int id) {
-            return base.Channel.GetAllStudentLessons(id);
-        }
-        
-        public System.Threading.Tasks.Task<driver_client.driver.Lessons[]> GetAllStudentLessonsAsync(int id) {
-            return base.Channel.GetAllStudentLessonsAsync(id);
-        }
-        
-        public driver_client.driver.Lessons[] GetAllTeacherLessons(int tid) {
-            return base.Channel.GetAllTeacherLessons(tid);
-        }
-        
-        public System.Threading.Tasks.Task<driver_client.driver.Lessons[]> GetAllTeacherLessonsAsync(int tid) {
-            return base.Channel.GetAllTeacherLessonsAsync(tid);
-        }
-        
-        public void AddLessonForStudent(int sid, string Date, string time) {
-            base.Channel.AddLessonForStudent(sid, Date, time);
-        }
-        
-        public System.Threading.Tasks.Task AddLessonForStudentAsync(int sid, string Date, string time) {
-            return base.Channel.AddLessonForStudentAsync(sid, Date, time);
-        }
-        
-        public void UpdateRating(int tid, int rating, string rewiew) {
-            base.Channel.UpdateRating(tid, rating, rewiew);
-        }
-        
-        public System.Threading.Tasks.Task UpdateRatingAsync(int tid, int rating, string rewiew) {
-            return base.Channel.UpdateRatingAsync(tid, rating, rewiew);
         }
         
         public bool IsConfirmed(int id) {
@@ -1942,12 +2034,124 @@ namespace driver_client.driver {
             return base.Channel.UpdateTeacherIdAsync(sid, tid);
         }
         
-        public void MarkLessonPaid(int id) {
-            base.Channel.MarkLessonPaid(id);
+        public bool IsUserAdmin(string username) {
+            return base.Channel.IsUserAdmin(username);
         }
         
-        public System.Threading.Tasks.Task MarkLessonPaidAsync(int id) {
-            return base.Channel.MarkLessonPaidAsync(id);
+        public System.Threading.Tasks.Task<bool> IsUserAdminAsync(string username) {
+            return base.Channel.IsUserAdminAsync(username);
+        }
+        
+        public void SetAdminStatus(int teacherId, bool isAdmin) {
+            base.Channel.SetAdminStatus(teacherId, isAdmin);
+        }
+        
+        public System.Threading.Tasks.Task SetAdminStatusAsync(int teacherId, bool isAdmin) {
+            return base.Channel.SetAdminStatusAsync(teacherId, isAdmin);
+        }
+        
+        public void UpdateStudentCredentials(int studentId, string email, string phone, int teacherId) {
+            base.Channel.UpdateStudentCredentials(studentId, email, phone, teacherId);
+        }
+        
+        public System.Threading.Tasks.Task UpdateStudentCredentialsAsync(int studentId, string email, string phone, int teacherId) {
+            return base.Channel.UpdateStudentCredentialsAsync(studentId, email, phone, teacherId);
+        }
+        
+        public void UpdateStudentTeacher(int studentId, int newTeacherId) {
+            base.Channel.UpdateStudentTeacher(studentId, newTeacherId);
+        }
+        
+        public System.Threading.Tasks.Task UpdateStudentTeacherAsync(int studentId, int newTeacherId) {
+            return base.Channel.UpdateStudentTeacherAsync(studentId, newTeacherId);
+        }
+        
+        public void ResetPassword(int userId, string table, string newPassword) {
+            base.Channel.ResetPassword(userId, table, newPassword);
+        }
+        
+        public System.Threading.Tasks.Task ResetPasswordAsync(int userId, string table, string newPassword) {
+            return base.Channel.ResetPasswordAsync(userId, table, newPassword);
+        }
+        
+        public void UpdateLessonPrice(int teacherId, int price) {
+            base.Channel.UpdateLessonPrice(teacherId, price);
+        }
+        
+        public System.Threading.Tasks.Task UpdateLessonPriceAsync(int teacherId, int price) {
+            return base.Channel.UpdateLessonPriceAsync(teacherId, price);
+        }
+        
+        public void SetStudentLessonPrice(int studentId, int price) {
+            base.Channel.SetStudentLessonPrice(studentId, price);
+        }
+        
+        public System.Threading.Tasks.Task SetStudentLessonPriceAsync(int studentId, int price) {
+            return base.Channel.SetStudentLessonPriceAsync(studentId, price);
+        }
+        
+        public int GetStudentLessonPrice(int studentId) {
+            return base.Channel.GetStudentLessonPrice(studentId);
+        }
+        
+        public System.Threading.Tasks.Task<int> GetStudentLessonPriceAsync(int studentId) {
+            return base.Channel.GetStudentLessonPriceAsync(studentId);
+        }
+        
+        public void UpdatePaymentMethods(int teacherId, string paymentMethods) {
+            base.Channel.UpdatePaymentMethods(teacherId, paymentMethods);
+        }
+        
+        public System.Threading.Tasks.Task UpdatePaymentMethodsAsync(int teacherId, string paymentMethods) {
+            return base.Channel.UpdatePaymentMethodsAsync(teacherId, paymentMethods);
+        }
+        
+        public driver_client.driver.Calendars GetTeacherCalendar(int teacherId) {
+            return base.Channel.GetTeacherCalendar(teacherId);
+        }
+        
+        public System.Threading.Tasks.Task<driver_client.driver.Calendars> GetTeacherCalendarAsync(int teacherId) {
+            return base.Channel.GetTeacherCalendarAsync(teacherId);
+        }
+        
+        public bool SetTeacherCalendar(driver_client.driver.Calendars cal, int teacherId) {
+            return base.Channel.SetTeacherCalendar(cal, teacherId);
+        }
+        
+        public System.Threading.Tasks.Task<bool> SetTeacherCalendarAsync(driver_client.driver.Calendars cal, int teacherId) {
+            return base.Channel.SetTeacherCalendarAsync(cal, teacherId);
+        }
+        
+        public driver_client.driver.Calendars[] TeacherSpacialDays(int teacherId) {
+            return base.Channel.TeacherSpacialDays(teacherId);
+        }
+        
+        public System.Threading.Tasks.Task<driver_client.driver.Calendars[]> TeacherSpacialDaysAsync(int teacherId) {
+            return base.Channel.TeacherSpacialDaysAsync(teacherId);
+        }
+        
+        public driver_client.driver.Calendars[] GetTeacherUnavailableDates(int teacherId) {
+            return base.Channel.GetTeacherUnavailableDates(teacherId);
+        }
+        
+        public System.Threading.Tasks.Task<driver_client.driver.Calendars[]> GetTeacherUnavailableDatesAsync(int teacherId) {
+            return base.Channel.GetTeacherUnavailableDatesAsync(teacherId);
+        }
+        
+        public void UpdateRating(int tid, int rating, string rewiew) {
+            base.Channel.UpdateRating(tid, rating, rewiew);
+        }
+        
+        public System.Threading.Tasks.Task UpdateRatingAsync(int tid, int rating, string rewiew) {
+            return base.Channel.UpdateRatingAsync(tid, rating, rewiew);
+        }
+        
+        public string[] GetTeacherReviews(int tid) {
+            return base.Channel.GetTeacherReviews(tid);
+        }
+        
+        public System.Threading.Tasks.Task<string[]> GetTeacherReviewsAsync(int tid) {
+            return base.Channel.GetTeacherReviewsAsync(tid);
         }
         
         public void AddMessageGlobal(string message, int userid, string username, bool IsTeacher) {
@@ -2014,44 +2218,36 @@ namespace driver_client.driver {
             return base.Channel.SelectPaymentByTeacherIDAsync(id);
         }
         
-        public driver_client.driver.Calendars[] TeacherSpacialDays(int teacherId) {
-            return base.Channel.TeacherSpacialDays(teacherId);
-        }
-        
-        public System.Threading.Tasks.Task<driver_client.driver.Calendars[]> TeacherSpacialDaysAsync(int teacherId) {
-            return base.Channel.TeacherSpacialDaysAsync(teacherId);
-        }
-        
-        public driver_client.driver.Calendars[] GetTeacherUnavailableDates(int teacherId) {
-            return base.Channel.GetTeacherUnavailableDates(teacherId);
-        }
-        
-        public System.Threading.Tasks.Task<driver_client.driver.Calendars[]> GetTeacherUnavailableDatesAsync(int teacherId) {
-            return base.Channel.GetTeacherUnavailableDatesAsync(teacherId);
-        }
-        
-        public bool AddUser(string name, string password, string email, string phone, bool admin, int tID) {
-            return base.Channel.AddUser(name, password, email, phone, admin, tID);
-        }
-        
-        public System.Threading.Tasks.Task<bool> AddUserAsync(string name, string password, string email, string phone, bool admin, int tID) {
-            return base.Channel.AddUserAsync(name, password, email, phone, admin, tID);
-        }
-        
-        public void MigrateAllPasswords() {
-            base.Channel.MigrateAllPasswords();
-        }
-        
-        public System.Threading.Tasks.Task MigrateAllPasswordsAsync() {
-            return base.Channel.MigrateAllPasswordsAsync();
-        }
-        
         public driver_client.driver.Payment[] SelectPaymentByStudentID(int id) {
             return base.Channel.SelectPaymentByStudentID(id);
         }
         
         public System.Threading.Tasks.Task<driver_client.driver.Payment[]> SelectPaymentByStudentIDAsync(int id) {
             return base.Channel.SelectPaymentByStudentIDAsync(id);
+        }
+        
+        public decimal GetTeacherIncome(int teacherId, System.DateTime fromDate, System.DateTime toDate) {
+            return base.Channel.GetTeacherIncome(teacherId, fromDate, toDate);
+        }
+        
+        public System.Threading.Tasks.Task<decimal> GetTeacherIncomeAsync(int teacherId, System.DateTime fromDate, System.DateTime toDate) {
+            return base.Channel.GetTeacherIncomeAsync(teacherId, fromDate, toDate);
+        }
+        
+        public driver_client.driver.Payment[] GetOutstandingPayments(int studentId) {
+            return base.Channel.GetOutstandingPayments(studentId);
+        }
+        
+        public System.Threading.Tasks.Task<driver_client.driver.Payment[]> GetOutstandingPaymentsAsync(int studentId) {
+            return base.Channel.GetOutstandingPaymentsAsync(studentId);
+        }
+        
+        public driver_client.driver.Payment[] GetOverduePayments() {
+            return base.Channel.GetOverduePayments();
+        }
+        
+        public System.Threading.Tasks.Task<driver_client.driver.Payment[]> GetOverduePaymentsAsync() {
+            return base.Channel.GetOverduePaymentsAsync();
         }
         
         public int CreateSupportTicket(driver_client.driver.SupportTicket ticket) {
@@ -2118,28 +2314,20 @@ namespace driver_client.driver {
             return base.Channel.GetTicketMessagesAsync(ticketId);
         }
         
-        public decimal GetTeacherIncome(int teacherId, System.DateTime fromDate, System.DateTime toDate) {
-            return base.Channel.GetTeacherIncome(teacherId, fromDate, toDate);
+        public void UpdateTicketPriority(int ticketId, string priority) {
+            base.Channel.UpdateTicketPriority(ticketId, priority);
         }
         
-        public System.Threading.Tasks.Task<decimal> GetTeacherIncomeAsync(int teacherId, System.DateTime fromDate, System.DateTime toDate) {
-            return base.Channel.GetTeacherIncomeAsync(teacherId, fromDate, toDate);
+        public System.Threading.Tasks.Task UpdateTicketPriorityAsync(int ticketId, string priority) {
+            return base.Channel.UpdateTicketPriorityAsync(ticketId, priority);
         }
         
-        public driver_client.driver.Payment[] GetOutstandingPayments(int studentId) {
-            return base.Channel.GetOutstandingPayments(studentId);
+        public void MigrateAllPasswords() {
+            base.Channel.MigrateAllPasswords();
         }
         
-        public System.Threading.Tasks.Task<driver_client.driver.Payment[]> GetOutstandingPaymentsAsync(int studentId) {
-            return base.Channel.GetOutstandingPaymentsAsync(studentId);
-        }
-        
-        public driver_client.driver.Payment[] GetOverduePayments() {
-            return base.Channel.GetOverduePayments();
-        }
-        
-        public System.Threading.Tasks.Task<driver_client.driver.Payment[]> GetOverduePaymentsAsync() {
-            return base.Channel.GetOverduePaymentsAsync();
+        public System.Threading.Tasks.Task MigrateAllPasswordsAsync() {
+            return base.Channel.MigrateAllPasswordsAsync();
         }
     }
 }

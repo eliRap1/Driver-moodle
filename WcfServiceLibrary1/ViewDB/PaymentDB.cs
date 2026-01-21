@@ -46,34 +46,28 @@ namespace ViewDB
                     s.NumberOfPayments = int.Parse(reader["NumberOfPayments"].ToString());
                     s.paid = bool.Parse(reader["paid"].ToString());
 
-                    // Optional fields
-                    try
-                    {
-                        s.LessonId = int.Parse(reader["LessonId"].ToString());
-                    }
-                    catch { }
+                    // Optional fields with safe access
+                    try { s.LessonId = int.Parse(reader["LessonId"].ToString()); }
+                    catch { s.LessonId = 0; }
 
-                    try
-                    {
-                        s.Status = reader["Status"].ToString();
-                    }
+                    try { s.Status = reader["Status"].ToString(); }
                     catch { s.Status = s.paid ? "Paid" : "Pending"; }
 
-                    try
-                    {
-                        s.Notes = reader["Notes"].ToString();
-                    }
-                    catch { }
+                    try { s.Notes = reader["Notes"].ToString(); }
+                    catch { s.Notes = ""; }
+
+                    try { s.ParcialAmount = int.Parse(reader["ParcialAmount"].ToString()); }
+                    catch { s.ParcialAmount = 0; }
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("CreateModel Error: " + ex.Message);
+                    System.Diagnostics.Debug.WriteLine("PaymentDB CreateModel Error: " + ex.Message);
                 }
             }
         }
 
         /// <summary>
-        /// SECURE: Get payments by student ID
+        /// Get payments by student ID
         /// </summary>
         public List<Payment> SelectPaymentByStudentID(int id)
         {
@@ -84,7 +78,7 @@ namespace ViewDB
         }
 
         /// <summary>
-        /// SECURE: Get payments by teacher ID
+        /// Get payments by teacher ID
         /// </summary>
         public List<Payment> SelectPaymentByTeacherID(int id)
         {
@@ -95,7 +89,7 @@ namespace ViewDB
         }
 
         /// <summary>
-        /// SECURE: Get payment by payment ID
+        /// Get payment by payment ID
         /// </summary>
         public List<Payment> SelectPaymentByPaymentID(int id)
         {
@@ -106,7 +100,7 @@ namespace ViewDB
         }
 
         /// <summary>
-        /// SECURE: Get payments by lesson ID
+        /// Get payments by lesson ID
         /// </summary>
         public List<Payment> GetPaymentsByLessonId(int lessonId)
         {
@@ -117,59 +111,99 @@ namespace ViewDB
         }
 
         /// <summary>
-        /// SECURE: Update payment status
+        /// FIXED: Process payment - Now properly updates Lessons table and inserts payment
+        /// </summary>
+        public void Pay(Payment payment)
+        {
+            try
+            {
+                // Calculate partial amount if installments
+                if (payment.NumberOfPayments > 0)
+                {
+                    payment.ParcialAmount = payment.Amount / payment.NumberOfPayments;
+                }
+                else
+                {
+                    payment.ParcialAmount = payment.Amount;
+                }
+
+                // IMPORTANT: Mark the lesson as paid FIRST
+                if (payment.paid && payment.LessonId > 0)
+                {
+                    string updateLessonSql = "UPDATE [Lessons] SET [Paid] = ? WHERE [LessonID] = ?";
+                    int lessonUpdated = SaveChanges(updateLessonSql,
+                        new OleDbParameter("@paid", true),
+                        new OleDbParameter("@lessonId", payment.LessonId));
+
+                    System.Diagnostics.Debug.WriteLine($"Lesson {payment.LessonId} updated: {lessonUpdated} rows affected");
+                }
+
+                // Get next PaymentID (auto-increment workaround for Access)
+                int nextPaymentId = GetNextPaymentId();
+
+                // Insert payment record
+                string sql = @"INSERT INTO [Payments] 
+                    ([PaymentID], [StudentID], [TeacherID], [Amount], [PaymentDate], [PaymentMethod], 
+                     [NumberOfPayments], [paid], [ParcialAmount], [LessonId], [Status], [Notes])
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+                int result = SaveChanges(sql,
+                    new OleDbParameter("@paymentId", nextPaymentId),
+                    new OleDbParameter("@studentId", payment.StudentID),
+                    new OleDbParameter("@teacherId", payment.TeacherID),
+                    new OleDbParameter("@amount", payment.Amount),
+                    new OleDbParameter("@paymentDate", payment.PaymentDate),
+                    new OleDbParameter("@paymentMethod", payment.PaymentMethod ?? "Cash"),
+                    new OleDbParameter("@numPayments", payment.NumberOfPayments),
+                    new OleDbParameter("@paid", payment.paid),
+                    new OleDbParameter("@parcialAmount", payment.ParcialAmount),
+                    new OleDbParameter("@lessonId", payment.LessonId),
+                    new OleDbParameter("@status", payment.Status ?? (payment.paid ? "Paid" : "Pending")),
+                    new OleDbParameter("@notes", payment.Notes ?? ""));
+
+                System.Diagnostics.Debug.WriteLine($"Payment inserted: {result} rows affected, PaymentID: {nextPaymentId}");
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Pay Error: {ex.Message}");
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get next available PaymentID
+        /// </summary>
+        private int GetNextPaymentId()
+        {
+            try
+            {
+                string sql = "SELECT MAX(PaymentID) FROM [Payments]";
+                object result = SelectScalar(sql);
+                if (result != null && result != DBNull.Value)
+                {
+                    return Convert.ToInt32(result) + 1;
+                }
+                return 1;
+            }
+            catch
+            {
+                return 1;
+            }
+        }
+
+        /// <summary>
+        /// Update payment status
         /// </summary>
         public void PaymentUpdate(Payment payment)
         {
-            string sqlStr = "UPDATE [Payments] SET paid = ? WHERE PaymentID = ?";
+            string sqlStr = "UPDATE [Payments] SET [paid] = ? WHERE [PaymentID] = ?";
             SaveChanges(sqlStr,
                 new OleDbParameter("@paid", payment.paid),
                 new OleDbParameter("@paymentId", payment.PaymentID));
         }
 
         /// <summary>
-        /// SECURE: Process payment
-        /// </summary>
-        public void Pay(Payment payment)
-        {
-            // Calculate partial amount if installments
-            if (payment.NumberOfPayments > 0)
-            {
-                payment.ParcialAmount = payment.Amount / payment.NumberOfPayments;
-            }
-
-            // Mark lesson as paid if payment is completed
-            if (payment.paid && payment.LessonId > 0)
-            {
-                string sql1 = "UPDATE [Lessons] SET Paid = ? WHERE LessonId = ?";
-                SaveChanges(sql1,
-                    new OleDbParameter("@paid", true),
-                    new OleDbParameter("@lessonId", payment.LessonId));
-            }
-
-            // Insert payment record
-            string sql = @"INSERT INTO [Payments] 
-                (PaymentID, StudentID, TeacherID, Amount, PaymentDate, PaymentMethod, 
-                 NumberOfPayments, paid, ParcialAmount, LessonId, Status, Notes)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-            SaveChanges(sql,
-                new OleDbParameter("@paymentId", payment.PaymentID),
-                new OleDbParameter("@studentId", payment.StudentID),
-                new OleDbParameter("@teacherId", payment.TeacherID),
-                new OleDbParameter("@amount", payment.Amount),
-                new OleDbParameter("@paymentDate", payment.PaymentDate),
-                new OleDbParameter("@paymentMethod", payment.PaymentMethod),
-                new OleDbParameter("@numPayments", payment.NumberOfPayments),
-                new OleDbParameter("@paid", payment.paid),
-                new OleDbParameter("@parcialAmount", payment.ParcialAmount),
-                new OleDbParameter("@lessonId", payment.LessonId),
-                new OleDbParameter("@status", payment.Status ?? (payment.paid ? "Paid" : "Pending")),
-                new OleDbParameter("@notes", payment.Notes ?? ""));
-        }
-
-        /// <summary>
-        /// SECURE: Check if payment is completed
+        /// Check if payment is completed
         /// </summary>
         public bool CheckPaid(int id)
         {
@@ -236,7 +270,7 @@ namespace ViewDB
         /// </summary>
         public void MarkAsOverdue(int paymentId)
         {
-            string sql = "UPDATE [Payments] SET Status = ? WHERE PaymentID = ?";
+            string sql = "UPDATE [Payments] SET [Status] = ? WHERE [PaymentID] = ?";
             SaveChanges(sql,
                 new OleDbParameter("@status", "Overdue"),
                 new OleDbParameter("@paymentId", paymentId));
@@ -247,7 +281,7 @@ namespace ViewDB
         /// </summary>
         public void CancelPayment(int paymentId, string reason)
         {
-            string sql = "UPDATE [Payments] SET Status = ?, Notes = ? WHERE PaymentID = ?";
+            string sql = "UPDATE [Payments] SET [Status] = ?, [Notes] = ? WHERE [PaymentID] = ?";
             SaveChanges(sql,
                 new OleDbParameter("@status", "Cancelled"),
                 new OleDbParameter("@notes", reason),
