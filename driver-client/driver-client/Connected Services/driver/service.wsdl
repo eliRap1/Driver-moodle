@@ -339,6 +339,24 @@
   <wsdl:message name="IService1_MigrateAllPasswords_OutputMessage">
     <wsdl:part name="parameters" element="tns:MigrateAllPasswordsResponse" />
   </wsdl:message>
+  <wsdl:message name="IService1_SetStudentDiscount_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetStudentDiscount" />
+  </wsdl:message>
+  <wsdl:message name="IService1_SetStudentDiscount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetStudentDiscountResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetEffectiveLessonPrice_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetEffectiveLessonPrice" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetEffectiveLessonPrice_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetEffectiveLessonPriceResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_ResetUserPassword_InputMessage">
+    <wsdl:part name="parameters" element="tns:ResetUserPassword" />
+  </wsdl:message>
+  <wsdl:message name="IService1_ResetUserPassword_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ResetUserPasswordResponse" />
+  </wsdl:message>
   <wsdl:portType name="IService1">
     <wsdl:operation name="CancelLesson">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/CancelLesson" message="tns:IService1_CancelLesson_InputMessage" />
@@ -559,6 +577,18 @@
     <wsdl:operation name="MigrateAllPasswords">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/MigrateAllPasswords" message="tns:IService1_MigrateAllPasswords_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/MigrateAllPasswordsResponse" message="tns:IService1_MigrateAllPasswords_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetStudentDiscount">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/SetStudentDiscount" message="tns:IService1_SetStudentDiscount_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/SetStudentDiscountResponse" message="tns:IService1_SetStudentDiscount_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEffectiveLessonPrice">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetEffectiveLessonPrice" message="tns:IService1_GetEffectiveLessonPrice_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetEffectiveLessonPriceResponse" message="tns:IService1_GetEffectiveLessonPrice_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ResetUserPassword">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/ResetUserPassword" message="tns:IService1_ResetUserPassword_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/ResetUserPasswordResponse" message="tns:IService1_ResetUserPassword_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IService1" type="tns:IService1">
@@ -1051,6 +1081,33 @@
     </wsdl:operation>
     <wsdl:operation name="MigrateAllPasswords">
       <soap:operation soapAction="http://tempuri.org/IService1/MigrateAllPasswords" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetStudentDiscount">
+      <soap:operation soapAction="http://tempuri.org/IService1/SetStudentDiscount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEffectiveLessonPrice">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetEffectiveLessonPrice" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ResetUserPassword">
+      <soap:operation soapAction="http://tempuri.org/IService1/ResetUserPassword" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

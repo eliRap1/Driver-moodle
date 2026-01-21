@@ -109,26 +109,38 @@
                     Click="PaymentReports_Click"/>
 
                 <Button Content="Chat"
-                Margin="0,10"
-                Width="280" Height="50"
-                FontSize="18"
-                FontWeight="SemiBold"
-                Background="#00E0FF"
-                Foreground="Black"
-                BorderBrush="#00C0CC"
-                Cursor="Hand"
-                Click="Chat_Click"/>
+                    Margin="0,10"
+                    Width="280" Height="50"
+                    FontSize="18"
+                    FontWeight="SemiBold"
+                    Background="#00E0FF"
+                    Foreground="Black"
+                    BorderBrush="#00C0CC"
+                    Cursor="Hand"
+                    Click="Chat_Click"/>
 
                 <Button Content="🎫 Support Tickets"
-                Margin="0,10"
-                Width="280" Height="50"
-                FontSize="18"
-                FontWeight="SemiBold"
-                Background="#00E0FF"
-                Foreground="Black"
-                BorderBrush="#00C0CC"
-                Cursor="Hand"
-                Click="SupportTickets_Click"/>
+                    Margin="0,10"
+                    Width="280" Height="50"
+                    FontSize="18"
+                    FontWeight="SemiBold"
+                    Background="#00E0FF"
+                    Foreground="Black"
+                    BorderBrush="#00C0CC"
+                    Cursor="Hand"
+                    Click="SupportTickets_Click"/>
+
+                <!-- NEW: Settings Button -->
+                <Button Content="⚙️ Settings"
+                    Margin="0,10"
+                    Width="280" Height="50"
+                    FontSize="18"
+                    FontWeight="SemiBold"
+                    Background="#9B59B6"
+                    Foreground="White"
+                    BorderBrush="#8E44AD"
+                    Cursor="Hand"
+                    Click="Settings_Click"/>
 
                 <Button Content="🚪 Logout"
                     Margin="0,30,0,10"

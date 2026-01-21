@@ -183,7 +183,7 @@ namespace driver_client
 
             try
             {
-                var srv = new Service1Client();
+                driver.Service1Client srv = new driver.Service1Client();
 
                 var ticketMessage = new TicketMessage
                 {

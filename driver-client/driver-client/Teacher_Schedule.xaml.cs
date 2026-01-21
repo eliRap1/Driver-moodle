@@ -285,5 +285,57 @@ namespace driver_client
             RefreshTimer.Stop();
             page.Navigate(new TeacherUI());
         }
+        // This is the FIXED PayLesson method for Teacher_Schedule.xaml.cs
+        // Replace your existing PayLesson method with this one
+
+        //private void PayLesson(LessonInfoM lessonToUpdate)
+        //{
+        //    if (lessonToUpdate == null)
+        //    {
+        //        MessageBox.Show("Please select a lesson first.");
+        //        return;
+        //    }
+
+        //    // Do not execute if already paid
+        //    if (lessonToUpdate.PaidButtonText == "Paid")
+        //    {
+        //        MessageBox.Show("This lesson is already marked as paid.");
+        //        return;
+        //    }
+
+        //    try
+        //    {
+        //        var srv = new Service1Client();
+
+        //        // Create the Payment record with CORRECT field mappings
+        //        Payment pay = new Payment
+        //        {
+        //            StudentID = lessonToUpdate.StudentId,
+        //            TeacherID = LogIn.sign.Id,
+        //            LessonId = lessonToUpdate.LessonId,  // FIXED: Use LessonId field, NOT PaymentID
+        //            PaymentMethod = "Teacher",
+        //            PaymentDate = DateTime.Now,
+        //            NumberOfPayments = 1,
+        //            paid = true,
+        //            Amount = LogIn.sign.LessonPrice,
+        //            Status = "Paid",
+        //            Notes = $"Marked paid by teacher on {DateTime.Now:dd/MM/yyyy HH:mm}"
+        //        };
+
+        //        System.Diagnostics.Debug.WriteLine($"Calling Pay() with LessonId={pay.LessonId}, StudentID={pay.StudentID}");
+
+        //        srv.Pay(pay);
+
+        //        MessageBox.Show($"Lesson ID {lessonToUpdate.LessonId} successfully marked as paid for {LogIn.sign.LessonPrice} ₪.");
+
+        //        // Reload all lists to reflect the status change on all tabs
+        //        LoadAll();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        System.Diagnostics.Debug.WriteLine($"PayLesson Error: {ex.Message}");
+        //        MessageBox.Show("Failed to update paid status.\n" + ex.Message);
+        //    }
+        //}
     }
 }

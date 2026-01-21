@@ -1,0 +1,86 @@
+﻿<Page x:Class="driver_client.StudentPricingManagement"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Student Pricing">
+
+    <Grid Background="#0D1B2A">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="300"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0" Grid.ColumnSpan="2" Background="#1B2D47" Padding="20">
+            <StackPanel>
+                <TextBlock Text="💰 Student Pricing" FontSize="24" FontWeight="Bold" 
+                           Foreground="#00E0FF" HorizontalAlignment="Center"/>
+                <TextBlock Text="Set custom prices or discounts for individual students" 
+                           FontSize="12" Foreground="LightGray" 
+                           HorizontalAlignment="Center" Margin="0,5,0,0"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Students List -->
+        <ScrollViewer Grid.Row="1" Grid.Column="0" Margin="20">
+            <StackPanel x:Name="StudentsPanel"/>
+        </ScrollViewer>
+
+        <!-- Edit Panel -->
+        <Border Grid.Row="1" Grid.Column="1" Background="#1B2D47" Margin="0,20,20,20" 
+                CornerRadius="10" Padding="15" x:Name="EditPanel" Visibility="Collapsed">
+            <StackPanel>
+                <TextBlock x:Name="SelectedStudentName" FontSize="16" FontWeight="Bold" 
+                           Foreground="#00E0FF" Margin="0,0,0,15"/>
+
+                <RadioButton x:Name="rbDefault" Content="Use Default Price" 
+                             Foreground="White" Margin="0,5,0,10" GroupName="PriceType"/>
+
+                <RadioButton x:Name="rbCustomPrice" Content="Custom Price:" 
+                             Foreground="White" Margin="0,5,0,5" GroupName="PriceType"/>
+                <Border BorderBrush="#00C0CC" BorderThickness="1" CornerRadius="3" 
+                        Background="#223344" Margin="20,0,0,10">
+                    <TextBox x:Name="CustomPriceBox" Height="30" Background="Transparent"
+                             Foreground="White" BorderThickness="0" Padding="8,5"/>
+                </Border>
+
+                <RadioButton x:Name="rbDiscount" Content="Discount (%):" 
+                             Foreground="White" Margin="0,5,0,5" GroupName="PriceType"/>
+                <Border BorderBrush="#00C0CC" BorderThickness="1" CornerRadius="3" 
+                        Background="#223344" Margin="20,0,0,15">
+                    <TextBox x:Name="DiscountBox" Height="30" Background="Transparent"
+                             Foreground="White" BorderThickness="0" Padding="8,5"/>
+                </Border>
+
+                <Button Content="💾 Save" Height="40" Background="#00E0FF" 
+                        Foreground="Black" FontWeight="Bold" Cursor="Hand"
+                        Click="SaveStudentPrice_Click"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Footer -->
+        <Border Grid.Row="2" Grid.ColumnSpan="2" Background="#1B2D47" Padding="15">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="0" Content="← Back" Height="40" Width="100"
+                        HorizontalAlignment="Left" Background="#334455" 
+                        Foreground="White" FontWeight="Bold"
+                        Click="Back_Click" Cursor="Hand"/>
+
+                <Button Grid.Column="1" Content="Reset All to Default" Height="40"
+                        Background="#E74C3C" Foreground="White" FontWeight="Bold"
+                        Click="ApplyToAll_Click" Cursor="Hand" Padding="15,0"/>
+            </Grid>
+        </Border>
+        <Frame x:Name="page"
+       Panel.ZIndex="100" Grid.ColumnSpan="2" Grid.RowSpan="3"/>
+    </Grid>
+</Page>

@@ -240,32 +240,32 @@ namespace ViewDB
         /// <summary>
         /// Get the effective lesson price for a student (custom or teacher's default)
         /// </summary>
-        public int GetStudentLessonPrice(int studentId)
-        {
-            // First check if student has a custom price
-            string sql = "SELECT [lessonPrice] FROM [Student] WHERE [id] = ?";
-            object result = SelectScalar(sql, new OleDbParameter("@id", studentId));
+        //public int GetStudentLessonPrice(int studentId)
+        //{
+        //    // First check if student has a custom price
+        //    string sql = "SELECT [lessonPrice] FROM [Student] WHERE [id] = ?";
+        //    object result = SelectScalar(sql, new OleDbParameter("@id", studentId));
 
-            if (result != null && result != DBNull.Value)
-            {
-                int customPrice = Convert.ToInt32(result);
-                if (customPrice > 0)
-                    return customPrice;
-            }
+        //    if (result != null && result != DBNull.Value)
+        //    {
+        //        int customPrice = Convert.ToInt32(result);
+        //        if (customPrice > 0)
+        //            return customPrice;
+        //    }
 
-            // Otherwise, get the teacher's default price
-            int teacherId = GetTeacherId(studentId);
-            if (teacherId > 0)
-            {
-                sql = "SELECT [lessonPrice] FROM [Teacher] WHERE [id] = ?";
-                result = SelectScalar(sql, new OleDbParameter("@id", teacherId));
+        //    // Otherwise, get the teacher's default price
+        //    int teacherId = GetTeacherId(studentId);
+        //    if (teacherId > 0)
+        //    {
+        //        sql = "SELECT [lessonPrice] FROM [Teacher] WHERE [id] = ?";
+        //        result = SelectScalar(sql, new OleDbParameter("@id", teacherId));
 
-                if (result != null && result != DBNull.Value)
-                    return Convert.ToInt32(result);
-            }
+        //        if (result != null && result != DBNull.Value)
+        //            return Convert.ToInt32(result);
+        //    }
 
-            return 200; // Default fallback
-        }
+        //    return 200; // Default fallback
+        //}
 
         /// <summary>
         /// Update teacher's payment methods
@@ -473,6 +473,100 @@ namespace ViewDB
                         new OleDbParameter("@id", user.Id)
                     );
                 }
+            }
+        }
+        // Add these methods to your UserDB.cs file
+
+        /// <summary>
+        /// Set discount percentage for a student
+        /// </summary>
+        public void SetStudentDiscount(int studentId, int discountPercent)
+        {
+            string sql = "UPDATE [Student] SET [DiscountPercent] = ? WHERE [id] = ?";
+            SaveChanges(sql,
+                new OleDbParameter("@discount", discountPercent),
+                new OleDbParameter("@id", studentId));
+        }
+
+        /// <summary>
+        /// Get the effective lesson price for a student (custom price, discount, or teacher default)
+        /// Updated to handle discounts properly
+        /// </summary>
+        public int GetStudentLessonPrice(int studentId)
+        {
+            // First check if student has a custom price
+            string sql = "SELECT [lessonPrice], [DiscountPercent] FROM [Student] WHERE [id] = ?";
+
+            OleDbConnection conn = null;
+            OleDbCommand cmd = null;
+            OleDbDataReader rdr = null;
+
+            try
+            {
+                conn = BaseDB.GetConnection();
+                conn.Open();
+
+                cmd = new OleDbCommand(sql, conn);
+                cmd.Parameters.Add(new OleDbParameter("@id", studentId));
+                rdr = cmd.ExecuteReader();
+
+                int customPrice = 0;
+                int discountPercent = 0;
+                int teacherId = 0;
+
+                if (rdr.Read())
+                {
+                    try { customPrice = Convert.ToInt32(rdr["lessonPrice"]); } catch { }
+                    try { discountPercent = Convert.ToInt32(rdr["DiscountPercent"]); } catch { }
+                }
+                rdr.Close();
+
+                // If custom price is set, use it
+                if (customPrice > 0)
+                    return customPrice;
+
+                // Get teacher ID
+                sql = "SELECT [teacherId] FROM [Student] WHERE [id] = ?";
+                cmd = new OleDbCommand(sql, conn);
+                cmd.Parameters.Add(new OleDbParameter("@id", studentId));
+                object tidResult = cmd.ExecuteScalar();
+                if (tidResult != null && tidResult != DBNull.Value)
+                {
+                    teacherId = Convert.ToInt32(tidResult);
+                }
+
+                // Get teacher's default price
+                int teacherPrice = 200; // Default
+                if (teacherId > 0)
+                {
+                    sql = "SELECT [lessonPrice] FROM [Teacher] WHERE [id] = ?";
+                    cmd = new OleDbCommand(sql, conn);
+                    cmd.Parameters.Add(new OleDbParameter("@id", teacherId));
+                    object priceResult = cmd.ExecuteScalar();
+
+                    if (priceResult != null && priceResult != DBNull.Value)
+                    {
+                        teacherPrice = Convert.ToInt32(priceResult);
+                    }
+                }
+
+                // Apply discount if set
+                if (discountPercent > 0 && discountPercent <= 100)
+                {
+                    return teacherPrice - (teacherPrice * discountPercent / 100);
+                }
+
+                return teacherPrice;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"GetStudentLessonPrice Error: {ex.Message}");
+                return 200; // Default fallback
+            }
+            finally
+            {
+                if (rdr != null) rdr.Close();
+                if (conn != null && conn.State == System.Data.ConnectionState.Open) conn.Close();
             }
         }
     }

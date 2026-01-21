@@ -186,5 +186,47 @@ namespace WcfServiceLibrary1
         // ==================== MIGRATION ====================
         [OperationContract]
         void MigrateAllPasswords();
+        // Add these operations to your IService1.cs file
+        // These are the NEW operations to add for student pricing and discount features
+
+        // ==================== STUDENT PRICING OPERATIONS  ====================
+
+        /// <summary>
+        /// Set a custom lesson price for a specific student (0 = use teacher's default)
+        /// </summary>
+        //[OperationContract]
+        //void SetStudentLessonPrice(int studentId, int price);
+
+        /// <summary>
+        /// Set a discount percentage for a specific student (0-100)
+        /// </summary>
+        [OperationContract]
+        void SetStudentDiscount(int studentId, int discountPercent);
+
+        /// <summary>
+        /// Get the effective lesson price for a student (considering custom price or discount)
+        /// </summary>
+        [OperationContract]
+        int GetEffectiveLessonPrice(int studentId);
+
+        // ==================== ADMIN OPERATIONS  ====================
+
+        /// <summary>
+        /// Update a student's credentials (admin only)
+        /// </summary>
+        //[OperationContract]
+        //void UpdateStudentCredentials(int studentId, string email, string phone, int teacherId);
+
+        /// <summary>
+        /// Update a student's assigned teacher
+        /// </summary>
+       // [OperationContract]
+        //void UpdateStudentTeacher(int studentId, int newTeacherId);
+
+        /// <summary>
+        /// Reset a user's password (admin only)
+        /// </summary>
+        [OperationContract]
+        void ResetUserPassword(int userId, string table, string newPassword);
     }
 }

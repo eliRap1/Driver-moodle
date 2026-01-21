@@ -153,15 +153,15 @@ namespace WcfServiceLibrary1
             userDB.SetAdminStatus(teacherId, isAdmin);
         }
 
-        public void UpdateStudentCredentials(int studentId, string email, string phone, int teacherId)
-        {
-            userDB.UpdateStudentCredentials(studentId, email, phone, teacherId);
-        }
+        //public void UpdateStudentCredentials(int studentId, string email, string phone, int teacherId)
+        //{
+        //    userDB.UpdateStudentCredentials(studentId, email, phone, teacherId);
+        //}
 
-        public void UpdateStudentTeacher(int studentId, int newTeacherId)
-        {
-            userDB.UpdateStudentTeacher(studentId, newTeacherId);
-        }
+        //public void UpdateStudentTeacher(int studentId, int newTeacherId)
+        //{
+        //    userDB.UpdateStudentTeacher(studentId, newTeacherId);
+        //}
 
         public void ResetPassword(int userId, string table, string newPassword)
         {
@@ -175,10 +175,10 @@ namespace WcfServiceLibrary1
             userDB.UpdateLessonPrice(teacherId, price);
         }
 
-        public void SetStudentLessonPrice(int studentId, int price)
-        {
-            userDB.SetStudentLessonPrice(studentId, price);
-        }
+        //public void SetStudentLessonPrice(int studentId, int price)
+        //{
+        //    userDB.SetStudentLessonPrice(studentId, price);
+        //}
 
         public int GetStudentLessonPrice(int studentId)
         {
@@ -433,6 +433,98 @@ namespace WcfServiceLibrary1
         public void MigrateAllPasswords()
         {
             userDB.MigrateAllPasswords();
+        }
+        // Add these method implementations to your Service1.cs file
+        // These implement the new operations for student pricing and admin features
+
+        // ==================== STUDENT PRICING OPERATIONS ====================
+
+        public void SetStudentLessonPrice(int studentId, int price)
+        {
+            try
+            {
+                System.Diagnostics.Debug.WriteLine($"SetStudentLessonPrice: StudentId={studentId}, Price={price}");
+                userDB.SetStudentLessonPrice(studentId, price);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"SetStudentLessonPrice Error: {ex.Message}");
+                throw;
+            }
+        }
+
+        public void SetStudentDiscount(int studentId, int discountPercent)
+        {
+            try
+            {
+                if (discountPercent < 0 || discountPercent > 100)
+                    throw new ArgumentException("Discount must be between 0 and 100");
+
+                System.Diagnostics.Debug.WriteLine($"SetStudentDiscount: StudentId={studentId}, Discount={discountPercent}%");
+                userDB.SetStudentDiscount(studentId, discountPercent);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"SetStudentDiscount Error: {ex.Message}");
+                throw;
+            }
+        }
+
+        public int GetEffectiveLessonPrice(int studentId)
+        {
+            try
+            {
+                return userDB.GetStudentLessonPrice(studentId);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"GetEffectiveLessonPrice Error: {ex.Message}");
+                return 200; // Default fallback
+            }
+        }
+
+        // ==================== ADMIN OPERATIONS ====================
+
+        public void UpdateStudentCredentials(int studentId, string email, string phone, int teacherId)
+        {
+            try
+            {
+                System.Diagnostics.Debug.WriteLine($"UpdateStudentCredentials: StudentId={studentId}");
+                userDB.UpdateStudentCredentials(studentId, email, phone, teacherId);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"UpdateStudentCredentials Error: {ex.Message}");
+                throw;
+            }
+        }
+
+        public void UpdateStudentTeacher(int studentId, int newTeacherId)
+        {
+            try
+            {
+                System.Diagnostics.Debug.WriteLine($"UpdateStudentTeacher: StudentId={studentId}, NewTeacherId={newTeacherId}");
+                userDB.UpdateStudentTeacher(studentId, newTeacherId);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"UpdateStudentTeacher Error: {ex.Message}");
+                throw;
+            }
+        }
+
+        public void ResetUserPassword(int userId, string table, string newPassword)
+        {
+            try
+            {
+                System.Diagnostics.Debug.WriteLine($"ResetUserPassword: UserId={userId}, Table={table}");
+                userDB.ResetPassword(userId, table, newPassword);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"ResetUserPassword Error: {ex.Message}");
+                throw;
+            }
         }
     }
 }

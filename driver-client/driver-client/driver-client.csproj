@@ -104,11 +104,17 @@
     <Compile Include="StudentPayment.xaml.cs">
       <DependentUpon>StudentPayment.xaml</DependentUpon>
     </Compile>
+    <Compile Include="StudentPricingManagement.xaml.cs">
+      <DependentUpon>StudentPricingManagement.xaml</DependentUpon>
+    </Compile>
     <Compile Include="StudentUI.xaml.cs">
       <DependentUpon>StudentUI.xaml</DependentUpon>
     </Compile>
     <Compile Include="TeacherPaymentReports.xaml.cs">
       <DependentUpon>TeacherPaymentReports.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TeacherSettings.xaml.cs">
+      <DependentUpon>TeacherSettings.xaml</DependentUpon>
     </Compile>
     <Compile Include="TeacherUI.xaml.cs">
       <DependentUpon>TeacherUI.xaml</DependentUpon>
@@ -203,11 +209,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="StudentPricingManagement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="StudentUI.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="TeacherPaymentReports.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TeacherSettings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

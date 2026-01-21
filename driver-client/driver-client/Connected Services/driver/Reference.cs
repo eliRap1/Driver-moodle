@@ -1861,6 +1861,24 @@ namespace driver_client.driver {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/MigrateAllPasswords", ReplyAction="http://tempuri.org/IService1/MigrateAllPasswordsResponse")]
         System.Threading.Tasks.Task MigrateAllPasswordsAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SetStudentDiscount", ReplyAction="http://tempuri.org/IService1/SetStudentDiscountResponse")]
+        void SetStudentDiscount(int studentId, int discountPercent);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SetStudentDiscount", ReplyAction="http://tempuri.org/IService1/SetStudentDiscountResponse")]
+        System.Threading.Tasks.Task SetStudentDiscountAsync(int studentId, int discountPercent);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetEffectiveLessonPrice", ReplyAction="http://tempuri.org/IService1/GetEffectiveLessonPriceResponse")]
+        int GetEffectiveLessonPrice(int studentId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetEffectiveLessonPrice", ReplyAction="http://tempuri.org/IService1/GetEffectiveLessonPriceResponse")]
+        System.Threading.Tasks.Task<int> GetEffectiveLessonPriceAsync(int studentId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/ResetUserPassword", ReplyAction="http://tempuri.org/IService1/ResetUserPasswordResponse")]
+        void ResetUserPassword(int userId, string table, string newPassword);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/ResetUserPassword", ReplyAction="http://tempuri.org/IService1/ResetUserPasswordResponse")]
+        System.Threading.Tasks.Task ResetUserPasswordAsync(int userId, string table, string newPassword);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -2328,6 +2346,30 @@ namespace driver_client.driver {
         
         public System.Threading.Tasks.Task MigrateAllPasswordsAsync() {
             return base.Channel.MigrateAllPasswordsAsync();
+        }
+        
+        public void SetStudentDiscount(int studentId, int discountPercent) {
+            base.Channel.SetStudentDiscount(studentId, discountPercent);
+        }
+        
+        public System.Threading.Tasks.Task SetStudentDiscountAsync(int studentId, int discountPercent) {
+            return base.Channel.SetStudentDiscountAsync(studentId, discountPercent);
+        }
+        
+        public int GetEffectiveLessonPrice(int studentId) {
+            return base.Channel.GetEffectiveLessonPrice(studentId);
+        }
+        
+        public System.Threading.Tasks.Task<int> GetEffectiveLessonPriceAsync(int studentId) {
+            return base.Channel.GetEffectiveLessonPriceAsync(studentId);
+        }
+        
+        public void ResetUserPassword(int userId, string table, string newPassword) {
+            base.Channel.ResetUserPassword(userId, table, newPassword);
+        }
+        
+        public System.Threading.Tasks.Task ResetUserPasswordAsync(int userId, string table, string newPassword) {
+            return base.Channel.ResetUserPasswordAsync(userId, table, newPassword);
         }
     }
 }

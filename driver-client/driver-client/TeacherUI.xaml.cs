@@ -1,23 +1,15 @@
-﻿using System;
+﻿// FIXED TeacherUI.xaml.cs
+// Replace your existing file with this version
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using driver_client.driver;
 
 namespace driver_client
 {
-    /// <summary>
-    /// Interaction logic for TeacherUI.xaml
-    /// </summary>
     public partial class TeacherUI : Page
     {
         private bool isAdmin = false;
@@ -27,8 +19,8 @@ namespace driver_client
             InitializeComponent();
             teacherName.Text = LogIn.sign.Username;
 
-            // Check if user is admin
-            isAdmin = IsUserAdmin(LogIn.sign.Username);
+            // Check if user is admin using DATABASE, not hardcoded names
+            CheckAdminStatus();
 
             if (isAdmin)
             {
@@ -37,14 +29,22 @@ namespace driver_client
             }
         }
 
-        private bool IsUserAdmin(string username)
+        /// <summary>
+        /// FIXED: Check admin status from database instead of hardcoded usernames
+        /// </summary>
+        private void CheckAdminStatus()
         {
-            if (string.IsNullOrEmpty(username))
-                return false;
-
-            // Admin usernames - should match server-side logic
-            string[] adminUsers = { "admin", "Admin", "ADMIN" };
-            return adminUsers.Contains(username);
+            try
+            {
+                var srv = new Service1Client();
+                isAdmin = srv.IsUserAdmin(LogIn.sign.Username);
+                System.Diagnostics.Debug.WriteLine($"Admin check for {LogIn.sign.Username}: {isAdmin}");
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Admin check error: {ex.Message}");
+                isAdmin = false;
+            }
         }
 
         private void AdminDashboard_Click(object sender, RoutedEventArgs e)
@@ -86,6 +86,12 @@ namespace driver_client
         private void SupportTickets_Click(object sender, RoutedEventArgs e)
         {
             page.Navigate(new MyTickets());
+        }
+
+        // NEW: Settings button handler
+        private void Settings_Click(object sender, RoutedEventArgs e)
+        {
+            page.Navigate(new TeacherSettings());
         }
 
         private void Logout_Click(object sender, RoutedEventArgs e)
