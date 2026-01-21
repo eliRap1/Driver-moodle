@@ -1,0 +1,251 @@
+﻿<Page x:Class="driver_client.AdminTicketDetails"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="900"
+      Title="AdminTicketDetails"
+      Background="#0E1A2B">
+
+    <Grid Margin="20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Background -->
+        <Image Source="/picture/background.png"
+               Stretch="UniformToFill"
+               Opacity="0.06"
+               Grid.ColumnSpan="2"
+               Panel.ZIndex="0"/>
+
+        <!-- Main Content -->
+        <Border Grid.Column="0" 
+                Background="#1B2A40"
+                CornerRadius="10"
+                Padding="20"
+                Margin="0,0,10,0"
+                Panel.ZIndex="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Ticket Header -->
+                <StackPanel Grid.Row="0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock x:Name="TicketTitle"
+                                   Text="Ticket #123"
+                                   FontSize="24"
+                                   FontWeight="Bold"
+                                   Foreground="#00E0FF"
+                                   Margin="0,0,10,0"/>
+                        <TextBlock Text="🛡️ ADMIN VIEW"
+                                   FontSize="12"
+                                   Foreground="Gold"
+                                   VerticalAlignment="Center"
+                                   FontWeight="Bold"/>
+                    </StackPanel>
+
+                    <TextBlock x:Name="TicketSubject"
+                               Text="Subject"
+                               FontSize="18"
+                               Foreground="White"
+                               TextWrapping="Wrap"
+                               Margin="0,10,0,10"/>
+
+                    <TextBlock x:Name="TicketDescription"
+                               Text="Description"
+                               FontSize="14"
+                               Foreground="LightGray"
+                               TextWrapping="Wrap"
+                               Margin="0,0,0,15"/>
+
+                    <Separator Background="#00E0FF" Margin="0,0,0,15"/>
+                </StackPanel>
+
+                <!-- Messages -->
+                <ScrollViewer Grid.Row="1" 
+                             VerticalScrollBarVisibility="Auto"
+                             x:Name="MessagesScroll">
+                    <StackPanel x:Name="MessagesPanel"/>
+                </ScrollViewer>
+
+                <!-- Admin Reply Section -->
+                <StackPanel Grid.Row="2" Margin="0,15,0,0">
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                        <TextBlock Text="🛡️ Admin Reply"
+                                   FontSize="14"
+                                   Foreground="Gold"
+                                   FontWeight="SemiBold"/>
+                    </StackPanel>
+
+                    <Border BorderBrush="Gold"
+                            BorderThickness="1"
+                            CornerRadius="3"
+                            Background="#223344"
+                            Margin="0,0,0,10">
+                        <TextBox x:Name="ReplyBox"
+                                 Height="80"
+                                 Background="Transparent"
+                                 Foreground="White"
+                                 BorderThickness="0"
+                                 Padding="8"
+                                 AcceptsReturn="True"
+                                 TextWrapping="Wrap"
+                                 VerticalScrollBarVisibility="Auto"/>
+                    </Border>
+
+                    <Button Content="Send Admin Reply"
+                            Width="150"
+                            Height="35"
+                            HorizontalAlignment="Right"
+                            Background="Gold"
+                            Foreground="Black"
+                            FontWeight="Bold"
+                            BorderBrush="#DAA520"
+                            Cursor="Hand"
+                            Click="SendReply_Click"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Sidebar -->
+        <Border Grid.Column="1"
+                Background="#1B2A40"
+                CornerRadius="10"
+                Padding="20"
+                Panel.ZIndex="1">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <TextBlock Text="🛡️ Admin Controls"
+                               FontSize="18"
+                               FontWeight="Bold"
+                               Foreground="Gold"
+                               Margin="0,0,0,15"/>
+
+                    <!-- User Info -->
+                    <TextBlock Text="User"
+                               FontSize="12"
+                               Foreground="Gray"
+                               Margin="0,0,0,4"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                        <TextBlock x:Name="UserTypeIcon" Text="👤" FontSize="16"/>
+                        <TextBlock x:Name="UsernameText"
+                                   Text="Username"
+                                   Foreground="White"
+                                   FontWeight="SemiBold"
+                                   Margin="5,0,0,0"/>
+                    </StackPanel>
+
+                    <!-- Status -->
+                    <TextBlock Text="Status"
+                               FontSize="12"
+                               Foreground="Gray"
+                               Margin="0,0,0,4"/>
+                    <ComboBox x:Name="StatusCombo"
+                              Background="#142435"
+                              Foreground="Black"
+                              Margin="0,0,0,15"
+                              SelectionChanged="StatusCombo_Changed">
+                        <ComboBoxItem Content="Open"/>
+                        <ComboBoxItem Content="In Progress"/>
+                        <ComboBoxItem Content="Resolved"/>
+                        <ComboBoxItem Content="Closed"/>
+                    </ComboBox>
+
+                    <!-- Priority -->
+                    <TextBlock Text="Priority"
+                               FontSize="12"
+                               Foreground="Gray"
+                               Margin="0,0,0,4"/>
+                    <ComboBox x:Name="PriorityCombo"
+                              Background="#142435"
+                              Foreground="Black"
+                              Margin="0,0,0,15"
+                              SelectionChanged="PriorityCombo_Changed">
+                        <ComboBoxItem Content="Low"/>
+                        <ComboBoxItem Content="Medium"/>
+                        <ComboBoxItem Content="High"/>
+                        <ComboBoxItem Content="Urgent"/>
+                    </ComboBox>
+
+                    <!-- Assigned To -->
+                    <TextBlock Text="Assigned To"
+                               FontSize="12"
+                               Foreground="Gray"
+                               Margin="0,0,0,4"/>
+                    <TextBlock x:Name="AssignedText"
+                               Text="Unassigned"
+                               Foreground="#00E0FF"
+                               Margin="0,0,0,5"/>
+
+                    <Button x:Name="AssignToMeBtn"
+                            Content="Assign to Me"
+                            Background="#F39C12"
+                            Foreground="Black"
+                            FontWeight="Bold"
+                            Height="30"
+                            Margin="0,0,0,15"
+                            Cursor="Hand"
+                            Click="AssignToMe_Click"/>
+
+                    <!-- Dates -->
+                    <TextBlock Text="Created"
+                               FontSize="12"
+                               Foreground="Gray"
+                               Margin="0,0,0,4"/>
+                    <TextBlock x:Name="CreatedText"
+                               Text="01/01/2025 10:00"
+                               Foreground="White"
+                               Margin="0,0,0,10"/>
+
+                    <TextBlock Text="Last Updated"
+                               FontSize="12"
+                               Foreground="Gray"
+                               Margin="0,0,0,4"/>
+                    <TextBlock x:Name="UpdatedText"
+                               Text="N/A"
+                               Foreground="White"
+                               Margin="0,0,0,15"/>
+
+                    <Separator Background="#00E0FF" Margin="0,0,0,15"/>
+
+                    <!-- Quick Actions -->
+                    <TextBlock Text="Quick Actions"
+                               FontSize="14"
+                               FontWeight="Bold"
+                               Foreground="White"
+                               Margin="0,0,0,10"/>
+
+                    <Button Content="✓ Resolve and Close"
+                            Background="#2ECC71"
+                            Foreground="White"
+                            FontWeight="Bold"
+                            Height="35"
+                            Margin="0,0,0,8"
+                            Cursor="Hand"
+                            Click="ResolveAndClose_Click"/>
+
+                    <Separator Background="#00E0FF" Margin="0,10,0,15"/>
+
+                    <!-- Back Button -->
+                    <Button Content="← Back to Tickets"
+                            Background="Transparent"
+                            Foreground="#00E0FF"
+                            BorderBrush="#00E0FF"
+                            FontWeight="Bold"
+                            Height="35"
+                            Cursor="Hand"
+                            Click="Back_Click"/>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+
+        <Frame x:Name="page" Grid.ColumnSpan="2" Margin="-20,-20,-20,-20" Panel.ZIndex="100"/>
+    </Grid>
+</Page>

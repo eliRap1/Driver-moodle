@@ -57,6 +57,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AdminDashboard.xaml.cs">
+      <DependentUpon>AdminDashboard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AdminTicketDetails.xaml.cs">
+      <DependentUpon>AdminTicketDetails.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AdminTicketManagement.xaml.cs">
+      <DependentUpon>AdminTicketManagement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AdminUserManagement.xaml.cs">
+      <DependentUpon>AdminUserManagement.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AllStudents.xaml.cs">
       <DependentUpon>AllStudents.xaml</DependentUpon>
     </Compile>
@@ -89,8 +101,14 @@
     <Compile Include="SignUp.xaml.cs">
       <DependentUpon>SignUp.xaml</DependentUpon>
     </Compile>
+    <Compile Include="StudentPayment.xaml.cs">
+      <DependentUpon>StudentPayment.xaml</DependentUpon>
+    </Compile>
     <Compile Include="StudentUI.xaml.cs">
       <DependentUpon>StudentUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TeacherPaymentReports.xaml.cs">
+      <DependentUpon>TeacherPaymentReports.xaml</DependentUpon>
     </Compile>
     <Compile Include="TeacherUI.xaml.cs">
       <DependentUpon>TeacherUI.xaml</DependentUpon>
@@ -108,6 +126,22 @@
     <Compile Include="WriteRewiew.xaml.cs">
       <DependentUpon>WriteRewiew.xaml</DependentUpon>
     </Compile>
+    <Page Include="AdminDashboard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AdminTicketDetails.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AdminTicketManagement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AdminUserManagement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="AllStudents.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -165,7 +199,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="StudentPayment.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="StudentUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TeacherPaymentReports.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -60,7 +60,7 @@ namespace driver_client
                 PendingPaymentsText.Text = "N/A";
 
                 // Recent Activity
-                LoadRecentActivity(allTickets);
+                LoadRecentActivity(allTickets.ToList());
             }
             catch (Exception ex)
             {

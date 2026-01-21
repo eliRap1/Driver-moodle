@@ -24,16 +24,21 @@ namespace driver_client
         private int id;
         private DispatcherTimer updateAprove;
         public static bool madeRewiew = false;
+
         public StudentUI()
         {
             InitializeComponent();
             driver.Service1Client srv = new driver.Service1Client();
             id = srv.GetUserID(LogIn.sign.Username, "Student");
-            updateAprove = new DispatcherTimer(); // POOLING THREAD 
+
+            WelcomeText.Text = $"Welcome, {LogIn.sign.Username}!";
+
+            updateAprove = new DispatcherTimer();
             updateAprove.Interval = TimeSpan.FromSeconds(5);
             updateAprove.Tick += CheckIfApproved;
             updateAprove.Start();
             CheckIfApproved(null, null);
+
             if (madeRewiew)
             {
                 writeReview.IsEnabled = false;
@@ -72,9 +77,23 @@ namespace driver_client
             page.Navigate(new ViewLessons());
         }
 
+        private void Payments_Click(object sender, RoutedEventArgs e)
+        {
+            page.Navigate(new StudentPayment());
+        }
+
         private void Back_Click(object sender, RoutedEventArgs e)
         {
-            System.Windows.Application.Current.Shutdown();
+            var result = MessageBox.Show("Are you sure you want to logout?", "Confirm Logout",
+                MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                // Clear login data
+                LogIn.sign = new Sign();
+                updateAprove.Stop();
+                page.Navigate(new LogIn());
+            }
         }
 
         private void Review_Click(object sender, RoutedEventArgs e)
@@ -87,11 +106,9 @@ namespace driver_client
             page.Navigate(new Chat());
         }
 
-        // ← ADD THIS NEW METHOD
         private void SupportTickets_Click(object sender, RoutedEventArgs e)
         {
             page.Navigate(new MyTickets());
         }
     }
-
 }

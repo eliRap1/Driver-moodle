@@ -1,0 +1,74 @@
+﻿<Page x:Class="driver_client.AdminTicketManagement"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="900"
+      Title="AdminTicketManagement"
+      Background="#0E1A2B">
+
+    <Grid Margin="20">
+        <!-- Background -->
+        <Image Source="/picture/background.png"
+               Stretch="UniformToFill"
+               Opacity="0.06"
+               Panel.ZIndex="0"/>
+
+        <Grid Panel.ZIndex="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Header -->
+            <TextBlock Text="🎫 Ticket Management"
+                       FontSize="28"
+                       FontWeight="Bold"
+                       Foreground="#00E0FF"
+                       HorizontalAlignment="Center"
+                       Margin="0,0,0,20"/>
+
+            <!-- Filter Buttons -->
+            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,15">
+                <Button x:Name="AllBtn" Content="All" 
+                        Width="80" Height="35" Margin="5"
+                        Background="#00E0FF" Foreground="Black" FontWeight="Bold"
+                        Click="FilterAll_Click"/>
+                <Button x:Name="OpenBtn" Content="Open" 
+                        Width="80" Height="35" Margin="5"
+                        Background="#1B2D47" Foreground="White" FontWeight="Bold"
+                        Click="FilterOpen_Click"/>
+                <Button x:Name="InProgressBtn" Content="In Progress" 
+                        Width="100" Height="35" Margin="5"
+                        Background="#1B2D47" Foreground="White" FontWeight="Bold"
+                        Click="FilterInProgress_Click"/>
+                <Button x:Name="ResolvedBtn" Content="Resolved" 
+                        Width="80" Height="35" Margin="5"
+                        Background="#1B2D47" Foreground="White" FontWeight="Bold"
+                        Click="FilterResolved_Click"/>
+                <Button x:Name="ClosedBtn" Content="Closed" 
+                        Width="80" Height="35" Margin="5"
+                        Background="#1B2D47" Foreground="White" FontWeight="Bold"
+                        Click="FilterClosed_Click"/>
+            </StackPanel>
+
+            <!-- Tickets List -->
+            <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+                <StackPanel x:Name="TicketsPanel"/>
+            </ScrollViewer>
+
+            <!-- Bottom Buttons -->
+            <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,15,0,0">
+                <Button Content="← Back to Dashboard"
+                        Width="160" Height="40"
+                        Background="#00E0FF" Foreground="Black" FontWeight="Bold"
+                        Click="Back_Click"/>
+            </StackPanel>
+        </Grid>
+
+        <Frame x:Name="page" Panel.ZIndex="100" Margin="-20,-20,-20,-20"/>
+    </Grid>
+</Page>

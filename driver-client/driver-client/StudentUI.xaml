@@ -41,14 +41,16 @@
                     VerticalAlignment="Center"
                     Width="300"
                     Panel.ZIndex="1">
-                <TextBlock Text="Welcome!"
+
+                <TextBlock x:Name="WelcomeText"
+                       Text="Welcome!"
                        FontSize="28"
                        FontWeight="Bold"
                        Foreground="#00E0FF"
                        HorizontalAlignment="Center"
                        Margin="0,0,0,20"/>
 
-                <Button Content="Schedule a Lesson"
+                <Button Content="📅 Schedule a Lesson"
                     Click="ScheduleLesson_Click"
                     Background="#00E0FF"
                     Foreground ="Black"
@@ -59,7 +61,29 @@
                     BorderBrush ="#00C0CC"
                     Margin="0,10"/>
 
-                <Button Content="Write a Review"
+                <Button Content="📚 View My Lessons"
+                    Click="ViewLessons_Click"
+                    Background="#00E0FF"
+                    Foreground ="Black"
+                    FontWeight ="Bold"
+                    FontSize ="16"
+                    Height ="45"
+                    Cursor="Hand"
+                    BorderBrush ="#00C0CC"
+                    Margin="0,10"/>
+
+                <Button Content="💳 Payments"
+                    Click="Payments_Click"
+                    Background="#2ECC71"
+                    Foreground ="White"
+                    FontWeight ="Bold"
+                    FontSize ="16"
+                    Height ="45"
+                    Cursor="Hand"
+                    BorderBrush ="#27AE60"
+                    Margin="0,10"/>
+
+                <Button Content="✍️ Write a Review"
                     Click="WriteReview_Click"
                     Background="#00E0FF"
                     Foreground ="Black"
@@ -71,19 +95,8 @@
                     Margin="0,10"
                     x:Name="writeReview"/>
 
-                <Button Content="View All Reviews"
+                <Button Content="⭐ View All Teachers"
                     Click="Review_Click"
-                    Background="#00E0FF"
-                    Foreground ="Black"
-                    FontWeight ="Bold"
-                    FontSize ="16"
-                    Height ="45"
-                    Cursor="Hand"
-                    BorderBrush ="#00C0CC"
-                    Margin="0,10"/>
-
-                <Button Content="View My Lessons"
-                    Click="ViewLessons_Click"
                     Background="#00E0FF"
                     Foreground ="Black"
                     FontWeight ="Bold"
@@ -104,26 +117,27 @@
                     BorderBrush ="#00C0CC"
                     Margin="0,10"/>
 
-                <Button Content="Chat"
-                Margin="0,10"
-                Width="280" Height="50"
-                FontSize="18"
-                FontWeight="SemiBold"
-                Background="#00E0FF"
-                Foreground="Black"
-                BorderBrush="#00C0CC"
-                Cursor="Hand"
-                Click="Chat_Click"/>
-                <Button Content="Exit"
-                    Click="Back_Click"
+                <Button Content="💬 Chat"
+                    Margin="0,10"
+                    Height="45"
+                    FontSize="16"
+                    FontWeight="Bold"
                     Background="#00E0FF"
-                    Foreground ="Black"
+                    Foreground="Black"
+                    BorderBrush="#00C0CC"
+                    Cursor="Hand"
+                    Click="Chat_Click"/>
+
+                <Button Content="🚪 Logout"
+                    Click="Back_Click"
+                    Background="Transparent"
+                    Foreground ="#E74C3C"
                     FontWeight ="Bold"
                     FontSize ="16"
-                    Height ="45"
+                    Height ="40"
                     Cursor="Hand"
-                    BorderBrush ="#00C0CC"
-                    Margin="20,30,20,0"/>
+                    BorderBrush ="#E74C3C"
+                    Margin="20,30,20,10"/>
 
             </StackPanel>
         </ScrollViewer>
