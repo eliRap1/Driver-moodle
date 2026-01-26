@@ -61,8 +61,7 @@ namespace driver_client
         }
         private void signUp_Click(object sender, RoutedEventArgs e)
         {
-            SignUp signup = new SignUp();
-            page.Navigate(signup);
+            page.Navigate(new RoleSelection());
         }
     }
 }

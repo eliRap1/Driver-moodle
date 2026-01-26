@@ -148,7 +148,8 @@ namespace driver_client
                 MessageBox.Show($"You chose: {selectedTeacher.Username} (ID: {selectedTeacher.Id})");
                 SignUp.Tid = selectedTeacher.Id;
                 updateTeachers.Stop();
-                page.Navigate(new SignUp(1));
+                // Navigate to SignUp as student (isTeacher = false) with selected teacher
+                page.Navigate(new SignUp(isTeacher: false));
             }
         }
         private List<UserInfo> GetAvailableTeachers()
@@ -169,7 +170,8 @@ namespace driver_client
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            page.Navigate(new StudentUI());
+            updateTeachers.Stop();
+            page.Navigate(new RoleSelection());
         }
     }
 }

@@ -143,14 +143,24 @@ namespace ViewDB
                 if (parameters != null && parameters.Length > 0)
                 {
                     cmd.Parameters.AddRange(parameters);
+                    // Log parameter values for debugging
+                    System.Diagnostics.Debug.WriteLine($"SaveChanges: Executing with {parameters.Length} parameters");
+                    for (int i = 0; i < parameters.Length; i++)
+                    {
+                        var p = parameters[i];
+                        System.Diagnostics.Debug.WriteLine($"  Param[{i}]: {p.ParameterName} = {p.Value} (Type: {p.OleDbType})");
+                    }
                 }
 
                 connection.Open();
                 records = cmd.ExecuteNonQuery();
+                System.Diagnostics.Debug.WriteLine($"SaveChanges: Successfully affected {records} row(s)");
             }
             catch (Exception e)
             {
-                System.Diagnostics.Debug.WriteLine("SaveChanges Error: " + e.Message + "\nSQL:" + cmd.CommandText);
+                System.Diagnostics.Debug.WriteLine($"SaveChanges Error: {e.Message}");
+                System.Diagnostics.Debug.WriteLine($"SQL: {cmd.CommandText}");
+                System.Diagnostics.Debug.WriteLine($"Stack Trace: {e.StackTrace}");
             }
             finally
             {

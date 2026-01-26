@@ -1,0 +1,199 @@
+<Page x:Class="driver_client.RoleSelection"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:driver_client"
+      mc:Ignorable="d"
+      d:DesignHeight="700" d:DesignWidth="800"
+      Title="Choose Your Role"
+      Background="#0E1A2B">
+
+    <Page.Resources>
+        <!-- Card hover animation style -->
+        <Style x:Key="RoleCardStyle" TargetType="Border">
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="1" ScaleY="1"/>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX"
+                                                 To="1.05" Duration="0:0:0.2"/>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY"
+                                                 To="1.05" Duration="0:0:0.2"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX"
+                                                 To="1" Duration="0:0:0.2"/>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY"
+                                                 To="1" Duration="0:0:0.2"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.ExitActions>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Page.Resources>
+
+    <Grid>
+        <!-- Background image -->
+        <Image Source="/picture/background.png"
+               Stretch="UniformToFill"
+               Opacity="0.06"
+               Panel.ZIndex="0"/>
+
+        <StackPanel VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Panel.ZIndex="1">
+
+            <!-- Title -->
+            <TextBlock Text="Welcome!"
+                       FontSize="36"
+                       FontWeight="Bold"
+                       Foreground="#00E0FF"
+                       HorizontalAlignment="Center"
+                       Margin="0,0,0,10"/>
+
+            <TextBlock Text="Choose your role to get started"
+                       FontSize="16"
+                       Foreground="LightGray"
+                       HorizontalAlignment="Center"
+                       Margin="0,0,0,50"/>
+
+            <!-- Role Cards Container -->
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center">
+
+                <!-- Student Card - Blue -->
+                <Border x:Name="StudentCard"
+                        Style="{StaticResource RoleCardStyle}"
+                        Width="220" Height="280"
+                        Margin="20"
+                        CornerRadius="20"
+                        MouseLeftButtonDown="StudentCard_Click">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="#1E88E5" Offset="0"/>
+                            <GradientStop Color="#1565C0" Offset="0.5"/>
+                            <GradientStop Color="#0D47A1" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="20"
+                                          ShadowDepth="5"
+                                          Color="#1E88E5"
+                                          Opacity="0.5"/>
+                    </Border.Effect>
+                    <Grid>
+                        <StackPanel VerticalAlignment="Center"
+                                    HorizontalAlignment="Center">
+                            <!-- Student Icon -->
+                            <Border Width="100" Height="100"
+                                    CornerRadius="50"
+                                    Background="#FFFFFF20"
+                                    Margin="0,0,0,20">
+                                <Image Source="/picture/student.png"
+                                       Width="60" Height="60"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"/>
+                            </Border>
+
+                            <TextBlock Text="Student"
+                                       FontSize="26"
+                                       FontWeight="Bold"
+                                       Foreground="White"
+                                       HorizontalAlignment="Center"/>
+
+                            <TextBlock Text="Learn to drive with"
+                                       FontSize="12"
+                                       Foreground="#FFFFFFBB"
+                                       HorizontalAlignment="Center"
+                                       Margin="0,8,0,0"/>
+                            <TextBlock Text="a professional teacher"
+                                       FontSize="12"
+                                       Foreground="#FFFFFFBB"
+                                       HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- Teacher Card - Green -->
+                <Border x:Name="TeacherCard"
+                        Style="{StaticResource RoleCardStyle}"
+                        Width="220" Height="280"
+                        Margin="20"
+                        CornerRadius="20"
+                        MouseLeftButtonDown="TeacherCard_Click">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="#43A047" Offset="0"/>
+                            <GradientStop Color="#2E7D32" Offset="0.5"/>
+                            <GradientStop Color="#1B5E20" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="20"
+                                          ShadowDepth="5"
+                                          Color="#43A047"
+                                          Opacity="0.5"/>
+                    </Border.Effect>
+                    <Grid>
+                        <StackPanel VerticalAlignment="Center"
+                                    HorizontalAlignment="Center">
+                            <!-- Teacher Icon -->
+                            <Border Width="100" Height="100"
+                                    CornerRadius="50"
+                                    Background="#FFFFFF20"
+                                    Margin="0,0,0,20">
+                                <Image Source="/picture/driver.png"
+                                       Width="60" Height="60"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"/>
+                            </Border>
+
+                            <TextBlock Text="Teacher"
+                                       FontSize="26"
+                                       FontWeight="Bold"
+                                       Foreground="White"
+                                       HorizontalAlignment="Center"/>
+
+                            <TextBlock Text="Teach students and"
+                                       FontSize="12"
+                                       Foreground="#FFFFFFBB"
+                                       HorizontalAlignment="Center"
+                                       Margin="0,8,0,0"/>
+                            <TextBlock Text="manage your lessons"
+                                       FontSize="12"
+                                       Foreground="#FFFFFFBB"
+                                       HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </StackPanel>
+
+            <!-- Login Link -->
+            <TextBlock HorizontalAlignment="Center"
+                       FontSize="14"
+                       Foreground="LightGray"
+                       Margin="0,40,0,0">
+                Already have an account?
+                <Hyperlink Click="LogIn_Click" Foreground="#00E0FF">Log In</Hyperlink>
+            </TextBlock>
+        </StackPanel>
+
+        <!-- Navigation Frame -->
+        <Frame x:Name="page"
+               Panel.ZIndex="2" Margin="0"/>
+    </Grid>
+</Page>

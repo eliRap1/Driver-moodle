@@ -20,48 +20,75 @@ namespace WcfServiceLibrary1
 
         public bool AddUser(string name, string password, string email, string phone, bool admin, int tID, int lessonPrice = 200)
         {
-            if (!SecurityHelper.IsSafeString(name, 50) ||
-                !SecurityHelper.IsSafeString(email, 100) ||
-                string.IsNullOrEmpty(password))
+            try
             {
-                return false;
-            }
+                System.Diagnostics.Debug.WriteLine($"=== AddUser called ===");
+                System.Diagnostics.Debug.WriteLine($"Username: {name}, Email: {email}, IsTeacher: {admin}, TeacherId: {tID}, LessonPrice: {lessonPrice}");
 
-            if (CheckUserExist(name))
-            {
-                return false;
-            }
-
-            UserInfo user = new UserInfo
-            {
-                Username = name,
-                Password = password,
-                Email = email,
-                Phone = phone,
-                IsAdmin = admin,
-                TeacherId = tID,
-                LessonPrice = lessonPrice > 0 ? lessonPrice : 200
-            };
-
-            bool worked = false;
-
-            if (admin)
-            {
-                // Teacher registration
-                worked = userDB.AddUser(user);
-            }
-            else
-            {
-                // Student registration
-                worked = userDB.AddStudent(user);
-                if (worked)
+                if (!SecurityHelper.IsSafeString(name, 50))
                 {
-                    int sid = userDB.GetUserID(name, "Student");
-                    allUsers.SetStudentId(name, sid);
+                    System.Diagnostics.Debug.WriteLine("AddUser: Username failed safety check");
+                    return false;
                 }
-            }
 
-            return worked;
+                if (!SecurityHelper.IsSafeString(email, 100))
+                {
+                    System.Diagnostics.Debug.WriteLine("AddUser: Email failed safety check");
+                    return false;
+                }
+
+                if (string.IsNullOrEmpty(password))
+                {
+                    System.Diagnostics.Debug.WriteLine("AddUser: Password is empty");
+                    return false;
+                }
+
+                if (CheckUserExist(name))
+                {
+                    System.Diagnostics.Debug.WriteLine("AddUser: User already exists");
+                    return false;
+                }
+
+                UserInfo user = new UserInfo
+                {
+                    Username = name,
+                    Password = password,
+                    Email = email,
+                    Phone = phone,
+                    IsAdmin = admin,
+                    TeacherId = tID,
+                    LessonPrice = lessonPrice > 0 ? lessonPrice : 200
+                };
+
+                bool worked = false;
+
+                if (admin)
+                {
+                    // Teacher registration
+                    System.Diagnostics.Debug.WriteLine("AddUser: Registering as Teacher");
+                    worked = userDB.AddUser(user);
+                }
+                else
+                {
+                    // Student registration
+                    System.Diagnostics.Debug.WriteLine("AddUser: Registering as Student");
+                    worked = userDB.AddStudent(user);
+                    if (worked)
+                    {
+                        int sid = userDB.GetUserID(name, "Student");
+                        allUsers.SetStudentId(name, sid);
+                        System.Diagnostics.Debug.WriteLine($"AddUser: Student ID assigned: {sid}");
+                    }
+                }
+
+                System.Diagnostics.Debug.WriteLine($"AddUser: Registration result = {worked}");
+                return worked;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"AddUser Exception: {ex.Message}\n{ex.StackTrace}");
+                return false;
+            }
         }
 
         public bool CheckUserExist(string username)

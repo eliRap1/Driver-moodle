@@ -91,6 +91,9 @@
     <Compile Include="Rewiews.xaml.cs">
       <DependentUpon>Rewiews.xaml</DependentUpon>
     </Compile>
+    <Compile Include="RoleSelection.xaml.cs">
+      <DependentUpon>RoleSelection.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ScheduleLesson.xaml.cs">
       <DependentUpon>ScheduleLesson.xaml</DependentUpon>
     </Compile>
@@ -194,6 +197,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Rewiews.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RoleSelection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

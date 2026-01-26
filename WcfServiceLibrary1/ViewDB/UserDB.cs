@@ -99,32 +99,98 @@ namespace ViewDB
         /// </summary>
         public bool AddUser(UserInfo user)
         {
-            if (!SecurityHelper.IsSafeString(user.Username, 50))
-                return false;
-
-            if (!SecurityHelper.IsSafeString(user.Email, 100))
-                return false;
-
-            string hashedPassword = SecurityHelper.HashPassword(user.Password);
-
-            string sqlstr = @"INSERT INTO [Teacher] 
-                ([username], [password], [email], [phone], [Rating], [lessonPrice], [IsAdmin], [PaymentMethods], [Confirmed]) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-            var parameters = new[]
+            try
             {
-                new OleDbParameter("@username", user.Username),
-                new OleDbParameter("@password", hashedPassword),
-                new OleDbParameter("@email", user.Email),
-                new OleDbParameter("@phone", user.Phone),
-                new OleDbParameter("@rating", user.Rating),
-                new OleDbParameter("@lessonPrice", user.LessonPrice > 0 ? user.LessonPrice : 200),
-                new OleDbParameter("@isAdmin", user.IsAdmin),
-                new OleDbParameter("@paymentMethods", user.PaymentMethods ?? "Cash,Credit Card,Bank Transfer"),
-                new OleDbParameter("@confirmed", true)
-            };
+                if (!SecurityHelper.IsSafeString(user.Username, 50))
+                {
+                    System.Diagnostics.Debug.WriteLine("AddUser: Username failed safety check");
+                    return false;
+                }
 
-            return SaveChanges(sqlstr, parameters) != 0;
+                if (!SecurityHelper.IsSafeString(user.Email, 100))
+                {
+                    System.Diagnostics.Debug.WriteLine("AddUser: Email failed safety check");
+                    return false;
+                }
+
+                string hashedPassword = SecurityHelper.HashPassword(user.Password);
+                System.Diagnostics.Debug.WriteLine($"AddUser: Hashed password length = {hashedPassword.Length}");
+
+                // Use basic columns that are guaranteed to exist
+                string sqlstr = @"INSERT INTO [Teacher]
+                    ([username], [password], [email], [phone], [Rating])
+                    VALUES (?, ?, ?, ?, ?)";
+
+                var parameters = new[]
+                {
+                    new OleDbParameter("@username", OleDbType.VarWChar) { Value = user.Username },
+                    new OleDbParameter("@password", OleDbType.VarWChar) { Value = hashedPassword },
+                    new OleDbParameter("@email", OleDbType.VarWChar) { Value = user.Email ?? "" },
+                    new OleDbParameter("@phone", OleDbType.VarWChar) { Value = user.Phone ?? "" },
+                    new OleDbParameter("@rating", OleDbType.Double) { Value = 0.0 }
+                };
+
+                int result = SaveChanges(sqlstr, parameters);
+                System.Diagnostics.Debug.WriteLine($"AddUser: SaveChanges returned {result}");
+
+                // If basic insert worked, try to update optional fields
+                if (result > 0)
+                {
+                    try
+                    {
+                        int teacherId = GetUserID(user.Username, "Teacher");
+                        if (teacherId > 0)
+                        {
+                            // Update lessonPrice if column exists
+                            try
+                            {
+                                SaveChanges("UPDATE [Teacher] SET [lessonPrice] = ? WHERE [id] = ?",
+                                    new OleDbParameter("@price", OleDbType.Integer) { Value = user.LessonPrice > 0 ? user.LessonPrice : 200 },
+                                    new OleDbParameter("@id", OleDbType.Integer) { Value = teacherId });
+                            }
+                            catch { }
+
+                            // Update IsAdmin if column exists
+                            try
+                            {
+                                SaveChanges("UPDATE [Teacher] SET [IsAdmin] = ? WHERE [id] = ?",
+                                    new OleDbParameter("@isAdmin", OleDbType.Boolean) { Value = user.IsAdmin },
+                                    new OleDbParameter("@id", OleDbType.Integer) { Value = teacherId });
+                            }
+                            catch { }
+
+                            // Update PaymentMethods if column exists
+                            try
+                            {
+                                SaveChanges("UPDATE [Teacher] SET [PaymentMethods] = ? WHERE [id] = ?",
+                                    new OleDbParameter("@methods", OleDbType.VarWChar) { Value = user.PaymentMethods ?? "Cash,Credit Card,Bank Transfer" },
+                                    new OleDbParameter("@id", OleDbType.Integer) { Value = teacherId });
+                            }
+                            catch { }
+
+                            // Update Confirmed if column exists
+                            try
+                            {
+                                SaveChanges("UPDATE [Teacher] SET [Confirmed] = ? WHERE [id] = ?",
+                                    new OleDbParameter("@confirmed", OleDbType.Boolean) { Value = true },
+                                    new OleDbParameter("@id", OleDbType.Integer) { Value = teacherId });
+                            }
+                            catch { }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Diagnostics.Debug.WriteLine($"AddUser: Optional fields update failed: {ex.Message}");
+                    }
+                }
+
+                return result != 0;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"AddUser Exception: {ex.Message}\n{ex.StackTrace}");
+                return false;
+            }
         }
 
         /// <summary>
@@ -132,30 +198,47 @@ namespace ViewDB
         /// </summary>
         public bool AddStudent(UserInfo user)
         {
-            if (!SecurityHelper.IsSafeString(user.Username, 50))
-                return false;
-
-            if (!SecurityHelper.IsSafeString(user.Email, 100))
-                return false;
-
-            string hashedPassword = SecurityHelper.HashPassword(user.Password);
-
-            string sqlstr = @"INSERT INTO [Student] 
-                ([username], [password], [email], [phone], [teacherId], [Confirmed], [lessonPrice]) 
-                VALUES (?, ?, ?, ?, ?, ?, ?)";
-
-            var parameters = new[]
+            try
             {
-                new OleDbParameter("@username", user.Username),
-                new OleDbParameter("@password", hashedPassword),
-                new OleDbParameter("@email", user.Email),
-                new OleDbParameter("@phone", user.Phone),
-                new OleDbParameter("@teacherId", user.TeacherId),
-                new OleDbParameter("@confirmed", false),
-                new OleDbParameter("@lessonPrice", 0) // 0 means use teacher's default price
-            };
+                if (!SecurityHelper.IsSafeString(user.Username, 50))
+                {
+                    System.Diagnostics.Debug.WriteLine("AddStudent: Username failed safety check");
+                    return false;
+                }
 
-            return SaveChanges(sqlstr, parameters) != 0;
+                if (!SecurityHelper.IsSafeString(user.Email, 100))
+                {
+                    System.Diagnostics.Debug.WriteLine("AddStudent: Email failed safety check");
+                    return false;
+                }
+
+                string hashedPassword = SecurityHelper.HashPassword(user.Password);
+                System.Diagnostics.Debug.WriteLine($"AddStudent: Hashed password length = {hashedPassword.Length}");
+
+                string sqlstr = @"INSERT INTO [Student]
+                    ([username], [password], [email], [phone], [teacherId], [Confirmed], [lessonPrice])
+                    VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+                var parameters = new[]
+                {
+                    new OleDbParameter("@username", OleDbType.VarWChar) { Value = user.Username },
+                    new OleDbParameter("@password", OleDbType.VarWChar) { Value = hashedPassword },
+                    new OleDbParameter("@email", OleDbType.VarWChar) { Value = user.Email ?? "" },
+                    new OleDbParameter("@phone", OleDbType.VarWChar) { Value = user.Phone ?? "" },
+                    new OleDbParameter("@teacherId", OleDbType.Integer) { Value = user.TeacherId },
+                    new OleDbParameter("@confirmed", OleDbType.Boolean) { Value = false },
+                    new OleDbParameter("@lessonPrice", OleDbType.Integer) { Value = 0 } // 0 means use teacher's default price
+                };
+
+                int result = SaveChanges(sqlstr, parameters);
+                System.Diagnostics.Debug.WriteLine($"AddStudent: SaveChanges returned {result}");
+                return result != 0;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"AddStudent Exception: {ex.Message}\n{ex.StackTrace}");
+                return false;
+            }
         }
 
         /// <summary>

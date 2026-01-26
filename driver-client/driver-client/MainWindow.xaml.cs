@@ -21,7 +21,6 @@ namespace driver_client
     public partial class MainWindow : Window
     {
         public static LogIn login = new LogIn();
-        public static SignUp signup = new SignUp();
         public MainWindow()
         {
             InitializeComponent();
@@ -29,7 +28,7 @@ namespace driver_client
 
         private void signUp_Click(object sender, RoutedEventArgs e)
         {
-            page.Navigate(signup);
+            page.Navigate(new RoleSelection());
             //welcomePanel.Visibility = Visibility.Collapsed;
 
         }
