@@ -9,6 +9,14 @@
     📚 @(Model.IsAdmin ? "All Students Database" : "My Students")
 </h1>
 
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <div class="alert @(Model.IsSuccess ? "alert-success" : "alert-danger") alert-dismissible fade show" role="alert">
+        @Model.Message
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
 @if (Model.Students != null && Model.Students.Count > 0)
 {
     <div class="table-responsive">
@@ -21,6 +29,7 @@
                     <th>Phone</th>
                     <th>Teacher ID</th>
                     <th>Confirmed</th>
+                    <th>Pricing</th>
                 </tr>
             </thead>
             <tbody>
@@ -41,6 +50,23 @@
                             {
                                 <span class="badge bg-warning text-dark">⏳ Pending</span>
                             }
+                        </td>
+                        <td>
+                            <form method="post" asp-page-handler="SetPrice" class="d-inline-flex gap-1 mb-1">
+                                <input type="hidden" name="studentId" value="@student.Id" />
+                                <input type="number" name="price" class="form-control form-control-sm"
+                                       style="width:80px" placeholder="₪" min="50" max="10000" />
+                                <button type="submit" class="btn btn-sm btn-outline-primary">Set</button>
+                            </form>
+                            <form method="post" asp-page-handler="SetDiscount" class="d-inline-flex gap-1">
+                                <input type="hidden" name="studentId" value="@student.Id" />
+                                <input type="number" name="discountPercent" class="form-control form-control-sm"
+                                       style="width:65px" placeholder="%" min="0" max="100" />
+                                <button type="submit" class="btn btn-sm btn-outline-success">%Off</button>
+                            </form>
+                            <small class="text-muted d-block">
+                                Effective: ₪@(Model.EffectivePrices.ContainsKey(student.Id) ? Model.EffectivePrices[student.Id] : 200)
+                            </small>
                         </td>
                     </tr>
                 }
