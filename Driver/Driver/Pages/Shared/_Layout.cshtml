@@ -86,10 +86,22 @@
                                     @(isAdmin ? "All Students" : "My Students")
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-page="/Teacher/ConfirmPayments">Confirm Payments</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-page="/Teacher/PaymentReports">Payment Reports</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-page="/Teacher/Notifications">Notifications</a>
+                            </li>
                             if (isAdmin)
                             {
                                 <li class="nav-item">
                                     <a class="nav-link" asp-page="/Teacher/AllTeachers">All Teachers</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-page="/Admin/ManageUsers">Manage Users</a>
                                 </li>
                             }
                         }
@@ -97,6 +109,18 @@
                         {
                             <li class="nav-item">
                                 <a class="nav-link" asp-page="/Student/StudentHome">Dashboard</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-page="/Student/ViewLessons">My Lessons</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-page="/Student/Payments">Payments</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-page="/Student/Courses">Courses</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-page="/Student/Notifications">Notifications</a>
                             </li>
                         }
                     </ul>
