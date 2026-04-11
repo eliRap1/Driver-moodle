@@ -6,19 +6,32 @@ using System.Linq;
 
 namespace ViewDB
 {
+    [System.Runtime.Serialization.DataContract]
     public class Payment : Base
     {
+        [System.Runtime.Serialization.DataMember]
         public int PaymentID { get; set; }
+        [System.Runtime.Serialization.DataMember]
         public int StudentID { get; set; }
+        [System.Runtime.Serialization.DataMember]
         public int TeacherID { get; set; }
+        [System.Runtime.Serialization.DataMember]
         public int Amount { get; set; }
+        [System.Runtime.Serialization.DataMember]
         public DateTime PaymentDate { get; set; }
+        [System.Runtime.Serialization.DataMember]
         public string PaymentMethod { get; set; }
+        [System.Runtime.Serialization.DataMember]
         public int NumberOfPayments { get; set; }
+        [System.Runtime.Serialization.DataMember]
         public int ParcialAmount { get; set; }
+        [System.Runtime.Serialization.DataMember]
         public bool paid { get; set; }
+        [System.Runtime.Serialization.DataMember]
         public int LessonId { get; set; }
+        [System.Runtime.Serialization.DataMember]
         public string Status { get; set; }
+        [System.Runtime.Serialization.DataMember]
         public string Notes { get; set; }
     }
 

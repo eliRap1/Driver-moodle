@@ -6,14 +6,22 @@ using System.Linq;
 
 namespace ViewDB
 {
+    [System.Runtime.Serialization.DataContract]
     public class Lessons : Base
     {
+        [System.Runtime.Serialization.DataMember]
         public int LessonId { get; set; }
+        [System.Runtime.Serialization.DataMember]
         public int StudentId { get; set; }
+        [System.Runtime.Serialization.DataMember]
         public int TeacherId { get; set; }
+        [System.Runtime.Serialization.DataMember]
         public bool paid { get; set; }
+        [System.Runtime.Serialization.DataMember]
         public string Date { get; set; }
+        [System.Runtime.Serialization.DataMember]
         public string Time { get; set; }
+        [System.Runtime.Serialization.DataMember]
         public int Canceled { get; set; }
     }
 
@@ -86,15 +94,16 @@ namespace ViewDB
             UserDB udb = new UserDB();
             int tid = udb.GetTeacherId(sid);
 
-            string sql = "INSERT INTO [Lessons] (StudentID, TeacherID, [Date], [Time], paid) " +
-                        "VALUES (?, ?, ?, ?, ?)";
+            string sql = "INSERT INTO [Lessons] (StudentID, TeacherID, [Date], [Time], paid, Canceled) " +
+                        "VALUES (?, ?, ?, ?, ?, ?)";
 
             SaveChanges(sql,
                 new OleDbParameter("@sid", sid),
                 new OleDbParameter("@tid", tid),
                 new OleDbParameter("@date", date),
                 new OleDbParameter("@time", time),
-                new OleDbParameter("@paid", false));
+                new OleDbParameter("@paid", false),
+                new OleDbParameter("@canceled", 0));
         }
 
         /// <summary>
@@ -106,6 +115,19 @@ namespace ViewDB
             SaveChanges(sql,
                 new OleDbParameter("@paid", true),
                 new OleDbParameter("@id", id));
+        }
+
+        /// <summary>
+        /// Get a specific lesson by ID
+        /// </summary>
+        public Lessons GetLessonById(int lessonId)
+        {
+            string sql = "SELECT * FROM [Lessons] WHERE LessonID = ?";
+            var list = Select(sql, new OleDbParameter("@lessonId", lessonId))
+                .OfType<Lessons>()
+                .ToList();
+
+            return list.Count == 1 ? list[0] : null;
         }
     }
 }
