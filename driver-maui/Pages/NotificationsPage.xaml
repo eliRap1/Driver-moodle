@@ -3,5 +3,25 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="driver_maui.Pages.NotificationsPage"
              Title="Notifications">
-    <Label Text="Loading..." VerticalOptions="Center" HorizontalOptions="Center"/>
+    <VerticalStackLayout Padding="15" Spacing="10">
+        <Grid ColumnDefinitions="Auto,*">
+            <Button Grid.Column="0" Text="Back" Clicked="Back_Click" WidthRequest="80"/>
+            <Button Grid.Column="1" Text="Mark All Read" Clicked="MarkAllRead_Click"
+                    BackgroundColor="#757575" HorizontalOptions="End"/>
+        </Grid>
+        <CollectionView x:Name="NotifList">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Margin="0,3" Padding="12" CornerRadius="6"
+                           BackgroundColor="{Binding BgColor}">
+                        <VerticalStackLayout Spacing="4">
+                            <Label Text="{Binding Title}" FontAttributes="Bold"/>
+                            <Label Text="{Binding Message}" FontSize="13"/>
+                            <Label Text="{Binding TimeText}" FontSize="11" TextColor="Gray"/>
+                        </VerticalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
 </ContentPage>

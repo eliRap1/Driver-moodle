@@ -2,6 +2,32 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="driver_maui.Pages.StudentHomePage"
-             Title="Student Home">
-    <Label Text="Loading..." VerticalOptions="Center" HorizontalOptions="Center"/>
+             Title="Student Dashboard">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="12">
+            <Label x:Name="WelcomeLabel" FontSize="20" FontAttributes="Bold"/>
+            <Label x:Name="StatusLabel" TextColor="Gray" IsVisible="False"/>
+
+            <Grid ColumnDefinitions="*,*" RowDefinitions="Auto" ColumnSpacing="10">
+                <Frame Grid.Column="0" BackgroundColor="#2196F3" Padding="15" CornerRadius="8">
+                    <VerticalStackLayout>
+                        <Label x:Name="TotalLessonsLabel" Text="0" TextColor="White" FontSize="28" FontAttributes="Bold"/>
+                        <Label Text="Total Lessons" TextColor="White" FontSize="12"/>
+                    </VerticalStackLayout>
+                </Frame>
+                <Frame Grid.Column="1" BackgroundColor="#FF5722" Padding="15" CornerRadius="8">
+                    <VerticalStackLayout>
+                        <Label x:Name="UnpaidLabel" Text="0" TextColor="White" FontSize="28" FontAttributes="Bold"/>
+                        <Label Text="Unpaid" TextColor="White" FontSize="12"/>
+                    </VerticalStackLayout>
+                </Frame>
+            </Grid>
+
+            <Button Text="View My Lessons" Clicked="ViewLessons_Click" BackgroundColor="#2196F3"/>
+            <Button Text="Payments" Clicked="Payments_Click" BackgroundColor="#FF9800"/>
+            <Button Text="Notifications" Clicked="Notifications_Click" BackgroundColor="#9C27B0"/>
+            <Button Text="Chat" Clicked="Chat_Click" BackgroundColor="#009688"/>
+            <Button Text="Logout" Clicked="Logout_Click" BackgroundColor="#757575"/>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

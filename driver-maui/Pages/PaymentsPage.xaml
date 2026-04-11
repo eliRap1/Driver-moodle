@@ -3,5 +3,39 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="driver_maui.Pages.PaymentsPage"
              Title="Payments">
-    <Label Text="Loading..." VerticalOptions="Center" HorizontalOptions="Center"/>
+    <VerticalStackLayout Padding="15" Spacing="10">
+        <Button Text="Back" Clicked="Back_Click" HorizontalOptions="Start" WidthRequest="80"/>
+        <Label Text="Select Unpaid Lessons:" FontAttributes="Bold" FontSize="16"/>
+        <Label x:Name="PriceLabel" TextColor="Gray"/>
+        <CollectionView x:Name="UnpaidList" SelectionMode="Multiple">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Margin="0,3" Padding="10" CornerRadius="6">
+                        <Label>
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="{Binding Date}" FontAttributes="Bold"/>
+                                    <Span Text="  "/>
+                                    <Span Text="{Binding Time}"/>
+                                    <Span Text="  (₪"/>
+                                    <Span Text="{Binding Price}"/>
+                                    <Span Text=")"/>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <Picker x:Name="PaymentMethodPicker" Title="Payment Method">
+            <Picker.Items>
+                <x:String>Cash</x:String>
+                <x:String>Credit Card</x:String>
+                <x:String>Bank Transfer</x:String>
+                <x:String>Bit</x:String>
+            </Picker.Items>
+        </Picker>
+        <Button Text="Pay Selected Lessons" Clicked="Pay_Click" BackgroundColor="#4CAF50"/>
+        <Label x:Name="ResultLabel" IsVisible="False"/>
+    </VerticalStackLayout>
 </ContentPage>

@@ -3,5 +3,24 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="driver_maui.Pages.ViewLessonsPage"
              Title="My Lessons">
-    <Label Text="Loading..." VerticalOptions="Center" HorizontalOptions="Center"/>
+    <VerticalStackLayout Padding="15" Spacing="10">
+        <Button Text="Back" Clicked="Back_Click" HorizontalOptions="Start" WidthRequest="80"/>
+        <Label x:Name="ErrorLabel" TextColor="Red" IsVisible="False"/>
+        <CollectionView x:Name="LessonsList">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Margin="0,4" Padding="12" CornerRadius="6">
+                        <Grid ColumnDefinitions="*,Auto,Auto">
+                            <VerticalStackLayout Grid.Column="0">
+                                <Label Text="{Binding Date}" FontAttributes="Bold"/>
+                                <Label Text="{Binding Time}" FontSize="13" TextColor="Gray"/>
+                            </VerticalStackLayout>
+                            <Label Grid.Column="1" Text="{Binding StatusText}"
+                                   TextColor="{Binding StatusColor}" VerticalOptions="Center" Margin="8,0"/>
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
 </ContentPage>
