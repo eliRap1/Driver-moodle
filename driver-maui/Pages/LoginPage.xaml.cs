@@ -11,11 +11,10 @@ namespace driver_maui.Pages
             ErrorLabel.IsVisible = false;
             string username = UsernameEntry.Text?.Trim() ?? "";
             string password = PasswordEntry.Text ?? "";
-            string role = RolePicker.SelectedItem?.ToString() ?? "";
 
-            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(role))
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
-                ErrorLabel.Text = "Please fill all fields and select a role.";
+                ErrorLabel.Text = "Please fill all fields.";
                 ErrorLabel.IsVisible = true;
                 return;
             }
@@ -30,9 +29,10 @@ namespace driver_maui.Pages
                     return;
                 }
 
-                string table = role == "Teacher" ? "Teacher" : "Student";
-                int userId = await ServiceHelper.CallAsync(srv => srv.GetUserIDAsync(username, table));
-                bool isAdmin = await ServiceHelper.CallAsync(srv => srv.IsUserAdminAsync(username));
+                bool isTeacher = await ServiceHelper.CallAsync(srv => srv.CheckUserAdminAsync(username));
+                string role = isTeacher ? "Teacher" : "Student";
+                int userId = await ServiceHelper.CallAsync(srv => srv.GetUserIDAsync(username, role));
+                bool isAdmin = isTeacher && await ServiceHelper.CallAsync(srv => srv.IsUserAdminAsync(username));
 
                 AppState.Username = username;
                 AppState.UserId = userId;

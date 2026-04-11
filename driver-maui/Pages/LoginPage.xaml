@@ -7,12 +7,6 @@
         <Label Text="Driver School" FontSize="28" FontAttributes="Bold" HorizontalOptions="Center"/>
         <Entry x:Name="UsernameEntry" Placeholder="Username" />
         <Entry x:Name="PasswordEntry" Placeholder="Password" IsPassword="True"/>
-        <Picker x:Name="RolePicker" Title="Select Role">
-            <Picker.Items>
-                <x:String>Student</x:String>
-                <x:String>Teacher</x:String>
-            </Picker.Items>
-        </Picker>
         <Button Text="Login" Clicked="LoginBtn_Clicked" />
         <Button Text="Sign Up" Clicked="SignUpBtn_Clicked" BackgroundColor="Gray"/>
         <Label x:Name="ErrorLabel" TextColor="Red" IsVisible="False"/>
