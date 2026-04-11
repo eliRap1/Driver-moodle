@@ -17,7 +17,7 @@ namespace Driver.Pages.Admin
 
         public IActionResult OnGet()
         {
-            if (HttpContext.Session.GetString("Role") != "Teacher" || !IsAdmin())
+            if (!IsAdmin())
                 return RedirectToPage("/Login");
             LoadData();
             return Page();

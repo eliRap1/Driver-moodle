@@ -92,9 +92,7 @@ namespace Driver.Pages.Teacher
         {
             if (string.IsNullOrEmpty(username))
                 return false;
-
-            string[] adminUsers = { "admin", "Admin", "ADMIN" };
-            return adminUsers.Contains(username);
+            return srv.IsUserAdmin(username);
         }
     }
 }
