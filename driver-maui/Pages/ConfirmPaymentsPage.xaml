@@ -3,5 +3,28 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="driver_maui.Pages.ConfirmPaymentsPage"
              Title="Confirm Payments">
-    <Label Text="Loading..." VerticalOptions="Center" HorizontalOptions="Center"/>
+    <VerticalStackLayout Padding="15" Spacing="10">
+        <Button Text="Back" Clicked="Back_Click" HorizontalOptions="Start" WidthRequest="80"/>
+        <Label Text="Unpaid Lessons" FontAttributes="Bold" FontSize="16"/>
+        <Label x:Name="ResultLabel" IsVisible="False"/>
+        <CollectionView x:Name="LessonsList">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Margin="0,4" Padding="12" CornerRadius="6">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <VerticalStackLayout Grid.Column="0">
+                                <Label Text="{Binding StudentName}" FontAttributes="Bold"/>
+                                <Label Text="{Binding DateTimeText}" TextColor="Gray" FontSize="13"/>
+                            </VerticalStackLayout>
+                            <Button Grid.Column="1" Text="Confirm Paid"
+                                    CommandParameter="{Binding LessonId}"
+                                    Clicked="ConfirmBtn_Click"
+                                    BackgroundColor="#4CAF50"
+                                    VerticalOptions="Center"/>
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
 </ContentPage>

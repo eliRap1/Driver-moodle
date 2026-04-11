@@ -3,5 +3,28 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="driver_maui.Pages.PaymentReportsPage"
              Title="Payment Reports">
-    <Label Text="Loading..." VerticalOptions="Center" HorizontalOptions="Center"/>
+    <VerticalStackLayout Padding="15" Spacing="12">
+        <Button Text="Back" Clicked="Back_Click" HorizontalOptions="Start" WidthRequest="80"/>
+        <Frame BackgroundColor="#F5F5F5" Padding="15" CornerRadius="8">
+            <VerticalStackLayout Spacing="6">
+                <Label x:Name="TotalEarningsLabel" FontSize="18" FontAttributes="Bold"/>
+                <Label x:Name="ThisMonthLabel" FontSize="15"/>
+                <Label x:Name="PendingLabel" FontSize="15" TextColor="OrangeRed"/>
+            </VerticalStackLayout>
+        </Frame>
+        <Label Text="Recent Payments" FontAttributes="Bold" FontSize="14"/>
+        <CollectionView x:Name="RecentList">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Margin="0,3" Padding="10" CornerRadius="6">
+                        <Grid ColumnDefinitions="*,*,Auto">
+                            <Label Grid.Column="0" Text="{Binding DateText}"/>
+                            <Label Grid.Column="1" Text="{Binding Method}" TextColor="Gray"/>
+                            <Label Grid.Column="2" Text="{Binding AmountText}" FontAttributes="Bold" TextColor="#4CAF50"/>
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
 </ContentPage>
