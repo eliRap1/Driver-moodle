@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="driver_maui.Pages.LoginPage"
+             Title="Driver School">
+    <VerticalStackLayout Padding="30" Spacing="15" VerticalOptions="Center">
+        <Label Text="Driver School" FontSize="28" FontAttributes="Bold" HorizontalOptions="Center"/>
+        <Entry x:Name="UsernameEntry" Placeholder="Username" />
+        <Entry x:Name="PasswordEntry" Placeholder="Password" IsPassword="True"/>
+        <Picker x:Name="RolePicker" Title="Select Role">
+            <Picker.Items>
+                <x:String>Student</x:String>
+                <x:String>Teacher</x:String>
+            </Picker.Items>
+        </Picker>
+        <Button Text="Login" Clicked="LoginBtn_Clicked" />
+        <Button Text="Sign Up" Clicked="SignUpBtn_Clicked" BackgroundColor="Gray"/>
+        <Label x:Name="ErrorLabel" TextColor="Red" IsVisible="False"/>
+    </VerticalStackLayout>
+</ContentPage>

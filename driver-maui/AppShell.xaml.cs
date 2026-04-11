@@ -1,9 +1,9 @@
-﻿namespace driver_maui;
+namespace driver_maui;
 
 public partial class AppShell : Shell
 {
-	public AppShell()
-	{
-		InitializeComponent();
-	}
+    public AppShell()
+    {
+        InitializeComponent();
+    }
 }

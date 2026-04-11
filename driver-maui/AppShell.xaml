@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<Shell
-    x:Class="driver_maui.AppShell"
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:driver_maui"
-    Title="driver_maui">
+<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:pages="clr-namespace:driver_maui.Pages"
+       x:Class="driver_maui.AppShell"
+       Shell.FlyoutBehavior="Disabled">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
-
+    <ShellContent Route="Login" ContentTemplate="{DataTemplate pages:LoginPage}" />
+    <ShellContent Route="StudentHome" ContentTemplate="{DataTemplate pages:StudentHomePage}" />
+    <ShellContent Route="TeacherHome" ContentTemplate="{DataTemplate pages:TeacherHomePage}" />
+    <ShellContent Route="SignUp" ContentTemplate="{DataTemplate pages:SignUpPage}" />
+    <ShellContent Route="ViewLessons" ContentTemplate="{DataTemplate pages:ViewLessonsPage}" />
+    <ShellContent Route="Payments" ContentTemplate="{DataTemplate pages:PaymentsPage}" />
+    <ShellContent Route="Notifications" ContentTemplate="{DataTemplate pages:NotificationsPage}" />
+    <ShellContent Route="ConfirmPayments" ContentTemplate="{DataTemplate pages:ConfirmPaymentsPage}" />
+    <ShellContent Route="PaymentReports" ContentTemplate="{DataTemplate pages:PaymentReportsPage}" />
+    <ShellContent Route="Chat" ContentTemplate="{DataTemplate pages:ChatPage}" />
 </Shell>
