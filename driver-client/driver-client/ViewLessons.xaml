@@ -13,7 +13,7 @@
         <local:ImgConventer x:Key="ImgConventer"/>
     </Page.Resources>
 
-    <Grid Background="#F5F5F5" Margin="-4,3,-6,-2">
+    <Grid Background="#0E1A2B" Margin="-4,3,-6,-2">
         <Grid.RowDefinitions>
             <RowDefinition Height="57*"/>
             <RowDefinition Height="455*"/>
@@ -21,10 +21,10 @@
         </Grid.RowDefinitions>
 
         <!-- Title -->
-        <TextBlock Text="📘 Your Driving Lessons"
+        <TextBlock Text="Your Driving Lessons"
                    FontSize="28"
                    FontWeight="Bold"
-                   Foreground="#333"
+                   Foreground="#00E0FF"
                    HorizontalAlignment="Center"
                    Margin="0" Grid.Row="0"/>
 
@@ -35,43 +35,36 @@
             </Grid.ColumnDefinitions>
 
             <!-- Upcoming Lessons -->
-            <Border Grid.Column="0" Padding="10" Background="White" CornerRadius="10" BorderBrush="#DDD" BorderThickness="1">
+            <Border Grid.Column="0" Padding="10" Background="#1A2636" CornerRadius="10" BorderBrush="#00E0FF" BorderThickness="1" Margin="0,0,5,0">
                 <DockPanel>
                     <TextBlock Text="Upcoming Lessons"
                                FontSize="20"
                                FontWeight="Bold"
+                               Foreground="#00E0FF"
                                Margin="0,0,0,10"
                                DockPanel.Dock="Top"/>
                     <DataGrid x:Name="UpcomingLessonsGrid"
                               AutoGenerateColumns="False"
                               IsReadOnly="True"
                               CanUserAddRows="False"
-                              RowBackground="#E3F2FD"
-                              AlternatingRowBackground="#BBDEFB"
+                              Background="#1A2636"
+                              RowBackground="#1B2D47"
+                              AlternatingRowBackground="#1A2636"
+                              Foreground="White"
                               FontSize="14"
                               HeadersVisibility="Column"
                               GridLinesVisibility="None"
-                              ColumnHeaderHeight="30">
+                              ColumnHeaderHeight="30"
+                              BorderThickness="0">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="ID" Binding="{Binding LessonId}" Width="50"/>
                             <DataGridTextColumn Header="Date" Binding="{Binding Date}" Width="120"/>
                             <DataGridTextColumn Header="Time" Binding="{Binding Time}" Width="80"/>
-                            <DataGridTemplateColumn Header="Paid" Width="40">
+                            <DataGridTemplateColumn Header="Paid" Width="60">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Image Width="16" Height="16"
                                                Source="{Binding Paid, Converter={StaticResource ImgConventer}}"/>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                            <DataGridTemplateColumn Header="Action" Width="110">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Button Content="Mark as Paid"
-                                                Padding="4,2"
-                                                Margin="4,0"
-                                                Click="MarkPaid_Click"
-                                                Visibility="{Binding Paid, Converter={StaticResource ImgConventer}, ConverterParameter=Visibility}"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
@@ -81,43 +74,36 @@
             </Border>
 
             <!-- Completed Lessons -->
-            <Border Grid.Column="1" Padding="10" Background="White" CornerRadius="10" BorderBrush="#DDD" BorderThickness="1">
+            <Border Grid.Column="1" Padding="10" Background="#1A2636" CornerRadius="10" BorderBrush="#27AE60" BorderThickness="1" Margin="5,0,0,0">
                 <DockPanel>
                     <TextBlock Text="Completed Lessons"
                                FontSize="20"
                                FontWeight="Bold"
+                               Foreground="#27AE60"
                                Margin="0,0,0,10"
                                DockPanel.Dock="Top"/>
                     <DataGrid x:Name="CompletedLessonsGrid"
                               AutoGenerateColumns="False"
                               IsReadOnly="True"
                               CanUserAddRows="False"
-                              RowBackground="#F1F8E9"
-                              AlternatingRowBackground="#DCEDC8"
+                              Background="#1A2636"
+                              RowBackground="#1B2D47"
+                              AlternatingRowBackground="#1A2636"
+                              Foreground="White"
                               FontSize="14"
                               HeadersVisibility="Column"
                               GridLinesVisibility="None"
-                              ColumnHeaderHeight="30">
+                              ColumnHeaderHeight="30"
+                              BorderThickness="0">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="ID" Binding="{Binding LessonId}" Width="50"/>
                             <DataGridTextColumn Header="Date" Binding="{Binding Date}" Width="120"/>
                             <DataGridTextColumn Header="Time" Binding="{Binding Time}" Width="80"/>
-                            <DataGridTemplateColumn Header="Paid" Width="40">
+                            <DataGridTemplateColumn Header="Paid" Width="60">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Image Width="16" Height="16"
                                                Source="{Binding Paid, Converter={StaticResource ImgConventer}}"/>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                            <DataGridTemplateColumn Header="Action" Width="110">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Button Content="Mark as Paid"
-                                                Padding="4,2"
-                                                Margin="4,0"
-                                                Click="MarkPaid_Click"
-                                                Visibility="{Binding Paid, Converter={StaticResource ImgConventer}, ConverterParameter=Visibility}"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
@@ -145,6 +131,7 @@
                 Cursor="Hand"
                 Click="BackButton_Click"/>
 
-        <Frame x:Name="page" Panel.ZIndex="100"   Grid.RowSpan="3" />
+        <Frame x:Name="page" Panel.ZIndex="100" Grid.RowSpan="3"
+               HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
     </Grid>
 </Page>

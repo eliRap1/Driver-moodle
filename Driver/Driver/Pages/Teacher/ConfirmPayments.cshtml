@@ -1,0 +1,92 @@
+@page
+@model ConfirmPaymentsModel
+@{
+    ViewData["Title"] = "Confirm Payments";
+    Layout = "_Layout";
+}
+
+<div class="text-center mb-4">
+    <h1 class="display-5" style="color: #00E0FF;">Confirm Student Payments</h1>
+    <p class="lead">Review and confirm payments from your students</p>
+</div>
+
+<!-- Summary -->
+<div class="row mb-4">
+    <div class="col-md-6 offset-md-3">
+        <div class="card text-center" style="background-color: #1B2D47; border: 2px solid #F39C12;">
+            <div class="card-body">
+                <h3 style="color: #F39C12;">@Model.PendingCount</h3>
+                <p class="mb-0">Lessons Awaiting Payment Confirmation</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <div class="alert @(Model.IsSuccess ? "alert-success" : "alert-danger") text-center">
+        @Model.Message
+    </div>
+}
+
+<!-- Pending Payments -->
+<div class="card" style="background-color: #1B2D47; border: 2px solid #00E0FF;">
+    <div class="card-header text-center" style="background-color: #00E0FF; color: black;">
+        <h5 class="mb-0">Unpaid Lessons</h5>
+    </div>
+    <div class="card-body">
+        @if (Model.PendingLessons.Any())
+        {
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Student</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Price</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var lesson in Model.PendingLessons)
+                        {
+                            <tr>
+                                <td>@lesson.StudentName</td>
+                                <td>@lesson.FormattedDate</td>
+                                <td>@lesson.Time</td>
+                                <td>@lesson.Price NIS</td>
+                                <td>
+                                    <form method="post" style="display: inline;">
+                                        <input type="hidden" name="lessonId" value="@lesson.LessonId" />
+                                        <button type="submit" asp-page-handler="Confirm" class="btn btn-success btn-sm">
+                                            Confirm Paid
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Bulk Actions -->
+            <div class="text-center mt-3">
+                <form method="post">
+                    <button type="submit" asp-page-handler="ConfirmAll" class="btn btn-success">
+                        Confirm All Payments
+                    </button>
+                </form>
+            </div>
+        }
+        else
+        {
+            <p class="text-center text-success">No pending payments to confirm!</p>
+        }
+    </div>
+</div>
+
+<div class="text-center mt-4">
+    <a asp-page="/Teacher/PaymentReports" class="btn btn-primary">View Payment Reports</a>
+    <a asp-page="/Teacher/TeacherHome" class="btn btn-outline-light">Back to Dashboard</a>
+</div>

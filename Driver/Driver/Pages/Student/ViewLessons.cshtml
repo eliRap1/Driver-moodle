@@ -1,0 +1,142 @@
+@page
+@model ViewLessonsModel
+@{
+    ViewData["Title"] = "My Lessons";
+    Layout = "_Layout";
+}
+
+<div class="text-center mb-4">
+    <h1 class="display-5" style="color: #00E0FF;">My Driving Lessons</h1>
+    <p class="lead">View your upcoming and completed lessons</p>
+</div>
+
+<div class="row">
+    <!-- Upcoming Lessons -->
+    <div class="col-md-6">
+        <div class="card" style="background-color: #1B2D47; border: 2px solid #00E0FF;">
+            <div class="card-header text-center" style="background-color: #00E0FF; color: black;">
+                <h5 class="mb-0">Upcoming Lessons</h5>
+            </div>
+            <div class="card-body">
+                @if (Model.UpcomingLessons.Any())
+                {
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var lesson in Model.UpcomingLessons)
+                                {
+                                    <tr>
+                                        <td>@lesson.FormattedDate</td>
+                                        <td>@lesson.Time</td>
+                                        <td>
+                                            @if (lesson.IsPaid)
+                                            {
+                                                <span class="badge bg-success">Paid</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge bg-warning text-dark">Unpaid</span>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <p class="text-center text-muted">No upcoming lessons scheduled.</p>
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- Completed Lessons -->
+    <div class="col-md-6">
+        <div class="card" style="background-color: #1B2D47; border: 2px solid #27AE60;">
+            <div class="card-header text-center" style="background-color: #27AE60; color: white;">
+                <h5 class="mb-0">Completed Lessons</h5>
+            </div>
+            <div class="card-body">
+                @if (Model.CompletedLessons.Any())
+                {
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var lesson in Model.CompletedLessons)
+                                {
+                                    <tr>
+                                        <td>@lesson.FormattedDate</td>
+                                        <td>@lesson.Time</td>
+                                        <td>
+                                            @if (lesson.IsPaid)
+                                            {
+                                                <span class="badge bg-success">Paid</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge bg-warning text-dark">Unpaid</span>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <p class="text-center text-muted">No completed lessons yet.</p>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Summary -->
+<div class="row mt-4">
+    <div class="col-md-4">
+        <div class="card text-center" style="background-color: #1B2D47; border: 1px solid #00E0FF;">
+            <div class="card-body">
+                <h3 style="color: #00E0FF;">@Model.TotalLessons</h3>
+                <p class="mb-0">Total Lessons</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center" style="background-color: #1B2D47; border: 1px solid #27AE60;">
+            <div class="card-body">
+                <h3 style="color: #27AE60;">@Model.PaidLessons</h3>
+                <p class="mb-0">Paid Lessons</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center" style="background-color: #1B2D47; border: 1px solid #F39C12;">
+            <div class="card-body">
+                <h3 style="color: #F39C12;">@Model.UnpaidLessons</h3>
+                <p class="mb-0">Unpaid Lessons</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="text-center mt-4">
+    <a asp-page="/Student/Payments" class="btn btn-primary btn-lg">Go to Payments</a>
+    <a asp-page="/Student/StudentHome" class="btn btn-outline-light">Back to Dashboard</a>
+</div>

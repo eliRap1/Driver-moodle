@@ -180,16 +180,6 @@ namespace WcfServiceLibrary1
             userDB.SetAdminStatus(teacherId, isAdmin);
         }
 
-        //public void UpdateStudentCredentials(int studentId, string email, string phone, int teacherId)
-        //{
-        //    userDB.UpdateStudentCredentials(studentId, email, phone, teacherId);
-        //}
-
-        //public void UpdateStudentTeacher(int studentId, int newTeacherId)
-        //{
-        //    userDB.UpdateStudentTeacher(studentId, newTeacherId);
-        //}
-
         public void ResetPassword(int userId, string table, string newPassword)
         {
             userDB.ResetPassword(userId, table, newPassword);
@@ -201,11 +191,6 @@ namespace WcfServiceLibrary1
         {
             userDB.UpdateLessonPrice(teacherId, price);
         }
-
-        //public void SetStudentLessonPrice(int studentId, int price)
-        //{
-        //    userDB.SetStudentLessonPrice(studentId, price);
-        //}
 
         public int GetStudentLessonPrice(int studentId)
         {
@@ -221,7 +206,39 @@ namespace WcfServiceLibrary1
 
         public void CancelLesson(int lessonId)
         {
-            lessonsDB.CancelLesson(lessonId);
+            try
+            {
+                // Get lesson details before cancelling
+                var lesson = lessonsDB.GetLessonById(lessonId);
+
+                if (lesson != null)
+                {
+                    // Get student name
+                    var student = userDB.GetUserById(lesson.StudentId, "Student");
+                    string studentName = student?.Username ?? "Unknown";
+
+                    // Cancel the lesson
+                    lessonsDB.CancelLesson(lessonId);
+
+                    // Send notification to teacher
+                    new NotificationDB().SendLessonCancelledNotification(
+                        lesson.StudentId,
+                        studentName,
+                        lesson.TeacherId,
+                        lesson.Date,
+                        lesson.Time
+                    );
+                }
+                else
+                {
+                    lessonsDB.CancelLesson(lessonId);
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"CancelLesson Error: {ex.Message}");
+                lessonsDB.CancelLesson(lessonId);
+            }
         }
 
         public void MarkLessonPaid(int id)
@@ -332,6 +349,24 @@ namespace WcfServiceLibrary1
                 System.Diagnostics.Debug.WriteLine($"Paid: {payment.paid}");
 
                 new PaymentDB().Pay(payment);
+
+                // Send payment notification to teacher
+                try
+                {
+                    var student = userDB.GetUserById(payment.StudentID, "Student");
+                    string studentName = student?.Username ?? "Student";
+                    new NotificationDB().SendPaymentNotification(
+                        payment.StudentID,
+                        studentName,
+                        payment.TeacherID,
+                        (int)payment.Amount,
+                        payment.PaymentMethod ?? "Unknown"
+                    );
+                }
+                catch (Exception notifEx)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Payment notification error: {notifEx.Message}");
+                }
 
                 System.Diagnostics.Debug.WriteLine("Payment completed successfully");
             }
@@ -461,8 +496,6 @@ namespace WcfServiceLibrary1
         {
             userDB.MigrateAllPasswords();
         }
-        // Add these method implementations to your Service1.cs file
-        // These implement the new operations for student pricing and admin features
 
         // ==================== STUDENT PRICING OPERATIONS ====================
 
@@ -510,48 +543,130 @@ namespace WcfServiceLibrary1
             }
         }
 
-        // ==================== ADMIN OPERATIONS ====================
-
         public void UpdateStudentCredentials(int studentId, string email, string phone, int teacherId)
         {
-            try
-            {
-                System.Diagnostics.Debug.WriteLine($"UpdateStudentCredentials: StudentId={studentId}");
-                userDB.UpdateStudentCredentials(studentId, email, phone, teacherId);
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"UpdateStudentCredentials Error: {ex.Message}");
-                throw;
-            }
+            userDB.UpdateStudentCredentials(studentId, email, phone, teacherId);
         }
 
         public void UpdateStudentTeacher(int studentId, int newTeacherId)
         {
-            try
-            {
-                System.Diagnostics.Debug.WriteLine($"UpdateStudentTeacher: StudentId={studentId}, NewTeacherId={newTeacherId}");
-                userDB.UpdateStudentTeacher(studentId, newTeacherId);
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"UpdateStudentTeacher Error: {ex.Message}");
-                throw;
-            }
+            userDB.UpdateStudentTeacher(studentId, newTeacherId);
         }
 
-        public void ResetUserPassword(int userId, string table, string newPassword)
+        // ==================== COURSE/LEARNING OPERATIONS ====================
+
+        public List<Course> GetAllCourses()
         {
-            try
-            {
-                System.Diagnostics.Debug.WriteLine($"ResetUserPassword: UserId={userId}, Table={table}");
-                userDB.ResetPassword(userId, table, newPassword);
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"ResetUserPassword Error: {ex.Message}");
-                throw;
-            }
+            return new CourseDB().GetActiveCourses();
+        }
+
+        public List<CourseModule> GetCourseModules(int courseId)
+        {
+            return new CourseModuleDB().GetModulesForCourse(courseId);
+        }
+
+        public List<StudentCourseProgress> GetStudentCourseProgress(int studentId)
+        {
+            return new CourseModuleDB().GetStudentCourseProgress(studentId);
+        }
+
+        public bool MarkModuleComplete(int studentId, int moduleId)
+        {
+            return new CourseModuleDB().MarkModuleComplete(studentId, moduleId);
+        }
+
+        public List<StudentModuleProgress> GetStudentCompletedModules(int studentId)
+        {
+            return new CourseModuleDB().GetStudentCompletedModules(studentId);
+        }
+
+        // ==================== COURSE MANAGEMENT OPERATIONS ====================
+
+        public int AddCourse(Course course)
+        {
+            return new CourseDB().AddCourse(course);
+        }
+
+        public int UpdateCourse(Course course)
+        {
+            return new CourseDB().UpdateCourse(course);
+        }
+
+        public int DeactivateCourse(int courseId)
+        {
+            return new CourseDB().DeactivateCourse(courseId);
+        }
+
+        public int AddModule(CourseModule module)
+        {
+            return new CourseModuleDB().AddModule(module);
+        }
+
+        public int UpdateModule(CourseModule module)
+        {
+            return new CourseModuleDB().UpdateModule(module);
+        }
+
+        public int DeleteModule(int moduleId)
+        {
+            return new CourseModuleDB().DeleteModule(moduleId);
+        }
+
+        public Course GetCourseById(int courseId)
+        {
+            return new CourseDB().GetCourseById(courseId);
+        }
+
+        // ==================== NOTIFICATION OPERATIONS ====================
+
+        public int SendNotification(Notification notification)
+        {
+            return new NotificationDB().SendNotification(notification);
+        }
+
+        public List<Notification> GetUserNotifications(int userId, string userType)
+        {
+            return new NotificationDB().GetUserNotifications(userId, userType);
+        }
+
+        public int GetUnreadNotificationCount(int userId, string userType)
+        {
+            return new NotificationDB().GetUnreadCount(userId, userType);
+        }
+
+        public List<Notification> GetUnreadNotifications(int userId, string userType)
+        {
+            return new NotificationDB().GetUnreadNotifications(userId, userType);
+        }
+
+        public void MarkNotificationAsRead(int notificationId)
+        {
+            new NotificationDB().MarkAsRead(notificationId);
+        }
+
+        public void MarkAllNotificationsAsRead(int userId, string userType)
+        {
+            new NotificationDB().MarkAllAsRead(userId, userType);
+        }
+
+        public void DeleteNotification(int notificationId)
+        {
+            new NotificationDB().DeleteNotification(notificationId);
+        }
+
+        public void SendTeacherMessage(int teacherId, string teacherName, int studentId, string title, string message)
+        {
+            new NotificationDB().SendTeacherMessage(teacherId, teacherName, studentId, title, message);
+        }
+
+        public void SendStudentMessage(int studentId, string studentName, int teacherId, string title, string message)
+        {
+            new NotificationDB().SendStudentMessage(studentId, studentName, teacherId, title, message);
+        }
+
+        public void SendLessonCancelledNotification(int studentId, string studentName, int teacherId, string lessonDate, string lessonTime)
+        {
+            new NotificationDB().SendLessonCancelledNotification(studentId, studentName, teacherId, lessonDate, lessonTime);
         }
     }
 }

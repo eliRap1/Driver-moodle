@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(tree:*)",
+      "Bash(dir:*)",
+      "Bash(grep -E \"\\\\.\\(cs|xaml\\)$\")",
+      "Bash(ls:*)",
+      "Bash(xargs grep:*)",
+      "Bash(grep -n \"CREATE TABLE\\\\|ALTER TABLE\\\\|DiscountPercent\\\\|lessonPrice\\\\|CustomLessonPrice\" /d/USERS/Downloads/Driver-moodle/WcfServiceLibrary1/ViewDB/*.cs)",
+      "Bash(grep:*)",
+      "Bash(xargs cat:*)",
+      "Bash(dotnet --version)",
+      "Bash(dotnet workload:*)",
+      "Bash(dotnet add:*)",
+      "Bash(dotnet tool:*)",
+      "Bash(dotnet-svcutil \"D:/USERS/Downloads/Driver-moodle/driver-client/driver-client/Connected Services/driver/service.wsdl\" --namespace \"*,DriverService\" --outputDir \"Connected Services/DriverService\")",
+      "Bash(mkdir -p \"Connected Services/DriverService\")",
+      "Bash(dotnet-svcutil 'D:/USERS/Downloads/Driver-moodle/driver-client/driver-client/Connected Services/driver/service.wsdl' 'D:/USERS/Downloads/Driver-moodle/driver-client/driver-client/Connected Services/driver/service.xsd' 'D:/USERS/Downloads/Driver-moodle/driver-client/driver-client/Connected Services/driver/service1.xsd' 'D:/USERS/Downloads/Driver-moodle/driver-client/driver-client/Connected Services/driver/Model.xsd' 'D:/USERS/Downloads/Driver-moodle/driver-client/driver-client/Connected Services/driver/ViewDB.xsd' 'D:/USERS/Downloads/Driver-moodle/driver-client/driver-client/Connected Services/driver/Arrays.xsd' --namespace '*,DriverService' --outputDir 'Connected Services/DriverService')",
+      "Bash(dotnet build:*)",
+      "Bash(python3:*)",
+      "Bash(powershell.exe -Command 'Add-Type -AssemblyName System.IO.Compression.FileSystem; $zip = [System.IO.Compression.ZipFile]::OpenRead\\('\\\\''D:\\\\Users\\\\Downloads\\\\HttpsConnectionFromMAUI.pptx'\\\\''\\); $slides = $zip.Entries | Where-Object { $_.FullName -like '\\\\''ppt/slides/slide*.xml'\\\\'' }; foreach \\($e in $slides\\) { $s=$e.Open\\(\\); $r=New-Object System.IO.StreamReader\\($s\\); $t=$r.ReadToEnd\\(\\); $t=$t -replace '\\\\''<[^>]+>'\\\\'','\\\\'' '\\\\''; $words=\\($t -split '\\\\''\\\\s+'\\\\'' | Where-Object {$_ -ne '\\\\'''\\\\''}\\); Write-Host \\($words -join '\\\\'' '\\\\'' | Select-Object -First 1\\); Write-Host $words[0..80] } $zip.Dispose\\(\\)')",
+      "Bash(ipconfig)"
+    ]
+  }
+}

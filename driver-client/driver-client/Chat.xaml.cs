@@ -34,7 +34,7 @@ namespace driver_client
         }
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            if(LogIn.sign.IsTeacher)
+            if (LogIn.sign.IsTeacher)
                 page.Navigate(new TeacherUI());
             else
                 page.Navigate(new StudentUI());

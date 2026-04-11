@@ -186,6 +186,7 @@
                 Click="Back_Click"
                 Panel.ZIndex="2"/>
 
-        <Frame x:Name="page" Panel.ZIndex="100" Margin="-20,-20,-20,-20"/>
+        <Frame x:Name="page" Panel.ZIndex="100" Margin="-20,-20,-20,-20"
+               HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
     </Grid>
 </Page>

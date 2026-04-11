@@ -186,47 +186,130 @@ namespace WcfServiceLibrary1
         // ==================== MIGRATION ====================
         [OperationContract]
         void MigrateAllPasswords();
-        // Add these operations to your IService1.cs file
-        // These are the NEW operations to add for student pricing and discount features
 
         // ==================== STUDENT PRICING OPERATIONS  ====================
 
-        /// <summary>
-        /// Set a custom lesson price for a specific student (0 = use teacher's default)
-        /// </summary>
-        //[OperationContract]
-        //void SetStudentLessonPrice(int studentId, int price);
-
-        /// <summary>
-        /// Set a discount percentage for a specific student (0-100)
-        /// </summary>
         [OperationContract]
         void SetStudentDiscount(int studentId, int discountPercent);
 
-        /// <summary>
-        /// Get the effective lesson price for a student (considering custom price or discount)
-        /// </summary>
         [OperationContract]
         int GetEffectiveLessonPrice(int studentId);
 
-        // ==================== ADMIN OPERATIONS  ====================
+        // ==================== COURSE/LEARNING OPERATIONS ====================
 
         /// <summary>
-        /// Update a student's credentials (admin only)
-        /// </summary>
-        //[OperationContract]
-        //void UpdateStudentCredentials(int studentId, string email, string phone, int teacherId);
-
-        /// <summary>
-        /// Update a student's assigned teacher
-        /// </summary>
-       // [OperationContract]
-        //void UpdateStudentTeacher(int studentId, int newTeacherId);
-
-        /// <summary>
-        /// Reset a user's password (admin only)
+        /// Get all available courses
         /// </summary>
         [OperationContract]
-        void ResetUserPassword(int userId, string table, string newPassword);
+        List<Course> GetAllCourses();
+
+        /// <summary>
+        /// Get all modules for a specific course
+        /// </summary>
+        [OperationContract]
+        List<CourseModule> GetCourseModules(int courseId);
+
+        /// <summary>
+        /// Get a student's progress across all courses
+        /// </summary>
+        [OperationContract]
+        List<StudentCourseProgress> GetStudentCourseProgress(int studentId);
+
+        /// <summary>
+        /// Mark a module as complete for a student
+        /// </summary>
+        [OperationContract]
+        bool MarkModuleComplete(int studentId, int moduleId);
+
+        /// <summary>
+        /// Get all completed modules for a student
+        /// </summary>
+        [OperationContract]
+        List<StudentModuleProgress> GetStudentCompletedModules(int studentId);
+
+        // ==================== COURSE MANAGEMENT OPERATIONS ====================
+
+        [OperationContract]
+        int AddCourse(Course course);
+
+        [OperationContract]
+        int UpdateCourse(Course course);
+
+        [OperationContract]
+        int DeactivateCourse(int courseId);
+
+        [OperationContract]
+        int AddModule(CourseModule module);
+
+        [OperationContract]
+        int UpdateModule(CourseModule module);
+
+        [OperationContract]
+        int DeleteModule(int moduleId);
+
+        [OperationContract]
+        Course GetCourseById(int courseId);
+
+        // ==================== NOTIFICATION OPERATIONS ====================
+
+        /// <summary>
+        /// Send a notification to a user
+        /// </summary>
+        [OperationContract]
+        int SendNotification(Notification notification);
+
+        /// <summary>
+        /// Get all notifications for a user
+        /// </summary>
+        [OperationContract]
+        List<Notification> GetUserNotifications(int userId, string userType);
+
+        /// <summary>
+        /// Get unread notification count
+        /// </summary>
+        [OperationContract]
+        int GetUnreadNotificationCount(int userId, string userType);
+
+        /// <summary>
+        /// Get unread notifications
+        /// </summary>
+        [OperationContract]
+        List<Notification> GetUnreadNotifications(int userId, string userType);
+
+        /// <summary>
+        /// Mark a notification as read
+        /// </summary>
+        [OperationContract]
+        void MarkNotificationAsRead(int notificationId);
+
+        /// <summary>
+        /// Mark all notifications as read
+        /// </summary>
+        [OperationContract]
+        void MarkAllNotificationsAsRead(int userId, string userType);
+
+        /// <summary>
+        /// Delete a notification
+        /// </summary>
+        [OperationContract]
+        void DeleteNotification(int notificationId);
+
+        /// <summary>
+        /// Send a message from teacher to student
+        /// </summary>
+        [OperationContract]
+        void SendTeacherMessage(int teacherId, string teacherName, int studentId, string title, string message);
+
+        /// <summary>
+        /// Send a message from student to teacher
+        /// </summary>
+        [OperationContract]
+        void SendStudentMessage(int studentId, string studentName, int teacherId, string title, string message);
+
+        /// <summary>
+        /// Send lesson cancelled notification to teacher
+        /// </summary>
+        [OperationContract]
+        void SendLessonCancelledNotification(int studentId, string studentName, int teacherId, string lessonDate, string lessonTime);
     }
 }

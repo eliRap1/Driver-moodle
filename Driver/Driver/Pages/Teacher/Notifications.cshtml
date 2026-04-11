@@ -1,0 +1,174 @@
+@page
+@model Driver.Pages.Teacher.NotificationsModel
+@{
+    ViewData["Title"] = "Notifications";
+    Layout = "_Layout";
+}
+
+<div class="text-center mb-4">
+    <h1 class="display-5" style="color: #00E0FF;">Notifications</h1>
+    <p class="lead">Messages from students and system notifications</p>
+</div>
+
+<!-- Summary Cards -->
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card text-center" style="background-color: #1B2D47; border: 2px solid @(Model.UnreadCount > 0 ? "#F39C12" : "#27AE60");">
+            <div class="card-body">
+                <h3 style="color: @(Model.UnreadCount > 0 ? "#F39C12" : "#27AE60");">@Model.UnreadCount</h3>
+                <p class="mb-0">Unread Notifications</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center" style="background-color: #1B2D47; border: 2px solid #E74C3C;">
+            <div class="card-body">
+                <h3 style="color: #E74C3C;">@Model.CancelledLessonsCount</h3>
+                <p class="mb-0">Lesson Cancellations</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center" style="background-color: #1B2D47; border: 2px solid #27AE60;">
+            <div class="card-body">
+                <h3 style="color: #27AE60;">@Model.PaymentNotificationsCount</h3>
+                <p class="mb-0">Payment Notifications</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <div class="alert @(Model.IsSuccess ? "alert-success" : "alert-danger") text-center">
+        @Model.Message
+    </div>
+}
+
+<div class="row">
+    <!-- Send Message Form -->
+    <div class="col-md-4">
+        <div class="card" style="background-color: #1B2D47; border: 2px solid #27AE60;">
+            <div class="card-header text-center" style="background-color: #27AE60; color: white;">
+                <h5 class="mb-0">Send Message to Student</h5>
+            </div>
+            <div class="card-body">
+                <form method="post" asp-page-handler="SendMessage">
+                    <div class="mb-3">
+                        <label class="form-label">Select Student</label>
+                        <select name="studentId" class="form-select" style="background-color: #0E1A2B; color: white; border-color: #00E0FF;" required>
+                            <option value="">-- Select Student --</option>
+                            @foreach (var student in Model.Students)
+                            {
+                                <option value="@student.StudentId">@student.Username</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Title</label>
+                        <input type="text" name="title" class="form-control" style="background-color: #0E1A2B; color: white; border-color: #00E0FF;" required maxlength="100" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Message</label>
+                        <textarea name="message" class="form-control" rows="4" style="background-color: #0E1A2B; color: white; border-color: #00E0FF;" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-success w-100">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notifications List -->
+    <div class="col-md-8">
+        <div class="card" style="background-color: #1B2D47; border: 2px solid #00E0FF;">
+            <div class="card-header d-flex justify-content-between align-items-center" style="background-color: #00E0FF; color: black;">
+                <h5 class="mb-0">Incoming Notifications</h5>
+                @if (Model.UnreadCount > 0)
+                {
+                    <form method="post">
+                        <button type="submit" asp-page-handler="MarkAllRead" class="btn btn-dark btn-sm">
+                            Mark All Read
+                        </button>
+                    </form>
+                }
+            </div>
+            <div class="card-body" style="max-height: 600px; overflow-y: auto;">
+                @if (Model.Notifications.Any())
+                {
+                    @foreach (var notification in Model.Notifications)
+                    {
+                        <div class="card mb-3" style="background-color: @(notification.IsRead ? "#0E1A2B" : "#1A2636"); border-left: 4px solid @GetTypeColor(notification.NotificationType);">
+                            <div class="card-body py-2">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <h6 class="mb-1" style="color: @GetTypeColor(notification.NotificationType);">
+                                            @GetTypeIcon(notification.NotificationType) @notification.Title
+                                            @if (!notification.IsRead)
+                                            {
+                                                <span class="badge bg-warning text-dark ms-2">New</span>
+                                            }
+                                        </h6>
+                                        <p class="mb-1 small">@notification.Message</p>
+                                        <small class="text-muted">
+                                            From: @notification.SenderName |
+                                            @notification.CreatedAt.ToString("dd/MM/yyyy HH:mm")
+                                        </small>
+                                    </div>
+                                    <div class="btn-group-vertical">
+                                        @if (!notification.IsRead)
+                                        {
+                                            <form method="post" style="display: inline;">
+                                                <input type="hidden" name="notificationId" value="@notification.Id" />
+                                                <button type="submit" asp-page-handler="MarkRead" class="btn btn-outline-success btn-sm mb-1">
+                                                    &#10003;
+                                                </button>
+                                            </form>
+                                        }
+                                        <form method="post" style="display: inline;">
+                                            <input type="hidden" name="notificationId" value="@notification.Id" />
+                                            <button type="submit" asp-page-handler="Delete" class="btn btn-outline-danger btn-sm">
+                                                &#10006;
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p class="text-center text-muted">No notifications yet.</p>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="text-center mt-4">
+    <a asp-page="/Teacher/TeacherHome" class="btn btn-outline-light">Back to Dashboard</a>
+</div>
+
+@functions {
+    string GetTypeColor(string type)
+    {
+        return type switch
+        {
+            "LessonCancelled" => "#E74C3C",
+            "PaymentReceived" => "#27AE60",
+            "Reminder" => "#F39C12",
+            _ => "#00E0FF"
+        };
+    }
+
+    string GetTypeIcon(string type)
+    {
+        return type switch
+        {
+            "LessonCancelled" => "&#10060;",
+            "PaymentReceived" => "&#128176;",
+            "Reminder" => "&#9200;",
+            _ => "&#128172;"
+        };
+    }
+}

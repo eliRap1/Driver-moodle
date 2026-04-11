@@ -351,11 +351,137 @@
   <wsdl:message name="IService1_GetEffectiveLessonPrice_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetEffectiveLessonPriceResponse" />
   </wsdl:message>
-  <wsdl:message name="IService1_ResetUserPassword_InputMessage">
-    <wsdl:part name="parameters" element="tns:ResetUserPassword" />
+  <wsdl:message name="IService1_GetAllCourses_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllCourses" />
   </wsdl:message>
-  <wsdl:message name="IService1_ResetUserPassword_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ResetUserPasswordResponse" />
+  <wsdl:message name="IService1_GetAllCourses_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllCoursesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetCourseModules_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCourseModules" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetCourseModules_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCourseModulesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetStudentCourseProgress_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetStudentCourseProgress" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetStudentCourseProgress_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetStudentCourseProgressResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_MarkModuleComplete_InputMessage">
+    <wsdl:part name="parameters" element="tns:MarkModuleComplete" />
+  </wsdl:message>
+  <wsdl:message name="IService1_MarkModuleComplete_OutputMessage">
+    <wsdl:part name="parameters" element="tns:MarkModuleCompleteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetStudentCompletedModules_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetStudentCompletedModules" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetStudentCompletedModules_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetStudentCompletedModulesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_AddCourse_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddCourse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_AddCourse_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddCourseResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_UpdateCourse_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateCourse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_UpdateCourse_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateCourseResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_DeactivateCourse_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeactivateCourse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_DeactivateCourse_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeactivateCourseResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_AddModule_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddModule" />
+  </wsdl:message>
+  <wsdl:message name="IService1_AddModule_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddModuleResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_UpdateModule_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateModule" />
+  </wsdl:message>
+  <wsdl:message name="IService1_UpdateModule_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateModuleResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_DeleteModule_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteModule" />
+  </wsdl:message>
+  <wsdl:message name="IService1_DeleteModule_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteModuleResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetCourseById_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCourseById" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetCourseById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCourseByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_SendNotification_InputMessage">
+    <wsdl:part name="parameters" element="tns:SendNotification" />
+  </wsdl:message>
+  <wsdl:message name="IService1_SendNotification_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SendNotificationResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetUserNotifications_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserNotifications" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetUserNotifications_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserNotificationsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetUnreadNotificationCount_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUnreadNotificationCount" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetUnreadNotificationCount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUnreadNotificationCountResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetUnreadNotifications_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUnreadNotifications" />
+  </wsdl:message>
+  <wsdl:message name="IService1_GetUnreadNotifications_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUnreadNotificationsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_MarkNotificationAsRead_InputMessage">
+    <wsdl:part name="parameters" element="tns:MarkNotificationAsRead" />
+  </wsdl:message>
+  <wsdl:message name="IService1_MarkNotificationAsRead_OutputMessage">
+    <wsdl:part name="parameters" element="tns:MarkNotificationAsReadResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_MarkAllNotificationsAsRead_InputMessage">
+    <wsdl:part name="parameters" element="tns:MarkAllNotificationsAsRead" />
+  </wsdl:message>
+  <wsdl:message name="IService1_MarkAllNotificationsAsRead_OutputMessage">
+    <wsdl:part name="parameters" element="tns:MarkAllNotificationsAsReadResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_DeleteNotification_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteNotification" />
+  </wsdl:message>
+  <wsdl:message name="IService1_DeleteNotification_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteNotificationResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_SendTeacherMessage_InputMessage">
+    <wsdl:part name="parameters" element="tns:SendTeacherMessage" />
+  </wsdl:message>
+  <wsdl:message name="IService1_SendTeacherMessage_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SendTeacherMessageResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_SendStudentMessage_InputMessage">
+    <wsdl:part name="parameters" element="tns:SendStudentMessage" />
+  </wsdl:message>
+  <wsdl:message name="IService1_SendStudentMessage_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SendStudentMessageResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_SendLessonCancelledNotification_InputMessage">
+    <wsdl:part name="parameters" element="tns:SendLessonCancelledNotification" />
+  </wsdl:message>
+  <wsdl:message name="IService1_SendLessonCancelledNotification_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SendLessonCancelledNotificationResponse" />
   </wsdl:message>
   <wsdl:portType name="IService1">
     <wsdl:operation name="CancelLesson">
@@ -586,9 +712,93 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetEffectiveLessonPrice" message="tns:IService1_GetEffectiveLessonPrice_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetEffectiveLessonPriceResponse" message="tns:IService1_GetEffectiveLessonPrice_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="ResetUserPassword">
-      <wsdl:input wsaw:Action="http://tempuri.org/IService1/ResetUserPassword" message="tns:IService1_ResetUserPassword_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IService1/ResetUserPasswordResponse" message="tns:IService1_ResetUserPassword_OutputMessage" />
+    <wsdl:operation name="GetAllCourses">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetAllCourses" message="tns:IService1_GetAllCourses_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetAllCoursesResponse" message="tns:IService1_GetAllCourses_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCourseModules">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetCourseModules" message="tns:IService1_GetCourseModules_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetCourseModulesResponse" message="tns:IService1_GetCourseModules_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStudentCourseProgress">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetStudentCourseProgress" message="tns:IService1_GetStudentCourseProgress_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetStudentCourseProgressResponse" message="tns:IService1_GetStudentCourseProgress_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="MarkModuleComplete">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/MarkModuleComplete" message="tns:IService1_MarkModuleComplete_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/MarkModuleCompleteResponse" message="tns:IService1_MarkModuleComplete_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStudentCompletedModules">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetStudentCompletedModules" message="tns:IService1_GetStudentCompletedModules_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetStudentCompletedModulesResponse" message="tns:IService1_GetStudentCompletedModules_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddCourse">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/AddCourse" message="tns:IService1_AddCourse_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/AddCourseResponse" message="tns:IService1_AddCourse_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCourse">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/UpdateCourse" message="tns:IService1_UpdateCourse_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/UpdateCourseResponse" message="tns:IService1_UpdateCourse_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeactivateCourse">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/DeactivateCourse" message="tns:IService1_DeactivateCourse_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/DeactivateCourseResponse" message="tns:IService1_DeactivateCourse_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddModule">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/AddModule" message="tns:IService1_AddModule_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/AddModuleResponse" message="tns:IService1_AddModule_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateModule">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/UpdateModule" message="tns:IService1_UpdateModule_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/UpdateModuleResponse" message="tns:IService1_UpdateModule_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteModule">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/DeleteModule" message="tns:IService1_DeleteModule_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/DeleteModuleResponse" message="tns:IService1_DeleteModule_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCourseById">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetCourseById" message="tns:IService1_GetCourseById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetCourseByIdResponse" message="tns:IService1_GetCourseById_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SendNotification">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/SendNotification" message="tns:IService1_SendNotification_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/SendNotificationResponse" message="tns:IService1_SendNotification_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserNotifications">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetUserNotifications" message="tns:IService1_GetUserNotifications_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetUserNotificationsResponse" message="tns:IService1_GetUserNotifications_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUnreadNotificationCount">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetUnreadNotificationCount" message="tns:IService1_GetUnreadNotificationCount_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetUnreadNotificationCountResponse" message="tns:IService1_GetUnreadNotificationCount_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUnreadNotifications">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/GetUnreadNotifications" message="tns:IService1_GetUnreadNotifications_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/GetUnreadNotificationsResponse" message="tns:IService1_GetUnreadNotifications_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="MarkNotificationAsRead">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/MarkNotificationAsRead" message="tns:IService1_MarkNotificationAsRead_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/MarkNotificationAsReadResponse" message="tns:IService1_MarkNotificationAsRead_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="MarkAllNotificationsAsRead">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/MarkAllNotificationsAsRead" message="tns:IService1_MarkAllNotificationsAsRead_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/MarkAllNotificationsAsReadResponse" message="tns:IService1_MarkAllNotificationsAsRead_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteNotification">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/DeleteNotification" message="tns:IService1_DeleteNotification_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/DeleteNotificationResponse" message="tns:IService1_DeleteNotification_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SendTeacherMessage">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/SendTeacherMessage" message="tns:IService1_SendTeacherMessage_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/SendTeacherMessageResponse" message="tns:IService1_SendTeacherMessage_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SendStudentMessage">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/SendStudentMessage" message="tns:IService1_SendStudentMessage_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/SendStudentMessageResponse" message="tns:IService1_SendStudentMessage_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SendLessonCancelledNotification">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/SendLessonCancelledNotification" message="tns:IService1_SendLessonCancelledNotification_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/SendLessonCancelledNotificationResponse" message="tns:IService1_SendLessonCancelledNotification_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IService1" type="tns:IService1">
@@ -1106,8 +1316,197 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ResetUserPassword">
-      <soap:operation soapAction="http://tempuri.org/IService1/ResetUserPassword" style="document" />
+    <wsdl:operation name="GetAllCourses">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetAllCourses" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCourseModules">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetCourseModules" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStudentCourseProgress">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetStudentCourseProgress" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MarkModuleComplete">
+      <soap:operation soapAction="http://tempuri.org/IService1/MarkModuleComplete" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStudentCompletedModules">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetStudentCompletedModules" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddCourse">
+      <soap:operation soapAction="http://tempuri.org/IService1/AddCourse" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCourse">
+      <soap:operation soapAction="http://tempuri.org/IService1/UpdateCourse" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeactivateCourse">
+      <soap:operation soapAction="http://tempuri.org/IService1/DeactivateCourse" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddModule">
+      <soap:operation soapAction="http://tempuri.org/IService1/AddModule" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateModule">
+      <soap:operation soapAction="http://tempuri.org/IService1/UpdateModule" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteModule">
+      <soap:operation soapAction="http://tempuri.org/IService1/DeleteModule" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCourseById">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetCourseById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendNotification">
+      <soap:operation soapAction="http://tempuri.org/IService1/SendNotification" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserNotifications">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetUserNotifications" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUnreadNotificationCount">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetUnreadNotificationCount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUnreadNotifications">
+      <soap:operation soapAction="http://tempuri.org/IService1/GetUnreadNotifications" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MarkNotificationAsRead">
+      <soap:operation soapAction="http://tempuri.org/IService1/MarkNotificationAsRead" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MarkAllNotificationsAsRead">
+      <soap:operation soapAction="http://tempuri.org/IService1/MarkAllNotificationsAsRead" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteNotification">
+      <soap:operation soapAction="http://tempuri.org/IService1/DeleteNotification" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendTeacherMessage">
+      <soap:operation soapAction="http://tempuri.org/IService1/SendTeacherMessage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendStudentMessage">
+      <soap:operation soapAction="http://tempuri.org/IService1/SendStudentMessage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendLessonCancelledNotification">
+      <soap:operation soapAction="http://tempuri.org/IService1/SendLessonCancelledNotification" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

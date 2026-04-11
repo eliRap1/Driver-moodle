@@ -1,0 +1,163 @@
+@page
+@model PaymentsModel
+@{
+    ViewData["Title"] = "Payments";
+    Layout = "_Layout";
+}
+
+<div class="text-center mb-4">
+    <h1 class="display-5" style="color: #00E0FF;">Payments</h1>
+    <p class="lead">Manage your lesson payments</p>
+</div>
+
+<!-- Summary Cards -->
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card text-center" style="background-color: #1B2D47; border: 2px solid #00E0FF;">
+            <div class="card-body">
+                <h4 style="color: #00E0FF;">@Model.TotalDue NIS</h4>
+                <p class="mb-0">Total Due</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center" style="background-color: #1B2D47; border: 2px solid #27AE60;">
+            <div class="card-body">
+                <h4 style="color: #27AE60;">@Model.TotalPaid NIS</h4>
+                <p class="mb-0">Total Paid</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center" style="background-color: #1B2D47; border: 2px solid #F39C12;">
+            <div class="card-body">
+                <h4 style="color: #F39C12;">@Model.UnpaidCount</h4>
+                <p class="mb-0">Unpaid Lessons</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Unpaid Lessons -->
+    <div class="col-md-6">
+        <div class="card" style="background-color: #1B2D47; border: 2px solid #F39C12;">
+            <div class="card-header text-center" style="background-color: #F39C12; color: black;">
+                <h5 class="mb-0">Unpaid Lessons</h5>
+            </div>
+            <div class="card-body">
+                @if (Model.UnpaidLessons.Any())
+                {
+                    <form method="post">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Select</th>
+                                        <th>Date</th>
+                                        <th>Time</th>
+                                        <th>Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var lesson in Model.UnpaidLessons)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox" name="selectedLessons" value="@lesson.LessonId"
+                                                       class="form-check-input" />
+                                            </td>
+                                            <td>@lesson.FormattedDate</td>
+                                            <td>@lesson.Time</td>
+                                            <td>@Model.LessonPrice NIS</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Payment Method</label>
+                            <select name="paymentMethod" class="form-select" style="background-color: #0E1A2B; color: white; border-color: #00E0FF;">
+                                <option value="Cash">Cash</option>
+                                <option value="Credit Card">Credit Card</option>
+                                <option value="Bank Transfer">Bank Transfer</option>
+                                <option value="Bit">Bit</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" asp-page-handler="Pay" class="btn btn-primary w-100">
+                            Process Payment
+                        </button>
+                    </form>
+                }
+                else
+                {
+                    <p class="text-center text-success">All lessons are paid!</p>
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment History -->
+    <div class="col-md-6">
+        <div class="card" style="background-color: #1B2D47; border: 2px solid #27AE60;">
+            <div class="card-header text-center" style="background-color: #27AE60; color: white;">
+                <h5 class="mb-0">Payment History</h5>
+            </div>
+            <div class="card-body">
+                @if (Model.PaymentHistory.Any())
+                {
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Amount</th>
+                                    <th>Method</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var payment in Model.PaymentHistory)
+                                {
+                                    <tr>
+                                        <td>@payment.PaymentDate.ToString("dd/MM/yyyy")</td>
+                                        <td>@payment.Amount NIS</td>
+                                        <td>@payment.PaymentMethod</td>
+                                        <td>
+                                            @if (payment.paid)
+                                            {
+                                                <span class="badge bg-success">Paid</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge bg-warning text-dark">Pending</span>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <p class="text-center text-muted">No payment history yet.</p>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <div class="alert @(Model.IsSuccess ? "alert-success" : "alert-danger") mt-4 text-center">
+        @Model.Message
+    </div>
+}
+
+<div class="text-center mt-4">
+    <a asp-page="/Student/ViewLessons" class="btn btn-outline-light">View Lessons</a>
+    <a asp-page="/Student/StudentHome" class="btn btn-outline-light">Back to Dashboard</a>
+</div>

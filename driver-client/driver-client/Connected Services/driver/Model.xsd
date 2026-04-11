@@ -7,6 +7,76 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Base" nillable="true" type="tns:Base" />
+  <xs:complexType name="Course">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Base">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="CourseName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CreatedDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="DisplayOrder" type="xs:int" />
+          <xs:element minOccurs="0" name="IsActive" type="xs:boolean" />
+          <xs:element minOccurs="0" name="TotalModules" type="xs:int" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Course" nillable="true" type="tns:Course" />
+  <xs:complexType name="CourseModule">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Base">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ContentType" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ContentUrl" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CourseId" type="xs:int" />
+          <xs:element minOccurs="0" name="CreatedAt" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="DurationMinutes" type="xs:int" />
+          <xs:element minOccurs="0" name="IsRequired" type="xs:boolean" />
+          <xs:element minOccurs="0" name="ModuleId" type="xs:int" />
+          <xs:element minOccurs="0" name="ModuleName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="OrderIndex" type="xs:int" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="CourseModule" nillable="true" type="tns:CourseModule" />
+  <xs:complexType name="Notification">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Base">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="CreatedAt" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="IsRead" type="xs:boolean" />
+          <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="NotificationType" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ReadAt" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="RecipientId" type="xs:int" />
+          <xs:element minOccurs="0" name="RecipientType" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="SenderId" type="xs:int" />
+          <xs:element minOccurs="0" name="SenderName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="SenderType" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Notification" nillable="true" type="tns:Notification" />
+  <xs:complexType name="StudentModuleProgress">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Base">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="CompletedAt" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="CourseId" type="xs:int" />
+          <xs:element minOccurs="0" name="IsCompleted" type="xs:boolean" />
+          <xs:element minOccurs="0" name="ModuleId" type="xs:int" />
+          <xs:element minOccurs="0" name="ProgressId" type="xs:int" />
+          <xs:element minOccurs="0" name="ProgressPercent" type="xs:int" />
+          <xs:element minOccurs="0" name="StudentId" type="xs:int" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="StudentModuleProgress" nillable="true" type="tns:StudentModuleProgress" />
   <xs:complexType name="UserInfo">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:Base">
@@ -147,4 +217,47 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfSupportTicket" nillable="true" type="tns:ArrayOfSupportTicket" />
+  <xs:complexType name="ArrayOfCourse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Course" nillable="true" type="tns:Course" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCourse" nillable="true" type="tns:ArrayOfCourse" />
+  <xs:complexType name="ArrayOfCourseModule">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CourseModule" nillable="true" type="tns:CourseModule" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCourseModule" nillable="true" type="tns:ArrayOfCourseModule" />
+  <xs:complexType name="ArrayOfStudentCourseProgress">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="StudentCourseProgress" nillable="true" type="tns:StudentCourseProgress" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfStudentCourseProgress" nillable="true" type="tns:ArrayOfStudentCourseProgress" />
+  <xs:complexType name="StudentCourseProgress">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CompletedModules" type="xs:int" />
+      <xs:element minOccurs="0" name="CourseDescription" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CourseId" type="xs:int" />
+      <xs:element minOccurs="0" name="CourseName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ModuleProgress" nillable="true" type="tns:ArrayOfStudentModuleProgress" />
+      <xs:element minOccurs="0" name="ProgressPercent" type="xs:int" />
+      <xs:element minOccurs="0" name="StudentId" type="xs:int" />
+      <xs:element minOccurs="0" name="TotalModules" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="StudentCourseProgress" nillable="true" type="tns:StudentCourseProgress" />
+  <xs:complexType name="ArrayOfStudentModuleProgress">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="StudentModuleProgress" nillable="true" type="tns:StudentModuleProgress" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfStudentModuleProgress" nillable="true" type="tns:ArrayOfStudentModuleProgress" />
+  <xs:complexType name="ArrayOfNotification">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Notification" nillable="true" type="tns:Notification" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfNotification" nillable="true" type="tns:ArrayOfNotification" />
 </xs:schema>

@@ -7,10 +7,14 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    [DataContract]  
+    [DataContract]
+    [KnownType(typeof(Course))]
+    [KnownType(typeof(CourseModule))]
+    [KnownType(typeof(Notification))]
+    [KnownType(typeof(StudentModuleProgress))]
     public abstract class Base
     {
-        [DataMember] 
+        [DataMember]
         public int Id { get; set; }
     }
 }

@@ -1,0 +1,252 @@
+@page
+@model CoursesModel
+@{
+    ViewData["Title"] = "Learning Courses";
+    Layout = "_Layout";
+}
+
+<style>
+    .course-card {
+        background-color: #1B2D47;
+        border: 2px solid #00E0FF;
+        border-radius: 10px;
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .course-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0, 224, 255, 0.2);
+    }
+
+    .progress-circle {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: conic-gradient(#00E0FF var(--progress), #2A3F5F var(--progress));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+    }
+
+    .progress-circle::before {
+        content: '';
+        position: absolute;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background-color: #1B2D47;
+    }
+
+    .progress-text {
+        position: relative;
+        z-index: 1;
+        font-weight: bold;
+        color: white;
+    }
+
+    .module-item {
+        background-color: #1A2636;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 10px;
+        border-left: 4px solid #2A3F5F;
+        transition: border-color 0.2s;
+    }
+
+    .module-item.completed {
+        border-left-color: #27AE60;
+    }
+
+    .module-item:hover {
+        background-color: #1F3048;
+    }
+
+    .module-number {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        background-color: #2A3F5F;
+        color: white;
+    }
+
+    .module-number.completed {
+        background-color: #27AE60;
+    }
+
+    .btn-complete {
+        background-color: #00E0FF;
+        border-color: #00C0CC;
+        color: black;
+        font-weight: bold;
+    }
+
+    .btn-complete:hover {
+        background-color: #00C0CC;
+        border-color: #00A0AA;
+        color: black;
+    }
+
+    .btn-completed {
+        background-color: #27AE60;
+        border-color: #229954;
+        color: white;
+    }
+
+    .stats-card {
+        background-color: #1B2D47;
+        border-radius: 10px;
+        padding: 20px;
+        text-align: center;
+    }
+
+    .accordion-button {
+        background-color: #1B2D47 !important;
+        color: #00E0FF !important;
+        border: none;
+        box-shadow: none !important;
+    }
+
+    .accordion-button:not(.collapsed) {
+        background-color: #1A2636 !important;
+    }
+
+    .accordion-button::after {
+        filter: invert(1);
+    }
+
+    .accordion-body {
+        background-color: #0E1A2B;
+        border-top: 1px solid #2A3F5F;
+    }
+
+    .accordion-item {
+        border: 2px solid #00E0FF;
+        border-radius: 10px !important;
+        margin-bottom: 15px;
+        overflow: hidden;
+    }
+</style>
+
+<div class="text-center mb-4">
+    <h1 class="display-5" style="color: #00E0FF;">Learning Courses</h1>
+    <p class="lead">Track your progress through our comprehensive driving curriculum</p>
+</div>
+
+<!-- Overall Progress Summary -->
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="stats-card" style="border: 1px solid #27AE60;">
+            <h2 style="color: #27AE60;">@Model.TotalCompletedModules</h2>
+            <p class="mb-0">Modules Completed</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="stats-card" style="border: 1px solid #00E0FF;">
+            <h2 style="color: #00E0FF;">@Model.TotalModules</h2>
+            <p class="mb-0">Total Modules</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="stats-card" style="border: 1px solid #F39C12;">
+            <h2 style="color: #F39C12;">@Model.OverallProgress%</h2>
+            <p class="mb-0">Overall Progress</p>
+        </div>
+    </div>
+</div>
+
+<!-- Courses Accordion -->
+<div class="accordion" id="coursesAccordion">
+    @foreach (var course in Model.Courses)
+    {
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="heading@(course.CourseId)">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapse@(course.CourseId)" aria-expanded="false"
+                        aria-controls="collapse@(course.CourseId)">
+                    <div class="d-flex justify-content-between align-items-center w-100 pe-3">
+                        <div>
+                            <h5 class="mb-1">@course.CourseName</h5>
+                            <small class="text-muted">@course.Description</small>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <span class="badge bg-success me-2">@course.CompletedModules / @course.TotalModules</span>
+                            <div class="progress-circle" style="--progress: @(course.ProgressPercent * 3.6)deg; width: 50px; height: 50px;">
+                                <span class="progress-text" style="font-size: 12px;">@course.ProgressPercent%</span>
+                            </div>
+                        </div>
+                    </div>
+                </button>
+            </h2>
+            <div id="collapse@(course.CourseId)" class="accordion-collapse collapse"
+                 aria-labelledby="heading@(course.CourseId)" data-bs-parent="#coursesAccordion">
+                <div class="accordion-body">
+                    @if (course.Modules.Any())
+                    {
+                        foreach (var module in course.Modules)
+                        {
+                            <div class="module-item @(module.IsCompleted ? "completed" : "")">
+                                <div class="d-flex align-items-center">
+                                    <div class="module-number @(module.IsCompleted ? "completed" : "") me-3">
+                                        @if (module.IsCompleted)
+                                        {
+                                            <span>&#10003;</span>
+                                        }
+                                        else
+                                        {
+                                            <span>@module.ModuleOrder</span>
+                                        }
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <h6 class="mb-1" style="color: @(module.IsCompleted ? "#27AE60" : "white");">
+                                            @module.ModuleName
+                                        </h6>
+                                        <small class="text-muted">@module.Description</small>
+                                    </div>
+                                    <div>
+                                        @if (module.IsCompleted)
+                                        {
+                                            <button class="btn btn-completed btn-sm" disabled>
+                                                Completed
+                                            </button>
+                                        }
+                                        else
+                                        {
+                                            <form method="post" asp-page-handler="MarkComplete" class="d-inline">
+                                                <input type="hidden" name="moduleId" value="@module.ModuleId" />
+                                                <input type="hidden" name="courseId" value="@course.CourseId" />
+                                                <button type="submit" class="btn btn-complete btn-sm">
+                                                    Mark Complete
+                                                </button>
+                                            </form>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <p class="text-center text-muted">No modules available for this course.</p>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@if (!Model.Courses.Any())
+{
+    <div class="text-center py-5">
+        <h4 style="color: #888;">No courses available yet</h4>
+        <p class="text-muted">Check back later for new learning materials</p>
+    </div>
+}
+
+<div class="text-center mt-4">
+    <a asp-page="/Student/StudentHome" class="btn btn-outline-light">Back to Dashboard</a>
+</div>

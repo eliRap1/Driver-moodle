@@ -17,7 +17,7 @@
 </div>
 
 <div class="row mt-5">
-    <div class="col-md-4">
+    <div class="col-md-4 mb-3">
         <div class="card text-center" style="background-color: #1B2D47; border: 2px solid #00E0FF;">
             <div class="card-body">
                 <h5 class="card-title" style="color: #00E0FF;">
@@ -38,9 +38,29 @@
         </div>
     </div>
 
+    <div class="col-md-4 mb-3">
+        <div class="card text-center" style="background-color: #1B2D47; border: 2px solid #27AE60;">
+            <div class="card-body">
+                <h5 class="card-title" style="color: #27AE60;">✓ Confirm Payments</h5>
+                <p class="card-text">Review and confirm student payments</p>
+                <a asp-page="/Teacher/ConfirmPayments" class="btn btn-success">Confirm Payments</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-3">
+        <div class="card text-center" style="background-color: #1B2D47; border: 2px solid #F39C12;">
+            <div class="card-body">
+                <h5 class="card-title" style="color: #F39C12;">💰 Payment Reports</h5>
+                <p class="card-text">View earnings and payment history</p>
+                <a asp-page="/Teacher/PaymentReports" class="btn btn-warning text-dark">Payment Reports</a>
+            </div>
+        </div>
+    </div>
+
     @if (Model.IsAdmin)
     {
-        <div class="col-md-4">
+        <div class="col-md-4 mb-3">
             <div class="card text-center" style="background-color: #1B2D47; border: 2px solid #00E0FF;">
                 <div class="card-body">
                     <h5 class="card-title" style="color: #00E0FF;">👨‍🏫 All Teachers</h5>
@@ -51,7 +71,17 @@
         </div>
     }
 
-    <div class="col-md-4">
+    <div class="col-md-4 mb-3">
+        <div class="card text-center" style="background-color: #1B2D47; border: 2px solid #E74C3C;">
+            <div class="card-body">
+                <h5 class="card-title" style="color: #E74C3C;">🔔 Notifications</h5>
+                <p class="card-text">Messages from students and cancellations</p>
+                <a asp-page="/Teacher/Notifications" class="btn btn-danger">View Notifications</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-3">
         <div class="card text-center" style="background-color: #1B2D47; border: 2px solid #00E0FF;">
             <div class="card-body">
                 <h5 class="card-title" style="color: #00E0FF;">📊 Statistics</h5>

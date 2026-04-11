@@ -98,7 +98,7 @@
                         Click="SubmitReview_Click"/>
             </StackPanel>
         </Border>
-        <Frame x:Name="page" Margin="-19,-21,-21,-19" Panel.ZIndex="100"/>
-
+        <Frame x:Name="page" Margin="-19,-21,-21,-19" Panel.ZIndex="100"
+               HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
     </Grid>
 </Page>

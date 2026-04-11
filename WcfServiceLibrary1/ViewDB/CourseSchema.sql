@@ -1,0 +1,137 @@
+-- ============================================
+-- DATABASE SCHEMA FOR COURSE LEARNING SYSTEM
+-- For Microsoft Access Database
+-- ============================================
+-- Note: This file documents the table structure.
+-- Tables must be created manually in Access or via an Access macro.
+
+-- ============================================
+-- TABLE: Courses
+-- ============================================
+-- Stores learning courses available in the driving school system
+--
+-- Fields:
+--   id              AutoNumber   (Primary Key)
+--   CourseName      Text(100)    NOT NULL - Name of the course
+--   Description     Memo         Course description/details
+--   DisplayOrder    Integer      Order for displaying courses (default: 0)
+--   IsActive        Yes/No       Whether course is currently active (default: Yes)
+--   CreatedDate     Date/Time    When the course was created
+--
+-- Access SQL (for reference):
+-- CREATE TABLE Courses (
+--     id AUTOINCREMENT PRIMARY KEY,
+--     CourseName TEXT(100) NOT NULL,
+--     Description MEMO,
+--     DisplayOrder INTEGER DEFAULT 0,
+--     IsActive YESNO DEFAULT Yes,
+--     CreatedDate DATETIME
+-- );
+
+-- ============================================
+-- TABLE: CourseModules
+-- ============================================
+-- Stores individual learning modules within courses
+-- Modules can be: Video, Text (theory), Quiz, or Assignment
+--
+-- Fields:
+--   ModuleID        AutoNumber   (Primary Key)
+--   CourseID        Integer      Foreign key to Courses table
+--   ModuleName      Text(150)    NOT NULL - Name of the module
+--   Description     Memo         Module description/content
+--   OrderIndex      Integer      Sequence within the course (1, 2, 3, ...)
+--   ContentType     Text(50)     Type: "Video", "Text", "Quiz", "Assignment"
+--   ContentUrl      Text(255)    URL or path to content resources
+--   DurationMinutes Integer      Estimated duration in minutes (default: 0)
+--   IsRequired      Yes/No       Whether module must be completed (default: Yes)
+--   CreatedAt       Date/Time    When the module was created
+--
+-- Access SQL (for reference):
+-- CREATE TABLE CourseModules (
+--     ModuleID AUTOINCREMENT PRIMARY KEY,
+--     CourseID INTEGER NOT NULL,
+--     ModuleName TEXT(150) NOT NULL,
+--     Description MEMO,
+--     OrderIndex INTEGER DEFAULT 0,
+--     ContentType TEXT(50) DEFAULT 'Text',
+--     ContentUrl TEXT(255),
+--     DurationMinutes INTEGER DEFAULT 0,
+--     IsRequired YESNO DEFAULT Yes,
+--     CreatedAt DATETIME
+-- );
+
+-- ============================================
+-- TABLE: StudentModuleProgress
+-- ============================================
+-- Tracks which modules each student has completed
+-- One record per student-module combination
+--
+-- Fields:
+--   ProgressID      AutoNumber   (Primary Key)
+--   StudentID       Integer      Foreign key to Student table
+--   ModuleID        Integer      Foreign key to CourseModules table
+--   CourseID        Integer      Foreign key to Courses table (denormalized for queries)
+--   IsCompleted     Yes/No       Whether the module is complete (default: No)
+--   CompletedAt     Date/Time    When the module was completed (nullable)
+--   ProgressPercent Integer      Progress percentage 0-100 (default: 0)
+--
+-- Access SQL (for reference):
+-- CREATE TABLE StudentModuleProgress (
+--     ProgressID AUTOINCREMENT PRIMARY KEY,
+--     StudentID INTEGER NOT NULL,
+--     ModuleID INTEGER NOT NULL,
+--     CourseID INTEGER NOT NULL,
+--     IsCompleted YESNO DEFAULT No,
+--     CompletedAt DATETIME,
+--     ProgressPercent INTEGER DEFAULT 0
+-- );
+
+-- ============================================
+-- SAMPLE DATA
+-- ============================================
+
+-- Sample Courses:
+-- INSERT INTO Courses (CourseName, Description, DisplayOrder, IsActive, CreatedDate)
+-- VALUES ('Road Rules Theory', 'Complete theory course covering all road rules and regulations', 1, Yes, Now());
+--
+-- INSERT INTO Courses (CourseName, Description, DisplayOrder, IsActive, CreatedDate)
+-- VALUES ('Traffic Signs', 'Learn to identify and understand all traffic signs', 2, Yes, Now());
+--
+-- INSERT INTO Courses (CourseName, Description, DisplayOrder, IsActive, CreatedDate)
+-- VALUES ('Practical Driving Basics', 'Basic driving maneuvers and techniques', 3, Yes, Now());
+
+-- Sample Modules for "Road Rules Theory" (CourseID = 1):
+-- INSERT INTO CourseModules (CourseID, ModuleName, Description, OrderIndex, ContentType, DurationMinutes, IsRequired)
+-- VALUES (1, 'Introduction to Road Rules', 'Overview of road rules and why they matter', 1, 'Text', 15, Yes);
+--
+-- INSERT INTO CourseModules (CourseID, ModuleName, Description, OrderIndex, ContentType, ContentUrl, DurationMinutes, IsRequired)
+-- VALUES (1, 'Right of Way Rules', 'Understanding priority and right of way', 2, 'Video', 'videos/right_of_way.mp4', 20, Yes);
+--
+-- INSERT INTO CourseModules (CourseID, ModuleName, Description, OrderIndex, ContentType, DurationMinutes, IsRequired)
+-- VALUES (1, 'Speed Limits and Zones', 'Different speed limits and when they apply', 3, 'Text', 10, Yes);
+--
+-- INSERT INTO CourseModules (CourseID, ModuleName, Description, OrderIndex, ContentType, DurationMinutes, IsRequired)
+-- VALUES (1, 'Road Rules Quiz', 'Test your knowledge of road rules', 4, 'Quiz', 15, Yes);
+
+-- ============================================
+-- USAGE EXAMPLES
+-- ============================================
+
+-- Get all active courses:
+-- SELECT * FROM Courses WHERE IsActive = True ORDER BY DisplayOrder;
+
+-- Get all modules for a course:
+-- SELECT * FROM CourseModules WHERE CourseID = 1 ORDER BY OrderIndex;
+
+-- Get student progress for a course:
+-- SELECT * FROM StudentModuleProgress WHERE StudentID = 5 AND CourseID = 1;
+
+-- Mark a module as complete:
+-- INSERT INTO StudentModuleProgress (StudentID, ModuleID, CourseID, IsCompleted, CompletedAt, ProgressPercent)
+-- VALUES (5, 1, 1, Yes, Now(), 100);
+
+-- Calculate course completion percentage:
+-- SELECT
+--     (SELECT COUNT(*) FROM StudentModuleProgress WHERE StudentID = 5 AND CourseID = 1 AND IsCompleted = True) * 100 /
+--     (SELECT COUNT(*) FROM CourseModules WHERE CourseID = 1) AS ProgressPercent
+-- FROM Courses WHERE id = 1;

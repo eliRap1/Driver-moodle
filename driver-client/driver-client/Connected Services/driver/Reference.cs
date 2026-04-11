@@ -138,6 +138,10 @@ namespace driver_client.driver {
     [System.SerializableAttribute()]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(driver_client.driver.Chats))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(driver_client.driver.Payment))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(driver_client.driver.Course))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(driver_client.driver.CourseModule))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(driver_client.driver.Notification))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(driver_client.driver.StudentModuleProgress))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(driver_client.driver.UserInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(driver_client.driver.Calendars))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(driver_client.driver.SupportTicket))]
@@ -512,6 +516,578 @@ namespace driver_client.driver {
                 if ((this.paidField.Equals(value) != true)) {
                     this.paidField = value;
                     this.RaisePropertyChanged("paid");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Course", Namespace="http://schemas.datacontract.org/2004/07/Model")]
+    [System.SerializableAttribute()]
+    public partial class Course : driver_client.driver.Base {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CourseNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime CreatedDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescriptionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int DisplayOrderField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsActiveField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int TotalModulesField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CourseName {
+            get {
+                return this.CourseNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CourseNameField, value) != true)) {
+                    this.CourseNameField = value;
+                    this.RaisePropertyChanged("CourseName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime CreatedDate {
+            get {
+                return this.CreatedDateField;
+            }
+            set {
+                if ((this.CreatedDateField.Equals(value) != true)) {
+                    this.CreatedDateField = value;
+                    this.RaisePropertyChanged("CreatedDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Description {
+            get {
+                return this.DescriptionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescriptionField, value) != true)) {
+                    this.DescriptionField = value;
+                    this.RaisePropertyChanged("Description");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int DisplayOrder {
+            get {
+                return this.DisplayOrderField;
+            }
+            set {
+                if ((this.DisplayOrderField.Equals(value) != true)) {
+                    this.DisplayOrderField = value;
+                    this.RaisePropertyChanged("DisplayOrder");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsActive {
+            get {
+                return this.IsActiveField;
+            }
+            set {
+                if ((this.IsActiveField.Equals(value) != true)) {
+                    this.IsActiveField = value;
+                    this.RaisePropertyChanged("IsActive");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int TotalModules {
+            get {
+                return this.TotalModulesField;
+            }
+            set {
+                if ((this.TotalModulesField.Equals(value) != true)) {
+                    this.TotalModulesField = value;
+                    this.RaisePropertyChanged("TotalModules");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="CourseModule", Namespace="http://schemas.datacontract.org/2004/07/Model")]
+    [System.SerializableAttribute()]
+    public partial class CourseModule : driver_client.driver.Base {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ContentTypeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ContentUrlField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CourseIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime CreatedAtField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescriptionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int DurationMinutesField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsRequiredField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int ModuleIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ModuleNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int OrderIndexField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ContentType {
+            get {
+                return this.ContentTypeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ContentTypeField, value) != true)) {
+                    this.ContentTypeField = value;
+                    this.RaisePropertyChanged("ContentType");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ContentUrl {
+            get {
+                return this.ContentUrlField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ContentUrlField, value) != true)) {
+                    this.ContentUrlField = value;
+                    this.RaisePropertyChanged("ContentUrl");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CourseId {
+            get {
+                return this.CourseIdField;
+            }
+            set {
+                if ((this.CourseIdField.Equals(value) != true)) {
+                    this.CourseIdField = value;
+                    this.RaisePropertyChanged("CourseId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime CreatedAt {
+            get {
+                return this.CreatedAtField;
+            }
+            set {
+                if ((this.CreatedAtField.Equals(value) != true)) {
+                    this.CreatedAtField = value;
+                    this.RaisePropertyChanged("CreatedAt");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Description {
+            get {
+                return this.DescriptionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescriptionField, value) != true)) {
+                    this.DescriptionField = value;
+                    this.RaisePropertyChanged("Description");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int DurationMinutes {
+            get {
+                return this.DurationMinutesField;
+            }
+            set {
+                if ((this.DurationMinutesField.Equals(value) != true)) {
+                    this.DurationMinutesField = value;
+                    this.RaisePropertyChanged("DurationMinutes");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsRequired {
+            get {
+                return this.IsRequiredField;
+            }
+            set {
+                if ((this.IsRequiredField.Equals(value) != true)) {
+                    this.IsRequiredField = value;
+                    this.RaisePropertyChanged("IsRequired");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ModuleId {
+            get {
+                return this.ModuleIdField;
+            }
+            set {
+                if ((this.ModuleIdField.Equals(value) != true)) {
+                    this.ModuleIdField = value;
+                    this.RaisePropertyChanged("ModuleId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ModuleName {
+            get {
+                return this.ModuleNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ModuleNameField, value) != true)) {
+                    this.ModuleNameField = value;
+                    this.RaisePropertyChanged("ModuleName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int OrderIndex {
+            get {
+                return this.OrderIndexField;
+            }
+            set {
+                if ((this.OrderIndexField.Equals(value) != true)) {
+                    this.OrderIndexField = value;
+                    this.RaisePropertyChanged("OrderIndex");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Notification", Namespace="http://schemas.datacontract.org/2004/07/Model")]
+    [System.SerializableAttribute()]
+    public partial class Notification : driver_client.driver.Base {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime CreatedAtField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsReadField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MessageField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NotificationTypeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> ReadAtField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int RecipientIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RecipientTypeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int SenderIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SenderNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SenderTypeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TitleField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime CreatedAt {
+            get {
+                return this.CreatedAtField;
+            }
+            set {
+                if ((this.CreatedAtField.Equals(value) != true)) {
+                    this.CreatedAtField = value;
+                    this.RaisePropertyChanged("CreatedAt");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsRead {
+            get {
+                return this.IsReadField;
+            }
+            set {
+                if ((this.IsReadField.Equals(value) != true)) {
+                    this.IsReadField = value;
+                    this.RaisePropertyChanged("IsRead");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Message {
+            get {
+                return this.MessageField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MessageField, value) != true)) {
+                    this.MessageField = value;
+                    this.RaisePropertyChanged("Message");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string NotificationType {
+            get {
+                return this.NotificationTypeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NotificationTypeField, value) != true)) {
+                    this.NotificationTypeField = value;
+                    this.RaisePropertyChanged("NotificationType");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> ReadAt {
+            get {
+                return this.ReadAtField;
+            }
+            set {
+                if ((this.ReadAtField.Equals(value) != true)) {
+                    this.ReadAtField = value;
+                    this.RaisePropertyChanged("ReadAt");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int RecipientId {
+            get {
+                return this.RecipientIdField;
+            }
+            set {
+                if ((this.RecipientIdField.Equals(value) != true)) {
+                    this.RecipientIdField = value;
+                    this.RaisePropertyChanged("RecipientId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string RecipientType {
+            get {
+                return this.RecipientTypeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RecipientTypeField, value) != true)) {
+                    this.RecipientTypeField = value;
+                    this.RaisePropertyChanged("RecipientType");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int SenderId {
+            get {
+                return this.SenderIdField;
+            }
+            set {
+                if ((this.SenderIdField.Equals(value) != true)) {
+                    this.SenderIdField = value;
+                    this.RaisePropertyChanged("SenderId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SenderName {
+            get {
+                return this.SenderNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SenderNameField, value) != true)) {
+                    this.SenderNameField = value;
+                    this.RaisePropertyChanged("SenderName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SenderType {
+            get {
+                return this.SenderTypeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SenderTypeField, value) != true)) {
+                    this.SenderTypeField = value;
+                    this.RaisePropertyChanged("SenderType");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Title {
+            get {
+                return this.TitleField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TitleField, value) != true)) {
+                    this.TitleField = value;
+                    this.RaisePropertyChanged("Title");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="StudentModuleProgress", Namespace="http://schemas.datacontract.org/2004/07/Model")]
+    [System.SerializableAttribute()]
+    public partial class StudentModuleProgress : driver_client.driver.Base {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> CompletedAtField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CourseIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsCompletedField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int ModuleIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int ProgressIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int ProgressPercentField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int StudentIdField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> CompletedAt {
+            get {
+                return this.CompletedAtField;
+            }
+            set {
+                if ((this.CompletedAtField.Equals(value) != true)) {
+                    this.CompletedAtField = value;
+                    this.RaisePropertyChanged("CompletedAt");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CourseId {
+            get {
+                return this.CourseIdField;
+            }
+            set {
+                if ((this.CourseIdField.Equals(value) != true)) {
+                    this.CourseIdField = value;
+                    this.RaisePropertyChanged("CourseId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsCompleted {
+            get {
+                return this.IsCompletedField;
+            }
+            set {
+                if ((this.IsCompletedField.Equals(value) != true)) {
+                    this.IsCompletedField = value;
+                    this.RaisePropertyChanged("IsCompleted");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ModuleId {
+            get {
+                return this.ModuleIdField;
+            }
+            set {
+                if ((this.ModuleIdField.Equals(value) != true)) {
+                    this.ModuleIdField = value;
+                    this.RaisePropertyChanged("ModuleId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ProgressId {
+            get {
+                return this.ProgressIdField;
+            }
+            set {
+                if ((this.ProgressIdField.Equals(value) != true)) {
+                    this.ProgressIdField = value;
+                    this.RaisePropertyChanged("ProgressId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ProgressPercent {
+            get {
+                return this.ProgressPercentField;
+            }
+            set {
+                if ((this.ProgressPercentField.Equals(value) != true)) {
+                    this.ProgressPercentField = value;
+                    this.RaisePropertyChanged("ProgressPercent");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int StudentId {
+            get {
+                return this.StudentIdField;
+            }
+            set {
+                if ((this.StudentIdField.Equals(value) != true)) {
+                    this.StudentIdField = value;
+                    this.RaisePropertyChanged("StudentId");
                 }
             }
         }
@@ -1528,6 +2104,163 @@ namespace driver_client.driver {
     public class AllUsers : System.Collections.Generic.List<driver_client.driver.UserInfo> {
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="StudentCourseProgress", Namespace="http://schemas.datacontract.org/2004/07/Model")]
+    [System.SerializableAttribute()]
+    public partial class StudentCourseProgress : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CompletedModulesField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CourseDescriptionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CourseIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CourseNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private driver_client.driver.StudentModuleProgress[] ModuleProgressField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int ProgressPercentField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int StudentIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int TotalModulesField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CompletedModules {
+            get {
+                return this.CompletedModulesField;
+            }
+            set {
+                if ((this.CompletedModulesField.Equals(value) != true)) {
+                    this.CompletedModulesField = value;
+                    this.RaisePropertyChanged("CompletedModules");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CourseDescription {
+            get {
+                return this.CourseDescriptionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CourseDescriptionField, value) != true)) {
+                    this.CourseDescriptionField = value;
+                    this.RaisePropertyChanged("CourseDescription");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CourseId {
+            get {
+                return this.CourseIdField;
+            }
+            set {
+                if ((this.CourseIdField.Equals(value) != true)) {
+                    this.CourseIdField = value;
+                    this.RaisePropertyChanged("CourseId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CourseName {
+            get {
+                return this.CourseNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CourseNameField, value) != true)) {
+                    this.CourseNameField = value;
+                    this.RaisePropertyChanged("CourseName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public driver_client.driver.StudentModuleProgress[] ModuleProgress {
+            get {
+                return this.ModuleProgressField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ModuleProgressField, value) != true)) {
+                    this.ModuleProgressField = value;
+                    this.RaisePropertyChanged("ModuleProgress");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ProgressPercent {
+            get {
+                return this.ProgressPercentField;
+            }
+            set {
+                if ((this.ProgressPercentField.Equals(value) != true)) {
+                    this.ProgressPercentField = value;
+                    this.RaisePropertyChanged("ProgressPercent");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int StudentId {
+            get {
+                return this.StudentIdField;
+            }
+            set {
+                if ((this.StudentIdField.Equals(value) != true)) {
+                    this.StudentIdField = value;
+                    this.RaisePropertyChanged("StudentId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int TotalModules {
+            get {
+                return this.TotalModulesField;
+            }
+            set {
+                if ((this.TotalModulesField.Equals(value) != true)) {
+                    this.TotalModulesField = value;
+                    this.RaisePropertyChanged("TotalModules");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="driver.IService1")]
     public interface IService1 {
@@ -1874,11 +2607,137 @@ namespace driver_client.driver {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetEffectiveLessonPrice", ReplyAction="http://tempuri.org/IService1/GetEffectiveLessonPriceResponse")]
         System.Threading.Tasks.Task<int> GetEffectiveLessonPriceAsync(int studentId);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/ResetUserPassword", ReplyAction="http://tempuri.org/IService1/ResetUserPasswordResponse")]
-        void ResetUserPassword(int userId, string table, string newPassword);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllCourses", ReplyAction="http://tempuri.org/IService1/GetAllCoursesResponse")]
+        driver_client.driver.Course[] GetAllCourses();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/ResetUserPassword", ReplyAction="http://tempuri.org/IService1/ResetUserPasswordResponse")]
-        System.Threading.Tasks.Task ResetUserPasswordAsync(int userId, string table, string newPassword);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllCourses", ReplyAction="http://tempuri.org/IService1/GetAllCoursesResponse")]
+        System.Threading.Tasks.Task<driver_client.driver.Course[]> GetAllCoursesAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetCourseModules", ReplyAction="http://tempuri.org/IService1/GetCourseModulesResponse")]
+        driver_client.driver.CourseModule[] GetCourseModules(int courseId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetCourseModules", ReplyAction="http://tempuri.org/IService1/GetCourseModulesResponse")]
+        System.Threading.Tasks.Task<driver_client.driver.CourseModule[]> GetCourseModulesAsync(int courseId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetStudentCourseProgress", ReplyAction="http://tempuri.org/IService1/GetStudentCourseProgressResponse")]
+        driver_client.driver.StudentCourseProgress[] GetStudentCourseProgress(int studentId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetStudentCourseProgress", ReplyAction="http://tempuri.org/IService1/GetStudentCourseProgressResponse")]
+        System.Threading.Tasks.Task<driver_client.driver.StudentCourseProgress[]> GetStudentCourseProgressAsync(int studentId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/MarkModuleComplete", ReplyAction="http://tempuri.org/IService1/MarkModuleCompleteResponse")]
+        bool MarkModuleComplete(int studentId, int moduleId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/MarkModuleComplete", ReplyAction="http://tempuri.org/IService1/MarkModuleCompleteResponse")]
+        System.Threading.Tasks.Task<bool> MarkModuleCompleteAsync(int studentId, int moduleId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetStudentCompletedModules", ReplyAction="http://tempuri.org/IService1/GetStudentCompletedModulesResponse")]
+        driver_client.driver.StudentModuleProgress[] GetStudentCompletedModules(int studentId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetStudentCompletedModules", ReplyAction="http://tempuri.org/IService1/GetStudentCompletedModulesResponse")]
+        System.Threading.Tasks.Task<driver_client.driver.StudentModuleProgress[]> GetStudentCompletedModulesAsync(int studentId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddCourse", ReplyAction="http://tempuri.org/IService1/AddCourseResponse")]
+        int AddCourse(driver_client.driver.Course course);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddCourse", ReplyAction="http://tempuri.org/IService1/AddCourseResponse")]
+        System.Threading.Tasks.Task<int> AddCourseAsync(driver_client.driver.Course course);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/UpdateCourse", ReplyAction="http://tempuri.org/IService1/UpdateCourseResponse")]
+        int UpdateCourse(driver_client.driver.Course course);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/UpdateCourse", ReplyAction="http://tempuri.org/IService1/UpdateCourseResponse")]
+        System.Threading.Tasks.Task<int> UpdateCourseAsync(driver_client.driver.Course course);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/DeactivateCourse", ReplyAction="http://tempuri.org/IService1/DeactivateCourseResponse")]
+        int DeactivateCourse(int courseId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/DeactivateCourse", ReplyAction="http://tempuri.org/IService1/DeactivateCourseResponse")]
+        System.Threading.Tasks.Task<int> DeactivateCourseAsync(int courseId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddModule", ReplyAction="http://tempuri.org/IService1/AddModuleResponse")]
+        int AddModule(driver_client.driver.CourseModule module);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddModule", ReplyAction="http://tempuri.org/IService1/AddModuleResponse")]
+        System.Threading.Tasks.Task<int> AddModuleAsync(driver_client.driver.CourseModule module);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/UpdateModule", ReplyAction="http://tempuri.org/IService1/UpdateModuleResponse")]
+        int UpdateModule(driver_client.driver.CourseModule module);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/UpdateModule", ReplyAction="http://tempuri.org/IService1/UpdateModuleResponse")]
+        System.Threading.Tasks.Task<int> UpdateModuleAsync(driver_client.driver.CourseModule module);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/DeleteModule", ReplyAction="http://tempuri.org/IService1/DeleteModuleResponse")]
+        int DeleteModule(int moduleId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/DeleteModule", ReplyAction="http://tempuri.org/IService1/DeleteModuleResponse")]
+        System.Threading.Tasks.Task<int> DeleteModuleAsync(int moduleId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetCourseById", ReplyAction="http://tempuri.org/IService1/GetCourseByIdResponse")]
+        driver_client.driver.Course GetCourseById(int courseId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetCourseById", ReplyAction="http://tempuri.org/IService1/GetCourseByIdResponse")]
+        System.Threading.Tasks.Task<driver_client.driver.Course> GetCourseByIdAsync(int courseId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SendNotification", ReplyAction="http://tempuri.org/IService1/SendNotificationResponse")]
+        int SendNotification(driver_client.driver.Notification notification);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SendNotification", ReplyAction="http://tempuri.org/IService1/SendNotificationResponse")]
+        System.Threading.Tasks.Task<int> SendNotificationAsync(driver_client.driver.Notification notification);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetUserNotifications", ReplyAction="http://tempuri.org/IService1/GetUserNotificationsResponse")]
+        driver_client.driver.Notification[] GetUserNotifications(int userId, string userType);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetUserNotifications", ReplyAction="http://tempuri.org/IService1/GetUserNotificationsResponse")]
+        System.Threading.Tasks.Task<driver_client.driver.Notification[]> GetUserNotificationsAsync(int userId, string userType);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetUnreadNotificationCount", ReplyAction="http://tempuri.org/IService1/GetUnreadNotificationCountResponse")]
+        int GetUnreadNotificationCount(int userId, string userType);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetUnreadNotificationCount", ReplyAction="http://tempuri.org/IService1/GetUnreadNotificationCountResponse")]
+        System.Threading.Tasks.Task<int> GetUnreadNotificationCountAsync(int userId, string userType);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetUnreadNotifications", ReplyAction="http://tempuri.org/IService1/GetUnreadNotificationsResponse")]
+        driver_client.driver.Notification[] GetUnreadNotifications(int userId, string userType);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetUnreadNotifications", ReplyAction="http://tempuri.org/IService1/GetUnreadNotificationsResponse")]
+        System.Threading.Tasks.Task<driver_client.driver.Notification[]> GetUnreadNotificationsAsync(int userId, string userType);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/MarkNotificationAsRead", ReplyAction="http://tempuri.org/IService1/MarkNotificationAsReadResponse")]
+        void MarkNotificationAsRead(int notificationId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/MarkNotificationAsRead", ReplyAction="http://tempuri.org/IService1/MarkNotificationAsReadResponse")]
+        System.Threading.Tasks.Task MarkNotificationAsReadAsync(int notificationId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/MarkAllNotificationsAsRead", ReplyAction="http://tempuri.org/IService1/MarkAllNotificationsAsReadResponse")]
+        void MarkAllNotificationsAsRead(int userId, string userType);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/MarkAllNotificationsAsRead", ReplyAction="http://tempuri.org/IService1/MarkAllNotificationsAsReadResponse")]
+        System.Threading.Tasks.Task MarkAllNotificationsAsReadAsync(int userId, string userType);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/DeleteNotification", ReplyAction="http://tempuri.org/IService1/DeleteNotificationResponse")]
+        void DeleteNotification(int notificationId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/DeleteNotification", ReplyAction="http://tempuri.org/IService1/DeleteNotificationResponse")]
+        System.Threading.Tasks.Task DeleteNotificationAsync(int notificationId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SendTeacherMessage", ReplyAction="http://tempuri.org/IService1/SendTeacherMessageResponse")]
+        void SendTeacherMessage(int teacherId, string teacherName, int studentId, string title, string message);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SendTeacherMessage", ReplyAction="http://tempuri.org/IService1/SendTeacherMessageResponse")]
+        System.Threading.Tasks.Task SendTeacherMessageAsync(int teacherId, string teacherName, int studentId, string title, string message);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SendStudentMessage", ReplyAction="http://tempuri.org/IService1/SendStudentMessageResponse")]
+        void SendStudentMessage(int studentId, string studentName, int teacherId, string title, string message);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SendStudentMessage", ReplyAction="http://tempuri.org/IService1/SendStudentMessageResponse")]
+        System.Threading.Tasks.Task SendStudentMessageAsync(int studentId, string studentName, int teacherId, string title, string message);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SendLessonCancelledNotification", ReplyAction="http://tempuri.org/IService1/SendLessonCancelledNotificationResponse")]
+        void SendLessonCancelledNotification(int studentId, string studentName, int teacherId, string lessonDate, string lessonTime);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SendLessonCancelledNotification", ReplyAction="http://tempuri.org/IService1/SendLessonCancelledNotificationResponse")]
+        System.Threading.Tasks.Task SendLessonCancelledNotificationAsync(int studentId, string studentName, int teacherId, string lessonDate, string lessonTime);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -2364,12 +3223,180 @@ namespace driver_client.driver {
             return base.Channel.GetEffectiveLessonPriceAsync(studentId);
         }
         
-        public void ResetUserPassword(int userId, string table, string newPassword) {
-            base.Channel.ResetUserPassword(userId, table, newPassword);
+        public driver_client.driver.Course[] GetAllCourses() {
+            return base.Channel.GetAllCourses();
         }
         
-        public System.Threading.Tasks.Task ResetUserPasswordAsync(int userId, string table, string newPassword) {
-            return base.Channel.ResetUserPasswordAsync(userId, table, newPassword);
+        public System.Threading.Tasks.Task<driver_client.driver.Course[]> GetAllCoursesAsync() {
+            return base.Channel.GetAllCoursesAsync();
+        }
+        
+        public driver_client.driver.CourseModule[] GetCourseModules(int courseId) {
+            return base.Channel.GetCourseModules(courseId);
+        }
+        
+        public System.Threading.Tasks.Task<driver_client.driver.CourseModule[]> GetCourseModulesAsync(int courseId) {
+            return base.Channel.GetCourseModulesAsync(courseId);
+        }
+        
+        public driver_client.driver.StudentCourseProgress[] GetStudentCourseProgress(int studentId) {
+            return base.Channel.GetStudentCourseProgress(studentId);
+        }
+        
+        public System.Threading.Tasks.Task<driver_client.driver.StudentCourseProgress[]> GetStudentCourseProgressAsync(int studentId) {
+            return base.Channel.GetStudentCourseProgressAsync(studentId);
+        }
+        
+        public bool MarkModuleComplete(int studentId, int moduleId) {
+            return base.Channel.MarkModuleComplete(studentId, moduleId);
+        }
+        
+        public System.Threading.Tasks.Task<bool> MarkModuleCompleteAsync(int studentId, int moduleId) {
+            return base.Channel.MarkModuleCompleteAsync(studentId, moduleId);
+        }
+        
+        public driver_client.driver.StudentModuleProgress[] GetStudentCompletedModules(int studentId) {
+            return base.Channel.GetStudentCompletedModules(studentId);
+        }
+        
+        public System.Threading.Tasks.Task<driver_client.driver.StudentModuleProgress[]> GetStudentCompletedModulesAsync(int studentId) {
+            return base.Channel.GetStudentCompletedModulesAsync(studentId);
+        }
+        
+        public int AddCourse(driver_client.driver.Course course) {
+            return base.Channel.AddCourse(course);
+        }
+        
+        public System.Threading.Tasks.Task<int> AddCourseAsync(driver_client.driver.Course course) {
+            return base.Channel.AddCourseAsync(course);
+        }
+        
+        public int UpdateCourse(driver_client.driver.Course course) {
+            return base.Channel.UpdateCourse(course);
+        }
+        
+        public System.Threading.Tasks.Task<int> UpdateCourseAsync(driver_client.driver.Course course) {
+            return base.Channel.UpdateCourseAsync(course);
+        }
+        
+        public int DeactivateCourse(int courseId) {
+            return base.Channel.DeactivateCourse(courseId);
+        }
+        
+        public System.Threading.Tasks.Task<int> DeactivateCourseAsync(int courseId) {
+            return base.Channel.DeactivateCourseAsync(courseId);
+        }
+        
+        public int AddModule(driver_client.driver.CourseModule module) {
+            return base.Channel.AddModule(module);
+        }
+        
+        public System.Threading.Tasks.Task<int> AddModuleAsync(driver_client.driver.CourseModule module) {
+            return base.Channel.AddModuleAsync(module);
+        }
+        
+        public int UpdateModule(driver_client.driver.CourseModule module) {
+            return base.Channel.UpdateModule(module);
+        }
+        
+        public System.Threading.Tasks.Task<int> UpdateModuleAsync(driver_client.driver.CourseModule module) {
+            return base.Channel.UpdateModuleAsync(module);
+        }
+        
+        public int DeleteModule(int moduleId) {
+            return base.Channel.DeleteModule(moduleId);
+        }
+        
+        public System.Threading.Tasks.Task<int> DeleteModuleAsync(int moduleId) {
+            return base.Channel.DeleteModuleAsync(moduleId);
+        }
+        
+        public driver_client.driver.Course GetCourseById(int courseId) {
+            return base.Channel.GetCourseById(courseId);
+        }
+        
+        public System.Threading.Tasks.Task<driver_client.driver.Course> GetCourseByIdAsync(int courseId) {
+            return base.Channel.GetCourseByIdAsync(courseId);
+        }
+        
+        public int SendNotification(driver_client.driver.Notification notification) {
+            return base.Channel.SendNotification(notification);
+        }
+        
+        public System.Threading.Tasks.Task<int> SendNotificationAsync(driver_client.driver.Notification notification) {
+            return base.Channel.SendNotificationAsync(notification);
+        }
+        
+        public driver_client.driver.Notification[] GetUserNotifications(int userId, string userType) {
+            return base.Channel.GetUserNotifications(userId, userType);
+        }
+        
+        public System.Threading.Tasks.Task<driver_client.driver.Notification[]> GetUserNotificationsAsync(int userId, string userType) {
+            return base.Channel.GetUserNotificationsAsync(userId, userType);
+        }
+        
+        public int GetUnreadNotificationCount(int userId, string userType) {
+            return base.Channel.GetUnreadNotificationCount(userId, userType);
+        }
+        
+        public System.Threading.Tasks.Task<int> GetUnreadNotificationCountAsync(int userId, string userType) {
+            return base.Channel.GetUnreadNotificationCountAsync(userId, userType);
+        }
+        
+        public driver_client.driver.Notification[] GetUnreadNotifications(int userId, string userType) {
+            return base.Channel.GetUnreadNotifications(userId, userType);
+        }
+        
+        public System.Threading.Tasks.Task<driver_client.driver.Notification[]> GetUnreadNotificationsAsync(int userId, string userType) {
+            return base.Channel.GetUnreadNotificationsAsync(userId, userType);
+        }
+        
+        public void MarkNotificationAsRead(int notificationId) {
+            base.Channel.MarkNotificationAsRead(notificationId);
+        }
+        
+        public System.Threading.Tasks.Task MarkNotificationAsReadAsync(int notificationId) {
+            return base.Channel.MarkNotificationAsReadAsync(notificationId);
+        }
+        
+        public void MarkAllNotificationsAsRead(int userId, string userType) {
+            base.Channel.MarkAllNotificationsAsRead(userId, userType);
+        }
+        
+        public System.Threading.Tasks.Task MarkAllNotificationsAsReadAsync(int userId, string userType) {
+            return base.Channel.MarkAllNotificationsAsReadAsync(userId, userType);
+        }
+        
+        public void DeleteNotification(int notificationId) {
+            base.Channel.DeleteNotification(notificationId);
+        }
+        
+        public System.Threading.Tasks.Task DeleteNotificationAsync(int notificationId) {
+            return base.Channel.DeleteNotificationAsync(notificationId);
+        }
+        
+        public void SendTeacherMessage(int teacherId, string teacherName, int studentId, string title, string message) {
+            base.Channel.SendTeacherMessage(teacherId, teacherName, studentId, title, message);
+        }
+        
+        public System.Threading.Tasks.Task SendTeacherMessageAsync(int teacherId, string teacherName, int studentId, string title, string message) {
+            return base.Channel.SendTeacherMessageAsync(teacherId, teacherName, studentId, title, message);
+        }
+        
+        public void SendStudentMessage(int studentId, string studentName, int teacherId, string title, string message) {
+            base.Channel.SendStudentMessage(studentId, studentName, teacherId, title, message);
+        }
+        
+        public System.Threading.Tasks.Task SendStudentMessageAsync(int studentId, string studentName, int teacherId, string title, string message) {
+            return base.Channel.SendStudentMessageAsync(studentId, studentName, teacherId, title, message);
+        }
+        
+        public void SendLessonCancelledNotification(int studentId, string studentName, int teacherId, string lessonDate, string lessonTime) {
+            base.Channel.SendLessonCancelledNotification(studentId, studentName, teacherId, lessonDate, lessonTime);
+        }
+        
+        public System.Threading.Tasks.Task SendLessonCancelledNotificationAsync(int studentId, string studentName, int teacherId, string lessonDate, string lessonTime) {
+            return base.Channel.SendLessonCancelledNotificationAsync(studentId, studentName, teacherId, lessonDate, lessonTime);
         }
     }
 }

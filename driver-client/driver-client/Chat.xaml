@@ -73,7 +73,7 @@ BorderBrush="#00C0CC"
 Cursor="Hand"
 Click="BackButton_Click"
                 Panel.ZIndex="99"/>
-        <Frame x:Name="page"  Panel.ZIndex="100" Margin="-22,-22,-21,-21" Grid.RowSpan="3"/>
-
+        <Frame x:Name="page" Panel.ZIndex="100" Margin="-22,-22,-21,-21" Grid.RowSpan="3"
+               HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
     </Grid>
 </Page>

@@ -45,9 +45,13 @@
     <Compile Include="AllUsers.cs" />
     <Compile Include="Base.cs" />
     <Compile Include="Calendar.cs" />
+    <Compile Include="Course.cs" />
+    <Compile Include="CourseModule.cs" />
     <Compile Include="Helpers\SecurityHelper.cs" />
+    <Compile Include="Notification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Student.cs" />
+    <Compile Include="StudentCourseProgress.cs" />
     <Compile Include="StudentsList.cs" />
     <Compile Include="SupportTicket.cs" />
     <Compile Include="UserInfo.cs" />

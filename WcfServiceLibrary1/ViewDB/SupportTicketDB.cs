@@ -141,11 +141,9 @@ namespace ViewDB
 
         public void AddTicketMessage(TicketMessage message)
         {
-            int nextId = GetNextMessageId();
-
-            int result = SaveChanges(@"INSERT INTO [TicketMessages] 
-                ([TicketId], [SenderUsername], [IsAdmin], [Message], [SentAt]) 
-                VALUES (?, ?, ?, ?, ?, ?)",
+            int result = SaveChanges(@"INSERT INTO [TicketMessages]
+                ([TicketId], [SenderUsername], [IsAdmin], [Message], [SentAt])
+                VALUES (?, ?, ?, ?, ?)",
                 new OleDbParameter("@ticketId", message.TicketId),
                 new OleDbParameter("@senderUsername", message.SenderUsername ?? "Unknown"),
                 new OleDbParameter("@isAdmin", message.IsAdmin),

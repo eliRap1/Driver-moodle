@@ -88,34 +88,6 @@ namespace driver_client
             }
         }
 
-        private void MarkPaid_Click(object sender, RoutedEventArgs e)
-        {
-            if (sender is Button btn && btn.DataContext is Lesson lesson)
-            {
-                try
-                {
-                    var result = MessageBox.Show(
-                        $"Mark lesson on {lesson.Date} at {lesson.Time} as paid?",
-                        "Confirm Payment",
-                        MessageBoxButton.YesNo,
-                        MessageBoxImage.Question);
-
-                    if (result == MessageBoxResult.Yes)
-                    {
-                        var client = new Service1Client();
-                        client.MarkLessonPaid(lesson.LessonId);
-                        MessageBox.Show("Lesson marked as paid!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                        LoadLessons(); // Refresh the list
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Failed to mark lesson as paid.\n" + ex.Message,
-                                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-        }
-
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
             page.Navigate(new StudentUI());

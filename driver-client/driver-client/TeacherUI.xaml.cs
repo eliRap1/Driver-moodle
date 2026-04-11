@@ -1,11 +1,9 @@
-﻿// FIXED TeacherUI.xaml.cs
-// Replace your existing file with this version
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Threading;
 using driver_client.driver;
 
 namespace driver_client
@@ -13,13 +11,18 @@ namespace driver_client
     public partial class TeacherUI : Page
     {
         private bool isAdmin = false;
+        private int teacherId;
+        private DispatcherTimer notificationTimer;
 
         public TeacherUI()
         {
             InitializeComponent();
             teacherName.Text = LogIn.sign.Username;
 
-            // Check if user is admin using DATABASE, not hardcoded names
+            var srv = new Service1Client();
+            teacherId = srv.GetUserID(LogIn.sign.Username, "Teacher");
+
+            // Check if user is admin using DATABASE
             CheckAdminStatus();
 
             if (isAdmin)
@@ -27,11 +30,18 @@ namespace driver_client
                 AdminBadge.Visibility = Visibility.Visible;
                 AdminDashboardBtn.Visibility = Visibility.Visible;
             }
+
+            // Load dashboard stats
+            LoadDashboardStats();
+
+            // Start notification timer
+            notificationTimer = new DispatcherTimer();
+            notificationTimer.Interval = TimeSpan.FromSeconds(30);
+            notificationTimer.Tick += UpdateNotificationBadge;
+            notificationTimer.Start();
+            UpdateNotificationBadge(null, null);
         }
 
-        /// <summary>
-        /// FIXED: Check admin status from database instead of hardcoded usernames
-        /// </summary>
         private void CheckAdminStatus()
         {
             try
@@ -44,6 +54,66 @@ namespace driver_client
             {
                 System.Diagnostics.Debug.WriteLine($"Admin check error: {ex.Message}");
                 isAdmin = false;
+            }
+        }
+
+        private void LoadDashboardStats()
+        {
+            try
+            {
+                var srv = new Service1Client();
+
+                // Get students count
+                var students = srv.GetTeacherStudents(teacherId);
+                if (students != null)
+                {
+                    TotalStudentsText.Text = students.Length.ToString();
+                }
+
+                // Get today's lessons
+                var lessons = srv.GetAllTeacherLessons(teacherId);
+                if (lessons != null)
+                {
+                    var today = DateTime.Today.ToString("dd-MM-yyyy");
+                    var todayAlt = DateTime.Today.ToString("dd/MM/yyyy");
+                    int todayLessons = lessons.Count(l => l.Canceled != 1 &&
+                        (l.Date == today || l.Date == todayAlt));
+                    TodayLessonsText.Text = todayLessons.ToString();
+
+                    // Get unpaid lessons count
+                    int unpaidLessons = lessons.Count(l => l.Canceled != 1 && !l.paid);
+                    PendingPaymentsText.Text = unpaidLessons.ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"LoadDashboardStats Error: {ex.Message}");
+            }
+        }
+
+        private void UpdateNotificationBadge(object sender, EventArgs e)
+        {
+            try
+            {
+                var srv = new Service1Client();
+                int unreadCount = srv.GetUnreadNotificationCount(teacherId, "Teacher");
+
+                UnreadNotificationsText.Text = unreadCount.ToString();
+
+                if (unreadCount > 0)
+                {
+                    NotificationBadge.Visibility = Visibility.Visible;
+                    NotificationCount.Text = unreadCount > 99 ? "99+" : unreadCount.ToString();
+                }
+                else
+                {
+                    NotificationBadge.Visibility = Visibility.Collapsed;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"UpdateNotificationBadge Error: {ex.Message}");
+                NotificationBadge.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -63,11 +133,6 @@ namespace driver_client
             page.Navigate(calendar);
         }
 
-        private void TestSchedule_Click(object sender, RoutedEventArgs e)
-        {
-            // TODO: Implement test schedule
-        }
-
         private void Schedule_Click(object sender, RoutedEventArgs e)
         {
             page.Navigate(new Teacher_Schedule());
@@ -76,6 +141,16 @@ namespace driver_client
         private void PaymentReports_Click(object sender, RoutedEventArgs e)
         {
             page.Navigate(new TeacherPaymentReports());
+        }
+
+        private void ConfirmPayments_Click(object sender, RoutedEventArgs e)
+        {
+            page.Navigate(new TeacherConfirmPayments());
+        }
+
+        private void Notifications_Click(object sender, RoutedEventArgs e)
+        {
+            page.Navigate(new TeacherNotifications());
         }
 
         private void Chat_Click(object sender, RoutedEventArgs e)
@@ -88,7 +163,11 @@ namespace driver_client
             page.Navigate(new MyTickets());
         }
 
-        // NEW: Settings button handler
+        private void ManageCourses_Click(object sender, RoutedEventArgs e)
+        {
+            page.Navigate(new TeacherCourseManagement());
+        }
+
         private void Settings_Click(object sender, RoutedEventArgs e)
         {
             page.Navigate(new TeacherSettings());
@@ -103,6 +182,7 @@ namespace driver_client
             {
                 // Clear login data
                 LogIn.sign = new Sign();
+                notificationTimer.Stop();
                 page.Navigate(new LogIn());
             }
         }

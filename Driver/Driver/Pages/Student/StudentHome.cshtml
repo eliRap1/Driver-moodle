@@ -20,22 +20,52 @@
 else
 {
     <div class="row mt-5">
-        <div class="col-md-6">
+        <div class="col-md-4 mb-3">
             <div class="card text-center" style="background-color: #1B2D47; border: 2px solid #00E0FF;">
                 <div class="card-body">
                     <h5 class="card-title" style="color: #00E0FF;">📅 My Lessons</h5>
                     <p class="card-text">View and manage your scheduled lessons</p>
-                    <a href="#" class="btn btn-primary">View Lessons</a>
+                    <a asp-page="/Student/ViewLessons" class="btn btn-primary">View Lessons</a>
                 </div>
             </div>
         </div>
 
-        <div class="col-md-6">
-            <div class="card text-center" style="background-color: #1B2D47; border: 2px solid #00E0FF;">
+        <div class="col-md-4 mb-3">
+            <div class="card text-center" style="background-color: #1B2D47; border: 2px solid #27AE60;">
                 <div class="card-body">
-                    <h5 class="card-title" style="color: #00E0FF;">✍️ Write Review</h5>
+                    <h5 class="card-title" style="color: #27AE60;">💰 Payments</h5>
+                    <p class="card-text">Manage your lesson payments</p>
+                    <a asp-page="/Student/Payments" class="btn btn-success">Payments</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <div class="card text-center" style="background-color: #1B2D47; border: 2px solid #F39C12;">
+                <div class="card-body">
+                    <h5 class="card-title" style="color: #F39C12;">📚 Courses</h5>
+                    <p class="card-text">Learn driving theory and prepare for lessons</p>
+                    <a asp-page="/Student/Courses" class="btn btn-warning text-dark">View Courses</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <div class="card text-center" style="background-color: #1B2D47; border: 2px solid #E74C3C;">
+                <div class="card-body">
+                    <h5 class="card-title" style="color: #E74C3C;">🔔 Notifications</h5>
+                    <p class="card-text">Messages from your teacher</p>
+                    <a asp-page="/Student/Notifications" class="btn btn-danger">View Notifications</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <div class="card text-center" style="background-color: #1B2D47; border: 2px solid #9B59B6;">
+                <div class="card-body">
+                    <h5 class="card-title" style="color: #9B59B6;">✍️ Write Review</h5>
                     <p class="card-text">Share your experience with your teacher</p>
-                    <a href="#" class="btn btn-primary">Write Review</a>
+                    <a href="#" class="btn btn-primary" style="background-color: #9B59B6; border-color: #8E44AD;">Write Review</a>
                 </div>
             </div>
         </div>

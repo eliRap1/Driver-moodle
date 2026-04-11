@@ -1,0 +1,194 @@
+<Page x:Class="driver_client.CourseDetails"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:driver_client"
+      mc:Ignorable="d"
+      Title="CourseDetails"
+      Background="#0E1A2B"
+      d:DesignHeight="600" d:DesignWidth="900">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Background image -->
+        <Image Source="/picture/background.png"
+               Stretch="UniformToFill"
+               Opacity="0.06"
+               Panel.ZIndex="0"
+               Grid.RowSpan="4"/>
+
+        <!-- Header -->
+        <StackPanel Grid.Row="0" Margin="20,20,20,10" Panel.ZIndex="1">
+            <TextBlock x:Name="CourseTitle"
+                       Text="Course Name"
+                       FontSize="28"
+                       FontWeight="Bold"
+                       Foreground="#00E0FF"
+                       HorizontalAlignment="Center"/>
+        </StackPanel>
+
+        <!-- Progress Summary -->
+        <Border Grid.Row="1"
+                Background="#1B2D47"
+                CornerRadius="10"
+                Margin="20,10"
+                Padding="20"
+                BorderBrush="#00E0FF"
+                BorderThickness="1"
+                Panel.ZIndex="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Completed Modules -->
+                <StackPanel Grid.Column="0" HorizontalAlignment="Center">
+                    <TextBlock x:Name="CompletedCountText"
+                               Text="0"
+                               FontSize="36"
+                               FontWeight="Bold"
+                               Foreground="#27AE60"
+                               HorizontalAlignment="Center"/>
+                    <TextBlock Text="Completed"
+                               FontSize="14"
+                               Foreground="#AAAAAA"
+                               HorizontalAlignment="Center"/>
+                </StackPanel>
+
+                <Rectangle Grid.Column="1" Width="1" Fill="#2A3F5F" Margin="10,5"/>
+
+                <!-- Progress Bar -->
+                <StackPanel Grid.Column="2" VerticalAlignment="Center">
+                    <TextBlock x:Name="ProgressPercentText"
+                               Text="0% Complete"
+                               FontSize="16"
+                               FontWeight="SemiBold"
+                               Foreground="White"
+                               HorizontalAlignment="Center"
+                               Margin="0,0,0,8"/>
+                    <Grid Height="12">
+                        <Border Background="#2A3F5F" CornerRadius="6"/>
+                        <Border x:Name="ProgressBar"
+                                Background="#00E0FF"
+                                CornerRadius="6"
+                                HorizontalAlignment="Left"
+                                Width="0"/>
+                    </Grid>
+                </StackPanel>
+
+                <Rectangle Grid.Column="3" Width="1" Fill="#2A3F5F" Margin="10,5"/>
+
+                <!-- Total Modules -->
+                <StackPanel Grid.Column="4" HorizontalAlignment="Center">
+                    <TextBlock x:Name="TotalCountText"
+                               Text="0"
+                               FontSize="36"
+                               FontWeight="Bold"
+                               Foreground="#00E0FF"
+                               HorizontalAlignment="Center"/>
+                    <TextBlock Text="Total Modules"
+                               FontSize="14"
+                               Foreground="#AAAAAA"
+                               HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Modules List -->
+        <ScrollViewer Grid.Row="2"
+                      VerticalScrollBarVisibility="Auto"
+                      Margin="20,10"
+                      Panel.ZIndex="1">
+            <ItemsControl x:Name="ModulesItemsControl">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Background="#1B2D47"
+                                CornerRadius="8"
+                                Margin="0,0,0,10"
+                                BorderBrush="{Binding BorderColor}"
+                                BorderThickness="1"
+                                Padding="15">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Module Number / Check -->
+                                <Border Grid.Column="0"
+                                        Width="40" Height="40"
+                                        CornerRadius="20"
+                                        Background="{Binding StatusBackground}"
+                                        Margin="0,0,15,0">
+                                    <TextBlock Text="{Binding StatusIcon}"
+                                               FontSize="18"
+                                               Foreground="White"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"/>
+                                </Border>
+
+                                <!-- Module Info -->
+                                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding ModuleName}"
+                                               FontSize="16"
+                                               FontWeight="SemiBold"
+                                               Foreground="{Binding TitleColor}"/>
+                                    <TextBlock Text="{Binding Description}"
+                                               FontSize="12"
+                                               Foreground="#888888"
+                                               TextWrapping="Wrap"
+                                               Margin="0,4,0,0"/>
+                                </StackPanel>
+
+                                <!-- Action Button -->
+                                <Button Grid.Column="2"
+                                        Content="{Binding ButtonText}"
+                                        Background="{Binding ButtonBackground}"
+                                        Foreground="{Binding ButtonForeground}"
+                                        FontWeight="Bold"
+                                        FontSize="12"
+                                        Padding="15,8"
+                                        BorderBrush="{Binding ButtonBorder}"
+                                        Cursor="Hand"
+                                        Tag="{Binding ModuleId}"
+                                        Click="MarkComplete_Click"
+                                        IsEnabled="{Binding CanComplete}"/>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
+        <!-- Bottom Buttons -->
+        <StackPanel Grid.Row="3"
+                    Orientation="Horizontal"
+                    Margin="20,10,20,20"
+                    Panel.ZIndex="1">
+            <Button Content="Back to Courses"
+                    Padding="20,10"
+                    Background="#00E0FF"
+                    Foreground="Black"
+                    FontSize="14"
+                    FontWeight="Bold"
+                    BorderBrush="#00C0CC"
+                    Cursor="Hand"
+                    Click="BackButton_Click"/>
+        </StackPanel>
+
+        <!-- Navigation Frame -->
+        <Frame x:Name="page" Panel.ZIndex="100" Grid.RowSpan="4"/>
+    </Grid>
+</Page>

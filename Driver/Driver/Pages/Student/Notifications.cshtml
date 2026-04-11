@@ -1,0 +1,122 @@
+@page
+@model Driver.Pages.Student.NotificationsModel
+@{
+    ViewData["Title"] = "Notifications";
+    Layout = "_Layout";
+}
+
+<div class="text-center mb-4">
+    <h1 class="display-5" style="color: #00E0FF;">Notifications</h1>
+    <p class="lead">Messages and updates from your teacher</p>
+</div>
+
+<!-- Unread Count -->
+<div class="row mb-4">
+    <div class="col-md-6 offset-md-3">
+        <div class="card text-center" style="background-color: #1B2D47; border: 2px solid @(Model.UnreadCount > 0 ? "#F39C12" : "#27AE60");">
+            <div class="card-body">
+                <h3 style="color: @(Model.UnreadCount > 0 ? "#F39C12" : "#27AE60");">@Model.UnreadCount</h3>
+                <p class="mb-0">Unread Notifications</p>
+                @if (Model.UnreadCount > 0)
+                {
+                    <form method="post" class="mt-2">
+                        <button type="submit" asp-page-handler="MarkAllRead" class="btn btn-outline-warning btn-sm">
+                            Mark All as Read
+                        </button>
+                    </form>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <div class="alert @(Model.IsSuccess ? "alert-success" : "alert-danger") text-center">
+        @Model.Message
+    </div>
+}
+
+<!-- Notifications List -->
+<div class="card" style="background-color: #1B2D47; border: 2px solid #00E0FF;">
+    <div class="card-header text-center" style="background-color: #00E0FF; color: black;">
+        <h5 class="mb-0">All Notifications</h5>
+    </div>
+    <div class="card-body">
+        @if (Model.Notifications.Any())
+        {
+            @foreach (var notification in Model.Notifications)
+            {
+                <div class="card mb-3" style="background-color: @(notification.IsRead ? "#0E1A2B" : "#1A2636"); border-left: 4px solid @GetTypeColor(notification.NotificationType);">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <h6 class="mb-1" style="color: @GetTypeColor(notification.NotificationType);">
+                                    @GetTypeIcon(notification.NotificationType) @notification.Title
+                                    @if (!notification.IsRead)
+                                    {
+                                        <span class="badge bg-warning text-dark ms-2">New</span>
+                                    }
+                                </h6>
+                                <p class="mb-1">@notification.Message</p>
+                                <small class="text-muted">
+                                    From: @notification.SenderName |
+                                    @notification.CreatedAt.ToString("dd/MM/yyyy HH:mm")
+                                </small>
+                            </div>
+                            <div>
+                                @if (!notification.IsRead)
+                                {
+                                    <form method="post" style="display: inline;">
+                                        <input type="hidden" name="notificationId" value="@notification.Id" />
+                                        <button type="submit" asp-page-handler="MarkRead" class="btn btn-outline-success btn-sm">
+                                            Mark Read
+                                        </button>
+                                    </form>
+                                }
+                                <form method="post" style="display: inline;">
+                                    <input type="hidden" name="notificationId" value="@notification.Id" />
+                                    <button type="submit" asp-page-handler="Delete" class="btn btn-outline-danger btn-sm">
+                                        Delete
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <p class="text-center text-muted">No notifications yet.</p>
+        }
+    </div>
+</div>
+
+<div class="text-center mt-4">
+    <a asp-page="/Student/StudentHome" class="btn btn-outline-light">Back to Dashboard</a>
+</div>
+
+@functions {
+    string GetTypeColor(string type)
+    {
+        return type switch
+        {
+            "LessonCancelled" => "#E74C3C",
+            "PaymentReceived" => "#27AE60",
+            "Reminder" => "#F39C12",
+            _ => "#00E0FF"
+        };
+    }
+
+    string GetTypeIcon(string type)
+    {
+        return type switch
+        {
+            "LessonCancelled" => "&#10060;",
+            "PaymentReceived" => "&#128176;",
+            "Reminder" => "&#9200;",
+            _ => "&#128172;"
+        };
+    }
+}

@@ -1,147 +1,222 @@
-﻿<Page x:Class="driver_client.StudentUI"
+<Page x:Class="driver_client.StudentUI"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       mc:Ignorable="d"
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="600" d:DesignWidth="900"
       Title="StudentUI"
       Background="#0E1A2B">
 
-    <Grid x:Name="MainGrid" >
+    <Grid x:Name="MainGrid">
         <Frame x:Name="page" Panel.ZIndex="100"/>
+
         <!-- Background image -->
         <Image Source="/picture/background.png"
                Stretch="UniformToFill"
                Opacity="0.06"
-               Panel.ZIndex="0" />
+               Panel.ZIndex="0"/>
 
         <!-- Waiting message -->
-        <StackPanel x:Name="WaitingPanel"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Panel.ZIndex="1">
-            <TextBlock Text="Waiting for Teacher Approval..."
-                       FontSize="24"
-                       FontWeight="Bold"
-                       Foreground="#00E0FF"
-                       HorizontalAlignment="Center"
-                       Margin="10"/>
-            <ProgressBar Width="300"
-                         Height="20"
-                         IsIndeterminate="True"
-                         Margin="20"/>
-        </StackPanel>
-
-        <!-- Student options -->
-        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,0,0,10">
-            <StackPanel x:Name="StudentPanel"
-                    Visibility="Collapsed"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Width="300"
-                    Panel.ZIndex="1">
-
-                <TextBlock x:Name="WelcomeText"
-                       Text="Welcome!"
-                       FontSize="28"
-                       FontWeight="Bold"
-                       Foreground="#00E0FF"
-                       HorizontalAlignment="Center"
-                       Margin="0,0,0,20"/>
-
-                <Button Content="📅 Schedule a Lesson"
-                    Click="ScheduleLesson_Click"
-                    Background="#00E0FF"
-                    Foreground ="Black"
-                    FontWeight ="Bold"
-                    FontSize ="16"
-                    Height ="45"
-                    Cursor="Hand"
-                    BorderBrush ="#00C0CC"
-                    Margin="0,10"/>
-
-                <Button Content="📚 View My Lessons"
-                    Click="ViewLessons_Click"
-                    Background="#00E0FF"
-                    Foreground ="Black"
-                    FontWeight ="Bold"
-                    FontSize ="16"
-                    Height ="45"
-                    Cursor="Hand"
-                    BorderBrush ="#00C0CC"
-                    Margin="0,10"/>
-
-                <Button Content="💳 Payments"
-                    Click="Payments_Click"
-                    Background="#2ECC71"
-                    Foreground ="White"
-                    FontWeight ="Bold"
-                    FontSize ="16"
-                    Height ="45"
-                    Cursor="Hand"
-                    BorderBrush ="#27AE60"
-                    Margin="0,10"/>
-
-                <Button Content="✍️ Write a Review"
-                    Click="WriteReview_Click"
-                    Background="#00E0FF"
-                    Foreground ="Black"
-                    FontWeight ="Bold"
-                    FontSize ="16"
-                    Height ="45"
-                    Cursor="Hand"
-                    BorderBrush ="#00C0CC"
-                    Margin="0,10"
-                    x:Name="writeReview"/>
-
-                <Button Content="⭐ View All Teachers"
-                    Click="Review_Click"
-                    Background="#00E0FF"
-                    Foreground ="Black"
-                    FontWeight ="Bold"
-                    FontSize ="16"
-                    Height ="45"
-                    Cursor="Hand"
-                    BorderBrush ="#00C0CC"
-                    Margin="0,10"/>
-
-                <Button Content="🎫 Support Tickets"
-                    Click="SupportTickets_Click"
-                    Background="#00E0FF"
-                    Foreground ="Black"
-                    FontWeight ="Bold"
-                    FontSize ="16"
-                    Height ="45"
-                    Cursor="Hand"
-                    BorderBrush ="#00C0CC"
-                    Margin="0,10"/>
-
-                <Button Content="💬 Chat"
-                    Margin="0,10"
-                    Height="45"
-                    FontSize="16"
-                    FontWeight="Bold"
-                    Background="#00E0FF"
-                    Foreground="Black"
-                    BorderBrush="#00C0CC"
-                    Cursor="Hand"
-                    Click="Chat_Click"/>
-
-                <Button Content="🚪 Logout"
-                    Click="Back_Click"
-                    Background="Transparent"
-                    Foreground ="#E74C3C"
-                    FontWeight ="Bold"
-                    FontSize ="16"
-                    Height ="40"
-                    Cursor="Hand"
-                    BorderBrush ="#E74C3C"
-                    Margin="20,30,20,10"/>
-
+        <Border x:Name="WaitingPanel"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Background="#1A2636"
+                CornerRadius="15"
+                Padding="40"
+                Panel.ZIndex="1">
+            <StackPanel>
+                <TextBlock Text="Waiting for Teacher Approval"
+                           FontSize="24"
+                           FontWeight="Bold"
+                           Foreground="#00E0FF"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,20"/>
+                <TextBlock Text="Your teacher will confirm your registration soon."
+                           FontSize="14"
+                           Foreground="#888"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,20"/>
+                <ProgressBar Width="300"
+                             Height="8"
+                             IsIndeterminate="True"
+                             Foreground="#00E0FF"
+                             Background="#2A3F5F"/>
             </StackPanel>
+        </Border>
+
+        <!-- Student Dashboard -->
+        <ScrollViewer x:Name="StudentPanel"
+                      Visibility="Collapsed"
+                      VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Disabled"
+                      Panel.ZIndex="1">
+            <Grid Margin="30,20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Header with Welcome and Notifications -->
+                <Grid Grid.Row="0" Margin="0,0,0,20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="Welcome back,"
+                                   FontSize="16"
+                                   Foreground="#888"/>
+                        <TextBlock x:Name="WelcomeText"
+                                   Text="Student"
+                                   FontSize="32"
+                                   FontWeight="Bold"
+                                   Foreground="#00E0FF"/>
+                    </StackPanel>
+
+                    <!-- Notification Bell -->
+                    <Button Grid.Column="1"
+                            Click="Notifications_Click"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Cursor="Hand"
+                            ToolTip="View Notifications"
+                            Width="50" Height="50">
+                        <Grid>
+                            <TextBlock Text="&#128276;" FontSize="28" Foreground="#00E0FF"/>
+                            <Border x:Name="NotificationBadge"
+                                    Style="{StaticResource NotificationBadge}"
+                                    Visibility="Collapsed">
+                                <TextBlock x:Name="NotificationCount"
+                                           Text="0"
+                                           FontSize="10"
+                                           FontWeight="Bold"
+                                           Foreground="White"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"/>
+                            </Border>
+                        </Grid>
+                    </Button>
+                </Grid>
+
+                <!-- Quick Stats Cards -->
+                <Grid Grid.Row="1" Margin="0,0,0,20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Border Grid.Column="0" Style="{StaticResource CardBorder}">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock Text="&#128218;" FontSize="24" HorizontalAlignment="Center"/>
+                            <TextBlock x:Name="TotalLessonsText" Text="0" FontSize="28" FontWeight="Bold" Foreground="#00E0FF" HorizontalAlignment="Center"/>
+                            <TextBlock Text="Total Lessons" FontSize="12" Foreground="#888" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Column="1" Style="{StaticResource CardBorder}">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock Text="&#128176;" FontSize="24" HorizontalAlignment="Center"/>
+                            <TextBlock x:Name="UnpaidLessonsText" Text="0" FontSize="28" FontWeight="Bold" Foreground="#F39C12" HorizontalAlignment="Center"/>
+                            <TextBlock Text="Unpaid Lessons" FontSize="12" Foreground="#888" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Column="2" Style="{StaticResource CardBorder}">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock Text="&#127891;" FontSize="24" HorizontalAlignment="Center"/>
+                            <TextBlock x:Name="CourseProgressText" Text="0%" FontSize="28" FontWeight="Bold" Foreground="#27AE60" HorizontalAlignment="Center"/>
+                            <TextBlock Text="Course Progress" FontSize="12" Foreground="#888" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+
+                <!-- Action Buttons Grid -->
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Row 1 -->
+                    <Button Grid.Row="0" Grid.Column="0"
+                            Content="&#128197;  Schedule Lesson"
+                            Click="ScheduleLesson_Click"
+                            Style="{StaticResource PrimaryButton}"
+                            Margin="5"/>
+
+                    <Button Grid.Row="0" Grid.Column="1"
+                            Content="&#128218;  My Lessons"
+                            Click="ViewLessons_Click"
+                            Style="{StaticResource PrimaryButton}"
+                            Margin="5"/>
+
+                    <!-- Row 2 -->
+                    <Button Grid.Row="1" Grid.Column="0"
+                            Content="&#128176;  Payments"
+                            Click="Payments_Click"
+                            Style="{StaticResource SuccessButton}"
+                            Margin="5"/>
+
+                    <Button Grid.Row="1" Grid.Column="1"
+                            Content="&#128218;  My Courses"
+                            Click="Courses_Click"
+                            Style="{StaticResource PrimaryButton}"
+                            Margin="5"/>
+
+                    <!-- Row 3 -->
+                    <Button Grid.Row="2" Grid.Column="0"
+                            Content="&#128276;  Notifications"
+                            Click="Notifications_Click"
+                            Style="{StaticResource WarningButton}"
+                            Margin="5"/>
+
+                    <Button Grid.Row="2" Grid.Column="1"
+                            Content="&#9997;  Write Review"
+                            Click="WriteReview_Click"
+                            Style="{StaticResource PrimaryButton}"
+                            Margin="5"
+                            x:Name="writeReview"/>
+
+                    <!-- Row 4 -->
+                    <Button Grid.Row="3" Grid.Column="0"
+                            Content="&#11088;  View Teachers"
+                            Click="Review_Click"
+                            Style="{StaticResource PrimaryButton}"
+                            Margin="5"/>
+
+                    <Button Grid.Row="3" Grid.Column="1"
+                            Content="&#127915;  Support Tickets"
+                            Click="SupportTickets_Click"
+                            Style="{StaticResource PrimaryButton}"
+                            Margin="5"/>
+
+                    <!-- Row 5 -->
+                    <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
+                            Content="&#128172;  Chat with Teacher"
+                            Click="Chat_Click"
+                            Style="{StaticResource PrimaryButton}"
+                            Margin="5"/>
+
+                    <!-- Logout -->
+                    <Button Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"
+                            Content="&#128682;  Logout"
+                            Click="Back_Click"
+                            Style="{StaticResource DangerButton}"
+                            Margin="5,20,5,5"/>
+                </Grid>
+            </Grid>
         </ScrollViewer>
-
     </Grid>
-
 </Page>

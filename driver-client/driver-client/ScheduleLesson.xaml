@@ -95,7 +95,7 @@
                         Click="ConfirmLesson_Click"/>
             </StackPanel>
         </Border>
-        <Frame x:Name="page"  Panel.ZIndex="100"/>
-
+        <Frame x:Name="page" Panel.ZIndex="100"
+               HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
     </Grid>
 </Page>
