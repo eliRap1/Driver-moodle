@@ -3,5 +3,27 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="driver_maui.Pages.SignUpPage"
              Title="Sign Up">
-    <Label Text="Loading..." VerticalOptions="Center" HorizontalOptions="Center"/>
+    <ScrollView>
+        <VerticalStackLayout Padding="30" Spacing="12">
+            <Label Text="Create Account" FontSize="22" FontAttributes="Bold"/>
+            <Entry x:Name="UsernameEntry" Placeholder="Username"/>
+            <Entry x:Name="PasswordEntry" Placeholder="Password" IsPassword="True"/>
+            <Entry x:Name="ConfirmEntry" Placeholder="Confirm Password" IsPassword="True"/>
+            <Entry x:Name="EmailEntry" Placeholder="Email" Keyboard="Email"/>
+            <Entry x:Name="PhoneEntry" Placeholder="Phone" Keyboard="Telephone"/>
+            <Picker x:Name="RolePicker" Title="Register as">
+                <Picker.Items>
+                    <x:String>Student</x:String>
+                    <x:String>Teacher</x:String>
+                </Picker.Items>
+            </Picker>
+            <VerticalStackLayout x:Name="TeacherFields" IsVisible="False" Spacing="8">
+                <Label Text="Lesson Price (₪)" FontSize="13" TextColor="Gray"/>
+                <Entry x:Name="LessonPriceEntry" Placeholder="200" Keyboard="Numeric"/>
+            </VerticalStackLayout>
+            <Button Text="Register" Clicked="Register_Click" BackgroundColor="#2196F3"/>
+            <Button Text="Back to Login" Clicked="Back_Click" BackgroundColor="#757575"/>
+            <Label x:Name="ErrorLabel" IsVisible="False" TextColor="Red"/>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

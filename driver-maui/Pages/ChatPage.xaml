@@ -3,5 +3,29 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="driver_maui.Pages.ChatPage"
              Title="Chat">
-    <Label Text="Loading..." VerticalOptions="Center" HorizontalOptions="Center"/>
+    <Grid RowDefinitions="Auto,*,Auto" Padding="10" RowSpacing="8">
+        <Button Grid.Row="0" Text="Back" Clicked="Back_Click"
+                HorizontalOptions="Start" WidthRequest="80"/>
+        <CollectionView Grid.Row="1" x:Name="MessagesList">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout HorizontalOptions="{Binding Alignment}" Margin="0,3">
+                        <Frame Padding="10" CornerRadius="8" BackgroundColor="{Binding BgColor}"
+                               HorizontalOptions="{Binding Alignment}">
+                            <VerticalStackLayout Spacing="2">
+                                <Label Text="{Binding Username}" FontAttributes="Bold" FontSize="12"
+                                       TextColor="{Binding NameColor}"/>
+                                <Label Text="{Binding Message}"/>
+                            </VerticalStackLayout>
+                        </Frame>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <Grid Grid.Row="2" ColumnDefinitions="*,Auto" ColumnSpacing="8">
+            <Entry Grid.Column="0" x:Name="MessageEntry" Placeholder="Type a message..."
+                   ReturnCommand="{Binding SendCommand}"/>
+            <Button Grid.Column="1" Text="Send" Clicked="Send_Click" BackgroundColor="#2196F3" WidthRequest="80"/>
+        </Grid>
+    </Grid>
 </ContentPage>
