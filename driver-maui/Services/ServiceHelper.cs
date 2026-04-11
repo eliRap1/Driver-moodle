@@ -5,8 +5,10 @@ namespace driver_maui.Services
 {
     public static class ServiceHelper
     {
-        // 10.0.2.2 maps to host's localhost from Android emulator
-        private const string ServiceUrl = "http://10.0.2.2:8733/Design_Time_Addresses/WcfServiceLibrary1/Service1/";
+        // Use the host machine's actual local IP address (run ipconfig to find yours).
+        // For Android Emulator (AVD): use 10.0.2.2 instead of the IP below.
+        // For a real Android device on the same WiFi: use the machine's WiFi IP (e.g. 192.168.1.136).
+        private const string ServiceUrl = "http://192.168.1.136:8733/Design_Time_Addresses/WcfServiceLibrary1/Service1/";
 
         public static Service1Client GetClient()
         {

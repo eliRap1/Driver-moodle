@@ -14,12 +14,129 @@ namespace webTOsrv
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Lessons", Namespace="http://schemas.datacontract.org/2004/07/ViewDB")]
+    public partial class Lessons : webTOsrv.Base
+    {
+        
+        private int CanceledField;
+        
+        private string DateField;
+        
+        private int LessonIdField;
+        
+        private int StudentIdField;
+        
+        private int TeacherIdField;
+        
+        private string TimeField;
+        
+        private bool paidField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Canceled
+        {
+            get
+            {
+                return this.CanceledField;
+            }
+            set
+            {
+                this.CanceledField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Date
+        {
+            get
+            {
+                return this.DateField;
+            }
+            set
+            {
+                this.DateField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int LessonId
+        {
+            get
+            {
+                return this.LessonIdField;
+            }
+            set
+            {
+                this.LessonIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int StudentId
+        {
+            get
+            {
+                return this.StudentIdField;
+            }
+            set
+            {
+                this.StudentIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int TeacherId
+        {
+            get
+            {
+                return this.TeacherIdField;
+            }
+            set
+            {
+                this.TeacherIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Time
+        {
+            get
+            {
+                return this.TimeField;
+            }
+            set
+            {
+                this.TimeField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool paid
+        {
+            get
+            {
+                return this.paidField;
+            }
+            set
+            {
+                this.paidField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="Base", Namespace="http://schemas.datacontract.org/2004/07/Model")]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(webTOsrv.Calendars))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(webTOsrv.Lessons))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(webTOsrv.Chats))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(webTOsrv.Payment))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(webTOsrv.Course))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(webTOsrv.CourseModule))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(webTOsrv.Notification))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(webTOsrv.StudentModuleProgress))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(webTOsrv.UserInfo))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(webTOsrv.Calendars))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(webTOsrv.SupportTicket))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(webTOsrv.Lessons))]
     public partial class Base : object
     {
         
@@ -35,6 +152,1105 @@ namespace webTOsrv
             set
             {
                 this.IdField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Chats", Namespace="http://schemas.datacontract.org/2004/07/ViewDB")]
+    public partial class Chats : webTOsrv.Base
+    {
+        
+        private bool IsTeacherField;
+        
+        private string MessageField;
+        
+        private System.DateTime SentAtField;
+        
+        private int UserIdField;
+        
+        private string UsernameField;
+        
+        private int idField;
+        
+        private int studentIdField;
+        
+        private int teacherIdField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsTeacher
+        {
+            get
+            {
+                return this.IsTeacherField;
+            }
+            set
+            {
+                this.IsTeacherField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Message
+        {
+            get
+            {
+                return this.MessageField;
+            }
+            set
+            {
+                this.MessageField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime SentAt
+        {
+            get
+            {
+                return this.SentAtField;
+            }
+            set
+            {
+                this.SentAtField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int UserId
+        {
+            get
+            {
+                return this.UserIdField;
+            }
+            set
+            {
+                this.UserIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Username
+        {
+            get
+            {
+                return this.UsernameField;
+            }
+            set
+            {
+                this.UsernameField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int id
+        {
+            get
+            {
+                return this.idField;
+            }
+            set
+            {
+                this.idField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int studentId
+        {
+            get
+            {
+                return this.studentIdField;
+            }
+            set
+            {
+                this.studentIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int teacherId
+        {
+            get
+            {
+                return this.teacherIdField;
+            }
+            set
+            {
+                this.teacherIdField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Payment", Namespace="http://schemas.datacontract.org/2004/07/ViewDB")]
+    public partial class Payment : webTOsrv.Base
+    {
+        
+        private int AmountField;
+        
+        private int LessonIdField;
+        
+        private string NotesField;
+        
+        private int NumberOfPaymentsField;
+        
+        private int ParcialAmountField;
+        
+        private System.DateTime PaymentDateField;
+        
+        private int PaymentIDField;
+        
+        private string PaymentMethodField;
+        
+        private string StatusField;
+        
+        private int StudentIDField;
+        
+        private int TeacherIDField;
+        
+        private bool paidField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Amount
+        {
+            get
+            {
+                return this.AmountField;
+            }
+            set
+            {
+                this.AmountField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int LessonId
+        {
+            get
+            {
+                return this.LessonIdField;
+            }
+            set
+            {
+                this.LessonIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Notes
+        {
+            get
+            {
+                return this.NotesField;
+            }
+            set
+            {
+                this.NotesField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int NumberOfPayments
+        {
+            get
+            {
+                return this.NumberOfPaymentsField;
+            }
+            set
+            {
+                this.NumberOfPaymentsField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ParcialAmount
+        {
+            get
+            {
+                return this.ParcialAmountField;
+            }
+            set
+            {
+                this.ParcialAmountField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime PaymentDate
+        {
+            get
+            {
+                return this.PaymentDateField;
+            }
+            set
+            {
+                this.PaymentDateField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int PaymentID
+        {
+            get
+            {
+                return this.PaymentIDField;
+            }
+            set
+            {
+                this.PaymentIDField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string PaymentMethod
+        {
+            get
+            {
+                return this.PaymentMethodField;
+            }
+            set
+            {
+                this.PaymentMethodField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Status
+        {
+            get
+            {
+                return this.StatusField;
+            }
+            set
+            {
+                this.StatusField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int StudentID
+        {
+            get
+            {
+                return this.StudentIDField;
+            }
+            set
+            {
+                this.StudentIDField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int TeacherID
+        {
+            get
+            {
+                return this.TeacherIDField;
+            }
+            set
+            {
+                this.TeacherIDField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool paid
+        {
+            get
+            {
+                return this.paidField;
+            }
+            set
+            {
+                this.paidField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Course", Namespace="http://schemas.datacontract.org/2004/07/Model")]
+    public partial class Course : webTOsrv.Base
+    {
+        
+        private string CourseNameField;
+        
+        private System.DateTime CreatedDateField;
+        
+        private string DescriptionField;
+        
+        private int DisplayOrderField;
+        
+        private bool IsActiveField;
+        
+        private int TotalModulesField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CourseName
+        {
+            get
+            {
+                return this.CourseNameField;
+            }
+            set
+            {
+                this.CourseNameField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime CreatedDate
+        {
+            get
+            {
+                return this.CreatedDateField;
+            }
+            set
+            {
+                this.CreatedDateField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Description
+        {
+            get
+            {
+                return this.DescriptionField;
+            }
+            set
+            {
+                this.DescriptionField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int DisplayOrder
+        {
+            get
+            {
+                return this.DisplayOrderField;
+            }
+            set
+            {
+                this.DisplayOrderField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsActive
+        {
+            get
+            {
+                return this.IsActiveField;
+            }
+            set
+            {
+                this.IsActiveField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int TotalModules
+        {
+            get
+            {
+                return this.TotalModulesField;
+            }
+            set
+            {
+                this.TotalModulesField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="CourseModule", Namespace="http://schemas.datacontract.org/2004/07/Model")]
+    public partial class CourseModule : webTOsrv.Base
+    {
+        
+        private string ContentTypeField;
+        
+        private string ContentUrlField;
+        
+        private int CourseIdField;
+        
+        private System.DateTime CreatedAtField;
+        
+        private string DescriptionField;
+        
+        private int DurationMinutesField;
+        
+        private bool IsRequiredField;
+        
+        private int ModuleIdField;
+        
+        private string ModuleNameField;
+        
+        private int OrderIndexField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ContentType
+        {
+            get
+            {
+                return this.ContentTypeField;
+            }
+            set
+            {
+                this.ContentTypeField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ContentUrl
+        {
+            get
+            {
+                return this.ContentUrlField;
+            }
+            set
+            {
+                this.ContentUrlField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CourseId
+        {
+            get
+            {
+                return this.CourseIdField;
+            }
+            set
+            {
+                this.CourseIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime CreatedAt
+        {
+            get
+            {
+                return this.CreatedAtField;
+            }
+            set
+            {
+                this.CreatedAtField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Description
+        {
+            get
+            {
+                return this.DescriptionField;
+            }
+            set
+            {
+                this.DescriptionField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int DurationMinutes
+        {
+            get
+            {
+                return this.DurationMinutesField;
+            }
+            set
+            {
+                this.DurationMinutesField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsRequired
+        {
+            get
+            {
+                return this.IsRequiredField;
+            }
+            set
+            {
+                this.IsRequiredField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ModuleId
+        {
+            get
+            {
+                return this.ModuleIdField;
+            }
+            set
+            {
+                this.ModuleIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ModuleName
+        {
+            get
+            {
+                return this.ModuleNameField;
+            }
+            set
+            {
+                this.ModuleNameField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int OrderIndex
+        {
+            get
+            {
+                return this.OrderIndexField;
+            }
+            set
+            {
+                this.OrderIndexField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Notification", Namespace="http://schemas.datacontract.org/2004/07/Model")]
+    public partial class Notification : webTOsrv.Base
+    {
+        
+        private System.DateTime CreatedAtField;
+        
+        private bool IsReadField;
+        
+        private string MessageField;
+        
+        private string NotificationTypeField;
+        
+        private System.Nullable<System.DateTime> ReadAtField;
+        
+        private int RecipientIdField;
+        
+        private string RecipientTypeField;
+        
+        private int SenderIdField;
+        
+        private string SenderNameField;
+        
+        private string SenderTypeField;
+        
+        private string TitleField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime CreatedAt
+        {
+            get
+            {
+                return this.CreatedAtField;
+            }
+            set
+            {
+                this.CreatedAtField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsRead
+        {
+            get
+            {
+                return this.IsReadField;
+            }
+            set
+            {
+                this.IsReadField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Message
+        {
+            get
+            {
+                return this.MessageField;
+            }
+            set
+            {
+                this.MessageField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string NotificationType
+        {
+            get
+            {
+                return this.NotificationTypeField;
+            }
+            set
+            {
+                this.NotificationTypeField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> ReadAt
+        {
+            get
+            {
+                return this.ReadAtField;
+            }
+            set
+            {
+                this.ReadAtField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int RecipientId
+        {
+            get
+            {
+                return this.RecipientIdField;
+            }
+            set
+            {
+                this.RecipientIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string RecipientType
+        {
+            get
+            {
+                return this.RecipientTypeField;
+            }
+            set
+            {
+                this.RecipientTypeField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int SenderId
+        {
+            get
+            {
+                return this.SenderIdField;
+            }
+            set
+            {
+                this.SenderIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SenderName
+        {
+            get
+            {
+                return this.SenderNameField;
+            }
+            set
+            {
+                this.SenderNameField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SenderType
+        {
+            get
+            {
+                return this.SenderTypeField;
+            }
+            set
+            {
+                this.SenderTypeField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Title
+        {
+            get
+            {
+                return this.TitleField;
+            }
+            set
+            {
+                this.TitleField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="StudentModuleProgress", Namespace="http://schemas.datacontract.org/2004/07/Model")]
+    public partial class StudentModuleProgress : webTOsrv.Base
+    {
+        
+        private System.Nullable<System.DateTime> CompletedAtField;
+        
+        private int CourseIdField;
+        
+        private bool IsCompletedField;
+        
+        private int ModuleIdField;
+        
+        private int ProgressIdField;
+        
+        private int ProgressPercentField;
+        
+        private int StudentIdField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> CompletedAt
+        {
+            get
+            {
+                return this.CompletedAtField;
+            }
+            set
+            {
+                this.CompletedAtField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CourseId
+        {
+            get
+            {
+                return this.CourseIdField;
+            }
+            set
+            {
+                this.CourseIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsCompleted
+        {
+            get
+            {
+                return this.IsCompletedField;
+            }
+            set
+            {
+                this.IsCompletedField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ModuleId
+        {
+            get
+            {
+                return this.ModuleIdField;
+            }
+            set
+            {
+                this.ModuleIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ProgressId
+        {
+            get
+            {
+                return this.ProgressIdField;
+            }
+            set
+            {
+                this.ProgressIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ProgressPercent
+        {
+            get
+            {
+                return this.ProgressPercentField;
+            }
+            set
+            {
+                this.ProgressPercentField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int StudentId
+        {
+            get
+            {
+                return this.StudentIdField;
+            }
+            set
+            {
+                this.StudentIdField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="UserInfo", Namespace="http://schemas.datacontract.org/2004/07/Model")]
+    public partial class UserInfo : webTOsrv.Base
+    {
+        
+        private bool ConfirmedField;
+        
+        private int CustomLessonPriceField;
+        
+        private int DiscountPercentField;
+        
+        private string EmailField;
+        
+        private bool IsAdminField;
+        
+        private int LessonPriceField;
+        
+        private string LessonsField;
+        
+        private string PasswordField;
+        
+        private string PaymentMethodsField;
+        
+        private string PhoneField;
+        
+        private double RatingField;
+        
+        private string RatingTextField;
+        
+        private string RewiewField;
+        
+        private int StudentIdField;
+        
+        private int TeacherIdField;
+        
+        private string UsernameField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Confirmed
+        {
+            get
+            {
+                return this.ConfirmedField;
+            }
+            set
+            {
+                this.ConfirmedField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CustomLessonPrice
+        {
+            get
+            {
+                return this.CustomLessonPriceField;
+            }
+            set
+            {
+                this.CustomLessonPriceField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int DiscountPercent
+        {
+            get
+            {
+                return this.DiscountPercentField;
+            }
+            set
+            {
+                this.DiscountPercentField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Email
+        {
+            get
+            {
+                return this.EmailField;
+            }
+            set
+            {
+                this.EmailField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsAdmin
+        {
+            get
+            {
+                return this.IsAdminField;
+            }
+            set
+            {
+                this.IsAdminField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int LessonPrice
+        {
+            get
+            {
+                return this.LessonPriceField;
+            }
+            set
+            {
+                this.LessonPriceField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Lessons
+        {
+            get
+            {
+                return this.LessonsField;
+            }
+            set
+            {
+                this.LessonsField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Password
+        {
+            get
+            {
+                return this.PasswordField;
+            }
+            set
+            {
+                this.PasswordField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string PaymentMethods
+        {
+            get
+            {
+                return this.PaymentMethodsField;
+            }
+            set
+            {
+                this.PaymentMethodsField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Phone
+        {
+            get
+            {
+                return this.PhoneField;
+            }
+            set
+            {
+                this.PhoneField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double Rating
+        {
+            get
+            {
+                return this.RatingField;
+            }
+            set
+            {
+                this.RatingField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string RatingText
+        {
+            get
+            {
+                return this.RatingTextField;
+            }
+            set
+            {
+                this.RatingTextField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Rewiew
+        {
+            get
+            {
+                return this.RewiewField;
+            }
+            set
+            {
+                this.RewiewField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int StudentId
+        {
+            get
+            {
+                return this.StudentIdField;
+            }
+            set
+            {
+                this.StudentIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int TeacherId
+        {
+            get
+            {
+                return this.TeacherIdField;
+            }
+            set
+            {
+                this.TeacherIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Username
+        {
+            get
+            {
+                return this.UsernameField;
+            }
+            set
+            {
+                this.UsernameField = value;
             }
         }
     }
@@ -228,159 +1444,193 @@ namespace webTOsrv
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Lessons", Namespace="http://schemas.datacontract.org/2004/07/ViewDB")]
-    public partial class Lessons : webTOsrv.Base
+    [System.Runtime.Serialization.DataContractAttribute(Name="SupportTicket", Namespace="http://schemas.datacontract.org/2004/07/Model")]
+    public partial class SupportTicket : webTOsrv.Base
     {
         
-        private string DateField;
+        private string AdminNotesField;
         
-        private int LessonIdField;
+        private string AssignedToField;
         
-        private int StudentIdField;
+        private System.Nullable<System.DateTime> ClosedAtField;
         
-        private int TeacherIdField;
+        private System.DateTime CreatedAtField;
         
-        private string TimeField;
+        private string DescriptionField;
         
-        private bool paidField;
+        private webTOsrv.TicketMessage[] MessagesField;
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Date
-        {
-            get
-            {
-                return this.DateField;
-            }
-            set
-            {
-                this.DateField = value;
-            }
-        }
+        private string PriorityField;
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int LessonId
-        {
-            get
-            {
-                return this.LessonIdField;
-            }
-            set
-            {
-                this.LessonIdField = value;
-            }
-        }
+        private string ResolutionField;
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int StudentId
-        {
-            get
-            {
-                return this.StudentIdField;
-            }
-            set
-            {
-                this.StudentIdField = value;
-            }
-        }
+        private string StatusField;
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int TeacherId
-        {
-            get
-            {
-                return this.TeacherIdField;
-            }
-            set
-            {
-                this.TeacherIdField = value;
-            }
-        }
+        private string SubjectField;
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Time
-        {
-            get
-            {
-                return this.TimeField;
-            }
-            set
-            {
-                this.TimeField = value;
-            }
-        }
+        private int TicketIdField;
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool paid
-        {
-            get
-            {
-                return this.paidField;
-            }
-            set
-            {
-                this.paidField = value;
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Chats", Namespace="http://schemas.datacontract.org/2004/07/ViewDB")]
-    public partial class Chats : webTOsrv.Base
-    {
-        
-        private bool IsTeacherField;
-        
-        private string MessageField;
-        
-        private System.DateTime SentAtField;
+        private System.Nullable<System.DateTime> UpdatedAtField;
         
         private int UserIdField;
         
+        private string UserTypeField;
+        
         private string UsernameField;
         
-        private int idField;
-        
-        private int studentIdField;
-        
-        private int teacherIdField;
-        
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool IsTeacher
+        public string AdminNotes
         {
             get
             {
-                return this.IsTeacherField;
+                return this.AdminNotesField;
             }
             set
             {
-                this.IsTeacherField = value;
+                this.AdminNotesField = value;
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Message
+        public string AssignedTo
         {
             get
             {
-                return this.MessageField;
+                return this.AssignedToField;
             }
             set
             {
-                this.MessageField = value;
+                this.AssignedToField = value;
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.DateTime SentAt
+        public System.Nullable<System.DateTime> ClosedAt
         {
             get
             {
-                return this.SentAtField;
+                return this.ClosedAtField;
             }
             set
             {
-                this.SentAtField = value;
+                this.ClosedAtField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime CreatedAt
+        {
+            get
+            {
+                return this.CreatedAtField;
+            }
+            set
+            {
+                this.CreatedAtField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Description
+        {
+            get
+            {
+                return this.DescriptionField;
+            }
+            set
+            {
+                this.DescriptionField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public webTOsrv.TicketMessage[] Messages
+        {
+            get
+            {
+                return this.MessagesField;
+            }
+            set
+            {
+                this.MessagesField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Priority
+        {
+            get
+            {
+                return this.PriorityField;
+            }
+            set
+            {
+                this.PriorityField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Resolution
+        {
+            get
+            {
+                return this.ResolutionField;
+            }
+            set
+            {
+                this.ResolutionField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Status
+        {
+            get
+            {
+                return this.StatusField;
+            }
+            set
+            {
+                this.StatusField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Subject
+        {
+            get
+            {
+                return this.SubjectField;
+            }
+            set
+            {
+                this.SubjectField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int TicketId
+        {
+            get
+            {
+                return this.TicketIdField;
+            }
+            set
+            {
+                this.TicketIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> UpdatedAt
+        {
+            get
+            {
+                return this.UpdatedAtField;
+            }
+            set
+            {
+                this.UpdatedAtField = value;
             }
         }
         
@@ -398,355 +1648,15 @@ namespace webTOsrv
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Username
+        public string UserType
         {
             get
             {
-                return this.UsernameField;
+                return this.UserTypeField;
             }
             set
             {
-                this.UsernameField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int id
-        {
-            get
-            {
-                return this.idField;
-            }
-            set
-            {
-                this.idField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int studentId
-        {
-            get
-            {
-                return this.studentIdField;
-            }
-            set
-            {
-                this.studentIdField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int teacherId
-        {
-            get
-            {
-                return this.teacherIdField;
-            }
-            set
-            {
-                this.teacherIdField = value;
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Payment", Namespace="http://schemas.datacontract.org/2004/07/ViewDB")]
-    public partial class Payment : webTOsrv.Base
-    {
-        
-        private int AmountField;
-        
-        private int NumberOfPaymentsField;
-        
-        private int ParcialAmountField;
-        
-        private System.DateTime PaymentDateField;
-        
-        private int PaymentIDField;
-        
-        private string PaymentMethodField;
-        
-        private int StudentIDField;
-        
-        private int TeacherIDField;
-        
-        private bool paidField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Amount
-        {
-            get
-            {
-                return this.AmountField;
-            }
-            set
-            {
-                this.AmountField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int NumberOfPayments
-        {
-            get
-            {
-                return this.NumberOfPaymentsField;
-            }
-            set
-            {
-                this.NumberOfPaymentsField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int ParcialAmount
-        {
-            get
-            {
-                return this.ParcialAmountField;
-            }
-            set
-            {
-                this.ParcialAmountField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.DateTime PaymentDate
-        {
-            get
-            {
-                return this.PaymentDateField;
-            }
-            set
-            {
-                this.PaymentDateField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int PaymentID
-        {
-            get
-            {
-                return this.PaymentIDField;
-            }
-            set
-            {
-                this.PaymentIDField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string PaymentMethod
-        {
-            get
-            {
-                return this.PaymentMethodField;
-            }
-            set
-            {
-                this.PaymentMethodField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int StudentID
-        {
-            get
-            {
-                return this.StudentIDField;
-            }
-            set
-            {
-                this.StudentIDField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int TeacherID
-        {
-            get
-            {
-                return this.TeacherIDField;
-            }
-            set
-            {
-                this.TeacherIDField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool paid
-        {
-            get
-            {
-                return this.paidField;
-            }
-            set
-            {
-                this.paidField = value;
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="UserInfo", Namespace="http://schemas.datacontract.org/2004/07/Model")]
-    public partial class UserInfo : webTOsrv.Base
-    {
-        
-        private bool ConfirmedField;
-        
-        private string EmailField;
-        
-        private bool IsAdminField;
-        
-        private string LessonsField;
-        
-        private string PasswordField;
-        
-        private string PhoneField;
-        
-        private double RatingField;
-        
-        private string RatingTextField;
-        
-        private string RewiewField;
-        
-        private int TeacherIdField;
-        
-        private string UsernameField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool Confirmed
-        {
-            get
-            {
-                return this.ConfirmedField;
-            }
-            set
-            {
-                this.ConfirmedField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Email
-        {
-            get
-            {
-                return this.EmailField;
-            }
-            set
-            {
-                this.EmailField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool IsAdmin
-        {
-            get
-            {
-                return this.IsAdminField;
-            }
-            set
-            {
-                this.IsAdminField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Lessons
-        {
-            get
-            {
-                return this.LessonsField;
-            }
-            set
-            {
-                this.LessonsField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Password
-        {
-            get
-            {
-                return this.PasswordField;
-            }
-            set
-            {
-                this.PasswordField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Phone
-        {
-            get
-            {
-                return this.PhoneField;
-            }
-            set
-            {
-                this.PhoneField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public double Rating
-        {
-            get
-            {
-                return this.RatingField;
-            }
-            set
-            {
-                this.RatingField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string RatingText
-        {
-            get
-            {
-                return this.RatingTextField;
-            }
-            set
-            {
-                this.RatingTextField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Rewiew
-        {
-            get
-            {
-                return this.RewiewField;
-            }
-            set
-            {
-                this.RewiewField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int TeacherId
-        {
-            get
-            {
-                return this.TeacherIdField;
-            }
-            set
-            {
-                this.TeacherIdField = value;
+                this.UserTypeField = value;
             }
         }
         
@@ -885,9 +1795,218 @@ namespace webTOsrv
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="TicketMessage", Namespace="http://schemas.datacontract.org/2004/07/Model")]
+    public partial class TicketMessage : object
+    {
+        
+        private bool IsAdminField;
+        
+        private string MessageField;
+        
+        private int MessageIdField;
+        
+        private string SenderUsernameField;
+        
+        private System.DateTime SentAtField;
+        
+        private int TicketIdField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsAdmin
+        {
+            get
+            {
+                return this.IsAdminField;
+            }
+            set
+            {
+                this.IsAdminField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Message
+        {
+            get
+            {
+                return this.MessageField;
+            }
+            set
+            {
+                this.MessageField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int MessageId
+        {
+            get
+            {
+                return this.MessageIdField;
+            }
+            set
+            {
+                this.MessageIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SenderUsername
+        {
+            get
+            {
+                return this.SenderUsernameField;
+            }
+            set
+            {
+                this.SenderUsernameField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime SentAt
+        {
+            get
+            {
+                return this.SentAtField;
+            }
+            set
+            {
+                this.SentAtField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int TicketId
+        {
+            get
+            {
+                return this.TicketIdField;
+            }
+            set
+            {
+                this.TicketIdField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.CollectionDataContractAttribute(Name="AllUsers", Namespace="http://schemas.datacontract.org/2004/07/Model", ItemName="UserInfo")]
     public class AllUsers : System.Collections.Generic.List<webTOsrv.UserInfo>
     {
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="StudentCourseProgress", Namespace="http://schemas.datacontract.org/2004/07/Model")]
+    public partial class StudentCourseProgress : object
+    {
+        
+        private int CompletedModulesField;
+        
+        private int CourseIdField;
+        
+        private string CourseNameField;
+        
+        private webTOsrv.StudentModuleProgress[] ModuleProgressField;
+        
+        private int ProgressPercentField;
+        
+        private int StudentIdField;
+        
+        private int TotalModulesField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CompletedModules
+        {
+            get
+            {
+                return this.CompletedModulesField;
+            }
+            set
+            {
+                this.CompletedModulesField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CourseId
+        {
+            get
+            {
+                return this.CourseIdField;
+            }
+            set
+            {
+                this.CourseIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CourseName
+        {
+            get
+            {
+                return this.CourseNameField;
+            }
+            set
+            {
+                this.CourseNameField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public webTOsrv.StudentModuleProgress[] ModuleProgress
+        {
+            get
+            {
+                return this.ModuleProgressField;
+            }
+            set
+            {
+                this.ModuleProgressField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ProgressPercent
+        {
+            get
+            {
+                return this.ProgressPercentField;
+            }
+            set
+            {
+                this.ProgressPercentField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int StudentId
+        {
+            get
+            {
+                return this.StudentIdField;
+            }
+            set
+            {
+                this.StudentIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int TotalModules
+        {
+            get
+            {
+                return this.TotalModulesField;
+            }
+            set
+            {
+                this.TotalModulesField = value;
+            }
+        }
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
@@ -895,71 +2014,11 @@ namespace webTOsrv
     public interface IService1
     {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetUserID", ReplyAction="http://tempuri.org/IService1/GetUserIDResponse")]
-        int GetUserID(string username, string table);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CancelLesson", ReplyAction="http://tempuri.org/IService1/CancelLessonResponse")]
+        void CancelLesson(int lessonId);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetUserID", ReplyAction="http://tempuri.org/IService1/GetUserIDResponse")]
-        System.Threading.Tasks.Task<int> GetUserIDAsync(string username, string table);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetUserById", ReplyAction="http://tempuri.org/IService1/GetUserByIdResponse")]
-        webTOsrv.UserInfo GetUserById(int id, string table);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetUserById", ReplyAction="http://tempuri.org/IService1/GetUserByIdResponse")]
-        System.Threading.Tasks.Task<webTOsrv.UserInfo> GetUserByIdAsync(int id, string table);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllUsers", ReplyAction="http://tempuri.org/IService1/GetAllUsersResponse")]
-        webTOsrv.AllUsers GetAllUsers();
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllUsers", ReplyAction="http://tempuri.org/IService1/GetAllUsersResponse")]
-        System.Threading.Tasks.Task<webTOsrv.AllUsers> GetAllUsersAsync();
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CheckUserPassword", ReplyAction="http://tempuri.org/IService1/CheckUserPasswordResponse")]
-        bool CheckUserPassword(string username, string password);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CheckUserPassword", ReplyAction="http://tempuri.org/IService1/CheckUserPasswordResponse")]
-        System.Threading.Tasks.Task<bool> CheckUserPasswordAsync(string username, string password);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CheckUserAdmin", ReplyAction="http://tempuri.org/IService1/CheckUserAdminResponse")]
-        bool CheckUserAdmin(string username);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CheckUserAdmin", ReplyAction="http://tempuri.org/IService1/CheckUserAdminResponse")]
-        System.Threading.Tasks.Task<bool> CheckUserAdminAsync(string username);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CheckUserExist", ReplyAction="http://tempuri.org/IService1/CheckUserExistResponse")]
-        bool CheckUserExist(string username);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CheckUserExist", ReplyAction="http://tempuri.org/IService1/CheckUserExistResponse")]
-        System.Threading.Tasks.Task<bool> CheckUserExistAsync(string username);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetTeacherCalendar", ReplyAction="http://tempuri.org/IService1/GetTeacherCalendarResponse")]
-        webTOsrv.Calendars GetTeacherCalendar(int teacherId);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetTeacherCalendar", ReplyAction="http://tempuri.org/IService1/GetTeacherCalendarResponse")]
-        System.Threading.Tasks.Task<webTOsrv.Calendars> GetTeacherCalendarAsync(int teacherId);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SetTeacherCalendar", ReplyAction="http://tempuri.org/IService1/SetTeacherCalendarResponse")]
-        bool SetTeacherCalendar(webTOsrv.Calendars cal, int teacherId);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SetTeacherCalendar", ReplyAction="http://tempuri.org/IService1/SetTeacherCalendarResponse")]
-        System.Threading.Tasks.Task<bool> SetTeacherCalendarAsync(webTOsrv.Calendars cal, int teacherId);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/TeacherConfirm", ReplyAction="http://tempuri.org/IService1/TeacherConfirmResponse")]
-        void TeacherConfirm(int id, int tid);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/TeacherConfirm", ReplyAction="http://tempuri.org/IService1/TeacherConfirmResponse")]
-        System.Threading.Tasks.Task TeacherConfirmAsync(int id, int tid);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllTeacher", ReplyAction="http://tempuri.org/IService1/GetAllTeacherResponse")]
-        webTOsrv.AllUsers GetAllTeacher();
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllTeacher", ReplyAction="http://tempuri.org/IService1/GetAllTeacherResponse")]
-        System.Threading.Tasks.Task<webTOsrv.AllUsers> GetAllTeacherAsync();
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetTeacherReviews", ReplyAction="http://tempuri.org/IService1/GetTeacherReviewsResponse")]
-        string[] GetTeacherReviews(int tid);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetTeacherReviews", ReplyAction="http://tempuri.org/IService1/GetTeacherReviewsResponse")]
-        System.Threading.Tasks.Task<string[]> GetTeacherReviewsAsync(int tid);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CancelLesson", ReplyAction="http://tempuri.org/IService1/CancelLessonResponse")]
+        System.Threading.Tasks.Task CancelLessonAsync(int lessonId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllStudentLessons", ReplyAction="http://tempuri.org/IService1/GetAllStudentLessonsResponse")]
         webTOsrv.Lessons[] GetAllStudentLessons(int id);
@@ -979,11 +2038,65 @@ namespace webTOsrv
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddLessonForStudent", ReplyAction="http://tempuri.org/IService1/AddLessonForStudentResponse")]
         System.Threading.Tasks.Task AddLessonForStudentAsync(int sid, string Date, string time);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/UpdateRating", ReplyAction="http://tempuri.org/IService1/UpdateRatingResponse")]
-        void UpdateRating(int tid, int rating, string rewiew);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/MarkLessonPaid", ReplyAction="http://tempuri.org/IService1/MarkLessonPaidResponse")]
+        void MarkLessonPaid(int id);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/UpdateRating", ReplyAction="http://tempuri.org/IService1/UpdateRatingResponse")]
-        System.Threading.Tasks.Task UpdateRatingAsync(int tid, int rating, string rewiew);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/MarkLessonPaid", ReplyAction="http://tempuri.org/IService1/MarkLessonPaidResponse")]
+        System.Threading.Tasks.Task MarkLessonPaidAsync(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetUserID", ReplyAction="http://tempuri.org/IService1/GetUserIDResponse")]
+        int GetUserID(string username, string table);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetUserID", ReplyAction="http://tempuri.org/IService1/GetUserIDResponse")]
+        System.Threading.Tasks.Task<int> GetUserIDAsync(string username, string table);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetUserById", ReplyAction="http://tempuri.org/IService1/GetUserByIdResponse")]
+        webTOsrv.UserInfo GetUserById(int id, string table);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetUserById", ReplyAction="http://tempuri.org/IService1/GetUserByIdResponse")]
+        System.Threading.Tasks.Task<webTOsrv.UserInfo> GetUserByIdAsync(int id, string table);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllUsers", ReplyAction="http://tempuri.org/IService1/GetAllUsersResponse")]
+        webTOsrv.AllUsers GetAllUsers();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllUsers", ReplyAction="http://tempuri.org/IService1/GetAllUsersResponse")]
+        System.Threading.Tasks.Task<webTOsrv.AllUsers> GetAllUsersAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllTeacher", ReplyAction="http://tempuri.org/IService1/GetAllTeacherResponse")]
+        webTOsrv.AllUsers GetAllTeacher();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllTeacher", ReplyAction="http://tempuri.org/IService1/GetAllTeacherResponse")]
+        System.Threading.Tasks.Task<webTOsrv.AllUsers> GetAllTeacherAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CheckUserPassword", ReplyAction="http://tempuri.org/IService1/CheckUserPasswordResponse")]
+        bool CheckUserPassword(string username, string password);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CheckUserPassword", ReplyAction="http://tempuri.org/IService1/CheckUserPasswordResponse")]
+        System.Threading.Tasks.Task<bool> CheckUserPasswordAsync(string username, string password);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CheckUserAdmin", ReplyAction="http://tempuri.org/IService1/CheckUserAdminResponse")]
+        bool CheckUserAdmin(string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CheckUserAdmin", ReplyAction="http://tempuri.org/IService1/CheckUserAdminResponse")]
+        System.Threading.Tasks.Task<bool> CheckUserAdminAsync(string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CheckUserExist", ReplyAction="http://tempuri.org/IService1/CheckUserExistResponse")]
+        bool CheckUserExist(string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CheckUserExist", ReplyAction="http://tempuri.org/IService1/CheckUserExistResponse")]
+        System.Threading.Tasks.Task<bool> CheckUserExistAsync(string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddUser", ReplyAction="http://tempuri.org/IService1/AddUserResponse")]
+        bool AddUser(string name, string password, string email, string phone, bool admin, int tID, int lessonPrice);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddUser", ReplyAction="http://tempuri.org/IService1/AddUserResponse")]
+        System.Threading.Tasks.Task<bool> AddUserAsync(string name, string password, string email, string phone, bool admin, int tID, int lessonPrice);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/TeacherConfirm", ReplyAction="http://tempuri.org/IService1/TeacherConfirmResponse")]
+        void TeacherConfirm(int id, int tid);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/TeacherConfirm", ReplyAction="http://tempuri.org/IService1/TeacherConfirmResponse")]
+        System.Threading.Tasks.Task TeacherConfirmAsync(int id, int tid);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/IsConfirmed", ReplyAction="http://tempuri.org/IService1/IsConfirmedResponse")]
         bool IsConfirmed(int id);
@@ -1009,11 +2122,95 @@ namespace webTOsrv
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/UpdateTeacherId", ReplyAction="http://tempuri.org/IService1/UpdateTeacherIdResponse")]
         System.Threading.Tasks.Task UpdateTeacherIdAsync(int sid, int tid);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/MarkLessonPaid", ReplyAction="http://tempuri.org/IService1/MarkLessonPaidResponse")]
-        void MarkLessonPaid(int id);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/IsUserAdmin", ReplyAction="http://tempuri.org/IService1/IsUserAdminResponse")]
+        bool IsUserAdmin(string username);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/MarkLessonPaid", ReplyAction="http://tempuri.org/IService1/MarkLessonPaidResponse")]
-        System.Threading.Tasks.Task MarkLessonPaidAsync(int id);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/IsUserAdmin", ReplyAction="http://tempuri.org/IService1/IsUserAdminResponse")]
+        System.Threading.Tasks.Task<bool> IsUserAdminAsync(string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SetAdminStatus", ReplyAction="http://tempuri.org/IService1/SetAdminStatusResponse")]
+        void SetAdminStatus(int teacherId, bool isAdmin);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SetAdminStatus", ReplyAction="http://tempuri.org/IService1/SetAdminStatusResponse")]
+        System.Threading.Tasks.Task SetAdminStatusAsync(int teacherId, bool isAdmin);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/UpdateStudentCredentials", ReplyAction="http://tempuri.org/IService1/UpdateStudentCredentialsResponse")]
+        void UpdateStudentCredentials(int studentId, string email, string phone, int teacherId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/UpdateStudentCredentials", ReplyAction="http://tempuri.org/IService1/UpdateStudentCredentialsResponse")]
+        System.Threading.Tasks.Task UpdateStudentCredentialsAsync(int studentId, string email, string phone, int teacherId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/UpdateStudentTeacher", ReplyAction="http://tempuri.org/IService1/UpdateStudentTeacherResponse")]
+        void UpdateStudentTeacher(int studentId, int newTeacherId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/UpdateStudentTeacher", ReplyAction="http://tempuri.org/IService1/UpdateStudentTeacherResponse")]
+        System.Threading.Tasks.Task UpdateStudentTeacherAsync(int studentId, int newTeacherId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/ResetPassword", ReplyAction="http://tempuri.org/IService1/ResetPasswordResponse")]
+        void ResetPassword(int userId, string table, string newPassword);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/ResetPassword", ReplyAction="http://tempuri.org/IService1/ResetPasswordResponse")]
+        System.Threading.Tasks.Task ResetPasswordAsync(int userId, string table, string newPassword);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/UpdateLessonPrice", ReplyAction="http://tempuri.org/IService1/UpdateLessonPriceResponse")]
+        void UpdateLessonPrice(int teacherId, int price);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/UpdateLessonPrice", ReplyAction="http://tempuri.org/IService1/UpdateLessonPriceResponse")]
+        System.Threading.Tasks.Task UpdateLessonPriceAsync(int teacherId, int price);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SetStudentLessonPrice", ReplyAction="http://tempuri.org/IService1/SetStudentLessonPriceResponse")]
+        void SetStudentLessonPrice(int studentId, int price);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SetStudentLessonPrice", ReplyAction="http://tempuri.org/IService1/SetStudentLessonPriceResponse")]
+        System.Threading.Tasks.Task SetStudentLessonPriceAsync(int studentId, int price);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetStudentLessonPrice", ReplyAction="http://tempuri.org/IService1/GetStudentLessonPriceResponse")]
+        int GetStudentLessonPrice(int studentId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetStudentLessonPrice", ReplyAction="http://tempuri.org/IService1/GetStudentLessonPriceResponse")]
+        System.Threading.Tasks.Task<int> GetStudentLessonPriceAsync(int studentId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/UpdatePaymentMethods", ReplyAction="http://tempuri.org/IService1/UpdatePaymentMethodsResponse")]
+        void UpdatePaymentMethods(int teacherId, string paymentMethods);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/UpdatePaymentMethods", ReplyAction="http://tempuri.org/IService1/UpdatePaymentMethodsResponse")]
+        System.Threading.Tasks.Task UpdatePaymentMethodsAsync(int teacherId, string paymentMethods);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetTeacherCalendar", ReplyAction="http://tempuri.org/IService1/GetTeacherCalendarResponse")]
+        webTOsrv.Calendars GetTeacherCalendar(int teacherId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetTeacherCalendar", ReplyAction="http://tempuri.org/IService1/GetTeacherCalendarResponse")]
+        System.Threading.Tasks.Task<webTOsrv.Calendars> GetTeacherCalendarAsync(int teacherId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SetTeacherCalendar", ReplyAction="http://tempuri.org/IService1/SetTeacherCalendarResponse")]
+        bool SetTeacherCalendar(webTOsrv.Calendars cal, int teacherId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SetTeacherCalendar", ReplyAction="http://tempuri.org/IService1/SetTeacherCalendarResponse")]
+        System.Threading.Tasks.Task<bool> SetTeacherCalendarAsync(webTOsrv.Calendars cal, int teacherId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/TeacherSpacialDays", ReplyAction="http://tempuri.org/IService1/TeacherSpacialDaysResponse")]
+        webTOsrv.Calendars[] TeacherSpacialDays(int teacherId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/TeacherSpacialDays", ReplyAction="http://tempuri.org/IService1/TeacherSpacialDaysResponse")]
+        System.Threading.Tasks.Task<webTOsrv.Calendars[]> TeacherSpacialDaysAsync(int teacherId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetTeacherUnavailableDates", ReplyAction="http://tempuri.org/IService1/GetTeacherUnavailableDatesResponse")]
+        webTOsrv.Calendars[] GetTeacherUnavailableDates(int teacherId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetTeacherUnavailableDates", ReplyAction="http://tempuri.org/IService1/GetTeacherUnavailableDatesResponse")]
+        System.Threading.Tasks.Task<webTOsrv.Calendars[]> GetTeacherUnavailableDatesAsync(int teacherId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/UpdateRating", ReplyAction="http://tempuri.org/IService1/UpdateRatingResponse")]
+        void UpdateRating(int tid, int rating, string rewiew);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/UpdateRating", ReplyAction="http://tempuri.org/IService1/UpdateRatingResponse")]
+        System.Threading.Tasks.Task UpdateRatingAsync(int tid, int rating, string rewiew);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetTeacherReviews", ReplyAction="http://tempuri.org/IService1/GetTeacherReviewsResponse")]
+        string[] GetTeacherReviews(int tid);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetTeacherReviews", ReplyAction="http://tempuri.org/IService1/GetTeacherReviewsResponse")]
+        System.Threading.Tasks.Task<string[]> GetTeacherReviewsAsync(int tid);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddMessageGlobal", ReplyAction="http://tempuri.org/IService1/AddMessageGlobalResponse")]
         void AddMessageGlobal(string message, int userid, string username, bool IsTeacher);
@@ -1063,29 +2260,191 @@ namespace webTOsrv
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SelectPaymentByTeacherID", ReplyAction="http://tempuri.org/IService1/SelectPaymentByTeacherIDResponse")]
         System.Threading.Tasks.Task<webTOsrv.Payment[]> SelectPaymentByTeacherIDAsync(int id);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/TeacherSpacialDays", ReplyAction="http://tempuri.org/IService1/TeacherSpacialDaysResponse")]
-        webTOsrv.Calendars[] TeacherSpacialDays(int teacherId);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/TeacherSpacialDays", ReplyAction="http://tempuri.org/IService1/TeacherSpacialDaysResponse")]
-        System.Threading.Tasks.Task<webTOsrv.Calendars[]> TeacherSpacialDaysAsync(int teacherId);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetTeacherUnavailableDates", ReplyAction="http://tempuri.org/IService1/GetTeacherUnavailableDatesResponse")]
-        webTOsrv.Calendars[] GetTeacherUnavailableDates(int teacherId);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetTeacherUnavailableDates", ReplyAction="http://tempuri.org/IService1/GetTeacherUnavailableDatesResponse")]
-        System.Threading.Tasks.Task<webTOsrv.Calendars[]> GetTeacherUnavailableDatesAsync(int teacherId);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddUser", ReplyAction="http://tempuri.org/IService1/AddUserResponse")]
-        bool AddUser(string name, string password, string email, string phone, bool admin, int tID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddUser", ReplyAction="http://tempuri.org/IService1/AddUserResponse")]
-        System.Threading.Tasks.Task<bool> AddUserAsync(string name, string password, string email, string phone, bool admin, int tID);
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SelectPaymentByStudentID", ReplyAction="http://tempuri.org/IService1/SelectPaymentByStudentIDResponse")]
         webTOsrv.Payment[] SelectPaymentByStudentID(int id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SelectPaymentByStudentID", ReplyAction="http://tempuri.org/IService1/SelectPaymentByStudentIDResponse")]
         System.Threading.Tasks.Task<webTOsrv.Payment[]> SelectPaymentByStudentIDAsync(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetTeacherIncome", ReplyAction="http://tempuri.org/IService1/GetTeacherIncomeResponse")]
+        decimal GetTeacherIncome(int teacherId, System.DateTime fromDate, System.DateTime toDate);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetTeacherIncome", ReplyAction="http://tempuri.org/IService1/GetTeacherIncomeResponse")]
+        System.Threading.Tasks.Task<decimal> GetTeacherIncomeAsync(int teacherId, System.DateTime fromDate, System.DateTime toDate);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetOutstandingPayments", ReplyAction="http://tempuri.org/IService1/GetOutstandingPaymentsResponse")]
+        webTOsrv.Payment[] GetOutstandingPayments(int studentId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetOutstandingPayments", ReplyAction="http://tempuri.org/IService1/GetOutstandingPaymentsResponse")]
+        System.Threading.Tasks.Task<webTOsrv.Payment[]> GetOutstandingPaymentsAsync(int studentId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetOverduePayments", ReplyAction="http://tempuri.org/IService1/GetOverduePaymentsResponse")]
+        webTOsrv.Payment[] GetOverduePayments();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetOverduePayments", ReplyAction="http://tempuri.org/IService1/GetOverduePaymentsResponse")]
+        System.Threading.Tasks.Task<webTOsrv.Payment[]> GetOverduePaymentsAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CreateSupportTicket", ReplyAction="http://tempuri.org/IService1/CreateSupportTicketResponse")]
+        int CreateSupportTicket(webTOsrv.SupportTicket ticket);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CreateSupportTicket", ReplyAction="http://tempuri.org/IService1/CreateSupportTicketResponse")]
+        System.Threading.Tasks.Task<int> CreateSupportTicketAsync(webTOsrv.SupportTicket ticket);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetUserTickets", ReplyAction="http://tempuri.org/IService1/GetUserTicketsResponse")]
+        webTOsrv.SupportTicket[] GetUserTickets(int userId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetUserTickets", ReplyAction="http://tempuri.org/IService1/GetUserTicketsResponse")]
+        System.Threading.Tasks.Task<webTOsrv.SupportTicket[]> GetUserTicketsAsync(int userId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllTickets", ReplyAction="http://tempuri.org/IService1/GetAllTicketsResponse")]
+        webTOsrv.SupportTicket[] GetAllTickets();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllTickets", ReplyAction="http://tempuri.org/IService1/GetAllTicketsResponse")]
+        System.Threading.Tasks.Task<webTOsrv.SupportTicket[]> GetAllTicketsAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetTicketById", ReplyAction="http://tempuri.org/IService1/GetTicketByIdResponse")]
+        webTOsrv.SupportTicket GetTicketById(int ticketId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetTicketById", ReplyAction="http://tempuri.org/IService1/GetTicketByIdResponse")]
+        System.Threading.Tasks.Task<webTOsrv.SupportTicket> GetTicketByIdAsync(int ticketId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/UpdateTicketStatus", ReplyAction="http://tempuri.org/IService1/UpdateTicketStatusResponse")]
+        void UpdateTicketStatus(int ticketId, string status, string assignedTo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/UpdateTicketStatus", ReplyAction="http://tempuri.org/IService1/UpdateTicketStatusResponse")]
+        System.Threading.Tasks.Task UpdateTicketStatusAsync(int ticketId, string status, string assignedTo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CloseTicket", ReplyAction="http://tempuri.org/IService1/CloseTicketResponse")]
+        void CloseTicket(int ticketId, string resolution, string adminNotes);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CloseTicket", ReplyAction="http://tempuri.org/IService1/CloseTicketResponse")]
+        System.Threading.Tasks.Task CloseTicketAsync(int ticketId, string resolution, string adminNotes);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddTicketMessage", ReplyAction="http://tempuri.org/IService1/AddTicketMessageResponse")]
+        void AddTicketMessage(webTOsrv.TicketMessage message);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AddTicketMessage", ReplyAction="http://tempuri.org/IService1/AddTicketMessageResponse")]
+        System.Threading.Tasks.Task AddTicketMessageAsync(webTOsrv.TicketMessage message);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetTicketMessages", ReplyAction="http://tempuri.org/IService1/GetTicketMessagesResponse")]
+        webTOsrv.TicketMessage[] GetTicketMessages(int ticketId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetTicketMessages", ReplyAction="http://tempuri.org/IService1/GetTicketMessagesResponse")]
+        System.Threading.Tasks.Task<webTOsrv.TicketMessage[]> GetTicketMessagesAsync(int ticketId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/UpdateTicketPriority", ReplyAction="http://tempuri.org/IService1/UpdateTicketPriorityResponse")]
+        void UpdateTicketPriority(int ticketId, string priority);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/UpdateTicketPriority", ReplyAction="http://tempuri.org/IService1/UpdateTicketPriorityResponse")]
+        System.Threading.Tasks.Task UpdateTicketPriorityAsync(int ticketId, string priority);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/MigrateAllPasswords", ReplyAction="http://tempuri.org/IService1/MigrateAllPasswordsResponse")]
+        void MigrateAllPasswords();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/MigrateAllPasswords", ReplyAction="http://tempuri.org/IService1/MigrateAllPasswordsResponse")]
+        System.Threading.Tasks.Task MigrateAllPasswordsAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SetStudentDiscount", ReplyAction="http://tempuri.org/IService1/SetStudentDiscountResponse")]
+        void SetStudentDiscount(int studentId, int discountPercent);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SetStudentDiscount", ReplyAction="http://tempuri.org/IService1/SetStudentDiscountResponse")]
+        System.Threading.Tasks.Task SetStudentDiscountAsync(int studentId, int discountPercent);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetEffectiveLessonPrice", ReplyAction="http://tempuri.org/IService1/GetEffectiveLessonPriceResponse")]
+        int GetEffectiveLessonPrice(int studentId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetEffectiveLessonPrice", ReplyAction="http://tempuri.org/IService1/GetEffectiveLessonPriceResponse")]
+        System.Threading.Tasks.Task<int> GetEffectiveLessonPriceAsync(int studentId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/ResetUserPassword", ReplyAction="http://tempuri.org/IService1/ResetUserPasswordResponse")]
+        void ResetUserPassword(int userId, string table, string newPassword);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/ResetUserPassword", ReplyAction="http://tempuri.org/IService1/ResetUserPasswordResponse")]
+        System.Threading.Tasks.Task ResetUserPasswordAsync(int userId, string table, string newPassword);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllCourses", ReplyAction="http://tempuri.org/IService1/GetAllCoursesResponse")]
+        webTOsrv.Course[] GetAllCourses();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetAllCourses", ReplyAction="http://tempuri.org/IService1/GetAllCoursesResponse")]
+        System.Threading.Tasks.Task<webTOsrv.Course[]> GetAllCoursesAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetCourseModules", ReplyAction="http://tempuri.org/IService1/GetCourseModulesResponse")]
+        webTOsrv.CourseModule[] GetCourseModules(int courseId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetCourseModules", ReplyAction="http://tempuri.org/IService1/GetCourseModulesResponse")]
+        System.Threading.Tasks.Task<webTOsrv.CourseModule[]> GetCourseModulesAsync(int courseId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetStudentCourseProgress", ReplyAction="http://tempuri.org/IService1/GetStudentCourseProgressResponse")]
+        webTOsrv.StudentCourseProgress[] GetStudentCourseProgress(int studentId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetStudentCourseProgress", ReplyAction="http://tempuri.org/IService1/GetStudentCourseProgressResponse")]
+        System.Threading.Tasks.Task<webTOsrv.StudentCourseProgress[]> GetStudentCourseProgressAsync(int studentId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/MarkModuleComplete", ReplyAction="http://tempuri.org/IService1/MarkModuleCompleteResponse")]
+        bool MarkModuleComplete(int studentId, int moduleId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/MarkModuleComplete", ReplyAction="http://tempuri.org/IService1/MarkModuleCompleteResponse")]
+        System.Threading.Tasks.Task<bool> MarkModuleCompleteAsync(int studentId, int moduleId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetStudentCompletedModules", ReplyAction="http://tempuri.org/IService1/GetStudentCompletedModulesResponse")]
+        webTOsrv.StudentModuleProgress[] GetStudentCompletedModules(int studentId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetStudentCompletedModules", ReplyAction="http://tempuri.org/IService1/GetStudentCompletedModulesResponse")]
+        System.Threading.Tasks.Task<webTOsrv.StudentModuleProgress[]> GetStudentCompletedModulesAsync(int studentId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SendNotification", ReplyAction="http://tempuri.org/IService1/SendNotificationResponse")]
+        int SendNotification(webTOsrv.Notification notification);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SendNotification", ReplyAction="http://tempuri.org/IService1/SendNotificationResponse")]
+        System.Threading.Tasks.Task<int> SendNotificationAsync(webTOsrv.Notification notification);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetUserNotifications", ReplyAction="http://tempuri.org/IService1/GetUserNotificationsResponse")]
+        webTOsrv.Notification[] GetUserNotifications(int userId, string userType);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetUserNotifications", ReplyAction="http://tempuri.org/IService1/GetUserNotificationsResponse")]
+        System.Threading.Tasks.Task<webTOsrv.Notification[]> GetUserNotificationsAsync(int userId, string userType);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetUnreadNotificationCount", ReplyAction="http://tempuri.org/IService1/GetUnreadNotificationCountResponse")]
+        int GetUnreadNotificationCount(int userId, string userType);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetUnreadNotificationCount", ReplyAction="http://tempuri.org/IService1/GetUnreadNotificationCountResponse")]
+        System.Threading.Tasks.Task<int> GetUnreadNotificationCountAsync(int userId, string userType);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetUnreadNotifications", ReplyAction="http://tempuri.org/IService1/GetUnreadNotificationsResponse")]
+        webTOsrv.Notification[] GetUnreadNotifications(int userId, string userType);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetUnreadNotifications", ReplyAction="http://tempuri.org/IService1/GetUnreadNotificationsResponse")]
+        System.Threading.Tasks.Task<webTOsrv.Notification[]> GetUnreadNotificationsAsync(int userId, string userType);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/MarkNotificationAsRead", ReplyAction="http://tempuri.org/IService1/MarkNotificationAsReadResponse")]
+        void MarkNotificationAsRead(int notificationId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/MarkNotificationAsRead", ReplyAction="http://tempuri.org/IService1/MarkNotificationAsReadResponse")]
+        System.Threading.Tasks.Task MarkNotificationAsReadAsync(int notificationId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/MarkAllNotificationsAsRead", ReplyAction="http://tempuri.org/IService1/MarkAllNotificationsAsReadResponse")]
+        void MarkAllNotificationsAsRead(int userId, string userType);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/MarkAllNotificationsAsRead", ReplyAction="http://tempuri.org/IService1/MarkAllNotificationsAsReadResponse")]
+        System.Threading.Tasks.Task MarkAllNotificationsAsReadAsync(int userId, string userType);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/DeleteNotification", ReplyAction="http://tempuri.org/IService1/DeleteNotificationResponse")]
+        void DeleteNotification(int notificationId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/DeleteNotification", ReplyAction="http://tempuri.org/IService1/DeleteNotificationResponse")]
+        System.Threading.Tasks.Task DeleteNotificationAsync(int notificationId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SendTeacherMessage", ReplyAction="http://tempuri.org/IService1/SendTeacherMessageResponse")]
+        void SendTeacherMessage(int teacherId, string teacherName, int studentId, string title, string message);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SendTeacherMessage", ReplyAction="http://tempuri.org/IService1/SendTeacherMessageResponse")]
+        System.Threading.Tasks.Task SendTeacherMessageAsync(int teacherId, string teacherName, int studentId, string title, string message);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SendLessonCancelledNotification", ReplyAction="http://tempuri.org/IService1/SendLessonCancelledNotificationResponse")]
+        void SendLessonCancelledNotification(int studentId, string studentName, int teacherId, string lessonDate, string lessonTime);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SendLessonCancelledNotification", ReplyAction="http://tempuri.org/IService1/SendLessonCancelledNotificationResponse")]
+        System.Threading.Tasks.Task SendLessonCancelledNotificationAsync(int studentId, string studentName, int teacherId, string lessonDate, string lessonTime);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
@@ -1138,114 +2497,14 @@ namespace webTOsrv
         {
         }
         
-        public int GetUserID(string username, string table)
+        public void CancelLesson(int lessonId)
         {
-            return base.Channel.GetUserID(username, table);
+            base.Channel.CancelLesson(lessonId);
         }
         
-        public System.Threading.Tasks.Task<int> GetUserIDAsync(string username, string table)
+        public System.Threading.Tasks.Task CancelLessonAsync(int lessonId)
         {
-            return base.Channel.GetUserIDAsync(username, table);
-        }
-        
-        public webTOsrv.UserInfo GetUserById(int id, string table)
-        {
-            return base.Channel.GetUserById(id, table);
-        }
-        
-        public System.Threading.Tasks.Task<webTOsrv.UserInfo> GetUserByIdAsync(int id, string table)
-        {
-            return base.Channel.GetUserByIdAsync(id, table);
-        }
-        
-        public webTOsrv.AllUsers GetAllUsers()
-        {
-            return base.Channel.GetAllUsers();
-        }
-        
-        public System.Threading.Tasks.Task<webTOsrv.AllUsers> GetAllUsersAsync()
-        {
-            return base.Channel.GetAllUsersAsync();
-        }
-        
-        public bool CheckUserPassword(string username, string password)
-        {
-            return base.Channel.CheckUserPassword(username, password);
-        }
-        
-        public System.Threading.Tasks.Task<bool> CheckUserPasswordAsync(string username, string password)
-        {
-            return base.Channel.CheckUserPasswordAsync(username, password);
-        }
-        
-        public bool CheckUserAdmin(string username)
-        {
-            return base.Channel.CheckUserAdmin(username);
-        }
-        
-        public System.Threading.Tasks.Task<bool> CheckUserAdminAsync(string username)
-        {
-            return base.Channel.CheckUserAdminAsync(username);
-        }
-        
-        public bool CheckUserExist(string username)
-        {
-            return base.Channel.CheckUserExist(username);
-        }
-        
-        public System.Threading.Tasks.Task<bool> CheckUserExistAsync(string username)
-        {
-            return base.Channel.CheckUserExistAsync(username);
-        }
-        
-        public webTOsrv.Calendars GetTeacherCalendar(int teacherId)
-        {
-            return base.Channel.GetTeacherCalendar(teacherId);
-        }
-        
-        public System.Threading.Tasks.Task<webTOsrv.Calendars> GetTeacherCalendarAsync(int teacherId)
-        {
-            return base.Channel.GetTeacherCalendarAsync(teacherId);
-        }
-        
-        public bool SetTeacherCalendar(webTOsrv.Calendars cal, int teacherId)
-        {
-            return base.Channel.SetTeacherCalendar(cal, teacherId);
-        }
-        
-        public System.Threading.Tasks.Task<bool> SetTeacherCalendarAsync(webTOsrv.Calendars cal, int teacherId)
-        {
-            return base.Channel.SetTeacherCalendarAsync(cal, teacherId);
-        }
-        
-        public void TeacherConfirm(int id, int tid)
-        {
-            base.Channel.TeacherConfirm(id, tid);
-        }
-        
-        public System.Threading.Tasks.Task TeacherConfirmAsync(int id, int tid)
-        {
-            return base.Channel.TeacherConfirmAsync(id, tid);
-        }
-        
-        public webTOsrv.AllUsers GetAllTeacher()
-        {
-            return base.Channel.GetAllTeacher();
-        }
-        
-        public System.Threading.Tasks.Task<webTOsrv.AllUsers> GetAllTeacherAsync()
-        {
-            return base.Channel.GetAllTeacherAsync();
-        }
-        
-        public string[] GetTeacherReviews(int tid)
-        {
-            return base.Channel.GetTeacherReviews(tid);
-        }
-        
-        public System.Threading.Tasks.Task<string[]> GetTeacherReviewsAsync(int tid)
-        {
-            return base.Channel.GetTeacherReviewsAsync(tid);
+            return base.Channel.CancelLessonAsync(lessonId);
         }
         
         public webTOsrv.Lessons[] GetAllStudentLessons(int id)
@@ -1278,14 +2537,104 @@ namespace webTOsrv
             return base.Channel.AddLessonForStudentAsync(sid, Date, time);
         }
         
-        public void UpdateRating(int tid, int rating, string rewiew)
+        public void MarkLessonPaid(int id)
         {
-            base.Channel.UpdateRating(tid, rating, rewiew);
+            base.Channel.MarkLessonPaid(id);
         }
         
-        public System.Threading.Tasks.Task UpdateRatingAsync(int tid, int rating, string rewiew)
+        public System.Threading.Tasks.Task MarkLessonPaidAsync(int id)
         {
-            return base.Channel.UpdateRatingAsync(tid, rating, rewiew);
+            return base.Channel.MarkLessonPaidAsync(id);
+        }
+        
+        public int GetUserID(string username, string table)
+        {
+            return base.Channel.GetUserID(username, table);
+        }
+        
+        public System.Threading.Tasks.Task<int> GetUserIDAsync(string username, string table)
+        {
+            return base.Channel.GetUserIDAsync(username, table);
+        }
+        
+        public webTOsrv.UserInfo GetUserById(int id, string table)
+        {
+            return base.Channel.GetUserById(id, table);
+        }
+        
+        public System.Threading.Tasks.Task<webTOsrv.UserInfo> GetUserByIdAsync(int id, string table)
+        {
+            return base.Channel.GetUserByIdAsync(id, table);
+        }
+        
+        public webTOsrv.AllUsers GetAllUsers()
+        {
+            return base.Channel.GetAllUsers();
+        }
+        
+        public System.Threading.Tasks.Task<webTOsrv.AllUsers> GetAllUsersAsync()
+        {
+            return base.Channel.GetAllUsersAsync();
+        }
+        
+        public webTOsrv.AllUsers GetAllTeacher()
+        {
+            return base.Channel.GetAllTeacher();
+        }
+        
+        public System.Threading.Tasks.Task<webTOsrv.AllUsers> GetAllTeacherAsync()
+        {
+            return base.Channel.GetAllTeacherAsync();
+        }
+        
+        public bool CheckUserPassword(string username, string password)
+        {
+            return base.Channel.CheckUserPassword(username, password);
+        }
+        
+        public System.Threading.Tasks.Task<bool> CheckUserPasswordAsync(string username, string password)
+        {
+            return base.Channel.CheckUserPasswordAsync(username, password);
+        }
+        
+        public bool CheckUserAdmin(string username)
+        {
+            return base.Channel.CheckUserAdmin(username);
+        }
+        
+        public System.Threading.Tasks.Task<bool> CheckUserAdminAsync(string username)
+        {
+            return base.Channel.CheckUserAdminAsync(username);
+        }
+        
+        public bool CheckUserExist(string username)
+        {
+            return base.Channel.CheckUserExist(username);
+        }
+        
+        public System.Threading.Tasks.Task<bool> CheckUserExistAsync(string username)
+        {
+            return base.Channel.CheckUserExistAsync(username);
+        }
+        
+        public bool AddUser(string name, string password, string email, string phone, bool admin, int tID, int lessonPrice)
+        {
+            return base.Channel.AddUser(name, password, email, phone, admin, tID, lessonPrice);
+        }
+        
+        public System.Threading.Tasks.Task<bool> AddUserAsync(string name, string password, string email, string phone, bool admin, int tID, int lessonPrice)
+        {
+            return base.Channel.AddUserAsync(name, password, email, phone, admin, tID, lessonPrice);
+        }
+        
+        public void TeacherConfirm(int id, int tid)
+        {
+            base.Channel.TeacherConfirm(id, tid);
+        }
+        
+        public System.Threading.Tasks.Task TeacherConfirmAsync(int id, int tid)
+        {
+            return base.Channel.TeacherConfirmAsync(id, tid);
         }
         
         public bool IsConfirmed(int id)
@@ -1328,14 +2677,154 @@ namespace webTOsrv
             return base.Channel.UpdateTeacherIdAsync(sid, tid);
         }
         
-        public void MarkLessonPaid(int id)
+        public bool IsUserAdmin(string username)
         {
-            base.Channel.MarkLessonPaid(id);
+            return base.Channel.IsUserAdmin(username);
         }
         
-        public System.Threading.Tasks.Task MarkLessonPaidAsync(int id)
+        public System.Threading.Tasks.Task<bool> IsUserAdminAsync(string username)
         {
-            return base.Channel.MarkLessonPaidAsync(id);
+            return base.Channel.IsUserAdminAsync(username);
+        }
+        
+        public void SetAdminStatus(int teacherId, bool isAdmin)
+        {
+            base.Channel.SetAdminStatus(teacherId, isAdmin);
+        }
+        
+        public System.Threading.Tasks.Task SetAdminStatusAsync(int teacherId, bool isAdmin)
+        {
+            return base.Channel.SetAdminStatusAsync(teacherId, isAdmin);
+        }
+        
+        public void UpdateStudentCredentials(int studentId, string email, string phone, int teacherId)
+        {
+            base.Channel.UpdateStudentCredentials(studentId, email, phone, teacherId);
+        }
+        
+        public System.Threading.Tasks.Task UpdateStudentCredentialsAsync(int studentId, string email, string phone, int teacherId)
+        {
+            return base.Channel.UpdateStudentCredentialsAsync(studentId, email, phone, teacherId);
+        }
+        
+        public void UpdateStudentTeacher(int studentId, int newTeacherId)
+        {
+            base.Channel.UpdateStudentTeacher(studentId, newTeacherId);
+        }
+        
+        public System.Threading.Tasks.Task UpdateStudentTeacherAsync(int studentId, int newTeacherId)
+        {
+            return base.Channel.UpdateStudentTeacherAsync(studentId, newTeacherId);
+        }
+        
+        public void ResetPassword(int userId, string table, string newPassword)
+        {
+            base.Channel.ResetPassword(userId, table, newPassword);
+        }
+        
+        public System.Threading.Tasks.Task ResetPasswordAsync(int userId, string table, string newPassword)
+        {
+            return base.Channel.ResetPasswordAsync(userId, table, newPassword);
+        }
+        
+        public void UpdateLessonPrice(int teacherId, int price)
+        {
+            base.Channel.UpdateLessonPrice(teacherId, price);
+        }
+        
+        public System.Threading.Tasks.Task UpdateLessonPriceAsync(int teacherId, int price)
+        {
+            return base.Channel.UpdateLessonPriceAsync(teacherId, price);
+        }
+        
+        public void SetStudentLessonPrice(int studentId, int price)
+        {
+            base.Channel.SetStudentLessonPrice(studentId, price);
+        }
+        
+        public System.Threading.Tasks.Task SetStudentLessonPriceAsync(int studentId, int price)
+        {
+            return base.Channel.SetStudentLessonPriceAsync(studentId, price);
+        }
+        
+        public int GetStudentLessonPrice(int studentId)
+        {
+            return base.Channel.GetStudentLessonPrice(studentId);
+        }
+        
+        public System.Threading.Tasks.Task<int> GetStudentLessonPriceAsync(int studentId)
+        {
+            return base.Channel.GetStudentLessonPriceAsync(studentId);
+        }
+        
+        public void UpdatePaymentMethods(int teacherId, string paymentMethods)
+        {
+            base.Channel.UpdatePaymentMethods(teacherId, paymentMethods);
+        }
+        
+        public System.Threading.Tasks.Task UpdatePaymentMethodsAsync(int teacherId, string paymentMethods)
+        {
+            return base.Channel.UpdatePaymentMethodsAsync(teacherId, paymentMethods);
+        }
+        
+        public webTOsrv.Calendars GetTeacherCalendar(int teacherId)
+        {
+            return base.Channel.GetTeacherCalendar(teacherId);
+        }
+        
+        public System.Threading.Tasks.Task<webTOsrv.Calendars> GetTeacherCalendarAsync(int teacherId)
+        {
+            return base.Channel.GetTeacherCalendarAsync(teacherId);
+        }
+        
+        public bool SetTeacherCalendar(webTOsrv.Calendars cal, int teacherId)
+        {
+            return base.Channel.SetTeacherCalendar(cal, teacherId);
+        }
+        
+        public System.Threading.Tasks.Task<bool> SetTeacherCalendarAsync(webTOsrv.Calendars cal, int teacherId)
+        {
+            return base.Channel.SetTeacherCalendarAsync(cal, teacherId);
+        }
+        
+        public webTOsrv.Calendars[] TeacherSpacialDays(int teacherId)
+        {
+            return base.Channel.TeacherSpacialDays(teacherId);
+        }
+        
+        public System.Threading.Tasks.Task<webTOsrv.Calendars[]> TeacherSpacialDaysAsync(int teacherId)
+        {
+            return base.Channel.TeacherSpacialDaysAsync(teacherId);
+        }
+        
+        public webTOsrv.Calendars[] GetTeacherUnavailableDates(int teacherId)
+        {
+            return base.Channel.GetTeacherUnavailableDates(teacherId);
+        }
+        
+        public System.Threading.Tasks.Task<webTOsrv.Calendars[]> GetTeacherUnavailableDatesAsync(int teacherId)
+        {
+            return base.Channel.GetTeacherUnavailableDatesAsync(teacherId);
+        }
+        
+        public void UpdateRating(int tid, int rating, string rewiew)
+        {
+            base.Channel.UpdateRating(tid, rating, rewiew);
+        }
+        
+        public System.Threading.Tasks.Task UpdateRatingAsync(int tid, int rating, string rewiew)
+        {
+            return base.Channel.UpdateRatingAsync(tid, rating, rewiew);
+        }
+        
+        public string[] GetTeacherReviews(int tid)
+        {
+            return base.Channel.GetTeacherReviews(tid);
+        }
+        
+        public System.Threading.Tasks.Task<string[]> GetTeacherReviewsAsync(int tid)
+        {
+            return base.Channel.GetTeacherReviewsAsync(tid);
         }
         
         public void AddMessageGlobal(string message, int userid, string username, bool IsTeacher)
@@ -1418,36 +2907,6 @@ namespace webTOsrv
             return base.Channel.SelectPaymentByTeacherIDAsync(id);
         }
         
-        public webTOsrv.Calendars[] TeacherSpacialDays(int teacherId)
-        {
-            return base.Channel.TeacherSpacialDays(teacherId);
-        }
-        
-        public System.Threading.Tasks.Task<webTOsrv.Calendars[]> TeacherSpacialDaysAsync(int teacherId)
-        {
-            return base.Channel.TeacherSpacialDaysAsync(teacherId);
-        }
-        
-        public webTOsrv.Calendars[] GetTeacherUnavailableDates(int teacherId)
-        {
-            return base.Channel.GetTeacherUnavailableDates(teacherId);
-        }
-        
-        public System.Threading.Tasks.Task<webTOsrv.Calendars[]> GetTeacherUnavailableDatesAsync(int teacherId)
-        {
-            return base.Channel.GetTeacherUnavailableDatesAsync(teacherId);
-        }
-        
-        public bool AddUser(string name, string password, string email, string phone, bool admin, int tID)
-        {
-            return base.Channel.AddUser(name, password, email, phone, admin, tID);
-        }
-        
-        public System.Threading.Tasks.Task<bool> AddUserAsync(string name, string password, string email, string phone, bool admin, int tID)
-        {
-            return base.Channel.AddUserAsync(name, password, email, phone, admin, tID);
-        }
-        
         public webTOsrv.Payment[] SelectPaymentByStudentID(int id)
         {
             return base.Channel.SelectPaymentByStudentID(id);
@@ -1456,6 +2915,306 @@ namespace webTOsrv
         public System.Threading.Tasks.Task<webTOsrv.Payment[]> SelectPaymentByStudentIDAsync(int id)
         {
             return base.Channel.SelectPaymentByStudentIDAsync(id);
+        }
+        
+        public decimal GetTeacherIncome(int teacherId, System.DateTime fromDate, System.DateTime toDate)
+        {
+            return base.Channel.GetTeacherIncome(teacherId, fromDate, toDate);
+        }
+        
+        public System.Threading.Tasks.Task<decimal> GetTeacherIncomeAsync(int teacherId, System.DateTime fromDate, System.DateTime toDate)
+        {
+            return base.Channel.GetTeacherIncomeAsync(teacherId, fromDate, toDate);
+        }
+        
+        public webTOsrv.Payment[] GetOutstandingPayments(int studentId)
+        {
+            return base.Channel.GetOutstandingPayments(studentId);
+        }
+        
+        public System.Threading.Tasks.Task<webTOsrv.Payment[]> GetOutstandingPaymentsAsync(int studentId)
+        {
+            return base.Channel.GetOutstandingPaymentsAsync(studentId);
+        }
+        
+        public webTOsrv.Payment[] GetOverduePayments()
+        {
+            return base.Channel.GetOverduePayments();
+        }
+        
+        public System.Threading.Tasks.Task<webTOsrv.Payment[]> GetOverduePaymentsAsync()
+        {
+            return base.Channel.GetOverduePaymentsAsync();
+        }
+        
+        public int CreateSupportTicket(webTOsrv.SupportTicket ticket)
+        {
+            return base.Channel.CreateSupportTicket(ticket);
+        }
+        
+        public System.Threading.Tasks.Task<int> CreateSupportTicketAsync(webTOsrv.SupportTicket ticket)
+        {
+            return base.Channel.CreateSupportTicketAsync(ticket);
+        }
+        
+        public webTOsrv.SupportTicket[] GetUserTickets(int userId)
+        {
+            return base.Channel.GetUserTickets(userId);
+        }
+        
+        public System.Threading.Tasks.Task<webTOsrv.SupportTicket[]> GetUserTicketsAsync(int userId)
+        {
+            return base.Channel.GetUserTicketsAsync(userId);
+        }
+        
+        public webTOsrv.SupportTicket[] GetAllTickets()
+        {
+            return base.Channel.GetAllTickets();
+        }
+        
+        public System.Threading.Tasks.Task<webTOsrv.SupportTicket[]> GetAllTicketsAsync()
+        {
+            return base.Channel.GetAllTicketsAsync();
+        }
+        
+        public webTOsrv.SupportTicket GetTicketById(int ticketId)
+        {
+            return base.Channel.GetTicketById(ticketId);
+        }
+        
+        public System.Threading.Tasks.Task<webTOsrv.SupportTicket> GetTicketByIdAsync(int ticketId)
+        {
+            return base.Channel.GetTicketByIdAsync(ticketId);
+        }
+        
+        public void UpdateTicketStatus(int ticketId, string status, string assignedTo)
+        {
+            base.Channel.UpdateTicketStatus(ticketId, status, assignedTo);
+        }
+        
+        public System.Threading.Tasks.Task UpdateTicketStatusAsync(int ticketId, string status, string assignedTo)
+        {
+            return base.Channel.UpdateTicketStatusAsync(ticketId, status, assignedTo);
+        }
+        
+        public void CloseTicket(int ticketId, string resolution, string adminNotes)
+        {
+            base.Channel.CloseTicket(ticketId, resolution, adminNotes);
+        }
+        
+        public System.Threading.Tasks.Task CloseTicketAsync(int ticketId, string resolution, string adminNotes)
+        {
+            return base.Channel.CloseTicketAsync(ticketId, resolution, adminNotes);
+        }
+        
+        public void AddTicketMessage(webTOsrv.TicketMessage message)
+        {
+            base.Channel.AddTicketMessage(message);
+        }
+        
+        public System.Threading.Tasks.Task AddTicketMessageAsync(webTOsrv.TicketMessage message)
+        {
+            return base.Channel.AddTicketMessageAsync(message);
+        }
+        
+        public webTOsrv.TicketMessage[] GetTicketMessages(int ticketId)
+        {
+            return base.Channel.GetTicketMessages(ticketId);
+        }
+        
+        public System.Threading.Tasks.Task<webTOsrv.TicketMessage[]> GetTicketMessagesAsync(int ticketId)
+        {
+            return base.Channel.GetTicketMessagesAsync(ticketId);
+        }
+        
+        public void UpdateTicketPriority(int ticketId, string priority)
+        {
+            base.Channel.UpdateTicketPriority(ticketId, priority);
+        }
+        
+        public System.Threading.Tasks.Task UpdateTicketPriorityAsync(int ticketId, string priority)
+        {
+            return base.Channel.UpdateTicketPriorityAsync(ticketId, priority);
+        }
+        
+        public void MigrateAllPasswords()
+        {
+            base.Channel.MigrateAllPasswords();
+        }
+        
+        public System.Threading.Tasks.Task MigrateAllPasswordsAsync()
+        {
+            return base.Channel.MigrateAllPasswordsAsync();
+        }
+        
+        public void SetStudentDiscount(int studentId, int discountPercent)
+        {
+            base.Channel.SetStudentDiscount(studentId, discountPercent);
+        }
+        
+        public System.Threading.Tasks.Task SetStudentDiscountAsync(int studentId, int discountPercent)
+        {
+            return base.Channel.SetStudentDiscountAsync(studentId, discountPercent);
+        }
+        
+        public int GetEffectiveLessonPrice(int studentId)
+        {
+            return base.Channel.GetEffectiveLessonPrice(studentId);
+        }
+        
+        public System.Threading.Tasks.Task<int> GetEffectiveLessonPriceAsync(int studentId)
+        {
+            return base.Channel.GetEffectiveLessonPriceAsync(studentId);
+        }
+        
+        public void ResetUserPassword(int userId, string table, string newPassword)
+        {
+            base.Channel.ResetUserPassword(userId, table, newPassword);
+        }
+        
+        public System.Threading.Tasks.Task ResetUserPasswordAsync(int userId, string table, string newPassword)
+        {
+            return base.Channel.ResetUserPasswordAsync(userId, table, newPassword);
+        }
+        
+        public webTOsrv.Course[] GetAllCourses()
+        {
+            return base.Channel.GetAllCourses();
+        }
+        
+        public System.Threading.Tasks.Task<webTOsrv.Course[]> GetAllCoursesAsync()
+        {
+            return base.Channel.GetAllCoursesAsync();
+        }
+        
+        public webTOsrv.CourseModule[] GetCourseModules(int courseId)
+        {
+            return base.Channel.GetCourseModules(courseId);
+        }
+        
+        public System.Threading.Tasks.Task<webTOsrv.CourseModule[]> GetCourseModulesAsync(int courseId)
+        {
+            return base.Channel.GetCourseModulesAsync(courseId);
+        }
+        
+        public webTOsrv.StudentCourseProgress[] GetStudentCourseProgress(int studentId)
+        {
+            return base.Channel.GetStudentCourseProgress(studentId);
+        }
+        
+        public System.Threading.Tasks.Task<webTOsrv.StudentCourseProgress[]> GetStudentCourseProgressAsync(int studentId)
+        {
+            return base.Channel.GetStudentCourseProgressAsync(studentId);
+        }
+        
+        public bool MarkModuleComplete(int studentId, int moduleId)
+        {
+            return base.Channel.MarkModuleComplete(studentId, moduleId);
+        }
+        
+        public System.Threading.Tasks.Task<bool> MarkModuleCompleteAsync(int studentId, int moduleId)
+        {
+            return base.Channel.MarkModuleCompleteAsync(studentId, moduleId);
+        }
+        
+        public webTOsrv.StudentModuleProgress[] GetStudentCompletedModules(int studentId)
+        {
+            return base.Channel.GetStudentCompletedModules(studentId);
+        }
+        
+        public System.Threading.Tasks.Task<webTOsrv.StudentModuleProgress[]> GetStudentCompletedModulesAsync(int studentId)
+        {
+            return base.Channel.GetStudentCompletedModulesAsync(studentId);
+        }
+        
+        public int SendNotification(webTOsrv.Notification notification)
+        {
+            return base.Channel.SendNotification(notification);
+        }
+        
+        public System.Threading.Tasks.Task<int> SendNotificationAsync(webTOsrv.Notification notification)
+        {
+            return base.Channel.SendNotificationAsync(notification);
+        }
+        
+        public webTOsrv.Notification[] GetUserNotifications(int userId, string userType)
+        {
+            return base.Channel.GetUserNotifications(userId, userType);
+        }
+        
+        public System.Threading.Tasks.Task<webTOsrv.Notification[]> GetUserNotificationsAsync(int userId, string userType)
+        {
+            return base.Channel.GetUserNotificationsAsync(userId, userType);
+        }
+        
+        public int GetUnreadNotificationCount(int userId, string userType)
+        {
+            return base.Channel.GetUnreadNotificationCount(userId, userType);
+        }
+        
+        public System.Threading.Tasks.Task<int> GetUnreadNotificationCountAsync(int userId, string userType)
+        {
+            return base.Channel.GetUnreadNotificationCountAsync(userId, userType);
+        }
+        
+        public webTOsrv.Notification[] GetUnreadNotifications(int userId, string userType)
+        {
+            return base.Channel.GetUnreadNotifications(userId, userType);
+        }
+        
+        public System.Threading.Tasks.Task<webTOsrv.Notification[]> GetUnreadNotificationsAsync(int userId, string userType)
+        {
+            return base.Channel.GetUnreadNotificationsAsync(userId, userType);
+        }
+        
+        public void MarkNotificationAsRead(int notificationId)
+        {
+            base.Channel.MarkNotificationAsRead(notificationId);
+        }
+        
+        public System.Threading.Tasks.Task MarkNotificationAsReadAsync(int notificationId)
+        {
+            return base.Channel.MarkNotificationAsReadAsync(notificationId);
+        }
+        
+        public void MarkAllNotificationsAsRead(int userId, string userType)
+        {
+            base.Channel.MarkAllNotificationsAsRead(userId, userType);
+        }
+        
+        public System.Threading.Tasks.Task MarkAllNotificationsAsReadAsync(int userId, string userType)
+        {
+            return base.Channel.MarkAllNotificationsAsReadAsync(userId, userType);
+        }
+        
+        public void DeleteNotification(int notificationId)
+        {
+            base.Channel.DeleteNotification(notificationId);
+        }
+        
+        public System.Threading.Tasks.Task DeleteNotificationAsync(int notificationId)
+        {
+            return base.Channel.DeleteNotificationAsync(notificationId);
+        }
+        
+        public void SendTeacherMessage(int teacherId, string teacherName, int studentId, string title, string message)
+        {
+            base.Channel.SendTeacherMessage(teacherId, teacherName, studentId, title, message);
+        }
+        
+        public System.Threading.Tasks.Task SendTeacherMessageAsync(int teacherId, string teacherName, int studentId, string title, string message)
+        {
+            return base.Channel.SendTeacherMessageAsync(teacherId, teacherName, studentId, title, message);
+        }
+        
+        public void SendLessonCancelledNotification(int studentId, string studentName, int teacherId, string lessonDate, string lessonTime)
+        {
+            base.Channel.SendLessonCancelledNotification(studentId, studentName, teacherId, lessonDate, lessonTime);
+        }
+        
+        public System.Threading.Tasks.Task SendLessonCancelledNotificationAsync(int studentId, string studentName, int teacherId, string lessonDate, string lessonTime)
+        {
+            return base.Channel.SendLessonCancelledNotificationAsync(studentId, studentName, teacherId, lessonDate, lessonTime);
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync()
@@ -1488,7 +3247,7 @@ namespace webTOsrv
         {
             if ((endpointConfiguration == EndpointConfiguration.BasicHttpBinding_IService1))
             {
-                return new System.ServiceModel.EndpointAddress("http://localhost:8733/Design_Time_Addresses/WcfServiceLibrary1/Service1/");
+                return new System.ServiceModel.EndpointAddress("http://192.168.1.136:8733/Design_Time_Addresses/WcfServiceLibrary1/Service1/");
             }
             throw new System.InvalidOperationException(string.Format("Could not find endpoint with name \'{0}\'.", endpointConfiguration));
         }
