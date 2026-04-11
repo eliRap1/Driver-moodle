@@ -127,7 +127,7 @@ namespace ViewDB
                 .OfType<Lessons>()
                 .ToList();
 
-            return list.Count == 1 ? list[0] : null;
+            return list.Count > 0 ? list[0] : null;
         }
     }
 }
