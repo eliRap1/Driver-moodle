@@ -12,14 +12,14 @@
         <CollectionView x:Name="NotifList">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Frame Margin="0,3" Padding="12" CornerRadius="6"
-                           BackgroundColor="{Binding BgColor}">
+                    <Border Margin="0,3" Padding="12"
+                           BackgroundColor="{Binding BgColor}"><Border.StrokeShape><RoundRectangle CornerRadius="6"/></Border.StrokeShape>
                         <VerticalStackLayout Spacing="4">
                             <Label Text="{Binding Title}" FontAttributes="Bold"/>
                             <Label Text="{Binding Message}" FontSize="13"/>
                             <Label Text="{Binding TimeText}" FontSize="11" TextColor="Gray"/>
                         </VerticalStackLayout>
-                    </Frame>
+                    </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

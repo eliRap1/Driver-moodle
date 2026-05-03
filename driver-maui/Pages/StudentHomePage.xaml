@@ -9,18 +9,18 @@
             <Label x:Name="StatusLabel" TextColor="Gray" IsVisible="False"/>
 
             <Grid ColumnDefinitions="*,*" RowDefinitions="Auto" ColumnSpacing="10">
-                <Frame Grid.Column="0" BackgroundColor="#2196F3" Padding="15" CornerRadius="8">
+                <Border Grid.Column="0" BackgroundColor="#2196F3" Padding="15"><Border.StrokeShape><RoundRectangle CornerRadius="8"/></Border.StrokeShape>
                     <VerticalStackLayout>
                         <Label x:Name="TotalLessonsLabel" Text="0" TextColor="White" FontSize="28" FontAttributes="Bold"/>
                         <Label Text="Total Lessons" TextColor="White" FontSize="12"/>
                     </VerticalStackLayout>
-                </Frame>
-                <Frame Grid.Column="1" BackgroundColor="#FF5722" Padding="15" CornerRadius="8">
+                </Border>
+                <Border Grid.Column="1" BackgroundColor="#FF5722" Padding="15"><Border.StrokeShape><RoundRectangle CornerRadius="8"/></Border.StrokeShape>
                     <VerticalStackLayout>
                         <Label x:Name="UnpaidLabel" Text="0" TextColor="White" FontSize="28" FontAttributes="Bold"/>
                         <Label Text="Unpaid" TextColor="White" FontSize="12"/>
                     </VerticalStackLayout>
-                </Frame>
+                </Border>
             </Grid>
 
             <Button Text="View My Lessons" Clicked="ViewLessons_Click" BackgroundColor="#2196F3"/>

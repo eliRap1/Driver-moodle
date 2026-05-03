@@ -10,7 +10,7 @@
         <CollectionView x:Name="UnpaidList" SelectionMode="Multiple">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Frame Margin="0,3" Padding="10" CornerRadius="6">
+                    <Border Margin="0,3" Padding="10"><Border.StrokeShape><RoundRectangle CornerRadius="6"/></Border.StrokeShape>
                         <Label>
                             <Label.FormattedText>
                                 <FormattedString>
@@ -23,7 +23,7 @@
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
-                    </Frame>
+                    </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

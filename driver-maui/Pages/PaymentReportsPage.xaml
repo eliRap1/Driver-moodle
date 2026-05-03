@@ -5,24 +5,24 @@
              Title="Payment Reports">
     <VerticalStackLayout Padding="15" Spacing="12">
         <Button Text="Back" Clicked="Back_Click" HorizontalOptions="Start" WidthRequest="80"/>
-        <Frame BackgroundColor="#F5F5F5" Padding="15" CornerRadius="8">
+        <Border BackgroundColor="#F5F5F5" Padding="15"><Border.StrokeShape><RoundRectangle CornerRadius="8"/></Border.StrokeShape>
             <VerticalStackLayout Spacing="6">
                 <Label x:Name="TotalEarningsLabel" FontSize="18" FontAttributes="Bold"/>
                 <Label x:Name="ThisMonthLabel" FontSize="15"/>
                 <Label x:Name="PendingLabel" FontSize="15" TextColor="OrangeRed"/>
             </VerticalStackLayout>
-        </Frame>
+        </Border>
         <Label Text="Recent Payments" FontAttributes="Bold" FontSize="14"/>
         <CollectionView x:Name="RecentList">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Frame Margin="0,3" Padding="10" CornerRadius="6">
+                    <Border Margin="0,3" Padding="10"><Border.StrokeShape><RoundRectangle CornerRadius="6"/></Border.StrokeShape>
                         <Grid ColumnDefinitions="*,*,Auto">
                             <Label Grid.Column="0" Text="{Binding DateText}"/>
                             <Label Grid.Column="1" Text="{Binding Method}" TextColor="Gray"/>
                             <Label Grid.Column="2" Text="{Binding AmountText}" FontAttributes="Bold" TextColor="#4CAF50"/>
                         </Grid>
-                    </Frame>
+                    </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

@@ -54,6 +54,10 @@
       <Project>{13fe4576-136c-4062-9dca-6f2cdf405ec1}</Project>
       <Name>WcfServiceLibrary1</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Model\Model.csproj">
+      <Project>{dd4ae66e-a9cb-4eb2-9b16-fae0b9229122}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

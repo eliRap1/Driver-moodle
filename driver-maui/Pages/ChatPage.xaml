@@ -10,14 +10,14 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <StackLayout HorizontalOptions="{Binding Alignment}" Margin="0,3">
-                        <Frame Padding="10" CornerRadius="8" BackgroundColor="{Binding BgColor}"
-                               HorizontalOptions="{Binding Alignment}">
+                        <Border Padding="10" BackgroundColor="{Binding BgColor}"
+                               HorizontalOptions="{Binding Alignment}"><Border.StrokeShape><RoundRectangle CornerRadius="8"/></Border.StrokeShape>
                             <VerticalStackLayout Spacing="2">
                                 <Label Text="{Binding Username}" FontAttributes="Bold" FontSize="12"
                                        TextColor="{Binding NameColor}"/>
                                 <Label Text="{Binding Message}"/>
                             </VerticalStackLayout>
-                        </Frame>
+                        </Border>
                     </StackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

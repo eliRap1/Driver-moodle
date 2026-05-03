@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Data.OleDb;
-using WcfServiceLibrary1.Helpers;
+using Model.Helpers;
 using ViewDB;
 
 namespace DatabaseMigration

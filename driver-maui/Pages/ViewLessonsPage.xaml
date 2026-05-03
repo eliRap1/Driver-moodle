@@ -9,7 +9,7 @@
         <CollectionView x:Name="LessonsList">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Frame Margin="0,4" Padding="12" CornerRadius="6">
+                    <Border Margin="0,4" Padding="12"><Border.StrokeShape><RoundRectangle CornerRadius="6"/></Border.StrokeShape>
                         <Grid ColumnDefinitions="*,Auto,Auto">
                             <VerticalStackLayout Grid.Column="0">
                                 <Label Text="{Binding Date}" FontAttributes="Bold"/>
@@ -18,7 +18,7 @@
                             <Label Grid.Column="1" Text="{Binding StatusText}"
                                    TextColor="{Binding StatusColor}" VerticalOptions="Center" Margin="8,0"/>
                         </Grid>
-                    </Frame>
+                    </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

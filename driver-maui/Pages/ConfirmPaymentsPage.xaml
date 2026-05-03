@@ -10,7 +10,7 @@
         <CollectionView x:Name="LessonsList">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Frame Margin="0,4" Padding="12" CornerRadius="6">
+                    <Border Margin="0,4" Padding="12"><Border.StrokeShape><RoundRectangle CornerRadius="6"/></Border.StrokeShape>
                         <Grid ColumnDefinitions="*,Auto">
                             <VerticalStackLayout Grid.Column="0">
                                 <Label Text="{Binding StudentName}" FontAttributes="Bold"/>
@@ -22,7 +22,7 @@
                                     BackgroundColor="#4CAF50"
                                     VerticalOptions="Center"/>
                         </Grid>
-                    </Frame>
+                    </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

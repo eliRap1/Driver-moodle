@@ -99,7 +99,7 @@ namespace driver_client
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             string phone = (string)value;
-            if (Regex.Match(phone, "\\^?[1-9][0-9]{8}$").Success)
+            if (Regex.Match(phone, "^[1-9][0-9]{8}$").Success)
                 return ValidationResult.ValidResult;
             else
                 return new ValidationResult(false, "Please enter a legal phone.");

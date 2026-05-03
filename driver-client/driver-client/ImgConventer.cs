@@ -14,16 +14,9 @@ namespace driver_client
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            //var lesson = value as Lessons;
-            bool lesson = value.ToString() == "Yes" ? true : false;
-            if (lesson == null) return DependencyProperty.UnsetValue;
-
-            // If parameter says "Visibility", return Visibility
-            //if (parameter as string == "Visibility")
-            //    return lesson ? Visibility.Collapsed : Visibility.Visible;
-
-            // Otherwise return the image path
-            return lesson
+            if (value == null) return DependencyProperty.UnsetValue;
+            bool paid = value.ToString() == "Yes";
+            return paid
                 ? "picture/check.jpg"
                 : "picture/cross.png";
         }

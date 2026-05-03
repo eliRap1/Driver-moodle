@@ -251,15 +251,14 @@ namespace ViewDB
 
             // Try student table first
             string sqlStr = "SELECT [password] FROM [Student] WHERE [username] = ?";
-            var param = new OleDbParameter("@username", username);
+            object hashedPassword = SelectScalar(sqlStr, new OleDbParameter("@username", username));
 
-            object hashedPassword = SelectScalar(sqlStr, param);
-
-            // If not found in Student, try Teacher
+            // If not found in Student, try Teacher (use a fresh parameter — OleDbParameter
+            // instances cannot be reused across commands once added to a Parameters collection)
             if (hashedPassword == null)
             {
                 sqlStr = "SELECT [password] FROM [Teacher] WHERE [username] = ?";
-                hashedPassword = SelectScalar(sqlStr, param);
+                hashedPassword = SelectScalar(sqlStr, new OleDbParameter("@username", username));
             }
 
             if (hashedPassword == null)

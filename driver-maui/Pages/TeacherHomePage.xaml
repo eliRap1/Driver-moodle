@@ -10,24 +10,24 @@
                    IsVisible="False" HorizontalOptions="Start" Padding="8,3" FontAttributes="Bold"/>
 
             <Grid ColumnDefinitions="*,*,*" ColumnSpacing="8">
-                <Frame Grid.Column="0" BackgroundColor="#2196F3" Padding="12" CornerRadius="8">
+                <Border Grid.Column="0" BackgroundColor="#2196F3" Padding="12"><Border.StrokeShape><RoundRectangle CornerRadius="8"/></Border.StrokeShape>
                     <VerticalStackLayout>
                         <Label x:Name="StudentsCountLabel" Text="0" TextColor="White" FontSize="24" FontAttributes="Bold"/>
                         <Label Text="Students" TextColor="White" FontSize="11"/>
                     </VerticalStackLayout>
-                </Frame>
-                <Frame Grid.Column="1" BackgroundColor="#4CAF50" Padding="12" CornerRadius="8">
+                </Border>
+                <Border Grid.Column="1" BackgroundColor="#4CAF50" Padding="12"><Border.StrokeShape><RoundRectangle CornerRadius="8"/></Border.StrokeShape>
                     <VerticalStackLayout>
                         <Label x:Name="TodayLessonsLabel" Text="0" TextColor="White" FontSize="24" FontAttributes="Bold"/>
                         <Label Text="Today" TextColor="White" FontSize="11"/>
                     </VerticalStackLayout>
-                </Frame>
-                <Frame Grid.Column="2" BackgroundColor="#FF9800" Padding="12" CornerRadius="8">
+                </Border>
+                <Border Grid.Column="2" BackgroundColor="#FF9800" Padding="12"><Border.StrokeShape><RoundRectangle CornerRadius="8"/></Border.StrokeShape>
                     <VerticalStackLayout>
                         <Label x:Name="UnpaidCountLabel" Text="0" TextColor="White" FontSize="24" FontAttributes="Bold"/>
                         <Label Text="Unpaid" TextColor="White" FontSize="11"/>
                     </VerticalStackLayout>
-                </Frame>
+                </Border>
             </Grid>
 
             <Button Text="Confirm Payments" Clicked="ConfirmPayments_Click" BackgroundColor="#FF9800"/>
