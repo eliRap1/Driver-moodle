@@ -8,6 +8,7 @@
             <Label x:Name="WelcomeLabel" FontSize="20" FontAttributes="Bold"/>
             <Label x:Name="AdminBadge" Text="ADMIN" TextColor="White" BackgroundColor="Red"
                    IsVisible="False" HorizontalOptions="Start" Padding="8,3" FontAttributes="Bold"/>
+            <Label x:Name="StatusLabel" TextColor="Red" FontSize="13" IsVisible="False"/>
 
             <Grid ColumnDefinitions="*,*,*" ColumnSpacing="8">
                 <Border Grid.Column="0" BackgroundColor="#2196F3" Padding="12"><Border.StrokeShape><RoundRectangle CornerRadius="8"/></Border.StrokeShape>

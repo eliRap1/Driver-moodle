@@ -410,13 +410,12 @@ namespace ViewDB
 
             // Get current average
             string sqlStr = "SELECT AVG(Rating) FROM [Ratings] WHERE TeacherID = ?";
-            var param = new OleDbParameter("@tid", tid);
-            object avgObj = SelectScalar(sqlStr, param);
+            object avgObj = SelectScalar(sqlStr, new OleDbParameter("@tid", tid));
             double avg = avgObj != DBNull.Value && avgObj != null ? Convert.ToDouble(avgObj) : 0;
 
-            // Get current count
+            // Get current count (use a fresh OleDbParameter — cannot be reused across commands)
             sqlStr = "SELECT COUNT(*) FROM [Ratings] WHERE TeacherID = ?";
-            object countObj = SelectScalar(sqlStr, param);
+            object countObj = SelectScalar(sqlStr, new OleDbParameter("@tid", tid));
             int count = countObj != DBNull.Value && countObj != null ? Convert.ToInt32(countObj) : 0;
 
             // Calculate new average
@@ -461,7 +460,20 @@ namespace ViewDB
 
         public List<UserInfo> GetTeacherStudents(int tid)
         {
-            string sqlStr = "SELECT * FROM [Student] WHERE [teacherId] = ?";
+            // INNER JOIN Student + Teacher to verify the teacher exists, plus a LEFT JOIN
+            // to Lessons to count active lessons per student in a single round-trip.
+            // Access requires parentheses around chained joins.
+            string sqlStr = @"SELECT S.[id], S.[username], S.[password], S.[email], S.[phone],
+                                     S.[teacherId], S.[Confirmed], S.[lessonPrice],
+                                     S.[DiscountPercent], COUNT(L.[LessonID]) AS LessonCount
+                              FROM ([Student] AS S
+                                    INNER JOIN [Teacher] AS T ON S.[teacherId] = T.[id])
+                                    LEFT JOIN [Lessons] AS L
+                                        ON S.[id] = L.[StudentID] AND L.[Canceled] = 0
+                              WHERE S.[teacherId] = ?
+                              GROUP BY S.[id], S.[username], S.[password], S.[email], S.[phone],
+                                       S.[teacherId], S.[Confirmed], S.[lessonPrice],
+                                       S.[DiscountPercent]";
             return Select(sqlStr, new OleDbParameter("@tid", tid))
                 .OfType<UserInfo>()
                 .ToList();

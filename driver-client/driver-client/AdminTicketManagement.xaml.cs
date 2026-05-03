@@ -18,6 +18,7 @@ namespace driver_client
         public AdminTicketManagement()
         {
             InitializeComponent();
+            if (!Sign.RequireAdmin(this)) return;
             LoadTickets();
 
             refreshTimer = new DispatcherTimer();

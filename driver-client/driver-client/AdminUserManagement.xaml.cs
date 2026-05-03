@@ -16,6 +16,7 @@ namespace driver_client
         public AdminUserManagement()
         {
             InitializeComponent();
+            if (!Sign.RequireAdmin(this)) return;
             LoadUsers();
         }
 

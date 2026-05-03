@@ -16,6 +16,7 @@ namespace driver_client
         public AdminDashboard()
         {
             InitializeComponent();
+            if (!Sign.RequireAdmin(this)) return;
             LoadDashboard();
 
             // Auto-refresh every 30 seconds

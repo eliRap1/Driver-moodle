@@ -9,6 +9,7 @@ namespace driver_maui.Pages
         protected override async void OnAppearing()
         {
             base.OnAppearing();
+            if (!await AppState.RequireRoleAsync(this, "Teacher")) return;
             WelcomeLabel.Text = $"Welcome, {AppState.Username}!";
             AdminBadge.IsVisible = AppState.IsAdmin;
             await LoadStats();
@@ -34,7 +35,12 @@ namespace driver_maui.Pages
                         .ToString();
                 }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"TeacherHome LoadStats: {ex.Message}");
+                StatusLabel.Text = "Could not load stats.";
+                StatusLabel.IsVisible = true;
+            }
         }
 
         private async void ConfirmPayments_Click(object s, EventArgs e) => await Shell.Current.GoToAsync("//ConfirmPayments");

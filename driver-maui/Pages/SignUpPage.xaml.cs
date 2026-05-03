@@ -1,14 +1,42 @@
 using driver_maui.Services;
+using DriverService;
+using System.Text.RegularExpressions;
 
 namespace driver_maui.Pages
 {
     public partial class SignUpPage : ContentPage
     {
+        private List<UserInfo> teachers = new();
+        private static readonly Regex EmailRx = new(@"^[\w\.\-]+@[\w\-]+\.[\w\-\.]+$", RegexOptions.Compiled);
+        private static readonly Regex PhoneRx = new(@"^\+?\d{7,15}$", RegexOptions.Compiled);
+
         public SignUpPage()
         {
             InitializeComponent();
-            RolePicker.SelectedIndexChanged += (s, e) =>
-                TeacherFields.IsVisible = RolePicker.SelectedItem?.ToString() == "Teacher";
+        }
+
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            await LoadTeachers();
+        }
+
+        private async Task LoadTeachers()
+        {
+            try
+            {
+                var all = await ServiceHelper.CallAsync(srv => srv.GetAllTeacherAsync());
+                teachers = all?.ToList() ?? new();
+                TeacherPicker.ItemsSource = teachers
+                    .Select(t => $"{t.Username} (#{t.Id}, ₪{t.LessonPrice}/lesson)")
+                    .ToList();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"LoadTeachers: {ex}");
+                ErrorLabel.Text = "Could not load teacher list.";
+                ErrorLabel.IsVisible = true;
+            }
         }
 
         private async void Register_Click(object sender, EventArgs e)
@@ -19,40 +47,52 @@ namespace driver_maui.Pages
             string confirm = ConfirmEntry.Text ?? "";
             string email = EmailEntry.Text?.Trim() ?? "";
             string phone = PhoneEntry.Text?.Trim() ?? "";
-            string role = RolePicker.SelectedItem?.ToString() ?? "";
 
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) ||
-                string.IsNullOrEmpty(email) || string.IsNullOrEmpty(role))
+                string.IsNullOrEmpty(email) || string.IsNullOrEmpty(phone))
             {
-                ErrorLabel.Text = "Please fill all required fields.";
-                ErrorLabel.IsVisible = true;
+                ShowError("Please fill all required fields.");
                 return;
             }
-
+            if (username.Length < 4 || password.Length < 4)
+            {
+                ShowError("Username and password must be at least 4 characters.");
+                return;
+            }
             if (password != confirm)
             {
-                ErrorLabel.Text = "Passwords do not match.";
-                ErrorLabel.IsVisible = true;
+                ShowError("Passwords do not match.");
+                return;
+            }
+            if (!EmailRx.IsMatch(email))
+            {
+                ShowError("Please enter a valid email address.");
+                return;
+            }
+            if (!PhoneRx.IsMatch(phone))
+            {
+                ShowError("Please enter a valid phone number.");
+                return;
+            }
+            if (TeacherPicker.SelectedIndex < 0 || TeacherPicker.SelectedIndex >= teachers.Count)
+            {
+                ShowError("Please choose a teacher.");
                 return;
             }
 
-            bool isTeacher = role == "Teacher";
-            int lessonPrice = 200;
-            if (isTeacher && int.TryParse(LessonPriceEntry.Text, out int p) && p > 0)
-                lessonPrice = p;
+            int teacherId = teachers[TeacherPicker.SelectedIndex].Id;
 
             try
             {
                 bool exists = await ServiceHelper.CallAsync(srv => srv.CheckUserExistAsync(username));
                 if (exists)
                 {
-                    ErrorLabel.Text = "Username already taken. Please choose another.";
-                    ErrorLabel.IsVisible = true;
+                    ShowError("Username already taken. Please choose another.");
                     return;
                 }
 
                 bool success = await ServiceHelper.CallAsync(srv =>
-                    srv.AddUserAsync(username, password, email, phone, isTeacher, 0, lessonPrice));
+                    srv.AddUserAsync(username, password, email, phone, /*admin*/ false, teacherId, 0));
 
                 if (success)
                 {
@@ -61,15 +101,20 @@ namespace driver_maui.Pages
                 }
                 else
                 {
-                    ErrorLabel.Text = "Registration failed. Please try again.";
-                    ErrorLabel.IsVisible = true;
+                    ShowError("Registration failed. Please try again.");
                 }
             }
             catch (Exception ex)
             {
-                ErrorLabel.Text = $"Error: {ex.Message}";
-                ErrorLabel.IsVisible = true;
+                System.Diagnostics.Debug.WriteLine($"SignUp: {ex}");
+                ShowError("Service error. Please try again.");
             }
+        }
+
+        private void ShowError(string text)
+        {
+            ErrorLabel.Text = text;
+            ErrorLabel.IsVisible = true;
         }
 
         private async void Back_Click(object s, EventArgs e) => await Shell.Current.GoToAsync("//Login");

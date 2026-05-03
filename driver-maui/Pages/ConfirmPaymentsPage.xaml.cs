@@ -17,6 +17,7 @@ namespace driver_maui.Pages
         protected override async void OnAppearing()
         {
             base.OnAppearing();
+            if (!await AppState.RequireRoleAsync(this, "Teacher")) return;
             ResultLabel.IsVisible = false;
             await LoadData();
         }
@@ -51,7 +52,8 @@ namespace driver_maui.Pages
             }
             catch (Exception ex)
             {
-                ResultLabel.Text = $"Error: {ex.Message}";
+                System.Diagnostics.Debug.WriteLine($"ConfirmPayments: {ex}");
+                ResultLabel.Text = "Service error. Try again.";
                 ResultLabel.TextColor = Colors.Red;
                 ResultLabel.IsVisible = true;
             }
@@ -71,7 +73,8 @@ namespace driver_maui.Pages
                 }
                 catch (Exception ex)
                 {
-                    ResultLabel.Text = $"Error: {ex.Message}";
+                    System.Diagnostics.Debug.WriteLine($"ConfirmPayments: {ex}");
+                ResultLabel.Text = "Service error. Try again.";
                     ResultLabel.TextColor = Colors.Red;
                     ResultLabel.IsVisible = true;
                 }

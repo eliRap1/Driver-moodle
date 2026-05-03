@@ -192,5 +192,73 @@ namespace ViewDB
                 new OleDbParameter("@status", "Overdue"),
                 new OleDbParameter("@paymentId", paymentId));
         }
+
+        /// <summary>
+        /// Verified teacher income that ALSO confirms each payment is linked to a real,
+        /// non-cancelled lesson. INNER JOIN Payments + Lessons + aggregation.
+        /// </summary>
+        public decimal GetVerifiedTeacherIncome(int teacherId, DateTime fromDate, DateTime toDate)
+        {
+            string sql = @"SELECT SUM(P.[Amount])
+                           FROM [Payments] AS P
+                           INNER JOIN [Lessons] AS L ON P.[LessonId] = L.[LessonID]
+                           WHERE P.[TeacherID] = ?
+                             AND P.[paid] = TRUE
+                             AND L.[Canceled] = 0
+                             AND P.[PaymentDate] >= ?
+                             AND P.[PaymentDate] <= ?";
+            object result = SelectScalar(sql,
+                new OleDbParameter("@teacherId", teacherId),
+                new OleDbParameter("@fromDate", fromDate),
+                new OleDbParameter("@toDate", toDate));
+            return (result != null && result != DBNull.Value) ? Convert.ToDecimal(result) : 0m;
+        }
+
+        /// <summary>
+        /// Income breakdown per student for a teacher in the given date range.
+        /// JOIN Payments + Student + GROUP BY + SUM.
+        /// Returned as a Dictionary keyed by username so callers do not need a new
+        /// DataContract type.
+        /// </summary>
+        public Dictionary<string, decimal> GetTeacherIncomeByStudent(int teacherId, DateTime fromDate, DateTime toDate)
+        {
+            var result = new Dictionary<string, decimal>();
+            string sql = @"SELECT S.[username], SUM(P.[Amount]) AS Total
+                           FROM [Payments] AS P
+                           INNER JOIN [Student] AS S ON P.[StudentID] = S.[id]
+                           WHERE P.[TeacherID] = ?
+                             AND P.[paid] = TRUE
+                             AND P.[PaymentDate] >= ?
+                             AND P.[PaymentDate] <= ?
+                           GROUP BY S.[username]
+                           ORDER BY SUM(P.[Amount]) DESC";
+
+            try
+            {
+                connection.Open();
+                command.CommandText = sql;
+                command.Parameters.Clear();
+                command.Parameters.Add(new OleDbParameter("@teacherId", teacherId));
+                command.Parameters.Add(new OleDbParameter("@fromDate", fromDate));
+                command.Parameters.Add(new OleDbParameter("@toDate", toDate));
+                reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    string name = reader["username"].ToString();
+                    decimal total = Convert.ToDecimal(reader["Total"]);
+                    result[name] = total;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("GetTeacherIncomeByStudent Error: " + ex.Message);
+            }
+            finally
+            {
+                if (reader != null) reader.Close();
+                if (connection.State == System.Data.ConnectionState.Open) connection.Close();
+            }
+            return result;
+        }
     }
 }

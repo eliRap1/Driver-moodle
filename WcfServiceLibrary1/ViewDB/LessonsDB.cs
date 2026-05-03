@@ -129,5 +129,46 @@ namespace ViewDB
 
             return list.Count > 0 ? list[0] : null;
         }
+
+        /// <summary>
+        /// Counts active (non-cancelled) lessons for a teacher's confirmed students.
+        /// Uses an INNER JOIN between Lessons and Student so cancelled lessons and
+        /// unconfirmed students are excluded in a single query.
+        /// </summary>
+        public int CountActiveLessonsForConfirmedStudents(int teacherId)
+        {
+            string sql = @"SELECT COUNT(*)
+                           FROM [Lessons] AS L
+                           INNER JOIN [Student] AS S ON L.[StudentID] = S.[id]
+                           WHERE L.[TeacherID] = ?
+                             AND L.[Canceled] = 0
+                             AND S.[Confirmed] = TRUE";
+            object result = SelectScalar(sql, new OleDbParameter("@tid", teacherId));
+            return (result != null && result != DBNull.Value) ? Convert.ToInt32(result) : 0;
+        }
+
+        /// <summary>
+        /// Returns the unpaid lessons for a teacher that belong to confirmed students,
+        /// using an INNER JOIN. Pre-filters at the SQL level so the client never sees
+        /// orphaned rows (cancelled lessons or unconfirmed students).
+        /// </summary>
+        public List<Lessons> GetUnpaidLessonsForTeacher(int teacherId)
+        {
+            string sql = @"SELECT L.[LessonID], L.[StudentID], L.[TeacherID],
+                                  L.[Date], L.[Time], L.[paid], L.[Canceled]
+                           FROM [Lessons] AS L
+                           INNER JOIN [Student] AS S ON L.[StudentID] = S.[id]
+                           WHERE L.[TeacherID] = ?
+                             AND L.[paid] = FALSE
+                             AND L.[Canceled] = 0
+                             AND S.[Confirmed] = TRUE
+                           ORDER BY L.[Date], L.[Time]";
+            // Map by id alias so BaseDB.CreateModel can read [id]; use LessonID as identity
+            // Note: BaseDB pulls "id" from the reader, but the Lessons CreateModel reads LessonID
+            // directly, so the absence of an "id" column here is fine.
+            return Select(sql, new OleDbParameter("@tid", teacherId))
+                .OfType<Lessons>()
+                .ToList();
+        }
     }
 }

@@ -18,6 +18,7 @@ namespace driver_client
         public AdminTicketDetails(int ticketId)
         {
             InitializeComponent();
+            if (!Sign.RequireAdmin(this)) return;
             this.ticketId = ticketId;
             LoadTicketDetails();
 

@@ -11,16 +11,10 @@
             <Entry x:Name="ConfirmEntry" Placeholder="Confirm Password" IsPassword="True"/>
             <Entry x:Name="EmailEntry" Placeholder="Email" Keyboard="Email"/>
             <Entry x:Name="PhoneEntry" Placeholder="Phone" Keyboard="Telephone"/>
-            <Picker x:Name="RolePicker" Title="Register as">
-                <Picker.Items>
-                    <x:String>Student</x:String>
-                    <x:String>Teacher</x:String>
-                </Picker.Items>
-            </Picker>
-            <VerticalStackLayout x:Name="TeacherFields" IsVisible="False" Spacing="8">
-                <Label Text="Lesson Price (₪)" FontSize="13" TextColor="Gray"/>
-                <Entry x:Name="LessonPriceEntry" Placeholder="200" Keyboard="Numeric"/>
-            </VerticalStackLayout>
+            <Label Text="Choose your teacher" FontSize="13" TextColor="Gray"/>
+            <Picker x:Name="TeacherPicker" Title="Select a teacher"/>
+            <Label Text="Note: only Students can self-register. Teacher accounts are created by the admin."
+                   FontSize="11" TextColor="#999"/>
             <Button Text="Register" Clicked="Register_Click" BackgroundColor="#2196F3"/>
             <Button Text="Back to Login" Clicked="Back_Click" BackgroundColor="#757575"/>
             <Label x:Name="ErrorLabel" IsVisible="False" TextColor="Red"/>

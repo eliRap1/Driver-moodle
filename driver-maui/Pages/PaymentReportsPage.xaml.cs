@@ -16,6 +16,7 @@ namespace driver_maui.Pages
         protected override async void OnAppearing()
         {
             base.OnAppearing();
+            if (!await AppState.RequireRoleAsync(this, "Teacher")) return;
             await LoadData();
         }
 
@@ -50,7 +51,8 @@ namespace driver_maui.Pages
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", ex.Message, "OK");
+                System.Diagnostics.Debug.WriteLine($"PaymentReports: {ex}");
+                await DisplayAlert("Error", "Could not load reports.", "OK");
             }
         }
 
