@@ -23,14 +23,14 @@ namespace driver_client
             refreshTimer.Interval = TimeSpan.FromSeconds(30);
             refreshTimer.Tick += (s, e) => LoadTickets();
             refreshTimer.Start();
+            Unloaded += MyTickets_Unloaded;
         }
 
         private void LoadTickets()
         {
             try
             {
-                var srv = new Service1Client();
-                List<SupportTicket> tickets = srv.GetUserTickets(LogIn.sign.Id).ToList();
+                List<SupportTicket> tickets = (ServiceGateway.Use(client => client.GetUserTickets(ClientSession.CurrentUserId)) ?? new SupportTicket[0]).ToList();
 
                 TicketsPanel.Children.Clear();
 
@@ -62,6 +62,15 @@ namespace driver_client
             {
                 MessageBox.Show($"Error loading tickets:\n{ex.Message}", "Error",
                     MessageBoxButton.OK, MessageBoxImage.Error);
+                TicketsPanel.Children.Clear();
+                TicketsPanel.Children.Add(new TextBlock
+                {
+                    Text = "Tickets are unavailable. Try again later.",
+                    FontSize = 16,
+                    Foreground = Brushes.LightGray,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    Margin = new Thickness(0, 50, 0, 0)
+                });
             }
         }
 
@@ -266,6 +275,11 @@ namespace driver_client
                 page.Navigate(new TeacherUI());
             else
                 page.Navigate(new StudentUI());
+        }
+
+        private void MyTickets_Unloaded(object sender, RoutedEventArgs e)
+        {
+            refreshTimer?.Stop();
         }
     }
 }

@@ -26,6 +26,107 @@ namespace ViewDB
     /// </summary>
     public class NotificationDB : BaseDB
     {
+        private static bool _schemaChecked = false;
+        private static readonly object _schemaLock = new object();
+
+        public NotificationDB()
+        {
+            EnsureSchema();
+        }
+
+        private void EnsureSchema()
+        {
+            if (_schemaChecked) return;
+            lock (_schemaLock)
+            {
+                if (_schemaChecked) return;
+                try
+                {
+                    using (var conn = GetConnection())
+                    {
+                        conn.Open();
+
+                        bool tableExists = false;
+                        var tables = conn.GetSchema("Tables", new[] { null, null, null, "TABLE" });
+                        foreach (System.Data.DataRow row in tables.Rows)
+                        {
+                            if (string.Equals(row["TABLE_NAME"]?.ToString(), "Notifications",
+                                StringComparison.OrdinalIgnoreCase))
+                            {
+                                tableExists = true;
+                                break;
+                            }
+                        }
+
+                        bool needsRecreate = false;
+                        if (tableExists)
+                        {
+                            var requiredCols = new[]
+                            {
+                                "id", "SenderId", "SenderName", "SenderType",
+                                "RecipientId", "RecipientType", "Title", "Message",
+                                "NotificationType", "IsRead", "CreatedAt", "ReadAt"
+                            };
+                            var existingCols = new System.Collections.Generic.HashSet<string>(
+                                StringComparer.OrdinalIgnoreCase);
+                            var colSchema = conn.GetSchema("Columns", new[] { null, null, "Notifications", null });
+                            foreach (System.Data.DataRow row in colSchema.Rows)
+                            {
+                                existingCols.Add(row["COLUMN_NAME"]?.ToString() ?? "");
+                            }
+                            foreach (var c in requiredCols)
+                            {
+                                if (!existingCols.Contains(c))
+                                {
+                                    needsRecreate = true;
+                                    System.Diagnostics.Debug.WriteLine(
+                                        "Notifications table missing column: " + c + " - recreating.");
+                                    break;
+                                }
+                            }
+                        }
+
+                        if (tableExists && needsRecreate)
+                        {
+                            using (var drop = new OleDbCommand("DROP TABLE [Notifications]", conn))
+                            {
+                                drop.ExecuteNonQuery();
+                            }
+                            tableExists = false;
+                        }
+
+                        if (!tableExists)
+                        {
+                            string ddl = @"CREATE TABLE [Notifications] (
+                                [id] COUNTER PRIMARY KEY,
+                                [SenderId] LONG,
+                                [SenderName] TEXT(50),
+                                [SenderType] TEXT(20),
+                                [RecipientId] LONG,
+                                [RecipientType] TEXT(20),
+                                [Title] TEXT(255),
+                                [Message] MEMO,
+                                [NotificationType] TEXT(30),
+                                [IsRead] BIT,
+                                [CreatedAt] DATETIME,
+                                [ReadAt] DATETIME
+                            )";
+                            using (var cmd = new OleDbCommand(ddl, conn))
+                            {
+                                cmd.ExecuteNonQuery();
+                            }
+                            System.Diagnostics.Debug.WriteLine("Notifications table created.");
+                        }
+                    }
+                    _schemaChecked = true;
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("EnsureSchema(Notifications) error: " + ex.Message);
+                }
+            }
+        }
+
         protected override Base NewEntity()
         {
             return new Notification();
@@ -86,7 +187,8 @@ namespace ViewDB
         }
 
         /// <summary>
-        /// Send a new notification
+        /// Send a new notification. Bypasses BaseDB.SaveChanges so OleDb errors propagate
+        /// instead of being swallowed - lets the WCF fault carry the real cause to the client.
         /// </summary>
         public int SendNotification(Notification notification)
         {
@@ -95,21 +197,35 @@ namespace ViewDB
                  [Title], [Message], [NotificationType], [IsRead], [CreatedAt])
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-            var parameters = new[]
+            using (var conn = GetConnection())
+            using (var cmd = new OleDbCommand(sql, conn))
             {
-                new OleDbParameter("@senderId", OleDbType.Integer) { Value = notification.SenderId },
-                new OleDbParameter("@senderName", OleDbType.VarWChar) { Value = notification.SenderName ?? "" },
-                new OleDbParameter("@senderType", OleDbType.VarWChar) { Value = notification.SenderType ?? "System" },
-                new OleDbParameter("@recipientId", OleDbType.Integer) { Value = notification.RecipientId },
-                new OleDbParameter("@recipientType", OleDbType.VarWChar) { Value = notification.RecipientType ?? "" },
-                new OleDbParameter("@title", OleDbType.VarWChar) { Value = notification.Title ?? "" },
-                new OleDbParameter("@message", OleDbType.LongVarWChar) { Value = notification.Message ?? "" },
-                new OleDbParameter("@notificationType", OleDbType.VarWChar) { Value = notification.NotificationType ?? "Message" },
-                new OleDbParameter("@isRead", OleDbType.Boolean) { Value = false },
-                new OleDbParameter("@createdAt", OleDbType.Date) { Value = DateTime.Now }
-            };
+                cmd.Parameters.Add(new OleDbParameter("@senderId", OleDbType.Integer) { Value = notification.SenderId });
+                cmd.Parameters.Add(new OleDbParameter("@senderName", OleDbType.VarWChar, 50) { Value = (object)notification.SenderName ?? "" });
+                cmd.Parameters.Add(new OleDbParameter("@senderType", OleDbType.VarWChar, 20) { Value = (object)notification.SenderType ?? "System" });
+                cmd.Parameters.Add(new OleDbParameter("@recipientId", OleDbType.Integer) { Value = notification.RecipientId });
+                cmd.Parameters.Add(new OleDbParameter("@recipientType", OleDbType.VarWChar, 20) { Value = (object)notification.RecipientType ?? "" });
+                cmd.Parameters.Add(new OleDbParameter("@title", OleDbType.VarWChar, 255) { Value = (object)notification.Title ?? "" });
+                cmd.Parameters.Add(new OleDbParameter("@message", OleDbType.LongVarWChar) { Value = (object)notification.Message ?? "" });
+                cmd.Parameters.Add(new OleDbParameter("@notificationType", OleDbType.VarWChar, 30) { Value = (object)notification.NotificationType ?? "Message" });
+                cmd.Parameters.Add(new OleDbParameter("@isRead", OleDbType.Boolean) { Value = false });
+                cmd.Parameters.Add(new OleDbParameter("@createdAt", OleDbType.Date) { Value = DateTime.Now });
 
-            return SaveChanges(sql, parameters);
+                try
+                {
+                    conn.Open();
+                    int affected = cmd.ExecuteNonQuery();
+                    if (affected <= 0)
+                        throw new InvalidOperationException("INSERT into Notifications affected 0 rows.");
+                    return affected;
+                }
+                catch (OleDbException ex)
+                {
+                    throw new InvalidOperationException(
+                        "Notifications INSERT failed: " + ex.Message +
+                        " | SQL: " + sql, ex);
+                }
+            }
         }
 
         /// <summary>
@@ -162,19 +278,36 @@ namespace ViewDB
         }
 
         /// <summary>
-        /// Mark a notification as read
+        /// Mark a notification as read. Bypasses BaseDB.SaveChanges so OleDb errors propagate.
         /// </summary>
         public void MarkAsRead(int notificationId)
         {
             string sql = "UPDATE [Notifications] SET [IsRead] = ?, [ReadAt] = ? WHERE [id] = ?";
-            SaveChanges(sql,
-                new OleDbParameter("@isRead", true),
-                new OleDbParameter("@readAt", DateTime.Now),
-                new OleDbParameter("@id", notificationId));
+            using (var conn = GetConnection())
+            using (var cmd = new OleDbCommand(sql, conn))
+            {
+                cmd.Parameters.Add(new OleDbParameter("@isRead", OleDbType.Boolean) { Value = true });
+                cmd.Parameters.Add(new OleDbParameter("@readAt", OleDbType.Date) { Value = DateTime.Now });
+                cmd.Parameters.Add(new OleDbParameter("@id", OleDbType.Integer) { Value = notificationId });
+
+                try
+                {
+                    conn.Open();
+                    int affected = cmd.ExecuteNonQuery();
+                    if (affected <= 0)
+                        throw new InvalidOperationException(
+                            $"MarkAsRead: notification id={notificationId} not found.");
+                }
+                catch (OleDbException ex)
+                {
+                    throw new InvalidOperationException(
+                        "MarkAsRead failed: " + ex.Message, ex);
+                }
+            }
         }
 
         /// <summary>
-        /// Mark all notifications as read for a user
+        /// Mark all notifications as read for a user. Bypasses BaseDB.SaveChanges.
         /// </summary>
         public void MarkAllAsRead(int userId, string userType)
         {
@@ -182,21 +315,49 @@ namespace ViewDB
                 SET [IsRead] = ?, [ReadAt] = ?
                 WHERE [RecipientId] = ? AND [RecipientType] = ? AND [IsRead] = ?";
 
-            SaveChanges(sql,
-                new OleDbParameter("@isRead", true),
-                new OleDbParameter("@readAt", DateTime.Now),
-                new OleDbParameter("@recipientId", userId),
-                new OleDbParameter("@recipientType", userType),
-                new OleDbParameter("@isReadOld", false));
+            using (var conn = GetConnection())
+            using (var cmd = new OleDbCommand(sql, conn))
+            {
+                cmd.Parameters.Add(new OleDbParameter("@isRead", OleDbType.Boolean) { Value = true });
+                cmd.Parameters.Add(new OleDbParameter("@readAt", OleDbType.Date) { Value = DateTime.Now });
+                cmd.Parameters.Add(new OleDbParameter("@recipientId", OleDbType.Integer) { Value = userId });
+                cmd.Parameters.Add(new OleDbParameter("@recipientType", OleDbType.VarWChar, 20) { Value = userType ?? "" });
+                cmd.Parameters.Add(new OleDbParameter("@isReadOld", OleDbType.Boolean) { Value = false });
+
+                try
+                {
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+                catch (OleDbException ex)
+                {
+                    throw new InvalidOperationException(
+                        "MarkAllAsRead failed: " + ex.Message, ex);
+                }
+            }
         }
 
         /// <summary>
-        /// Delete a notification
+        /// Delete a notification. Bypasses BaseDB.SaveChanges so errors propagate.
         /// </summary>
         public void DeleteNotification(int notificationId)
         {
             string sql = "DELETE FROM [Notifications] WHERE [id] = ?";
-            SaveChanges(sql, new OleDbParameter("@id", notificationId));
+            using (var conn = GetConnection())
+            using (var cmd = new OleDbCommand(sql, conn))
+            {
+                cmd.Parameters.Add(new OleDbParameter("@id", OleDbType.Integer) { Value = notificationId });
+                try
+                {
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+                catch (OleDbException ex)
+                {
+                    throw new InvalidOperationException(
+                        "DeleteNotification failed: " + ex.Message, ex);
+                }
+            }
         }
 
         /// <summary>
@@ -216,7 +377,9 @@ namespace ViewDB
                 NotificationType = "LessonCancelled"
             };
 
-            SendNotification(notification);
+            int affectedRows = SendNotification(notification);
+            if (affectedRows <= 0)
+                throw new InvalidOperationException("Lesson cancellation notification was not saved.");
         }
 
         /// <summary>
@@ -236,7 +399,9 @@ namespace ViewDB
                 NotificationType = "Message"
             };
 
-            SendNotification(notification);
+            int affectedRows = SendNotification(notification);
+            if (affectedRows <= 0)
+                throw new InvalidOperationException("Teacher message was not saved.");
         }
 
         /// <summary>
@@ -256,7 +421,9 @@ namespace ViewDB
                 NotificationType = "Message"
             };
 
-            SendNotification(notification);
+            int affectedRows = SendNotification(notification);
+            if (affectedRows <= 0)
+                throw new InvalidOperationException("Student message was not saved.");
         }
 
         /// <summary>
@@ -276,7 +443,9 @@ namespace ViewDB
                 NotificationType = "PaymentReceived"
             };
 
-            SendNotification(notification);
+            int affectedRows = SendNotification(notification);
+            if (affectedRows <= 0)
+                throw new InvalidOperationException("Payment notification was not saved.");
         }
     }
 }

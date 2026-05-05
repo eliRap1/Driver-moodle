@@ -1,6 +1,7 @@
-﻿using driver_client.driver;
+using driver_client.driver;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -9,9 +10,9 @@ namespace driver_client
 {
     public partial class ScheduleLesson : Page
     {
-        private List<UnavailableDay> hardUnavailable;       // TeacherUnavailableDate
-        private List<SpecialDay> specialDays;               // TeacherSpacialDays
-        private List<string> weeklyAvailableDays;           // Availability.availableDays
+        private List<UnavailableDay> hardUnavailable;
+        private List<SpecialDay> specialDays;
+        private List<string> weeklyAvailableDays;
         private TimeSpan defaultStart;
         private TimeSpan defaultEnd;
 
@@ -26,24 +27,21 @@ namespace driver_client
 
         private void LoadData()
         {
-            var srv = new Service1Client();
+            teacherId = ClientSession.TeacherId;
+            Calendars cal = ServiceGateway.Use(client => client.GetTeacherCalendar(teacherId));
+            List<Calendars> unavailable = (ServiceGateway.Use(client => client.GetTeacherUnavailableDates(teacherId)) ?? new Calendars[0]).ToList();
+            List<Calendars> special = (ServiceGateway.Use(client => client.TeacherSpacialDays(teacherId)) ?? new Calendars[0]).ToList();
 
-            teacherId = srv.GetTeacherId(LogIn.sign.Id);
-            Calendars cal = srv.GetTeacherCalendar(teacherId);
-            List<Calendars> unavailable = srv.GetTeacherUnavailableDates(teacherId).ToList();
-            List<Calendars> special = srv.TeacherSpacialDays(teacherId).ToList();
+            studentLessons = (ServiceGateway.Use(client => client.GetAllStudentLessons(ClientSession.StudentId)) ?? new Lessons[0]).ToList();
 
-            studentLessons = srv.GetAllStudentLessons(LogIn.sign.Id).ToList();
-
-            // DEFAULT HOURS
             if (cal != null)
             {
                 weeklyAvailableDays = cal.AvailableDays != null
                     ? cal.AvailableDays.ToList()
                     : new List<string>();
 
-                defaultStart = TimeSpan.Parse(string.IsNullOrEmpty(cal.StartTime) ? "08:00" : cal.StartTime);
-                defaultEnd = TimeSpan.Parse(string.IsNullOrEmpty(cal.EndTime) ? "20:00" : cal.EndTime);
+                defaultStart = ParseTimeOrDefault(cal.StartTime, TimeSpan.FromHours(8));
+                defaultEnd = ParseTimeOrDefault(cal.EndTime, TimeSpan.FromHours(20));
             }
             else
             {
@@ -52,7 +50,6 @@ namespace driver_client
                 defaultEnd = TimeSpan.FromHours(20);
             }
 
-            // HARD UNAVAILABLE DAYS (AllDay = true only)
             hardUnavailable = new List<UnavailableDay>();
             foreach (var u in unavailable)
             {
@@ -60,7 +57,6 @@ namespace driver_client
                     hardUnavailable.AddRange(u.UnavailableDays);
             }
 
-            // SPECIAL DAYS
             specialDays = new List<SpecialDay>();
             foreach (var s in special)
             {
@@ -73,121 +69,138 @@ namespace driver_client
             BlackoutUnavailableDates();
 
             lessonDatePicker.SelectedDateChanged += LessonDateChanged;
+            UpdateBookingSummary();
+        }
+
+        private TimeSpan ParseTimeOrDefault(string value, TimeSpan fallback)
+        {
+            return TimeSpan.TryParse(value, out TimeSpan parsed) ? parsed : fallback;
         }
 
         private void BlackoutUnavailableDates()
         {
-            // Only blackout days that are FULLY unavailable (AllDay = true)
             foreach (var u in hardUnavailable.Where(x => x.AllDay))
             {
-                lessonDatePicker.BlackoutDates.Add(
-                    new CalendarDateRange(u.Date.Date)
-                );
+                lessonDatePicker.BlackoutDates.Add(new CalendarDateRange(u.Date.Date));
             }
         }
 
         private void LessonDateChanged(object sender, SelectionChangedEventArgs e)
         {
             if (lessonDatePicker.SelectedDate == null)
+            {
+                lessonTimeComboBox.Items.Clear();
+                AvailabilityText.Text = "Select a date to see open lesson times.";
+                UpdateBookingSummary();
                 return;
+            }
 
             DateTime selected = lessonDatePicker.SelectedDate.Value;
             string dayName = selected.DayOfWeek.ToString();
 
-            // Check if there's a special day for this date
             SpecialDay special = specialDays.FirstOrDefault(s => s.Date.Date == selected.Date);
-
-            // If there's a special day, the teacher CAN work regardless of weeklyAvailableDays
-            // If no special day, check if it's in regular working days
             if (special == null && !weeklyAvailableDays.Contains(dayName))
             {
                 MessageBox.Show($"{dayName} is not a teaching day and no special availability set.");
                 lessonDatePicker.SelectedDate = null;
+                UpdateBookingSummary();
                 return;
             }
 
             LoadTimeOptions(selected);
+            UpdateBookingSummary();
         }
 
         private void LoadTimeOptions(DateTime day)
         {
             lessonTimeComboBox.Items.Clear();
+            AvailabilityText.Text = "Checking availability...";
 
-            // CHECK if day is FULLY unavailable (AllDay = true)
             var fullDayUnavailable = hardUnavailable.FirstOrDefault(u =>
                 u.Date.Date == day.Date && u.AllDay);
 
             if (fullDayUnavailable != null)
             {
-                MessageBox.Show("This date is fully unavailable.");
+                AvailabilityText.Text = "This date is fully unavailable.";
                 return;
             }
 
-            // Get partially unavailable times for this day (AllDay = false)
             var partialUnavailable = hardUnavailable
                 .Where(u => u.Date.Date == day.Date && !u.AllDay)
                 .ToList();
 
-            // SPECIAL DAY? Use special hours, otherwise use default
             SpecialDay special = specialDays.FirstOrDefault(s => s.Date.Date == day.Date);
 
-            TimeSpan start = special != null ? TimeSpan.Parse(special.StartTime) : defaultStart;
-            TimeSpan end = special != null ? TimeSpan.Parse(special.EndTime) : defaultEnd;
+            TimeSpan start = special != null ? ParseTimeOrDefault(special.StartTime, defaultStart) : defaultStart;
+            TimeSpan end = special != null ? ParseTimeOrDefault(special.EndTime, defaultEnd) : defaultEnd;
 
-            // Generate available time slots
-            while (start <= end)
+            while (start < end)
             {
                 string timeStr = start.ToString(@"hh\:mm");
-
-                // Check if this hour is blocked by partial unavailability
-                bool isBlocked = IsTimeBlocked(start, partialUnavailable);
-
-                // Check if student already has lesson at this time
-                bool hasLesson = StudentHasLesson(day, timeStr);
-
-                // Only add if not blocked and student doesn't have lesson
-                if (!isBlocked && !hasLesson)
-                {
+                if (!IsTimeBlocked(start, partialUnavailable) && !StudentHasLesson(day, timeStr))
                     lessonTimeComboBox.Items.Add(timeStr);
-                }
 
                 start = start.Add(TimeSpan.FromHours(1));
             }
 
             if (lessonTimeComboBox.Items.Count == 0)
-                MessageBox.Show("No available hours on this date.");
+            {
+                AvailabilityText.Text = "No available hours on this date.";
+            }
+            else
+            {
+                AvailabilityText.Text = $"{lessonTimeComboBox.Items.Count} available time slots for {day:dd/MM/yyyy}.";
+                lessonTimeComboBox.SelectedIndex = 0;
+            }
         }
 
-        /// <summary>
-        /// Check if a specific time falls within any unavailable time ranges
-        /// </summary>
         private bool IsTimeBlocked(TimeSpan time, List<UnavailableDay> partialUnavailable)
         {
             foreach (var unavail in partialUnavailable)
             {
-                // If StartTime or EndTime is null/empty, skip this check
                 if (string.IsNullOrEmpty(unavail.StartTime) || string.IsNullOrEmpty(unavail.EndTime))
                     continue;
 
-                TimeSpan unavailStart = TimeSpan.Parse(unavail.StartTime);
-                TimeSpan unavailEnd = TimeSpan.Parse(unavail.EndTime);
+                TimeSpan unavailStart = ParseTimeOrDefault(unavail.StartTime, TimeSpan.Zero);
+                TimeSpan unavailEnd = ParseTimeOrDefault(unavail.EndTime, TimeSpan.Zero);
 
-                // Check if the time falls within the unavailable range
                 if (time >= unavailStart && time < unavailEnd)
-                {
-                    return true; // This time is blocked
-                }
+                    return true;
             }
 
-            return false; // Time is available
+            return false;
         }
 
         private bool StudentHasLesson(DateTime date, string time)
         {
             return studentLessons.Any(l =>
-                DateTime.Parse(l.Date).Date == date.Date &&
-                l.Time == time
-            );
+                TryParseLessonDate(l.Date, out DateTime lessonDate) &&
+                lessonDate.Date == date.Date &&
+                l.Time == time);
+        }
+
+        private bool TryParseLessonDate(string value, out DateTime result)
+        {
+            string[] formats = { "yyyy-MM-dd", "dd-MM-yyyy", "dd/MM/yyyy" };
+            return DateTime.TryParseExact(value, formats, CultureInfo.InvariantCulture,
+                       DateTimeStyles.None, out result) ||
+                   DateTime.TryParse(value, out result);
+        }
+
+        private void LessonTimeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            UpdateBookingSummary();
+        }
+
+        private void UpdateBookingSummary()
+        {
+            SelectedDateText.Text = lessonDatePicker.SelectedDate.HasValue
+                ? lessonDatePicker.SelectedDate.Value.ToString("dddd, dd/MM/yyyy")
+                : "Not selected";
+
+            SelectedTimeText.Text = lessonTimeComboBox.SelectedItem != null
+                ? lessonTimeComboBox.SelectedItem.ToString()
+                : "Not selected";
         }
 
         private void ConfirmLesson_Click(object sender, RoutedEventArgs e)
@@ -201,11 +214,17 @@ namespace driver_client
             string date = lessonDatePicker.SelectedDate.Value.ToString("yyyy-MM-dd");
             string time = lessonTimeComboBox.SelectedItem.ToString();
 
-            var srv = new Service1Client();
-            srv.AddLessonForStudent(LogIn.sign.Id, date, time);
-
-            MessageBox.Show($"Lesson booked: {date} at {time}");
-            page.Navigate(new StudentUI());
+            try
+            {
+                ServiceGateway.Use(client => client.AddLessonForStudent(ClientSession.StudentId, date, time));
+                MessageBox.Show($"Lesson booked: {date} at {time}");
+                page.Navigate(new StudentUI());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Booking failed: " + ex.Message, "Error",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)

@@ -46,6 +46,13 @@ namespace ViewDB
                     try { s.LessonPrice = (int)reader["lessonPrice"]; }
                     catch { s.LessonPrice = 200; } // Default price
 
+                    // For student rows, [lessonPrice] holds the custom override (0 = use teacher default).
+                    // Mirror it to CustomLessonPrice so UI code that reads CustomLessonPrice keeps working.
+                    s.CustomLessonPrice = s.LessonPrice;
+
+                    try { s.DiscountPercent = (int)reader["DiscountPercent"]; }
+                    catch { s.DiscountPercent = 0; }
+
                     // Check for IsAdmin field (for teachers who are also admins)
                     try { s.IsAdmin = bool.Parse(reader["IsAdmin"].ToString()); }
                     catch { s.IsAdmin = false; }
@@ -298,25 +305,43 @@ namespace ViewDB
         }
 
         /// <summary>
-        /// Update teacher's lesson price
+        /// Update teacher's lesson price. Bypasses BaseDB.SaveChanges so errors propagate.
         /// </summary>
         public void UpdateLessonPrice(int teacherId, int price)
         {
-            string sql = "UPDATE [Teacher] SET [lessonPrice] = ? WHERE [id] = ?";
-            SaveChanges(sql,
-                new OleDbParameter("@price", price),
-                new OleDbParameter("@id", teacherId));
+            ExecUpdateInt("Teacher", "lessonPrice", price, teacherId);
         }
 
         /// <summary>
-        /// Set custom lesson price for a specific student
+        /// Set custom lesson price for a specific student.
         /// </summary>
         public void SetStudentLessonPrice(int studentId, int price)
         {
-            string sql = "UPDATE [Student] SET [lessonPrice] = ? WHERE [id] = ?";
-            SaveChanges(sql,
-                new OleDbParameter("@price", price),
-                new OleDbParameter("@id", studentId));
+            ExecUpdateInt("Student", "lessonPrice", price, studentId);
+        }
+
+        private void ExecUpdateInt(string table, string column, int value, int id)
+        {
+            string sql = $"UPDATE [{table}] SET [{column}] = ? WHERE [id] = ?";
+            using (var conn = BaseDB.GetConnection())
+            using (var cmd = new OleDbCommand(sql, conn))
+            {
+                cmd.Parameters.Add(new OleDbParameter("@v", OleDbType.Integer) { Value = value });
+                cmd.Parameters.Add(new OleDbParameter("@id", OleDbType.Integer) { Value = id });
+                try
+                {
+                    conn.Open();
+                    int affected = cmd.ExecuteNonQuery();
+                    if (affected <= 0)
+                        throw new InvalidOperationException(
+                            $"UPDATE [{table}] SET [{column}]=? WHERE [id]={id} affected 0 rows.");
+                }
+                catch (OleDbException ex)
+                {
+                    throw new InvalidOperationException(
+                        $"UPDATE [{table}].[{column}] failed: {ex.Message}", ex);
+                }
+            }
         }
 
         /// <summary>
@@ -350,14 +375,30 @@ namespace ViewDB
         //}
 
         /// <summary>
-        /// Update teacher's payment methods
+        /// Update teacher's payment methods.
         /// </summary>
         public void UpdatePaymentMethods(int teacherId, string paymentMethods)
         {
             string sql = "UPDATE [Teacher] SET [PaymentMethods] = ? WHERE [id] = ?";
-            SaveChanges(sql,
-                new OleDbParameter("@methods", paymentMethods),
-                new OleDbParameter("@id", teacherId));
+            using (var conn = BaseDB.GetConnection())
+            using (var cmd = new OleDbCommand(sql, conn))
+            {
+                cmd.Parameters.Add(new OleDbParameter("@methods", OleDbType.VarWChar, 200) { Value = paymentMethods ?? "" });
+                cmd.Parameters.Add(new OleDbParameter("@id", OleDbType.Integer) { Value = teacherId });
+                try
+                {
+                    conn.Open();
+                    int affected = cmd.ExecuteNonQuery();
+                    if (affected <= 0)
+                        throw new InvalidOperationException(
+                            $"UpdatePaymentMethods affected 0 rows (teacherId={teacherId}).");
+                }
+                catch (OleDbException ex)
+                {
+                    throw new InvalidOperationException(
+                        "UpdatePaymentMethods failed: " + ex.Message, ex);
+                }
+            }
         }
 
         /// <summary>
@@ -460,20 +501,11 @@ namespace ViewDB
 
         public List<UserInfo> GetTeacherStudents(int tid)
         {
-            // INNER JOIN Student + Teacher to verify the teacher exists, plus a LEFT JOIN
-            // to Lessons to count active lessons per student in a single round-trip.
-            // Access requires parentheses around chained joins.
             string sqlStr = @"SELECT S.[id], S.[username], S.[password], S.[email], S.[phone],
-                                     S.[teacherId], S.[Confirmed], S.[lessonPrice],
-                                     S.[DiscountPercent], COUNT(L.[LessonID]) AS LessonCount
-                              FROM ([Student] AS S
-                                    INNER JOIN [Teacher] AS T ON S.[teacherId] = T.[id])
-                                    LEFT JOIN [Lessons] AS L
-                                        ON S.[id] = L.[StudentID] AND L.[Canceled] = 0
+                                     S.[teacherId], S.[Confirmed], S.[lessonPrice]
+                              FROM [Student] AS S
                               WHERE S.[teacherId] = ?
-                              GROUP BY S.[id], S.[username], S.[password], S.[email], S.[phone],
-                                       S.[teacherId], S.[Confirmed], S.[lessonPrice],
-                                       S.[DiscountPercent]";
+                              ORDER BY S.[Confirmed], S.[username]";
             return Select(sqlStr, new OleDbParameter("@tid", tid))
                 .OfType<UserInfo>()
                 .ToList();
@@ -576,10 +608,7 @@ namespace ViewDB
         /// </summary>
         public void SetStudentDiscount(int studentId, int discountPercent)
         {
-            string sql = "UPDATE [Student] SET [DiscountPercent] = ? WHERE [id] = ?";
-            SaveChanges(sql,
-                new OleDbParameter("@discount", discountPercent),
-                new OleDbParameter("@id", studentId));
+            ExecUpdateInt("Student", "DiscountPercent", discountPercent, studentId);
         }
 
         /// <summary>

@@ -20,32 +20,50 @@ namespace driver_client
             RefreshTimer.Interval = TimeSpan.FromSeconds(3);
             RefreshTimer.Tick += RefreshMessages;
             RefreshTimer.Start();
+            Unloaded += Chat_Unloaded;
             MessageList.ScrollToEnd();
         }
         private void RefreshMessages(object sender, EventArgs e)
         {
-            driver.Service1Client srv = new driver.Service1Client();
-            List<Chats> messages = srv.GetAllChatGlobal().ToList();
-            MessagesPanel.Children.Clear();
-            foreach (var message in messages)
+            try
             {
-                AddMessage(message.Username, message.Message, message.IsTeacher, message.SentAt);
+                List<Chats> messages = (ServiceGateway.Use(client => client.GetAllChatGlobal()) ?? new Chats[0]).ToList();
+                MessagesPanel.Children.Clear();
+                ChatStateText.Visibility = messages.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
+                ChatStateText.Text = "No messages yet.";
+
+                foreach (var message in messages)
+                {
+                    AddMessage(message.Username, message.Message, message.IsTeacher, message.SentAt);
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"RefreshMessages Error: {ex.Message}");
+                MessagesPanel.Children.Clear();
+                ChatStateText.Text = "Chat is unavailable. Try again later.";
+                ChatStateText.Visibility = Visibility.Visible;
             }
         }
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
+            RefreshTimer?.Stop();
             if (LogIn.sign.IsTeacher)
                 page.Navigate(new TeacherUI());
             else
                 page.Navigate(new StudentUI());
+        }
+
+        private void Chat_Unloaded(object sender, RoutedEventArgs e)
+        {
+            RefreshTimer?.Stop();
         }
         private void Send_Click(object sender, RoutedEventArgs e)
         {
             string message = MessageTextBox.Text.Trim();
             if (!string.IsNullOrEmpty(message))
             {
-                driver.Service1Client srv = new driver.Service1Client();
-                srv.AddMessageGlobal(message, LogIn.sign.Id, LogIn.sign.Username, LogIn.sign.IsTeacher);
+                ServiceGateway.Use(client => client.AddMessageGlobal(message, ClientSession.CurrentUserId, LogIn.sign.Username, LogIn.sign.IsTeacher));
                 AddMessage(LogIn.sign.Username, message, LogIn.sign.IsTeacher, DateTime.Now);
                 MessageTextBox.Clear();
                 MessageList.ScrollToEnd();

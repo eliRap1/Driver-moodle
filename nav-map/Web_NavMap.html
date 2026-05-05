@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Driver web — Master Navigation Flow</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<style>
+  :root {
+    --bg: #0E1A2B;
+    --panel2: #1A2636;
+    --text: #ffffff;
+    --muted: #9bb;
+    --cyan: #00E0FF;
+    --green: #27AE60;
+    --orange: #F39C12;
+    --red: #E74C3C;
+    --grey: #bdbdbd;
+  }
+  body { margin: 0; padding: 24px; background: var(--bg); color: var(--text); font-family: 'Segoe UI', Tahoma, sans-serif; }
+  h1 { color: var(--cyan); margin-top: 0; }
+  h2 { color: var(--cyan); border-bottom: 2px solid var(--cyan); padding-bottom: 6px; margin-top: 30px; }
+  .legend { display: flex; gap: 12px; flex-wrap: wrap; margin: 12px 0 24px; font-size: 13px; }
+  .chip { padding: 4px 12px; border-radius: 14px; font-weight: 600; }
+  .chip.auth { background:#1a2e50; border:1px solid var(--cyan); color: var(--cyan); }
+  .chip.student { background:#16321f; border:1px solid var(--green); color: var(--green); }
+  .chip.teacher { background:#3d2a14; border:1px solid var(--orange); color: var(--orange); }
+  .chip.admin { background:#3d1414; border:1px solid var(--red); color: var(--red); }
+  .mermaid-wrap { background: var(--panel2); border: 2px solid var(--cyan); border-radius: 10px; padding: 16px; overflow:auto; }
+  table { border-collapse: collapse; width: 100%; margin-top: 10px; font-size: 13px; }
+  th, td { padding: 6px 10px; border: 1px solid #233; text-align: left; }
+  th { background: #233852; color: var(--cyan); }
+  code { color: var(--orange); }
+</style>
+</head>
+<body>
+
+<h1>🌐 Driver web (ASP.NET Razor Pages) — Master Navigation Flow</h1>
+
+<div class="legend">
+  <span class="chip auth">🟦 Auth</span>
+  <span class="chip student">🟩 Student</span>
+  <span class="chip teacher">🟧 Teacher</span>
+  <span class="chip admin">🟥 Admin</span>
+</div>
+
+<h2>Master Flow</h2>
+<div class="mermaid-wrap">
+<pre class="mermaid">
+flowchart TD
+    Index["Index<br>root redirect"]
+    Login["Login"]
+    Logout["Logout"]
+
+    Index -->|OnGet auto-redirect| Login
+    Login -->|Sign In role Teacher| TeacherHome
+    Login -->|Sign In role Student| StudentHome
+    Logout -->|Session Clear| Login
+
+    StudentHome["Student/StudentHome<br>dashboard"]
+    ViewLessons["Student/ViewLessons<br>My Lessons"]
+    ScheduleLesson["Student/ScheduleLesson"]
+    Payments["Student/Payments"]
+    Courses["Student/Courses"]
+    SNotifications["Student/Notifications"]
+    WriteReview["Student/WriteReview"]
+
+    StudentHome -->|View Lessons| ViewLessons
+    StudentHome -->|Schedule| ScheduleLesson
+    StudentHome -->|Payments| Payments
+    StudentHome -->|View Courses| Courses
+    StudentHome -->|View Notifications| SNotifications
+    StudentHome -->|Write Review| WriteReview
+
+    ViewLessons -->|Go to Payments| Payments
+    ViewLessons -->|Back to Dashboard| StudentHome
+    ScheduleLesson -->|Back to Dashboard| StudentHome
+    Payments -->|View Lessons| ViewLessons
+    Payments -->|Back to Dashboard| StudentHome
+    Courses -->|Back to Dashboard| StudentHome
+    SNotifications -->|Back to Dashboard| StudentHome
+    WriteReview -->|Back to Dashboard| StudentHome
+
+    StudentHome -. nav .-> Logout
+    ViewLessons -. nav .-> Logout
+    ScheduleLesson -. nav .-> Logout
+    Payments -. nav .-> Logout
+    Courses -. nav .-> Logout
+    SNotifications -. nav .-> Logout
+
+    TeacherHome["Teacher/TeacherHome<br>dashboard"]
+    AllStudents["Teacher/AllStudents"]
+    ConfirmPayments["Teacher/ConfirmPayments"]
+    PaymentReports["Teacher/PaymentReports"]
+    TNotifications["Teacher/Notifications"]
+    AllTeachers["Teacher/AllTeachers<br>Admin only"]
+
+    TeacherHome -->|View Students| AllStudents
+    TeacherHome -->|Confirm Payments| ConfirmPayments
+    TeacherHome -->|Payment Reports| PaymentReports
+    TeacherHome -->|View Notifications| TNotifications
+    TeacherHome -->|View Teachers IsAdmin| AllTeachers
+
+    AllStudents -->|Back to Dashboard| TeacherHome
+    ConfirmPayments -->|View Payment Reports| PaymentReports
+    ConfirmPayments -->|Back to Dashboard| TeacherHome
+    PaymentReports -->|Confirm Payments| ConfirmPayments
+    PaymentReports -->|Back to Dashboard| TeacherHome
+    TNotifications -->|Back to Dashboard| TeacherHome
+
+    AllTeachers -->|View Students| AllStudents
+
+    TeacherHome -. nav .-> Logout
+    AllStudents -. nav .-> Logout
+    ConfirmPayments -. nav .-> Logout
+    PaymentReports -. nav .-> Logout
+    TNotifications -. nav .-> Logout
+
+    ManageUsers["Admin/ManageUsers<br>Admin only"]
+
+    TeacherHome -->|Manage Users IsAdmin| ManageUsers
+    AllTeachers -->|nav IsAdmin| ManageUsers
+    ManageUsers -->|Back to Dashboard| TeacherHome
+
+    StudentHome -. role guard .-> Login
+    TeacherHome -. role guard .-> Login
+    ManageUsers -. admin guard .-> Login
+
+    classDef auth fill:#1a2e50,stroke:#00E0FF,color:#fff
+    classDef student fill:#16321f,stroke:#27AE60,color:#fff
+    classDef teacher fill:#3d2a14,stroke:#F39C12,color:#fff
+    classDef admin fill:#3d1414,stroke:#E74C3C,color:#fff
+
+    class Index,Login,Logout auth
+    class StudentHome,ViewLessons,ScheduleLesson,Payments,Courses,SNotifications,WriteReview student
+    class TeacherHome,AllStudents,ConfirmPayments,PaymentReports,TNotifications,AllTeachers teacher
+    class ManageUsers admin
+</pre>
+</div>
+
+<h2>Per-page button → destination</h2>
+
+<h3 style="color: var(--cyan);">🟦 Auth</h3>
+<table>
+  <tr><th>Page</th><th>Trigger</th><th>Goes to</th></tr>
+  <tr><td>/Index</td><td>OnGet auto</td><td>/Login</td></tr>
+  <tr><td>/Login</td><td>Login role=Teacher</td><td>/Teacher/TeacherHome</td></tr>
+  <tr><td>/Login</td><td>Login role=Student</td><td>/Student/StudentHome</td></tr>
+  <tr><td>/Logout</td><td>OnGet</td><td>/Login</td></tr>
+  <tr><td>any guarded page</td><td>missing or wrong role</td><td>/Login</td></tr>
+</table>
+
+<h3 style="color: var(--green);">🟩 Student</h3>
+<table>
+  <tr><th>Page</th><th>Button</th><th>Goes to</th></tr>
+  <tr><td>StudentHome</td><td>View Lessons</td><td>ViewLessons</td></tr>
+  <tr><td>StudentHome</td><td>Schedule</td><td>ScheduleLesson</td></tr>
+  <tr><td>StudentHome</td><td>Payments</td><td>Payments</td></tr>
+  <tr><td>StudentHome</td><td>View Courses</td><td>Courses</td></tr>
+  <tr><td>StudentHome</td><td>View Notifications</td><td>Notifications</td></tr>
+  <tr><td>StudentHome</td><td>Write Review</td><td>WriteReview</td></tr>
+  <tr><td>ViewLessons</td><td>Go to Payments</td><td>Payments</td></tr>
+  <tr><td>ViewLessons</td><td>Back to Dashboard</td><td>StudentHome</td></tr>
+  <tr><td>ScheduleLesson</td><td>Back to Dashboard</td><td>StudentHome</td></tr>
+  <tr><td>Payments</td><td>View Lessons</td><td>ViewLessons</td></tr>
+  <tr><td>Payments</td><td>Back to Dashboard</td><td>StudentHome</td></tr>
+  <tr><td>Courses</td><td>Back to Dashboard</td><td>StudentHome</td></tr>
+  <tr><td>Notifications</td><td>Back to Dashboard</td><td>StudentHome</td></tr>
+  <tr><td>WriteReview</td><td>Back to Dashboard</td><td>StudentHome</td></tr>
+  <tr><td>any student page</td><td>navbar Logout</td><td>/Logout → /Login</td></tr>
+</table>
+
+<h3 style="color: var(--orange);">🟧 Teacher</h3>
+<table>
+  <tr><th>Page</th><th>Button</th><th>Goes to</th></tr>
+  <tr><td>TeacherHome</td><td>View Students</td><td>AllStudents</td></tr>
+  <tr><td>TeacherHome</td><td>Confirm Payments</td><td>ConfirmPayments</td></tr>
+  <tr><td>TeacherHome</td><td>Payment Reports</td><td>PaymentReports</td></tr>
+  <tr><td>TeacherHome</td><td>View Notifications</td><td>Notifications</td></tr>
+  <tr><td>TeacherHome</td><td>View Teachers IsAdmin</td><td>AllTeachers</td></tr>
+  <tr><td>AllStudents</td><td>Back to Dashboard</td><td>TeacherHome</td></tr>
+  <tr><td>ConfirmPayments</td><td>View Payment Reports</td><td>PaymentReports</td></tr>
+  <tr><td>ConfirmPayments</td><td>Back to Dashboard</td><td>TeacherHome</td></tr>
+  <tr><td>PaymentReports</td><td>Confirm Payments</td><td>ConfirmPayments</td></tr>
+  <tr><td>PaymentReports</td><td>Back to Dashboard</td><td>TeacherHome</td></tr>
+  <tr><td>Notifications</td><td>Back to Dashboard</td><td>TeacherHome</td></tr>
+  <tr><td>AllTeachers</td><td>View Students</td><td>AllStudents</td></tr>
+  <tr><td>any teacher page</td><td>navbar Logout</td><td>/Logout → /Login</td></tr>
+</table>
+
+<h3 style="color: var(--red);">🟥 Admin (only IsAdmin = true)</h3>
+<table>
+  <tr><th>Page</th><th>Button</th><th>Goes to</th></tr>
+  <tr><td>TeacherHome</td><td>navbar Manage Users</td><td>/Admin/ManageUsers</td></tr>
+  <tr><td>AllTeachers</td><td>navbar Manage Users</td><td>/Admin/ManageUsers</td></tr>
+  <tr><td>ManageUsers</td><td>Back to Dashboard</td><td>TeacherHome</td></tr>
+</table>
+
+<h2>Notes</h2>
+<ul>
+  <li>Every guarded page redirects to <code>/Login</code> when <code>Session Role</code> is missing or wrong.</li>
+  <li>Admin links in <code>_Layout.cshtml</code> visible only when <code>Session IsAdmin == 1</code>, set at login.</li>
+  <li>Login decides role via <code>srv.CheckUserAdmin Username</code>, which returns true if user exists in Teacher table.</li>
+  <li>Web does not have register or SignUp UI. New users register via WPF or MAUI clients.</li>
+</ul>
+
+<script>mermaid.initialize({ startOnLoad: true, theme: "dark", flowchart: { htmlLabels: true } });</script>
+
+</body>
+</html>

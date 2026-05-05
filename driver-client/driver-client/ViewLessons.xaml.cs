@@ -30,8 +30,7 @@ namespace driver_client
         {
             try
             {
-                var client = new Service1Client();
-                List<Lessons> allLessons = client.GetAllStudentLessons(LogIn.sign.Id).ToList();
+                List<Lessons> allLessons = (ServiceGateway.Use(client => client.GetAllStudentLessons(ClientSession.StudentId)) ?? new Lessons[0]).ToList();
                 DateTime now = DateTime.Now;
 
                 var upcomingLessons = new List<Lesson>();
@@ -44,19 +43,26 @@ namespace driver_client
                         continue;
 
                     DateTime lessonDateTime;
+                    string combined = $"{lesson.Date} {lesson.Time}";
+                    string[] formats = {
+                        "yyyy-MM-dd HH:mm", "yyyy-MM-dd H:mm",
+                        "dd-MM-yyyy HH:mm", "dd-MM-yyyy H:mm",
+                        "dd/MM/yyyy HH:mm", "dd/MM/yyyy H:mm",
+                        "MM/dd/yyyy HH:mm:ss", "M/d/yyyy h:mm:ss tt"
+                    };
 
-                    // Try to parse the date and time
-                    if (!DateTime.TryParse($"{lesson.Date} {lesson.Time}", out lessonDateTime))
-                    {
-                        // If standard parsing fails, try different formats
-                        if (!DateTime.TryParseExact($"{lesson.Date} {lesson.Time}",
-                            new[] { "dd-MM-yyyy HH:mm", "dd/MM/yyyy HH:mm", "yyyy-MM-dd HH:mm" },
+                    if (!DateTime.TryParseExact(combined, formats,
                             System.Globalization.CultureInfo.InvariantCulture,
                             System.Globalization.DateTimeStyles.None,
-                            out lessonDateTime))
-                        {
-                            continue; // Skip this lesson if we can't parse the date
-                        }
+                            out lessonDateTime) &&
+                        !DateTime.TryParse(combined,
+                            System.Globalization.CultureInfo.InvariantCulture,
+                            System.Globalization.DateTimeStyles.None,
+                            out lessonDateTime) &&
+                        !DateTime.TryParse(combined, out lessonDateTime))
+                    {
+                        System.Diagnostics.Debug.WriteLine($"ViewLessons: cannot parse '{combined}'");
+                        continue;
                     }
 
                     var item = new Lesson

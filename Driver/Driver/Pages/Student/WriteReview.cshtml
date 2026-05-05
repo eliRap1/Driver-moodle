@@ -1,0 +1,49 @@
+@page
+@model Driver.Pages.Student.WriteReviewModel
+@{
+    ViewData["Title"] = "Write Review";
+    Layout = "_Layout";
+}
+
+<div class="text-center mb-4">
+    <h1 class="display-5" style="color: #9B59B6;">Write a Review</h1>
+    <p class="lead">Rate your teacher @Model.TeacherName</p>
+</div>
+
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <div class="alert @(Model.IsSuccess ? "alert-success" : "alert-danger") text-center">
+        @Model.Message
+    </div>
+}
+
+<div class="card" style="background-color: #1B2D47; border: 2px solid #9B59B6;">
+    <div class="card-body">
+        <form method="post" asp-page-handler="Submit">
+            <div class="mb-3">
+                <label class="form-label">Rating</label>
+                <select name="rating" class="form-select" required
+                        style="background-color: #0E1A2B; color: white; border-color: #9B59B6;">
+                    <option value="">-- Select --</option>
+                    <option value="5">5 - Excellent</option>
+                    <option value="4">4 - Good</option>
+                    <option value="3">3 - Average</option>
+                    <option value="2">2 - Poor</option>
+                    <option value="1">1 - Terrible</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Review</label>
+                <textarea name="review" rows="5" class="form-control" required maxlength="500"
+                          style="background-color: #0E1A2B; color: white; border-color: #9B59B6;"></textarea>
+            </div>
+            <button type="submit" class="btn" style="background-color: #9B59B6; color: white; font-weight: bold;">
+                Submit Review
+            </button>
+        </form>
+    </div>
+</div>
+
+<div class="text-center mt-4">
+    <a asp-page="/Student/StudentHome" class="btn btn-outline-light">Back to Dashboard</a>
+</div>

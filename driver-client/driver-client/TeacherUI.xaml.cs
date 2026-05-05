@@ -19,8 +19,7 @@ namespace driver_client
             InitializeComponent();
             teacherName.Text = LogIn.sign.Username;
 
-            var srv = new Service1Client();
-            teacherId = srv.GetUserID(LogIn.sign.Username, "Teacher");
+            teacherId = ClientSession.TeacherId;
 
             // Check if user is admin using DATABASE
             CheckAdminStatus();
@@ -46,8 +45,7 @@ namespace driver_client
         {
             try
             {
-                var srv = new Service1Client();
-                isAdmin = srv.IsUserAdmin(LogIn.sign.Username);
+                isAdmin = ServiceGateway.Use(client => client.IsUserAdmin(LogIn.sign.Username));
                 System.Diagnostics.Debug.WriteLine($"Admin check for {LogIn.sign.Username}: {isAdmin}");
             }
             catch (Exception ex)
@@ -61,23 +59,22 @@ namespace driver_client
         {
             try
             {
-                var srv = new Service1Client();
-
                 // Get students count
-                var students = srv.GetTeacherStudents(teacherId);
+                var students = ServiceGateway.Use(client => client.GetTeacherStudents(teacherId));
                 if (students != null)
                 {
                     TotalStudentsText.Text = students.Length.ToString();
                 }
 
                 // Get today's lessons
-                var lessons = srv.GetAllTeacherLessons(teacherId);
+                var lessons = ServiceGateway.Use(client => client.GetAllTeacherLessons(teacherId));
                 if (lessons != null)
                 {
                     var today = DateTime.Today.ToString("dd-MM-yyyy");
                     var todayAlt = DateTime.Today.ToString("dd/MM/yyyy");
+                    var todayIso = DateTime.Today.ToString("yyyy-MM-dd");
                     int todayLessons = lessons.Count(l => l.Canceled != 1 &&
-                        (l.Date == today || l.Date == todayAlt));
+                        (l.Date == today || l.Date == todayAlt || l.Date == todayIso));
                     TodayLessonsText.Text = todayLessons.ToString();
 
                     // Get unpaid lessons count
@@ -95,8 +92,7 @@ namespace driver_client
         {
             try
             {
-                var srv = new Service1Client();
-                int unreadCount = srv.GetUnreadNotificationCount(teacherId, "Teacher");
+                int unreadCount = ServiceGateway.Use(client => client.GetUnreadNotificationCount(teacherId, "Teacher"));
 
                 UnreadNotificationsText.Text = unreadCount.ToString();
 
@@ -124,7 +120,7 @@ namespace driver_client
 
         private void Students_Click(object sender, RoutedEventArgs e)
         {
-            page.Navigate(new AllStudents(LogIn.sign.Id));
+            page.Navigate(new AllStudents(teacherId));
         }
 
         private void Calendar_Click(object sender, RoutedEventArgs e)
@@ -165,7 +161,8 @@ namespace driver_client
 
         private void ManageCourses_Click(object sender, RoutedEventArgs e)
         {
-            page.Navigate(new TeacherCourseManagement());
+            MessageBox.Show("Course management is coming soon.", "Coming Soon",
+                MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void Settings_Click(object sender, RoutedEventArgs e)

@@ -12,6 +12,8 @@ namespace driver_client
 {
     public partial class Teacher_Schedule : Page
     {
+        private int teacherId;
+
         // Wrapper class for UI display
         public class LessonDisplay
         {
@@ -35,6 +37,7 @@ namespace driver_client
         public Teacher_Schedule()
         {
             InitializeComponent();
+            teacherId = ClientSession.TeacherId;
             LessonDatePicker.SelectedDate = DateTime.Now;
 
             // Subscribe to the DatePicker change event to auto-update the list
@@ -100,15 +103,17 @@ namespace driver_client
         {
             List<LessonDisplay> list = new List<LessonDisplay>();
 
+            string[] formats = { "dd-MM-yyyy HH:mm", "yyyy-MM-dd HH:mm", "dd/MM/yyyy HH:mm", "MM/dd/yyyy HH:mm:ss" };
             foreach (var l in raw)
             {
                 if (!DateTime.TryParseExact($"{l.Date} {l.Time}",
-                        "dd-MM-yyyy HH:mm",
+                        formats,
                         CultureInfo.InvariantCulture,
                         DateTimeStyles.None,
                         out DateTime dt))
                 {
-                    if (!DateTime.TryParse($"{l.Date} {l.Time}", out dt))
+                    if (!DateTime.TryParse($"{l.Date} {l.Time}", CultureInfo.InvariantCulture, DateTimeStyles.None, out dt) &&
+                        !DateTime.TryParse($"{l.Date} {l.Time}", out dt))
                         continue;
                 }
 
@@ -125,7 +130,7 @@ namespace driver_client
             try
             {
                 var srv = new Service1Client();
-                List<Lessons> raw = srv.GetAllTeacherLessons(LogIn.sign.Id).ToList();
+                List<Lessons> raw = (srv.GetAllTeacherLessons(teacherId) ?? new Lessons[0]).ToList();
 
                 // --- NEW: Create a lookup dictionary for Student Names ---
                 // 1. Get unique student IDs from the list
@@ -147,16 +152,19 @@ namespace driver_client
                 // Pass the lookup dictionary to the conversion method
                 List<LessonDisplay> allDisplayLessons = ConvertToDisplay(raw, studentLookup);
 
-                // HISTORY
-                HistoryLessons.ItemsSource = allDisplayLessons
+                var historyLessons = allDisplayLessons
                     .OrderByDescending(x => x.RawDateTime)
                     .ToList();
+                HistoryLessons.ItemsSource = historyLessons;
 
-                // UPCOMING
-                UpcomingLessons.ItemsSource = allDisplayLessons
+                var upcomingLessons = allDisplayLessons
                     .Where(x => x.RawDateTime > DateTime.Now)
                     .OrderBy(x => x.RawDateTime)
                     .ToList();
+                UpcomingLessons.ItemsSource = upcomingLessons;
+
+                UpcomingCountText.Text = upcomingLessons.Count.ToString();
+                UnpaidCountText.Text = allDisplayLessons.Count(x => x.PaidButtonText != "Paid" && x.StatusText != "Canceled").ToString();
 
                 // SCHEDULED
                 if (LessonDatePicker.SelectedDate.HasValue)
@@ -195,6 +203,7 @@ namespace driver_client
                 .ToList();
 
             DayLessons.ItemsSource = filtered;
+            DayCountText.Text = filtered.Count.ToString();
         }
 
         // ------------ CANCEL A LESSON ------------
@@ -258,7 +267,7 @@ namespace driver_client
                 {
                     StudentID = lessonToUpdate.StudentId,
                     PaymentID = lessonToUpdate.LessonId,
-                    TeacherID = LogIn.sign.Id,
+                    TeacherID = teacherId,
                     PaymentMethod = "Teacher",
                     PaymentDate = DateTime.Now,
                     NumberOfPayments = 1,

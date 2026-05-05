@@ -61,9 +61,12 @@ namespace Driver.Pages.Teacher
             if (string.IsNullOrEmpty(username))
                 return false;
 
-            // Check by username
-            string[] adminUsers = { "admin", "Admin", "ADMIN" };
-            return adminUsers.Contains(username);
+            // Prefer cached session value set at login.
+            int? cached = HttpContext.Session.GetInt32("IsAdmin");
+            if (cached.HasValue) return cached.Value == 1;
+
+            try { return srv.IsUserAdmin(username); }
+            catch { return false; }
         }
     }
 }

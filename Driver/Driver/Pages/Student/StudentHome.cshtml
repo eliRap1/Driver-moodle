@@ -31,6 +31,16 @@ else
         </div>
 
         <div class="col-md-4 mb-3">
+            <div class="card text-center" style="background-color: #1B2D47; border: 2px solid #1ABC9C;">
+                <div class="card-body">
+                    <h5 class="card-title" style="color: #1ABC9C;">🗓️ Schedule Lesson</h5>
+                    <p class="card-text">Book a new driving lesson with your teacher</p>
+                    <a asp-page="/Student/ScheduleLesson" class="btn" style="background-color: #1ABC9C; color: black; font-weight: bold;">Schedule</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
             <div class="card text-center" style="background-color: #1B2D47; border: 2px solid #27AE60;">
                 <div class="card-body">
                     <h5 class="card-title" style="color: #27AE60;">💰 Payments</h5>
@@ -65,7 +75,7 @@ else
                 <div class="card-body">
                     <h5 class="card-title" style="color: #9B59B6;">✍️ Write Review</h5>
                     <p class="card-text">Share your experience with your teacher</p>
-                    <a href="#" class="btn btn-primary" style="background-color: #9B59B6; border-color: #8E44AD;">Write Review</a>
+                    <a asp-page="/Student/WriteReview" class="btn btn-primary" style="background-color: #9B59B6; border-color: #8E44AD;">Write Review</a>
                 </div>
             </div>
         </div>

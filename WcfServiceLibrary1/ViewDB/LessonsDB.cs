@@ -87,23 +87,43 @@ namespace ViewDB
         }
 
         /// <summary>
-        /// SECURE: Add lesson for student
+        /// SECURE: Add lesson for student. Bypasses BaseDB.SaveChanges so OleDb errors propagate.
         /// </summary>
         public void AddLessonForStudent(int sid, string date, string time)
         {
             UserDB udb = new UserDB();
             int tid = udb.GetTeacherId(sid);
+            if (tid <= 0)
+                throw new InvalidOperationException(
+                    $"AddLessonForStudent: student id={sid} has no assigned teacher.");
 
-            string sql = "INSERT INTO [Lessons] (StudentID, TeacherID, [Date], [Time], paid, Canceled) " +
+            string sql = "INSERT INTO [Lessons] ([StudentID], [TeacherID], [Date], [Time], [paid], [Canceled]) " +
                         "VALUES (?, ?, ?, ?, ?, ?)";
 
-            SaveChanges(sql,
-                new OleDbParameter("@sid", sid),
-                new OleDbParameter("@tid", tid),
-                new OleDbParameter("@date", date),
-                new OleDbParameter("@time", time),
-                new OleDbParameter("@paid", false),
-                new OleDbParameter("@canceled", 0));
+            using (var conn = BaseDB.GetConnection())
+            using (var cmd = new OleDbCommand(sql, conn))
+            {
+                cmd.Parameters.Add(new OleDbParameter("@sid", OleDbType.Integer) { Value = sid });
+                cmd.Parameters.Add(new OleDbParameter("@tid", OleDbType.Integer) { Value = tid });
+                cmd.Parameters.Add(new OleDbParameter("@date", OleDbType.VarWChar, 50) { Value = date ?? "" });
+                cmd.Parameters.Add(new OleDbParameter("@time", OleDbType.VarWChar, 10) { Value = time ?? "" });
+                cmd.Parameters.Add(new OleDbParameter("@paid", OleDbType.Boolean) { Value = false });
+                cmd.Parameters.Add(new OleDbParameter("@canceled", OleDbType.Integer) { Value = 0 });
+
+                try
+                {
+                    conn.Open();
+                    int affected = cmd.ExecuteNonQuery();
+                    if (affected <= 0)
+                        throw new InvalidOperationException(
+                            "AddLessonForStudent: INSERT affected 0 rows.");
+                }
+                catch (OleDbException ex)
+                {
+                    throw new InvalidOperationException(
+                        "AddLessonForStudent failed: " + ex.Message + " | Date=" + date + " Time=" + time, ex);
+                }
+            }
         }
 
         /// <summary>

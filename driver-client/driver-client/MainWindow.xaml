@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:driver_client"
         mc:Ignorable="d"
-        Title="MainWindow"
-        Height="450" Width="800"
+        Title="Driver Moodle"
+        Height="650" Width="1040"
+        MinHeight="520" MinWidth="760"
         WindowStartupLocation="CenterScreen"
         Background="#0E1A2B">
 
@@ -22,9 +23,12 @@
                 CornerRadius="12"
                 Background="#1A2636"
                 Padding="30"
-                Width="500" Height="300"
+                MaxWidth="560"
+                MinWidth="320"
+                MinHeight="280"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
+                Margin="24"
                 Panel.ZIndex="1"
                 BorderBrush="#00C0CC"
                 BorderThickness="1">
@@ -47,6 +51,8 @@
                            FontWeight="Bold"
                            Foreground="#00E0FF"
                            HorizontalAlignment="Center"
+                           TextAlignment="Center"
+                           TextWrapping="Wrap"
                            Margin="0,0,0,20"/>
 
                 <!-- Buttons -->

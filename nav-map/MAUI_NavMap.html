@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>driver-maui — Master Navigation Flow</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<style>
+  :root {
+    --bg: #0E1A2B;
+    --panel2: #1A2636;
+    --text: #ffffff;
+    --muted: #9bb;
+    --cyan: #00E0FF;
+    --green: #27AE60;
+    --orange: #F39C12;
+    --red: #E74C3C;
+    --grey: #bdbdbd;
+  }
+  body { margin: 0; padding: 24px; background: var(--bg); color: var(--text); font-family: 'Segoe UI', Tahoma, sans-serif; }
+  h1 { color: var(--cyan); margin-top: 0; }
+  h2 { color: var(--cyan); border-bottom: 2px solid var(--cyan); padding-bottom: 6px; margin-top: 30px; }
+  .legend { display: flex; gap: 12px; flex-wrap: wrap; margin: 12px 0 24px; font-size: 13px; }
+  .chip { padding: 4px 12px; border-radius: 14px; font-weight: 600; }
+  .chip.auth { background:#1a2e50; border:1px solid var(--cyan); color: var(--cyan); }
+  .chip.student { background:#16321f; border:1px solid var(--green); color: var(--green); }
+  .chip.teacher { background:#3d2a14; border:1px solid var(--orange); color: var(--orange); }
+  .chip.shared { background:#1f1f2e; border:1px solid var(--grey); color: var(--grey); }
+  .mermaid-wrap { background: var(--panel2); border: 2px solid var(--cyan); border-radius: 10px; padding: 16px; overflow:auto; }
+  table { border-collapse: collapse; width: 100%; margin-top: 10px; font-size: 13px; }
+  th, td { padding: 6px 10px; border: 1px solid #233; text-align: left; }
+  th { background: #233852; color: var(--cyan); }
+  code { color: var(--orange); }
+</style>
+</head>
+<body>
+
+<h1>📱 driver-maui — Master Navigation Flow</h1>
+
+<div class="legend">
+  <span class="chip auth">🟦 Auth</span>
+  <span class="chip student">🟩 Student</span>
+  <span class="chip teacher">🟧 Teacher</span>
+  <span class="chip shared">⬜ Shared</span>
+</div>
+
+<h2>Master Flow</h2>
+<div class="mermaid-wrap">
+<pre class="mermaid">
+flowchart TD
+    Login["Login<br>LoginPage"]
+    SignUp["SignUp<br>SignUpPage"]
+
+    Login -->|Login OK role Student| StudentHome
+    Login -->|Login OK role Teacher| TeacherHome
+    Login -->|Sign Up btn| SignUp
+    SignUp -->|Register OK| Login
+    SignUp -->|Back| Login
+
+    StudentHome["StudentHome<br>StudentHomePage"]
+    ViewLessons["ViewLessons"]
+    ScheduleLesson["ScheduleLesson"]
+    Payments["Payments"]
+    WriteReview["WriteReview"]
+
+    StudentHome -->|View My Lessons| ViewLessons
+    StudentHome -->|Schedule Lesson| ScheduleLesson
+    StudentHome -->|Payments| Payments
+    StudentHome -->|Notifications| Notifications
+    StudentHome -->|Write Review| WriteReview
+    StudentHome -->|Chat| Chat
+    StudentHome -->|Logout| Login
+
+    ViewLessons -->|Back| StudentHome
+    ScheduleLesson -->|Back or Book OK| StudentHome
+    Payments -->|Back or Pay OK| StudentHome
+    WriteReview -->|Back or Submit| StudentHome
+
+    TeacherHome["TeacherHome<br>TeacherHomePage"]
+    ConfirmPayments["ConfirmPayments"]
+    PaymentReports["PaymentReports"]
+
+    TeacherHome -->|Confirm Payments| ConfirmPayments
+    TeacherHome -->|Payment Reports| PaymentReports
+    TeacherHome -->|Notifications| Notifications
+    TeacherHome -->|Chat| Chat
+    TeacherHome -->|Logout| Login
+
+    ConfirmPayments -->|Back| TeacherHome
+    PaymentReports -->|Back| TeacherHome
+
+    Notifications["Notifications<br>role-aware"]
+    Chat["Chat<br>role-aware"]
+
+    Notifications -->|Back role Student| StudentHome
+    Notifications -->|Back role Teacher| TeacherHome
+    Notifications -->|Send msg or Mark Read or Delete| Notifications
+
+    Chat -->|Back role Student| StudentHome
+    Chat -->|Back role Teacher| TeacherHome
+
+    StudentHome -. role guard fail .-> Login
+    TeacherHome -. role guard fail .-> Login
+    ConfirmPayments -. role guard fail .-> Login
+    PaymentReports -. role guard fail .-> Login
+    ScheduleLesson -. role guard fail .-> Login
+    WriteReview -. role guard fail .-> Login
+
+    classDef auth fill:#1a2e50,stroke:#00E0FF,color:#fff
+    classDef student fill:#16321f,stroke:#27AE60,color:#fff
+    classDef teacher fill:#3d2a14,stroke:#F39C12,color:#fff
+    classDef shared fill:#1f1f2e,stroke:#bdbdbd,color:#fff
+
+    class Login,SignUp auth
+    class StudentHome,ViewLessons,ScheduleLesson,Payments,WriteReview student
+    class TeacherHome,ConfirmPayments,PaymentReports teacher
+    class Notifications,Chat shared
+</pre>
+</div>
+
+<h2>Per-page button → destination</h2>
+
+<h3 style="color: var(--cyan);">🟦 Auth</h3>
+<table>
+  <tr><th>Page</th><th>Button</th><th>Goes to</th></tr>
+  <tr><td>LoginPage</td><td>Login role=Student</td><td>//StudentHome</td></tr>
+  <tr><td>LoginPage</td><td>Login role=Teacher</td><td>//TeacherHome</td></tr>
+  <tr><td>LoginPage</td><td>Sign Up</td><td>//SignUp</td></tr>
+  <tr><td>SignUpPage</td><td>Register OK</td><td>//Login</td></tr>
+  <tr><td>SignUpPage</td><td>Back</td><td>//Login</td></tr>
+</table>
+
+<h3 style="color: var(--green);">🟩 Student</h3>
+<table>
+  <tr><th>Page</th><th>Button</th><th>Goes to</th></tr>
+  <tr><td>StudentHomePage</td><td>View My Lessons</td><td>//ViewLessons</td></tr>
+  <tr><td>StudentHomePage</td><td>Schedule Lesson</td><td>//ScheduleLesson</td></tr>
+  <tr><td>StudentHomePage</td><td>Payments</td><td>//Payments</td></tr>
+  <tr><td>StudentHomePage</td><td>Notifications</td><td>//Notifications</td></tr>
+  <tr><td>StudentHomePage</td><td>Write Review</td><td>//WriteReview</td></tr>
+  <tr><td>StudentHomePage</td><td>Chat</td><td>//Chat</td></tr>
+  <tr><td>StudentHomePage</td><td>Logout confirm</td><td>//Login</td></tr>
+  <tr><td>ViewLessonsPage</td><td>Back</td><td>//StudentHome</td></tr>
+  <tr><td>ScheduleLessonPage</td><td>Back or Book OK</td><td>//StudentHome</td></tr>
+  <tr><td>PaymentsPage</td><td>Back or Pay OK</td><td>//StudentHome</td></tr>
+  <tr><td>WriteReviewPage</td><td>Back or Submit</td><td>//StudentHome</td></tr>
+</table>
+
+<h3 style="color: var(--orange);">🟧 Teacher</h3>
+<table>
+  <tr><th>Page</th><th>Button</th><th>Goes to</th></tr>
+  <tr><td>TeacherHomePage</td><td>Confirm Payments</td><td>//ConfirmPayments</td></tr>
+  <tr><td>TeacherHomePage</td><td>Payment Reports</td><td>//PaymentReports</td></tr>
+  <tr><td>TeacherHomePage</td><td>Notifications</td><td>//Notifications</td></tr>
+  <tr><td>TeacherHomePage</td><td>Chat</td><td>//Chat</td></tr>
+  <tr><td>TeacherHomePage</td><td>Logout confirm</td><td>//Login</td></tr>
+  <tr><td>ConfirmPaymentsPage</td><td>Back</td><td>//TeacherHome</td></tr>
+  <tr><td>PaymentReportsPage</td><td>Back</td><td>//TeacherHome</td></tr>
+</table>
+
+<h3 style="color: var(--grey);">⬜ Shared role-aware</h3>
+<table>
+  <tr><th>Page</th><th>Button</th><th>Goes to</th></tr>
+  <tr><td>NotificationsPage</td><td>Send message Teacher</td><td>SendTeacherMessageAsync, stays on page</td></tr>
+  <tr><td>NotificationsPage</td><td>Send message Student</td><td>SendStudentMessageAsync, stays on page</td></tr>
+  <tr><td>NotificationsPage</td><td>Mark Read or Mark All Read or Delete</td><td>stays on page, list refreshes</td></tr>
+  <tr><td>NotificationsPage</td><td>Back role=Teacher</td><td>//TeacherHome</td></tr>
+  <tr><td>NotificationsPage</td><td>Back role=Student</td><td>//StudentHome</td></tr>
+  <tr><td>ChatPage</td><td>Back role=Teacher</td><td>//TeacherHome</td></tr>
+  <tr><td>ChatPage</td><td>Back role=Student</td><td>//StudentHome</td></tr>
+</table>
+
+<h2>Notes</h2>
+<ul>
+  <li>Routing uses <code>Shell.Current.GoToAsync</code>. Routes registered in <code>AppShell.xaml</code>.</li>
+  <li><code>Shell.TabBarIsVisible=False</code> hides the auto tab bar so role pages do not bleed into each other.</li>
+  <li>Each page calls <code>AppState.RequireRoleAsync</code> in <code>OnAppearing</code>. Wrong role redirects to its own home or to Login.</li>
+  <li>Login routes by <code>CheckUserAdminAsync</code> = true → Teacher, else Student. Admin flag separate via <code>IsUserAdminAsync</code>, stored in <code>AppState.IsAdmin</code> for the ADMIN badge on TeacherHome.</li>
+  <li>MAUI does not yet have Admin pages or AllStudents or AllTeachers. Future addition.</li>
+</ul>
+
+<script>mermaid.initialize({ startOnLoad: true, theme: "dark", flowchart: { htmlLabels: true } });</script>
+
+</body>
+</html>

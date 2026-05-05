@@ -14,8 +14,7 @@ namespace driver_client
         public StudentNotifications()
         {
             InitializeComponent();
-            driver.Service1Client srv = new driver.Service1Client();
-            studentId = srv.GetUserID(LogIn.sign.Username, "Student");
+            studentId = ClientSession.StudentId;
             LoadNotifications();
         }
 
@@ -84,16 +83,16 @@ namespace driver_client
                     return;
                 }
 
-                driver.Service1Client srv = new driver.Service1Client();
-                int teacherId = srv.GetTeacherId(studentId);
+                int teacherId = ClientSession.TeacherId;
 
-                srv.SendStudentMessage(studentId, LogIn.sign.Username, teacherId, title, message);
+                ServiceGateway.Use(client => client.SendStudentMessage(studentId, LogIn.sign.Username, teacherId, title, message));
 
                 MessageBox.Show("Message sent to your teacher!", "Success",
                     MessageBoxButton.OK, MessageBoxImage.Information);
 
                 TitleTextBox.Clear();
                 MessageTextBox.Clear();
+                LoadNotifications();
             }
             catch (Exception ex)
             {

@@ -9,6 +9,7 @@ namespace driver_maui.Pages
         protected override async void OnAppearing()
         {
             base.OnAppearing();
+            if (!await AppState.RequireRoleAsync(this, "Student")) return;
             WelcomeLabel.Text = $"Welcome, {AppState.Username}!";
             await LoadStats();
         }
@@ -32,8 +33,10 @@ namespace driver_maui.Pages
         }
 
         private async void ViewLessons_Click(object s, EventArgs e) => await Shell.Current.GoToAsync("//ViewLessons");
+        private async void ScheduleLesson_Click(object s, EventArgs e) => await Shell.Current.GoToAsync("//ScheduleLesson");
         private async void Payments_Click(object s, EventArgs e) => await Shell.Current.GoToAsync("//Payments");
         private async void Notifications_Click(object s, EventArgs e) => await Shell.Current.GoToAsync("//Notifications");
+        private async void WriteReview_Click(object s, EventArgs e) => await Shell.Current.GoToAsync("//WriteReview");
         private async void Chat_Click(object s, EventArgs e) => await Shell.Current.GoToAsync("//Chat");
 
         private async void Logout_Click(object s, EventArgs e)

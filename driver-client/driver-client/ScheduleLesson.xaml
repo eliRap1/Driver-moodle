@@ -1,101 +1,155 @@
-﻿<Page x:Class="driver_client.ScheduleLesson"
+<Page x:Class="driver_client.ScheduleLesson"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:driver_client"
-      mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      mc:Ignorable="d"
+      d:DesignHeight="620" d:DesignWidth="960"
       Title="ScheduleLesson"
       Background="#0E1A2B">
 
     <Grid>
-        <!-- Faint background image -->
         <Image Source="/picture/background.png"
                Stretch="UniformToFill"
                Opacity="0.05"
                Panel.ZIndex="0"/>
-        <Button Content="← Back"
-        HorizontalAlignment="Left"
-        VerticalAlignment="Top"
-        Margin="0,10,0,0"
-        Width="80"
-        Background="#00E0FF"
-        Foreground="Black"
-        FontWeight="Bold"
-        BorderBrush="#00C0CC"
-        Cursor="Hand"
-        Click="BackButton_Click"/>
-        <!-- Main Panel -->
-        <Border Background="#1A2636"
-                CornerRadius="10"
-                Padding="30"
-                Width="600"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                BorderBrush="#00C0CC"
-                BorderThickness="1">
-            <Border.Effect>
-                <DropShadowEffect Color="Black"
-                                  BlurRadius="12"
-                                  ShadowDepth="4"
-                                  Opacity="0.3"/>
-            </Border.Effect>
 
-            <StackPanel>
-                <TextBlock Text="Schedule a Lesson"
-                           FontSize="26"
-                           FontWeight="Bold"
-                           Foreground="#00E0FF"
-                           HorizontalAlignment="Center"
-                           Margin="0,0,0,20"/>
+        <ScrollViewer VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Disabled"
+                      Panel.ZIndex="1">
+            <Grid Margin="24"
+                  MaxWidth="1040"
+                  HorizontalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
 
-                <!-- Date Picker -->
-                <StackPanel Margin="0,10,0,0">
-                    <TextBlock Text="Select Date:"
-                               FontSize="14"
-                               Foreground="White"
-                               Margin="0,0,0,5"/>
-                    <DatePicker x:Name="lessonDatePicker"
-                                SelectedDate="{x:Null}"
-                                Background="#E8F0FE"
-                                BorderBrush="#00C0CC"
-                                BorderThickness="1"
-                                Padding="6"/>
-                </StackPanel>
+                <Grid Grid.Row="0" Margin="0,0,0,20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
 
-                <!-- Time Picker -->
-                <StackPanel Margin="0,10,0,0">
-                    <TextBlock Text="Select Time:"
-                               FontSize="14"
-                               Foreground="White"
-                               Margin="0,0,0,5"/>
-                    <ComboBox x:Name="lessonTimeComboBox"
-                              Background="#E8F0FE"
-                              BorderBrush="#00C0CC"
-                              BorderThickness="1"
-                              Padding="6"
-                              FontSize="14">
-                    </ComboBox>
-                </StackPanel>
+                    <Button Grid.Column="0"
+                            Content="Back"
+                            Style="{StaticResource PrimaryButton}"
+                            Width="96"
+                            Height="38"
+                            FontSize="14"
+                            Margin="0"
+                            Click="BackButton_Click"/>
 
-                <!-- Submit Button -->
-                <Button Content="Confirm Lesson"
-                        Width="160"
-                        Height="40"
-                        Background="#00E0FF"
-                        Foreground="Black"
-                        FontSize="16"
-                        FontWeight="SemiBold"
-                        BorderBrush="#00C0CC"
-                        BorderThickness="1"
-                        Margin="0,20,0,0"
-                        HorizontalAlignment="Center"
-                        Cursor="Hand"
-                        Click="ConfirmLesson_Click"/>
-            </StackPanel>
-        </Border>
-        <Frame x:Name="page" Panel.ZIndex="100"
-               HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                    <StackPanel Grid.Column="1"
+                                Margin="18,0,0,0">
+                        <TextBlock Text="Schedule a lesson"
+                                   FontSize="30"
+                                   FontWeight="Bold"
+                                   Foreground="#00E0FF"
+                                   TextWrapping="Wrap"/>
+                        <TextBlock Text="Pick a day first. Available hours update from your teacher's calendar."
+                                   FontSize="14"
+                                   Foreground="#AAB7C8"
+                                   TextWrapping="Wrap"
+                                   Margin="0,4,0,0"/>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="360"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Border Grid.Column="0"
+                            Style="{StaticResource CardBorder}"
+                            Padding="22"
+                            Margin="0,0,12,0">
+                        <StackPanel>
+                            <TextBlock Text="1. Choose date"
+                                       Style="{StaticResource SectionTitle}"/>
+                            <DatePicker x:Name="lessonDatePicker"
+                                        SelectedDate="{x:Null}"
+                                        FontSize="16"
+                                        MinHeight="42"
+                                        Padding="8"
+                                        Background="#E8F0FE"
+                                        BorderBrush="#00C0CC"
+                                        BorderThickness="1"/>
+
+                            <TextBlock x:Name="AvailabilityText"
+                                       Text="Select a date to see open lesson times."
+                                       Foreground="#AAB7C8"
+                                       TextWrapping="Wrap"
+                                       Margin="0,12,0,22"/>
+
+                            <TextBlock Text="2. Choose time"
+                                       Style="{StaticResource SectionTitle}"/>
+                            <ComboBox x:Name="lessonTimeComboBox"
+                                      FontSize="16"
+                                      MinHeight="42"
+                                      Padding="8"
+                                      Background="#E8F0FE"
+                                      BorderBrush="#00C0CC"
+                                      BorderThickness="1"
+                                      SelectionChanged="LessonTimeComboBox_SelectionChanged"/>
+
+                            <Button Content="Confirm lesson"
+                                    Style="{StaticResource SuccessButton}"
+                                    HorizontalAlignment="Left"
+                                    Width="180"
+                                    Margin="0,24,0,0"
+                                    Click="ConfirmLesson_Click"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Column="1"
+                            Style="{StaticResource CardBorder}"
+                            Padding="22"
+                            Margin="12,0,0,0">
+                        <StackPanel>
+                            <TextBlock Text="Booking summary"
+                                       Style="{StaticResource SectionTitle}"/>
+                            <TextBlock Text="Date"
+                                       Foreground="#7F8DA3"
+                                       FontSize="12"
+                                       Margin="0,8,0,2"/>
+                            <TextBlock x:Name="SelectedDateText"
+                                       Text="Not selected"
+                                       Foreground="White"
+                                       FontSize="18"
+                                       FontWeight="SemiBold"
+                                       TextWrapping="Wrap"/>
+
+                            <TextBlock Text="Time"
+                                       Foreground="#7F8DA3"
+                                       FontSize="12"
+                                       Margin="0,18,0,2"/>
+                            <TextBlock x:Name="SelectedTimeText"
+                                       Text="Not selected"
+                                       Foreground="White"
+                                       FontSize="18"
+                                       FontWeight="SemiBold"
+                                       TextWrapping="Wrap"/>
+
+                            <Border Background="#0E1A2B"
+                                    CornerRadius="8"
+                                    Padding="14"
+                                    Margin="0,24,0,0">
+                                <TextBlock Text="Unavailable days and blocked hours are filtered automatically. If a day has special hours, those override the regular week."
+                                           Foreground="#AAB7C8"
+                                           TextWrapping="Wrap"
+                                           LineHeight="20"/>
+                            </Border>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </Grid>
+        </ScrollViewer>
+
+        <Frame x:Name="page"
+               Panel.ZIndex="100"
+               HorizontalAlignment="Stretch"
+               VerticalAlignment="Stretch"/>
     </Grid>
 </Page>

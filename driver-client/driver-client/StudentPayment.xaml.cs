@@ -25,9 +25,10 @@ namespace driver_client
             try
             {
                 var srv = new Service1Client();
+                int studentId = ClientSession.StudentId;
 
                 // Get lesson price from teacher
-                int teacherId = srv.GetTeacherId(LogIn.sign.Id);
+                int teacherId = ClientSession.TeacherId;
                 var teacher = srv.GetUserById(teacherId, "Teacher");
                 if (teacher != null && teacher.LessonPrice > 0)
                 {
@@ -35,7 +36,7 @@ namespace driver_client
                 }
 
                 // Get all student lessons
-                var allLessons = srv.GetAllStudentLessons(LogIn.sign.Id).ToList();
+                var allLessons = srv.GetAllStudentLessons(studentId).ToList();
 
                 // Filter unpaid lessons
                 unpaidLessons = allLessons
@@ -243,13 +244,14 @@ namespace driver_client
             try
             {
                 var srv = new Service1Client();
-                int teacherId = srv.GetTeacherId(LogIn.sign.Id);
+                int studentId = ClientSession.StudentId;
+                int teacherId = ClientSession.TeacherId;
 
                 foreach (var lesson in selectedLessons)
                 {
                     var payment = new Payment
                     {
-                        StudentID = LogIn.sign.Id,
+                        StudentID = studentId,
                         TeacherID = teacherId,
                         PaymentID = lesson.LessonId,
                         LessonId = lesson.LessonId,
@@ -288,7 +290,7 @@ namespace driver_client
             try
             {
                 var srv = new Service1Client();
-                var payments = srv.SelectPaymentByStudentID(LogIn.sign.Id)
+                var payments = srv.SelectPaymentByStudentID(ClientSession.StudentId)
                     .OrderByDescending(p => p.PaymentDate)
                     .Take(10)
                     .ToList();

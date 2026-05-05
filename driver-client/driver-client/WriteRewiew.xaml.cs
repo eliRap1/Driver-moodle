@@ -61,9 +61,8 @@ namespace driver_client
 
             try
             {
-                driver.Service1Client client = new driver.Service1Client();
-                int tid = client.GetTeacherId(LogIn.sign.Id);
-                client.UpdateRating(tid, selectedRating, review);
+                int tid = ClientSession.TeacherId;
+                ServiceGateway.Use(client => client.UpdateRating(tid, selectedRating, review));
 
                 MessageBox.Show("Thank you for your review!", "Submitted", MessageBoxButton.OK, MessageBoxImage.Information);
                 StudentUI.madeRewiew = true;

@@ -28,6 +28,7 @@ namespace driver_client
         {
             InitializeComponent();
             this.teacherId = teacherId;
+            Unloaded += AllStudents_Unloaded;
             LoadStudents(null, null);
             updateStudents = new DispatcherTimer(); // POOLING THREAD 
             updateStudents.Interval = TimeSpan.FromSeconds(5);
@@ -37,13 +38,24 @@ namespace driver_client
 
         private void LoadStudents(object sender, EventArgs e)
         {
-            driver.Service1Client srv = new driver.Service1Client();
-            List<UserInfo> students = srv.GetTeacherStudents(this.teacherId).ToList();
-
-            StudentListPanel.Items.Clear();
-            foreach (var student in students)
+            try
             {
-                StudentListPanel.Items.Add(CreateStudentCard(student));
+                List<UserInfo> students = (ServiceGateway.Use(client => client.GetTeacherStudents(this.teacherId)) ?? new UserInfo[0]).ToList();
+
+                StudentListPanel.Items.Clear();
+                foreach (var student in students)
+                {
+                    StudentListPanel.Items.Add(CreateStudentCard(student));
+                }
+
+                TotalStudentsText.Text = students.Count.ToString();
+                PendingStudentsText.Text = students.Count(s => s.Confirmed == false).ToString();
+                EmptyState.Visibility = students.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"LoadStudents Error: {ex.Message}");
+                EmptyState.Visibility = Visibility.Visible;
             }
         }
 
@@ -102,9 +114,9 @@ namespace driver_client
             return new Border
             {
                 Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1A2E50")),
-                CornerRadius = new CornerRadius(10),
+                CornerRadius = new CornerRadius(8),
                 Padding = new Thickness(15),
-                Margin = new Thickness(10),
+                Margin = new Thickness(0, 0, 0, 10),
                 BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#00E0FF")),
                 BorderThickness = new Thickness(1),
                 Child = stack
@@ -115,17 +127,20 @@ namespace driver_client
         {
             if ((sender as Button)?.Tag is UserInfo student)
             {
-                driver.Service1Client srv = new driver.Service1Client();
-                srv.TeacherConfirm(student.Id, teacherId); // you should implement this method in your service
+                ServiceGateway.Use(client => client.TeacherConfirm(student.Id, teacherId));
                 MessageBox.Show($"{student.Username} confirmed!");
                 LoadStudents(null, null); // Refresh list
             }
         }
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            updateStudents.Stop();
+            updateStudents?.Stop();
             page.Navigate(new TeacherUI());
         }
 
+        private void AllStudents_Unloaded(object sender, RoutedEventArgs e)
+        {
+            updateStudents?.Stop();
+        }
     }
 }

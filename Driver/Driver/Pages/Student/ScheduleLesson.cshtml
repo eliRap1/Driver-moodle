@@ -1,0 +1,63 @@
+@page
+@model Driver.Pages.Student.ScheduleLessonModel
+@{
+    ViewData["Title"] = "Schedule Lesson";
+    Layout = "_Layout";
+}
+
+<div class="text-center mb-4">
+    <h1 class="display-5" style="color: #00E0FF;">Schedule a Lesson</h1>
+    <p class="lead">Book a time with your teacher @Model.TeacherName</p>
+</div>
+
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <div class="alert @(Model.IsSuccess ? "alert-success" : "alert-danger") text-center">
+        @Model.Message
+    </div>
+}
+
+<div class="card" style="background-color: #1B2D47; border: 2px solid #00E0FF;">
+    <div class="card-body">
+        <form method="get" class="row g-2 mb-4">
+            <div class="col-md-4">
+                <label class="form-label">Pick Date</label>
+                <input type="date" name="date" value="@Model.SelectedDate.ToString("yyyy-MM-dd")"
+                       min="@DateTime.Today.ToString("yyyy-MM-dd")"
+                       class="form-control"
+                       style="background-color: #0E1A2B; color: white; border-color: #00E0FF;" />
+            </div>
+            <div class="col-md-2 align-self-end">
+                <button type="submit" class="btn btn-primary w-100">Show Times</button>
+            </div>
+        </form>
+
+        @if (Model.AvailableTimes.Any())
+        {
+            <form method="post" asp-page-handler="Book" class="row g-2">
+                <input type="hidden" name="date" value="@Model.SelectedDate.ToString("yyyy-MM-dd")" />
+                <div class="col-md-4">
+                    <label class="form-label">Available Times</label>
+                    <select name="time" class="form-select" required
+                            style="background-color: #0E1A2B; color: white; border-color: #00E0FF;">
+                        @foreach (var t in Model.AvailableTimes)
+                        {
+                            <option value="@t">@t</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-3 align-self-end">
+                    <button type="submit" class="btn btn-success w-100">Book Lesson</button>
+                </div>
+            </form>
+        }
+        else
+        {
+            <p class="text-warning">No available times for this date.</p>
+        }
+    </div>
+</div>
+
+<div class="text-center mt-4">
+    <a asp-page="/Student/StudentHome" class="btn btn-outline-light">Back to Dashboard</a>
+</div>

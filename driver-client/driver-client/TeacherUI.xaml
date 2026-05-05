@@ -17,7 +17,7 @@
                Panel.ZIndex="0"/>
 
         <ScrollViewer VerticalScrollBarVisibility="Auto" Panel.ZIndex="1">
-            <Grid Margin="10">
+            <Grid Margin="10" MaxWidth="1120" HorizontalAlignment="Center">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
@@ -124,25 +124,8 @@
                 </Grid>
 
                 <!-- Action Buttons Grid -->
-                <Grid Grid.Row="2">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-
-                    <!-- Admin Dashboard Button (Only for admin) -->
+                <WrapPanel Grid.Row="2" HorizontalAlignment="Center">
                     <Button x:Name="AdminDashboardBtn"
-                            Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
                             Content="&#128737; Admin Dashboard"
                             Click="AdminDashboard_Click"
                             Background="#E74C3C"
@@ -151,6 +134,7 @@
                             FontWeight="Bold"
                             FontSize="16"
                             Height="45"
+                            Width="260"
                             Cursor="Hand"
                             Margin="5"
                             Visibility="Collapsed">
@@ -166,68 +150,61 @@
                         </Button.Template>
                     </Button>
 
-                    <!-- Row 1 -->
-                    <Button Grid.Row="1" Grid.Column="0"
-                            Content="&#128101;  My Students"
+                    <Button Content="&#128101;  My Students"
                             Click="Students_Click"
                             Style="{StaticResource PrimaryButton}"
+                            Width="260"
                             Margin="5"/>
 
-                    <Button Grid.Row="1" Grid.Column="1"
-                            Content="&#128197;  Lesson Schedule"
+                    <Button Content="&#128197;  Lesson Schedule"
                             Click="Schedule_Click"
                             Style="{StaticResource PrimaryButton}"
+                            Width="260"
                             Margin="5"/>
 
-                    <!-- Row 2 -->
-                    <Button Grid.Row="2" Grid.Column="0"
-                            Content="&#128198;  Calendar"
+                    <Button Content="&#128198;  Calendar"
                             Click="Calendar_Click"
                             Style="{StaticResource PrimaryButton}"
+                            Width="260"
                             Margin="5"/>
 
-                    <Button Grid.Row="2" Grid.Column="1"
-                            Content="&#128176;  Payment Reports"
+                    <Button Content="&#128176;  Payment Reports"
                             Click="PaymentReports_Click"
                             Style="{StaticResource PrimaryButton}"
+                            Width="260"
                             Margin="5"/>
 
-                    <!-- Row 3 -->
-                    <Button Grid.Row="3" Grid.Column="0"
-                            Content="&#10003;  Confirm Payments"
+                    <Button Content="&#10003;  Confirm Payments"
                             Click="ConfirmPayments_Click"
                             Style="{StaticResource SuccessButton}"
+                            Width="260"
                             Margin="5"/>
 
-                    <Button Grid.Row="3" Grid.Column="1"
-                            Content="&#128276;  Notifications"
+                    <Button Content="&#128276;  Notifications"
                             Click="Notifications_Click"
                             Style="{StaticResource WarningButton}"
+                            Width="260"
                             Margin="5"/>
 
-                    <!-- Row 4 -->
-                    <Button Grid.Row="4" Grid.Column="0"
-                            Content="&#128172;  Chat"
+                    <Button Content="&#128172;  Chat"
                             Click="Chat_Click"
                             Style="{StaticResource PrimaryButton}"
+                            Width="260"
                             Margin="5"/>
 
-                    <Button Grid.Row="4" Grid.Column="1"
-                            Content="&#127915;  Support Tickets"
+                    <Button Content="&#127915;  Support Tickets"
                             Click="SupportTickets_Click"
                             Style="{StaticResource PrimaryButton}"
+                            Width="260"
                             Margin="5"/>
 
-                    <!-- Row 5 - Manage Courses -->
-                    <Button Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"
-                            Content="&#128218;  Manage Courses"
+                    <Button Content="&#128218;  Manage Courses - Coming Soon"
                             Click="ManageCourses_Click"
                             Style="{StaticResource PrimaryButton}"
+                            Width="260"
                             Margin="5"/>
 
-                    <!-- Row 6 - Settings -->
-                    <Button Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2"
-                            Content="&#9881;  Settings"
+                    <Button Content="&#9881;  Settings"
                             Click="Settings_Click"
                             Background="#9B59B6"
                             Foreground="White"
@@ -235,6 +212,7 @@
                             FontWeight="Bold"
                             FontSize="16"
                             Height="45"
+                            Width="260"
                             Cursor="Hand"
                             Margin="5">
                         <Button.Template>
@@ -254,13 +232,12 @@
                         </Button.Template>
                     </Button>
 
-                    <!-- Logout -->
-                    <Button Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2"
-                            Content="&#128682;  Logout"
+                    <Button Content="&#128682;  Logout"
                             Click="Logout_Click"
                             Style="{StaticResource DangerButton}"
+                            Width="260"
                             Margin="5,20,5,5"/>
-                </Grid>
+                </WrapPanel>
             </Grid>
         </ScrollViewer>
 

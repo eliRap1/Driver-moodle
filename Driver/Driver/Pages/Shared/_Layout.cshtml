@@ -75,8 +75,7 @@
                     <ul class="navbar-nav flex-grow-1">
                         @if (Context.Session.GetString("Role") == "Teacher")
                         {
-                            var username = Context.Session.GetString("Username");
-                            var isAdmin = username == "admin" || username == "Admin" || username == "ADMIN";
+                            var isAdmin = Context.Session.GetInt32("IsAdmin") == 1;
 
                             <li class="nav-item">
                                 <a class="nav-link" asp-page="/Teacher/TeacherHome">Dashboard</a>
@@ -112,6 +111,9 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" asp-page="/Student/ViewLessons">My Lessons</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-page="/Student/ScheduleLesson">Schedule Lesson</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" asp-page="/Student/Payments">Payments</a>

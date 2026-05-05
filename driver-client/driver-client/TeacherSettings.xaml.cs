@@ -21,11 +21,21 @@ namespace driver_client
         {
             try
             {
-                // Load current lesson price
-                LessonPriceBox.Text = LogIn.sign.LessonPrice.ToString();
+                // Always pull fresh values from server so the UI reflects DB state,
+                // not stale Sign defaults.
+                int teacherId = ClientSession.TeacherId;
+                var teacher = ServiceGateway.Use(client => client.GetUserById(teacherId, "Teacher"));
 
-                // Load payment methods
-                string[] methods = LogIn.sign.PaymentMethods?.Split(',') ?? new string[0];
+                int price = (teacher != null && teacher.LessonPrice > 0) ? teacher.LessonPrice : 200;
+                string paymentMethods = teacher?.PaymentMethods ?? "Cash,Credit Card,Bank Transfer";
+
+                // Sync Sign cache so other pages see fresh values too.
+                LogIn.sign.LessonPrice = price;
+                LogIn.sign.PaymentMethods = paymentMethods;
+
+                LessonPriceBox.Text = price.ToString();
+
+                string[] methods = paymentMethods.Split(',');
                 chkCash.IsChecked = methods.Contains("Cash");
                 chkCreditCard.IsChecked = methods.Contains("Credit Card");
                 chkBankTransfer.IsChecked = methods.Contains("Bank Transfer");
@@ -43,8 +53,6 @@ namespace driver_client
         {
             try
             {
-                var srv = new Service1Client();
-
                 // Validate and update lesson price
                 if (!int.TryParse(LessonPriceBox.Text, out int price) || price < 0)
                 {
@@ -61,7 +69,7 @@ namespace driver_client
                 }
 
                 // Update lesson price
-                srv.UpdateLessonPrice(LogIn.sign.Id, price);
+                ServiceGateway.Use(client => client.UpdateLessonPrice(ClientSession.TeacherId, price));
                 LogIn.sign.LessonPrice = price;
 
                 // Collect selected payment methods
@@ -81,7 +89,7 @@ namespace driver_client
 
                 // Update payment methods
                 string paymentMethods = string.Join(",", methods);
-                srv.UpdatePaymentMethods(LogIn.sign.Id, paymentMethods);
+                ServiceGateway.Use(client => client.UpdatePaymentMethods(ClientSession.TeacherId, paymentMethods));
                 LogIn.sign.PaymentMethods = paymentMethods;
 
                 MessageBox.Show("Settings saved successfully! ✓", "Success",

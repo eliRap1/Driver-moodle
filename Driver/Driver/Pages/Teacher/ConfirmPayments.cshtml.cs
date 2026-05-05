@@ -134,8 +134,7 @@ namespace Driver.Pages.Teacher
                     if (lesson.paid || lesson.Canceled == 1)
                         continue;
 
-                    DateTime lessonDateTime;
-                    DateTime.TryParse($"{lesson.Date} {lesson.Time}", out lessonDateTime);
+                    DateTime lessonDateTime = ParseLessonDateTime(lesson.Date, lesson.Time);
 
                     // Get student name
                     string studentName = "Unknown";
@@ -176,6 +175,21 @@ namespace Driver.Pages.Teacher
             {
                 System.Diagnostics.Debug.WriteLine($"Error loading pending lessons: {ex.Message}");
             }
+        }
+
+        private static DateTime ParseLessonDateTime(string date, string time)
+        {
+            string[] formats = { "yyyy-MM-dd HH:mm", "dd-MM-yyyy HH:mm", "dd/MM/yyyy HH:mm", "yyyy-MM-dd H:mm", "MM/dd/yyyy HH:mm:ss" };
+            string combined = $"{date} {time}";
+            if (DateTime.TryParseExact(combined, formats,
+                System.Globalization.CultureInfo.InvariantCulture,
+                System.Globalization.DateTimeStyles.None, out var dt))
+                return dt;
+            if (DateTime.TryParse(combined, System.Globalization.CultureInfo.InvariantCulture,
+                System.Globalization.DateTimeStyles.None, out dt))
+                return dt;
+            DateTime.TryParse(combined, out dt);
+            return dt;
         }
     }
 }

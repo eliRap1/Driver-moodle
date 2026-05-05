@@ -51,7 +51,7 @@
                       VerticalScrollBarVisibility="Auto"
                       HorizontalScrollBarVisibility="Disabled"
                       Panel.ZIndex="1">
-            <Grid Margin="30,20">
+            <Grid Margin="30,20" MaxWidth="1080" HorizontalAlignment="Center">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
@@ -135,87 +135,68 @@
                 </Grid>
 
                 <!-- Action Buttons Grid -->
-                <Grid Grid.Row="2">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-
-                    <!-- Row 1 -->
-                    <Button Grid.Row="0" Grid.Column="0"
-                            Content="&#128197;  Schedule Lesson"
+                <WrapPanel Grid.Row="2" HorizontalAlignment="Center">
+                    <Button Content="&#128197;  Schedule Lesson"
                             Click="ScheduleLesson_Click"
                             Style="{StaticResource PrimaryButton}"
+                            Width="260"
                             Margin="5"/>
 
-                    <Button Grid.Row="0" Grid.Column="1"
-                            Content="&#128218;  My Lessons"
+                    <Button Content="&#128218;  My Lessons"
                             Click="ViewLessons_Click"
                             Style="{StaticResource PrimaryButton}"
+                            Width="260"
                             Margin="5"/>
 
-                    <!-- Row 2 -->
-                    <Button Grid.Row="1" Grid.Column="0"
-                            Content="&#128176;  Payments"
+                    <Button Content="&#128176;  Payments"
                             Click="Payments_Click"
                             Style="{StaticResource SuccessButton}"
+                            Width="260"
                             Margin="5"/>
 
-                    <Button Grid.Row="1" Grid.Column="1"
-                            Content="&#128218;  My Courses"
+                    <Button Content="&#128218;  Courses - Coming Soon"
                             Click="Courses_Click"
                             Style="{StaticResource PrimaryButton}"
+                            Width="260"
                             Margin="5"/>
 
-                    <!-- Row 3 -->
-                    <Button Grid.Row="2" Grid.Column="0"
-                            Content="&#128276;  Notifications"
+                    <Button Content="&#128276;  Notifications"
                             Click="Notifications_Click"
                             Style="{StaticResource WarningButton}"
+                            Width="260"
                             Margin="5"/>
 
-                    <Button Grid.Row="2" Grid.Column="1"
-                            Content="&#9997;  Write Review"
+                    <Button Content="&#9997;  Write Review"
                             Click="WriteReview_Click"
                             Style="{StaticResource PrimaryButton}"
+                            Width="260"
                             Margin="5"
                             x:Name="writeReview"/>
 
-                    <!-- Row 4 -->
-                    <Button Grid.Row="3" Grid.Column="0"
-                            Content="&#11088;  View Teachers"
+                    <Button Content="&#11088;  View Teachers"
                             Click="Review_Click"
                             Style="{StaticResource PrimaryButton}"
+                            Width="260"
                             Margin="5"/>
 
-                    <Button Grid.Row="3" Grid.Column="1"
-                            Content="&#127915;  Support Tickets"
+                    <Button Content="&#127915;  Support Tickets"
                             Click="SupportTickets_Click"
                             Style="{StaticResource PrimaryButton}"
+                            Width="260"
                             Margin="5"/>
 
-                    <!-- Row 5 -->
-                    <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
-                            Content="&#128172;  Chat with Teacher"
+                    <Button Content="&#128172;  Chat with Teacher"
                             Click="Chat_Click"
                             Style="{StaticResource PrimaryButton}"
+                            Width="260"
                             Margin="5"/>
 
-                    <!-- Logout -->
-                    <Button Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"
-                            Content="&#128682;  Logout"
+                    <Button Content="&#128682;  Logout"
                             Click="Back_Click"
                             Style="{StaticResource DangerButton}"
+                            Width="260"
                             Margin="5,20,5,5"/>
-                </Grid>
+                </WrapPanel>
             </Grid>
         </ScrollViewer>
     </Grid>

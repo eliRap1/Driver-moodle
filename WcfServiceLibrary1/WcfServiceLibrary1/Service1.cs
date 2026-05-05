@@ -189,7 +189,12 @@ namespace WcfServiceLibrary1
 
         public void UpdateLessonPrice(int teacherId, int price)
         {
-            userDB.UpdateLessonPrice(teacherId, price);
+            try { userDB.UpdateLessonPrice(teacherId, price); }
+            catch (Exception ex)
+            {
+                throw new System.ServiceModel.FaultException(
+                    "UpdateLessonPrice failed: " + ex.GetBaseException().Message);
+            }
         }
 
         public int GetStudentLessonPrice(int studentId)
@@ -199,7 +204,12 @@ namespace WcfServiceLibrary1
 
         public void UpdatePaymentMethods(int teacherId, string paymentMethods)
         {
-            userDB.UpdatePaymentMethods(teacherId, paymentMethods);
+            try { userDB.UpdatePaymentMethods(teacherId, paymentMethods); }
+            catch (Exception ex)
+            {
+                throw new System.ServiceModel.FaultException(
+                    "UpdatePaymentMethods failed: " + ex.GetBaseException().Message);
+            }
         }
 
         // ==================== LESSON OPERATIONS ====================
@@ -248,7 +258,15 @@ namespace WcfServiceLibrary1
 
         public void AddLessonForStudent(int sid, string Date, string time)
         {
-            lessonsDB.AddLessonForStudent(sid, Date, time);
+            try
+            {
+                lessonsDB.AddLessonForStudent(sid, Date, time);
+            }
+            catch (Exception ex)
+            {
+                throw new System.ServiceModel.FaultException(
+                    "AddLessonForStudent failed: " + ex.GetBaseException().Message);
+            }
         }
 
         public List<Lessons> GetAllStudentLessons(int id)
@@ -509,7 +527,8 @@ namespace WcfServiceLibrary1
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine($"SetStudentLessonPrice Error: {ex.Message}");
-                throw;
+                throw new System.ServiceModel.FaultException(
+                    "SetStudentLessonPrice failed: " + ex.GetBaseException().Message);
             }
         }
 
@@ -526,7 +545,8 @@ namespace WcfServiceLibrary1
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine($"SetStudentDiscount Error: {ex.Message}");
-                throw;
+                throw new System.ServiceModel.FaultException(
+                    "SetStudentDiscount failed: " + ex.GetBaseException().Message);
             }
         }
 
@@ -641,27 +661,67 @@ namespace WcfServiceLibrary1
 
         public void MarkNotificationAsRead(int notificationId)
         {
-            new NotificationDB().MarkAsRead(notificationId);
+            try
+            {
+                new NotificationDB().MarkAsRead(notificationId);
+            }
+            catch (Exception ex)
+            {
+                throw new System.ServiceModel.FaultException(
+                    "MarkNotificationAsRead failed: " + ex.GetBaseException().Message);
+            }
         }
 
         public void MarkAllNotificationsAsRead(int userId, string userType)
         {
-            new NotificationDB().MarkAllAsRead(userId, userType);
+            try
+            {
+                new NotificationDB().MarkAllAsRead(userId, userType);
+            }
+            catch (Exception ex)
+            {
+                throw new System.ServiceModel.FaultException(
+                    "MarkAllNotificationsAsRead failed: " + ex.GetBaseException().Message);
+            }
         }
 
         public void DeleteNotification(int notificationId)
         {
-            new NotificationDB().DeleteNotification(notificationId);
+            try
+            {
+                new NotificationDB().DeleteNotification(notificationId);
+            }
+            catch (Exception ex)
+            {
+                throw new System.ServiceModel.FaultException(
+                    "DeleteNotification failed: " + ex.GetBaseException().Message);
+            }
         }
 
         public void SendTeacherMessage(int teacherId, string teacherName, int studentId, string title, string message)
         {
-            new NotificationDB().SendTeacherMessage(teacherId, teacherName, studentId, title, message);
+            try
+            {
+                new NotificationDB().SendTeacherMessage(teacherId, teacherName, studentId, title, message);
+            }
+            catch (Exception ex)
+            {
+                throw new System.ServiceModel.FaultException(
+                    "SendTeacherMessage failed: " + ex.GetBaseException().Message);
+            }
         }
 
         public void SendStudentMessage(int studentId, string studentName, int teacherId, string title, string message)
         {
-            new NotificationDB().SendStudentMessage(studentId, studentName, teacherId, title, message);
+            try
+            {
+                new NotificationDB().SendStudentMessage(studentId, studentName, teacherId, title, message);
+            }
+            catch (Exception ex)
+            {
+                throw new System.ServiceModel.FaultException(
+                    "SendStudentMessage failed: " + ex.GetBaseException().Message);
+            }
         }
 
         public void SendLessonCancelledNotification(int studentId, string studentName, int teacherId, string lessonDate, string lessonTime)

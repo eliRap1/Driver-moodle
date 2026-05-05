@@ -21,13 +21,14 @@ namespace driver_client
             try
             {
                 var srv = new Service1Client();
+                int teacherId = ClientSession.TeacherId;
 
                 // Get all payments for this teacher
-                var payments = srv.SelectPaymentByTeacherID(LogIn.sign.Id).ToList();
+                var payments = srv.SelectPaymentByTeacherID(teacherId).ToList();
 
                 // Get all students and their lessons for debt calculation
-                var students = srv.GetTeacherStudents(LogIn.sign.Id).ToList();
-                var lessons = srv.GetAllTeacherLessons(LogIn.sign.Id).ToList();
+                var students = srv.GetTeacherStudents(teacherId).ToList();
+                var lessons = srv.GetAllTeacherLessons(teacherId).ToList();
 
                 // Calculate totals
                 int totalEarnings = payments.Where(p => p.paid).Sum(p => p.Amount);
@@ -40,7 +41,7 @@ namespace driver_client
                 ThisMonthText.Text = $"{thisMonth} ₪";
 
                 // Pending payments (unpaid lessons)
-                var teacher = srv.GetUserById(LogIn.sign.Id, "Teacher");
+                var teacher = srv.GetUserById(teacherId, "Teacher");
                 int lessonPrice = teacher?.LessonPrice > 0 ? teacher.LessonPrice : 200;
 
                 int unpaidLessonsCount = lessons.Count(l => !l.paid && l.Canceled != 1);
@@ -112,8 +113,7 @@ namespace driver_client
             string studentName = "Unknown";
             try
             {
-                var srv = new Service1Client();
-                var student = srv.GetUserById(payment.StudentID, "Student");
+                var student = ServiceGateway.Use(client => client.GetUserById(payment.StudentID, "Student"));
                 if (student != null)
                 {
                     studentName = student.Username;

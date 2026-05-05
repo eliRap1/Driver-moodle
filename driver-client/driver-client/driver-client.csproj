@@ -78,6 +78,7 @@
     <Compile Include="Chat.xaml.cs">
       <DependentUpon>Chat.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ClientSession.cs" />
     <Compile Include="ChooseTeacher.xaml.cs">
       <DependentUpon>ChooseTeacher.xaml</DependentUpon>
     </Compile>

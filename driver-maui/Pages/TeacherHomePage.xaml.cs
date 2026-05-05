@@ -27,8 +27,10 @@ namespace driver_maui.Pages
                 {
                     string today = DateTime.Today.ToString("dd-MM-yyyy");
                     string todayAlt = DateTime.Today.ToString("dd/MM/yyyy");
+                    string todayIso = DateTime.Today.ToString("yyyy-MM-dd");
                     TodayLessonsLabel.Text = lessons
-                        .Count(l => l.Canceled != 1 && (l.Date == today || l.Date == todayAlt))
+                        .Count(l => l.Canceled != 1 &&
+                            (l.Date == today || l.Date == todayAlt || l.Date == todayIso))
                         .ToString();
                     UnpaidCountLabel.Text = lessons
                         .Count(l => l.Canceled != 1 && !l.paid)

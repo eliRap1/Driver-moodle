@@ -24,14 +24,25 @@
 
 
             <!-- רשימת הודעות -->
-            <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,0,0,10" x:Name="MessageList">
-                <StackPanel x:Name="MessagesPanel"
-                Margin="10"
-                Orientation="Vertical"
-                VerticalAlignment="Top"
-                Background="Transparent"
-                />
-            </ScrollViewer>
+            <Grid Margin="0,0,0,10">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" x:Name="MessageList">
+                    <StackPanel x:Name="MessagesPanel"
+                                Margin="10"
+                                Orientation="Vertical"
+                                VerticalAlignment="Top"
+                                Background="Transparent"/>
+                </ScrollViewer>
+
+                <TextBlock x:Name="ChatStateText"
+                           Text="No messages yet."
+                           Visibility="Collapsed"
+                           Foreground="#AAB7C8"
+                           FontSize="16"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           TextWrapping="Wrap"
+                           TextAlignment="Center"/>
+            </Grid>
 
 
             <!-- שליחת הודעה -->
@@ -46,7 +57,7 @@
                          BorderBrush="#00E0FF"
                          VerticalContentAlignment="Center"
                          HorizontalAlignment="Stretch"
-                         Width="600"/>
+                         MinWidth="220"/>
 
                 <Button Content="Send"
                         Click="Send_Click"

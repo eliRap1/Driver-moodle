@@ -12,14 +12,17 @@ namespace driver_client
     {
         private ObservableCollection<SpecialDay> specialDays = new ObservableCollection<SpecialDay>();
         private ObservableCollection<UnavailableDay> unavailableDays = new ObservableCollection<UnavailableDay>();
+        private int teacherId;
 
 
         public CalendarTeacher(Sign sign)
         {
             InitializeComponent();
+            teacherId = ClientSession.TeacherId;
             LoadHourOptions();
             SpecialDaysList.ItemsSource = specialDays;
             UnavailableDaysList.ItemsSource = unavailableDays;
+            LoadExistingAvailability();
         }
 
         private void LoadHourOptions()
@@ -43,6 +46,65 @@ namespace driver_client
             UnavailableStartHour.SelectedIndex = 0;
             UnavailableEndHour.SelectedIndex = 1;
         }
+
+        private void LoadExistingAvailability()
+        {
+            try
+            {
+                var cal = ServiceGateway.Use(client => client.GetTeacherCalendar(teacherId));
+                if (cal == null)
+                    return;
+
+                SetDayChecks(cal.AvailableDays ?? new string[0]);
+                SelectComboValue(StartHour, cal.StartTime);
+                SelectComboValue(EndHour, cal.EndTime);
+
+                if (cal.UnavailableDays != null)
+                {
+                    unavailableDays.Clear();
+                    foreach (var day in cal.UnavailableDays)
+                        unavailableDays.Add(day);
+                }
+
+                if (cal.SpecialDaysList != null)
+                {
+                    specialDays.Clear();
+                    foreach (var day in cal.SpecialDaysList)
+                        specialDays.Add(day);
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"LoadExistingAvailability Error: {ex.Message}");
+            }
+        }
+
+        private void SelectComboValue(ComboBox combo, string value)
+        {
+            if (string.IsNullOrEmpty(value))
+                return;
+
+            for (int i = 0; i < combo.Items.Count; i++)
+            {
+                if (combo.Items[i].ToString() == value)
+                {
+                    combo.SelectedIndex = i;
+                    return;
+                }
+            }
+        }
+
+        private void SetDayChecks(string[] days)
+        {
+            var selected = new HashSet<string>(days);
+            MondayCheck.IsChecked = selected.Contains("Monday");
+            TuesdayCheck.IsChecked = selected.Contains("Tuesday");
+            WednesdayCheck.IsChecked = selected.Contains("Wednesday");
+            ThursdayCheck.IsChecked = selected.Contains("Thursday");
+            FridayCheck.IsChecked = selected.Contains("Friday");
+            SaturdayCheck.IsChecked = selected.Contains("Saturday");
+            SundayCheck.IsChecked = selected.Contains("Sunday");
+        }
         private void AddUnavailableDay_Click(object sender, RoutedEventArgs e)
         {
             if (UnavailableDatePicker.SelectedDate == null) return;
@@ -52,8 +114,14 @@ namespace driver_client
             string start = allDay ? null : (UnavailableStartHour.SelectedItem?.ToString() ?? "00:00");
             string end = allDay ? null : (UnavailableEndHour.SelectedItem?.ToString() ?? "00:00");
 
-            // prevent duplicates for same date
-            if (unavailableDays.Any(day => day.Date.Date == date.Date)) return;
+            if (!allDay && string.Compare(start, end, StringComparison.Ordinal) >= 0)
+            {
+                MessageBox.Show("Blocked time must end after it starts.");
+                return;
+            }
+
+            if (unavailableDays.Any(day => day.Date.Date == date.Date && day.AllDay == allDay && day.StartTime == start && day.EndTime == end))
+                return;
 
             var u = new UnavailableDay
             {
@@ -78,6 +146,11 @@ namespace driver_client
             if (SpecialDatePicker.SelectedDate == null) return;
             if (SpecialStartHour.SelectedItem == null || SpecialEndHour.SelectedItem == null) return;
             if (specialDays.Any(d => d.Date == SpecialDatePicker.SelectedDate.Value)) return;
+            if (string.Compare(SpecialStartHour.SelectedItem.ToString(), SpecialEndHour.SelectedItem.ToString(), StringComparison.Ordinal) >= 0)
+            {
+                MessageBox.Show("Special day must end after it starts.");
+                return;
+            }
             var day = new SpecialDay
             {
                 Date = SpecialDatePicker.SelectedDate.Value,
@@ -101,12 +174,6 @@ namespace driver_client
         {
             specialDays.Clear();
         }
-        private void BackToAvailabillity_Click(object sender, RoutedEventArgs e)
-        {
-            SpecialDaysGroupBox.Visibility = Visibility.Collapsed;  //need to update
-            UnavailableDaysGroupBox.Visibility = Visibility.Collapsed;
-        }
-
         private void SaveAvailability_Click(object sender, RoutedEventArgs e)
         {
             var availableDays = new List<string>();
@@ -135,9 +202,7 @@ namespace driver_client
 
             try
             {
-                driver.Service1Client srv = new driver.Service1Client();
-                int teacherId = LogIn.sign.Id;
-                if (srv.SetTeacherCalendar(cal, teacherId))
+                if (ServiceGateway.Use(client => client.SetTeacherCalendar(cal, teacherId)))
                     MessageBox.Show("Availability saved successfully!");
                 else
                     MessageBox.Show("Failed to save availability.");
@@ -146,15 +211,6 @@ namespace driver_client
             {
                 MessageBox.Show("Error: " + ex.Message);
             }
-        }
-        private void SpacialDays_Click(object sender, RoutedEventArgs e)
-        {
-            SpecialDaysGroupBox.Visibility = Visibility.Visible;
-        }
-
-        private void UnavailableDays_Click(object sender, RoutedEventArgs e)
-        {
-            UnavailableDaysGroupBox.Visibility = Visibility.Visible;
         }
     }
 }

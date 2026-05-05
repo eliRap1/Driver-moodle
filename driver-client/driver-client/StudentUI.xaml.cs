@@ -29,8 +29,7 @@ namespace driver_client
         public StudentUI()
         {
             InitializeComponent();
-            driver.Service1Client srv = new driver.Service1Client();
-            id = srv.GetUserID(LogIn.sign.Username, "Student");
+            id = ClientSession.StudentId;
 
             WelcomeText.Text = LogIn.sign.Username;
 
@@ -56,8 +55,7 @@ namespace driver_client
         {
             try
             {
-                driver.Service1Client srv = new driver.Service1Client();
-                var student = srv.GetUserById(id, "Student");
+                var student = ServiceGateway.Use(client => client.GetUserById(id, "Student"));
                 if (student != null && student.Confirmed == true)
                 {
                     WaitingPanel.Visibility = Visibility.Collapsed;
@@ -84,10 +82,8 @@ namespace driver_client
         {
             try
             {
-                driver.Service1Client srv = new driver.Service1Client();
-
                 // Get lessons stats
-                var lessons = srv.GetAllStudentLessons(id);
+                var lessons = ServiceGateway.Use(client => client.GetAllStudentLessons(id));
                 if (lessons != null)
                 {
                     int totalLessons = lessons.Count(l => l.Canceled != 1);
@@ -97,22 +93,7 @@ namespace driver_client
                     UnpaidLessonsText.Text = unpaidLessons.ToString();
                 }
 
-                // Get course progress (if available)
-                try
-                {
-                    var courseProgress = srv.GetStudentCourseProgress(id);
-                    if (courseProgress != null && courseProgress.Length > 0)
-                    {
-                        int totalModules = courseProgress.Sum(c => c.TotalModules);
-                        int completedModules = courseProgress.Sum(c => c.CompletedModules);
-                        int progress = totalModules > 0 ? (completedModules * 100 / totalModules) : 0;
-                        CourseProgressText.Text = $"{progress}%";
-                    }
-                }
-                catch
-                {
-                    CourseProgressText.Text = "N/A";
-                }
+                CourseProgressText.Text = "Soon";
             }
             catch (Exception ex)
             {
@@ -124,8 +105,7 @@ namespace driver_client
         {
             try
             {
-                driver.Service1Client srv = new driver.Service1Client();
-                int unreadCount = srv.GetUnreadNotificationCount(id, "Student");
+                int unreadCount = ServiceGateway.Use(client => client.GetUnreadNotificationCount(id, "Student"));
 
                 if (unreadCount > 0)
                 {
@@ -166,7 +146,8 @@ namespace driver_client
 
         private void Courses_Click(object sender, RoutedEventArgs e)
         {
-            page.Navigate(new StudentCourses());
+            MessageBox.Show("Courses are coming soon.", "Coming Soon",
+                MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void Notifications_Click(object sender, RoutedEventArgs e)

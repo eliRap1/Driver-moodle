@@ -21,9 +21,10 @@ namespace driver_client
             try
             {
                 var srv = new Service1Client();
+                int teacherId = ClientSession.TeacherId;
 
                 // Get all lessons for this teacher
-                var lessons = srv.GetAllTeacherLessons(LogIn.sign.Id).ToList();
+                var lessons = srv.GetAllTeacherLessons(teacherId).ToList();
 
                 // Filter to unpaid, non-cancelled lessons
                 var unpaidLessons = lessons.Where(l => !l.paid && l.Canceled != 1).ToList();
@@ -122,7 +123,7 @@ namespace driver_client
             int price = 200;
             try
             {
-                var teacher = srv.GetUserById(LogIn.sign.Id, "Teacher");
+                var teacher = srv.GetUserById(ClientSession.TeacherId, "Teacher");
                 if (teacher != null && teacher.LessonPrice > 0)
                 {
                     price = teacher.LessonPrice;
@@ -189,8 +190,7 @@ namespace driver_client
                 {
                     try
                     {
-                        var srv = new Service1Client();
-                        srv.MarkLessonPaid(lessonId);
+                        ServiceGateway.Use(client => client.MarkLessonPaid(lessonId));
 
                         MessageBox.Show("Payment confirmed successfully!", "Success",
                             MessageBoxButton.OK, MessageBoxImage.Information);

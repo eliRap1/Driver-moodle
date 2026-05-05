@@ -1,248 +1,195 @@
-﻿<Page x:Class="driver_client.CalendarTeacher"
+<Page x:Class="driver_client.CalendarTeacher"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       mc:Ignorable="d"
-      d:DesignHeight="600" d:DesignWidth="800"
-      Title="CalendarTeacher" Background="#0E1A2B">
+      d:DesignHeight="720" d:DesignWidth="1040"
+      Title="CalendarTeacher"
+      Background="#0E1A2B">
 
-    <Grid Margin="20">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-
-        <!-- Background image with light opacity -->
+    <Grid>
         <Image Source="/picture/background.png"
                Stretch="UniformToFill"
                Opacity="0.08"
-               Grid.RowSpan="3"
                Panel.ZIndex="0"/>
 
-        <!-- Title -->
-        <TextBlock Text="Set Your Availability"
-                   FontSize="30"
-                   FontWeight="Bold"
-                   Foreground="#00E0FF"
-                   HorizontalAlignment="Center"
-                   Margin="0,10"
-                   Panel.ZIndex="1"/>
+        <Grid Panel.ZIndex="1" Margin="24" MaxWidth="1120" HorizontalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
-        <!-- Main content stack -->
-        <StackPanel Grid.Row="1"
-                    Orientation="Vertical"
-                    Margin="0,20"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Top"
-                    Width="420"
-                    Panel.ZIndex="1">
+            <Grid Grid.Row="0" Margin="0,0,0,18">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
-            <!-- Available Days -->
-            <GroupBox Header="Available Days"
-                      Foreground="#00E0FF"
-                      FontWeight="SemiBold"
-                      Margin="0,10"
-                      Background="#1A2E50"
-                      BorderBrush="#00E0FF">
-                <WrapPanel Margin="8">
-                    <CheckBox Content="Monday" x:Name="MondayCheck" Foreground="White" Margin="4"/>
-                    <CheckBox Content="Tuesday" x:Name="TuesdayCheck" Foreground="White" Margin="4"/>
-                    <CheckBox Content="Wednesday" x:Name="WednesdayCheck" Foreground="White" Margin="4"/>
-                    <CheckBox Content="Thursday" x:Name="ThursdayCheck" Foreground="White" Margin="4"/>
-                    <CheckBox Content="Friday" x:Name="FridayCheck" Foreground="White" Margin="4"/>
-                    <CheckBox Content="Saturday" x:Name="SaturdayCheck" Foreground="White" Margin="4"/>
-                    <CheckBox Content="Sunday" x:Name="SundayCheck" Foreground="White" Margin="4"/>
-                </WrapPanel>
-            </GroupBox>
+                <Button Content="Back"
+                        Style="{StaticResource PrimaryButton}"
+                        Width="96"
+                        Height="38"
+                        FontSize="14"
+                        Margin="0"
+                        Click="BackButton_Click"/>
 
-            <!-- Working Hours -->
-            <GroupBox Header="Working Hours"
-                      Foreground="#00E0FF"
-                      FontWeight="SemiBold"
-                      Margin="0,10"
-                      Background="#1A2E50"
-                      BorderBrush="#00E0FF">
-                <StackPanel Orientation="Horizontal"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Margin="8">
-                    <TextBlock Text="From:"
-                               VerticalAlignment="Center"
-                               Foreground="White"
-                               Margin="4"/>
-                    <ComboBox x:Name="StartHour"
-                              Width="100"
-                              Background="#102040"
-                              Foreground="Black"
-                              BorderBrush="#00E0FF"
-                              Margin="4"/>
-                    <TextBlock Text="To:"
-                               VerticalAlignment="Center"
-                               Foreground="White"
-                               Margin="10,0,4,0"/>
-                    <ComboBox x:Name="EndHour"
-                              Width="100"
-                              Background="#102040"
-                              Foreground="Black"
-                              BorderBrush="#00E0FF"
-                              Margin="4"/>
+                <StackPanel Grid.Column="1" Margin="18,0,0,0">
+                    <TextBlock Text="Availability calendar"
+                               FontSize="30"
+                               FontWeight="Bold"
+                               Foreground="#00E0FF"
+                               TextWrapping="Wrap"/>
+                    <TextBlock Text="Set the normal teaching week, then add exceptions for blocked or special working days."
+                               FontSize="14"
+                               Foreground="#AAB7C8"
+                               TextWrapping="Wrap"
+                               Margin="0,4,0,0"/>
                 </StackPanel>
-            </GroupBox>
+            </Grid>
 
-            <Button Content="SpecialDays" Grid.Row="1"  Width="200" Height="30" FontSize="16"
-        Background="#00E0FF" Foreground="Black" FontWeight="Bold" BorderBrush="#00C0CC" 
-        Cursor="Hand" 
-        Click="SpacialDays_Click"></Button>
+            <Border Grid.Row="1" Style="{StaticResource CardBorder}" Padding="0">
+                <TabControl Background="#14273D"
+                            Foreground="White"
+                            BorderThickness="0"
+                            Padding="12">
+                    <TabItem Header="Weekly hours">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <StackPanel Margin="0,12,0,0">
+                                <TextBlock Text="Teaching days" Style="{StaticResource SectionTitle}"/>
+                                <WrapPanel Margin="0,4,0,18">
+                                    <CheckBox Content="Monday" x:Name="MondayCheck" Foreground="White" Margin="0,0,18,10"/>
+                                    <CheckBox Content="Tuesday" x:Name="TuesdayCheck" Foreground="White" Margin="0,0,18,10"/>
+                                    <CheckBox Content="Wednesday" x:Name="WednesdayCheck" Foreground="White" Margin="0,0,18,10"/>
+                                    <CheckBox Content="Thursday" x:Name="ThursdayCheck" Foreground="White" Margin="0,0,18,10"/>
+                                    <CheckBox Content="Friday" x:Name="FridayCheck" Foreground="White" Margin="0,0,18,10"/>
+                                    <CheckBox Content="Saturday" x:Name="SaturdayCheck" Foreground="White" Margin="0,0,18,10"/>
+                                    <CheckBox Content="Sunday" x:Name="SundayCheck" Foreground="White" Margin="0,0,18,10"/>
+                                </WrapPanel>
 
-            <Button Content="Unavailable Days" Grid.Row="1" Margin="0,10,0,0" Width="200" Height="30" FontSize="16" Background="#00E0FF" Foreground="Black" FontWeight="Bold" BorderBrush="#00C0CC" Click="UnavailableDays_Click"
-                Cursor="Hand" ></Button>
+                                <TextBlock Text="Default lesson window" Style="{StaticResource SectionTitle}"/>
+                                <WrapPanel Margin="0,4,0,10">
+                                    <StackPanel Margin="0,0,18,10">
+                                        <TextBlock Text="From" Foreground="#AAB7C8" Margin="0,0,0,5"/>
+                                        <ComboBox x:Name="StartHour" Width="140" MinHeight="36" Background="#102040" Foreground="Black" BorderBrush="#00E0FF"/>
+                                    </StackPanel>
+                                    <StackPanel Margin="0,0,18,10">
+                                        <TextBlock Text="To" Foreground="#AAB7C8" Margin="0,0,0,5"/>
+                                        <ComboBox x:Name="EndHour" Width="140" MinHeight="36" Background="#102040" Foreground="Black" BorderBrush="#00E0FF"/>
+                                    </StackPanel>
+                                </WrapPanel>
 
-        </StackPanel>
-        <!-- Calendar -->
-        <GroupBox Header="Unavailable Days" Grid.Row="1" Panel.ZIndex="1" Visibility="Collapsed" x:Name="UnavailableDaysGroupBox"
-        Foreground="#00E0FF"
-        FontWeight="SemiBold"
-        Margin="0,10"
-        Background="#1A2E50"
-        BorderBrush="#00E0FF">
-            <StackPanel Margin="8">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,6">
-                    <DatePicker x:Name="UnavailableDatePicker" Width="140" Margin="4"/>
-                    <CheckBox x:Name="UnavailableAllDay" Content="All Day" Foreground="White" Margin="8"/>
-                    <TextBlock Text="From:" VerticalAlignment="Center" Foreground="White" Margin="6,0,0,0"/>
-                    <ComboBox x:Name="UnavailableStartHour" Width="80" Margin="4" Background="#102040" Foreground="Black" BorderBrush="#00E0FF"/>
-                    <TextBlock Text="To:" VerticalAlignment="Center" Foreground="White" Margin="6,0,0,0"/>
-                    <ComboBox x:Name="UnavailableEndHour" Width="80" Margin="4" Background="#102040" Foreground="Black" BorderBrush="#00E0FF"/>
-                    <Button Content="Add" Width="80" Margin="8,0,0,0" Click="AddUnavailableDay_Click"
-          Background="#00E0FF" Foreground="Black" FontWeight="Bold" BorderBrush="#00C0CC" Cursor="Hand"/>
-                </StackPanel>
+                                <Border Background="#0E1A2B" CornerRadius="8" Padding="14" Margin="0,12,0,0">
+                                    <TextBlock Text="Students can only book inside this weekly window, unless a special working day below overrides it."
+                                               Foreground="#AAB7C8"
+                                               TextWrapping="Wrap"
+                                               LineHeight="20"/>
+                                </Border>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </TabItem>
 
-                <ListView x:Name="UnavailableDaysList" Height="130" Margin="4" Background="#102040" Foreground="White" BorderBrush="#00E0FF">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Header="Date" DisplayMemberBinding="{Binding Date}" Width="120"/>
-                            <GridViewColumn Header="All Day" DisplayMemberBinding="{Binding AllDay}" Width="60"/>
-                            <GridViewColumn Header="From" DisplayMemberBinding="{Binding StartTime}" Width="80"/>
-                            <GridViewColumn Header="To" DisplayMemberBinding="{Binding EndTime}" Width="80"/>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
+                    <TabItem Header="Blocked time">
+                        <Grid Margin="0,12,0,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
 
-                <Button Content="Remove Selected" Width="160" HorizontalAlignment="Center" Margin="6" Background="#00E0FF" Foreground="Black" FontWeight="Bold" BorderBrush="#00C0CC" Cursor="Hand" Click="RemoveUnavailableDay_Click"/>
-                <Button Content="Back to Availabillity" Margin="10"
-                Width="160"
-                HorizontalAlignment="Center"
-                Background="#00E0FF"
-                Foreground="Black"
-                FontWeight="Bold"
-                BorderBrush="#00C0CC"
-                Cursor="Hand"
-                Click="BackToAvailabillity_Click"/>
+                            <WrapPanel Grid.Row="0" Margin="0,0,0,12">
+                                <StackPanel Margin="0,0,12,10">
+                                    <TextBlock Text="Date" Foreground="#AAB7C8" Margin="0,0,0,5"/>
+                                    <DatePicker x:Name="UnavailableDatePicker" Width="150"/>
+                                </StackPanel>
+                                <CheckBox x:Name="UnavailableAllDay" Content="All day" Foreground="White" Margin="0,24,12,10"/>
+                                <StackPanel Margin="0,0,12,10">
+                                    <TextBlock Text="From" Foreground="#AAB7C8" Margin="0,0,0,5"/>
+                                    <ComboBox x:Name="UnavailableStartHour" Width="110" Background="#102040" Foreground="Black" BorderBrush="#00E0FF"/>
+                                </StackPanel>
+                                <StackPanel Margin="0,0,12,10">
+                                    <TextBlock Text="To" Foreground="#AAB7C8" Margin="0,0,0,5"/>
+                                    <ComboBox x:Name="UnavailableEndHour" Width="110" Background="#102040" Foreground="Black" BorderBrush="#00E0FF"/>
+                                </StackPanel>
+                                <Button Content="Add block" Width="110" Height="36" Margin="0,20,0,10" Style="{StaticResource PrimaryButton}" Click="AddUnavailableDay_Click"/>
+                            </WrapPanel>
 
-            </StackPanel>
-        </GroupBox>
-        
-        
-        <!-- Special Days -->
-        <GroupBox Header="Special Working Days" Grid.Row="1" Visibility="Collapsed" x:Name="SpecialDaysGroupBox" Panel.ZIndex="1"
-          Foreground="#00E0FF"
-          FontWeight="SemiBold"
-          Margin="0,0,0,4"
-          Background="#1A2E50"
-          BorderBrush="#00E0FF">
-            <StackPanel Margin="8">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <DatePicker x:Name="SpecialDatePicker"
-                        Width="150"
-                        Margin="4"/>
-                    <TextBlock Text="From:" VerticalAlignment="Center" Foreground="White" Margin="4"/>
-                    <ComboBox x:Name="SpecialStartHour"
-                      Width="80"
-                      Background="#102040"
-                      Foreground="Black"
-                      BorderBrush="#00E0FF"
-                      Margin="4"/>
-                    <TextBlock Text="To:" VerticalAlignment="Center" Foreground="White" Margin="4"/>
-                    <ComboBox x:Name="SpecialEndHour"
-                      Width="80"
-                      Background="#102040"
-                      Foreground="Black"
-                      BorderBrush="#00E0FF"
-                      Margin="4"/>
-                    <Button Content="Add"
-                    Background="#00E0FF"
-                    Foreground="Black"
-                    FontWeight="Bold"
-                    BorderBrush="#00C0CC"
-                    Cursor="Hand"
-                    Margin="6,0"
-                    Click="AddSpecialDay_Click"/>
-                </StackPanel>
+                            <ListView x:Name="UnavailableDaysList"
+                                      Grid.Row="1"
+                                      Background="#102040"
+                                      Foreground="White"
+                                      BorderBrush="#00E0FF"
+                                      ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="Date" DisplayMemberBinding="{Binding Date}" Width="160"/>
+                                        <GridViewColumn Header="All day" DisplayMemberBinding="{Binding AllDay}" Width="80"/>
+                                        <GridViewColumn Header="From" DisplayMemberBinding="{Binding StartTime}" Width="100"/>
+                                        <GridViewColumn Header="To" DisplayMemberBinding="{Binding EndTime}" Width="100"/>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
 
-                <ListView x:Name="SpecialDaysList"
-                  Margin="6"
-                  Height="120"
-                  Background="#102040"
-                  Foreground="White"
-                  BorderBrush="#00E0FF">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Header="Date" DisplayMemberBinding="{Binding Date}" Width="120"/>
-                            <GridViewColumn Header="From" DisplayMemberBinding="{Binding StartTime}" Width="80"/>
-                            <GridViewColumn Header="To" DisplayMemberBinding="{Binding EndTime}" Width="80"/>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
+                            <Button Grid.Row="2" Content="Remove selected" Width="160" HorizontalAlignment="Left" Margin="0,12,0,0" Style="{StaticResource DangerButton}" Click="RemoveUnavailableDay_Click"/>
+                        </Grid>
+                    </TabItem>
 
-                <Button Content="Remove Selected"
-                Width="160"
-                HorizontalAlignment="Center"
-                Background="#00E0FF"
-                Foreground="Black"
-                FontWeight="Bold"
-                BorderBrush="#00C0CC"
-                Cursor="Hand"
-                Click="RemoveSpecialDay_Click"/>
-                <Button Content="Back to Availabillity" Margin="10"
-                Width="160"
-                HorizontalAlignment="Center"
-                Background="#00E0FF"
-                Foreground="Black"
-                FontWeight="Bold"
-                BorderBrush="#00C0CC"
-                Cursor="Hand"
-                Click="BackToAvailabillity_Click"/>
-            </StackPanel>
-        </GroupBox>
+                    <TabItem Header="Special days">
+                        <Grid Margin="0,12,0,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
 
-        <!-- Save Button -->
-        <Button Content="Save Availability"
-                Grid.Row="2"
-                Width="220"
-                Height="50"
-                FontSize="16"
-                HorizontalAlignment="Center"
-                Margin="0,10"
-                Background="#00E0FF"
-                Foreground="Black"
-                FontWeight="Bold"
-                BorderBrush="#00C0CC"
-                Cursor="Hand"
-                Click="SaveAvailability_Click"
-                Panel.ZIndex="1"/>
-        <Button Content="← Back"
-        HorizontalAlignment="Left"
-        VerticalAlignment="Top"
-        Margin="0,10,0,0"
-        Width="80"
-        Background="#00E0FF"
-        Foreground="Black"
-        FontWeight="Bold"
-        BorderBrush="#00C0CC"
-        Cursor="Hand"
-        Click="BackButton_Click"/>
-        <Frame x:Name="page" Grid.RowSpan="3" Margin="-19,-21,-21,-19" Panel.ZIndex="100"/>
+                            <WrapPanel Grid.Row="0" Margin="0,0,0,12">
+                                <StackPanel Margin="0,0,12,10">
+                                    <TextBlock Text="Date" Foreground="#AAB7C8" Margin="0,0,0,5"/>
+                                    <DatePicker x:Name="SpecialDatePicker" Width="150"/>
+                                </StackPanel>
+                                <StackPanel Margin="0,0,12,10">
+                                    <TextBlock Text="From" Foreground="#AAB7C8" Margin="0,0,0,5"/>
+                                    <ComboBox x:Name="SpecialStartHour" Width="110" Background="#102040" Foreground="Black" BorderBrush="#00E0FF"/>
+                                </StackPanel>
+                                <StackPanel Margin="0,0,12,10">
+                                    <TextBlock Text="To" Foreground="#AAB7C8" Margin="0,0,0,5"/>
+                                    <ComboBox x:Name="SpecialEndHour" Width="110" Background="#102040" Foreground="Black" BorderBrush="#00E0FF"/>
+                                </StackPanel>
+                                <Button Content="Add day" Width="110" Height="36" Margin="0,20,0,10" Style="{StaticResource PrimaryButton}" Click="AddSpecialDay_Click"/>
+                            </WrapPanel>
+
+                            <ListView x:Name="SpecialDaysList"
+                                      Grid.Row="1"
+                                      Background="#102040"
+                                      Foreground="White"
+                                      BorderBrush="#00E0FF"
+                                      ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="Date" DisplayMemberBinding="{Binding Date}" Width="160"/>
+                                        <GridViewColumn Header="From" DisplayMemberBinding="{Binding StartTime}" Width="110"/>
+                                        <GridViewColumn Header="To" DisplayMemberBinding="{Binding EndTime}" Width="110"/>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+
+                            <Button Grid.Row="2" Content="Remove selected" Width="160" HorizontalAlignment="Left" Margin="0,12,0,0" Style="{StaticResource DangerButton}" Click="RemoveSpecialDay_Click"/>
+                        </Grid>
+                    </TabItem>
+                </TabControl>
+            </Border>
+
+            <Button Grid.Row="2"
+                    Content="Save availability"
+                    Width="220"
+                    Height="46"
+                    HorizontalAlignment="Right"
+                    Margin="0,16,0,0"
+                    Style="{StaticResource SuccessButton}"
+                    Click="SaveAvailability_Click"/>
+        </Grid>
+
+        <Frame x:Name="page" Grid.RowSpan="3" Panel.ZIndex="100"/>
     </Grid>
 </Page>

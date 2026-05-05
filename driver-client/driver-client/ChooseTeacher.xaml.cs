@@ -171,7 +171,10 @@ namespace driver_client
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
             updateTeachers.Stop();
-            page.Navigate(new RoleSelection());
+            if (chooseMode)
+                page.Navigate(new RoleSelection());
+            else
+                page.Navigate(new StudentUI());
         }
     }
 }

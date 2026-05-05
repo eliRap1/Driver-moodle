@@ -16,7 +16,7 @@
                Opacity="0.06"
                Panel.ZIndex="0"/>
 
-        <Grid Panel.ZIndex="1" Margin="20">
+        <Grid Panel.ZIndex="1" Margin="20" MaxWidth="1180" HorizontalAlignment="Center">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -163,7 +163,7 @@
                                                 </TextBlock>
                                             </StackPanel>
 
-                                            <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Top">
+                                            <WrapPanel Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Right">
                                                 <Button Content="Edit"
                                                         Tag="{Binding CourseId}"
                                                         Click="EditCourse_Click"
@@ -195,7 +195,7 @@
                                                         Cursor="Hand"
                                                         Margin="5,0"
                                                         Visibility="{Binding DeactivateVisibility}"/>
-                                            </StackPanel>
+                                            </WrapPanel>
                                         </Grid>
 
                                         <!-- Modules List -->
@@ -240,7 +240,7 @@
                                                                 </StackPanel>
                                                             </StackPanel>
 
-                                                            <StackPanel Grid.Column="2" Orientation="Horizontal">
+                                                            <WrapPanel Grid.Column="2" HorizontalAlignment="Right">
                                                                 <Button Content="&#9998;"
                                                                         Tag="{Binding ModuleId}"
                                                                         Click="EditModule_Click"
@@ -263,7 +263,7 @@
                                                                         Cursor="Hand"
                                                                         ToolTip="Delete Module"
                                                                         Margin="3,0"/>
-                                                            </StackPanel>
+                                                            </WrapPanel>
                                                         </Grid>
                                                     </Border>
                                                 </DataTemplate>

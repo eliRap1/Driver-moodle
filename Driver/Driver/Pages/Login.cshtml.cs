@@ -35,15 +35,23 @@ public class LoginModel : PageModel
             return Page();
         }
 
-        bool isAdmin = srv.CheckUserAdmin(Username);
-        int userId = srv.GetUserID(Username, isAdmin ? "Teacher" : "Student");
+        bool isTeacher = srv.CheckUserAdmin(Username);
+        int userId = srv.GetUserID(Username, isTeacher ? "Teacher" : "Student");
+
+        bool isAdmin = false;
+        if (isTeacher)
+        {
+            try { isAdmin = srv.IsUserAdmin(Username); }
+            catch { isAdmin = false; }
+        }
 
         // simple session storage
         HttpContext.Session.SetInt32("UserId", userId);
         HttpContext.Session.SetString("Username", Username);
-        HttpContext.Session.SetString("Role", isAdmin ? "Teacher" : "Student");
+        HttpContext.Session.SetString("Role", isTeacher ? "Teacher" : "Student");
+        HttpContext.Session.SetInt32("IsAdmin", isAdmin ? 1 : 0);
 
-        return isAdmin
+        return isTeacher
             ? RedirectToPage("/Teacher/TeacherHome")
             : RedirectToPage("/Student/StudentHome");
     }

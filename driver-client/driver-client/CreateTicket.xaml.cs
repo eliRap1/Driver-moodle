@@ -48,13 +48,11 @@ namespace driver_client
 
             try
             {
-                var srv = new Service1Client();
-
                 string priority = ((ComboBoxItem)PriorityCombo.SelectedItem).Content.ToString();
 
                 var ticket = new SupportTicket
                 {
-                    UserId = LogIn.sign.Id,
+                    UserId = ClientSession.CurrentUserId,
                     Username = LogIn.sign.Username,
                     UserType = LogIn.sign.IsTeacher ? "Teacher" : "Student",
                     Subject = subject,
@@ -64,7 +62,7 @@ namespace driver_client
                     CreatedAt = DateTime.Now
                 };
 
-                int ticketId = srv.CreateSupportTicket(ticket);
+                int ticketId = ServiceGateway.Use(client => client.CreateSupportTicket(ticket));
 
                 if (ticketId > 0)
                 {
@@ -87,11 +85,8 @@ namespace driver_client
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"DETAILED ERROR:\n\n" +
-                               $"Message: {ex.Message}\n\n" +
-                               $"Inner: {ex.InnerException?.Message}\n\n" +
-                               $"Stack: {ex.StackTrace}",
-                               "Error Details",
+                MessageBox.Show($"Could not create ticket:\n{ex.Message}",
+                               "Error",
                                MessageBoxButton.OK,
                                MessageBoxImage.Error);
             }

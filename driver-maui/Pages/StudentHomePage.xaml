@@ -24,8 +24,10 @@
             </Grid>
 
             <Button Text="View My Lessons" Clicked="ViewLessons_Click" BackgroundColor="#2196F3"/>
+            <Button Text="Schedule Lesson" Clicked="ScheduleLesson_Click" BackgroundColor="#1ABC9C"/>
             <Button Text="Payments" Clicked="Payments_Click" BackgroundColor="#FF9800"/>
             <Button Text="Notifications" Clicked="Notifications_Click" BackgroundColor="#9C27B0"/>
+            <Button Text="Write Review" Clicked="WriteReview_Click" BackgroundColor="#9B59B6"/>
             <Button Text="Chat" Clicked="Chat_Click" BackgroundColor="#009688"/>
             <Button Text="Logout" Clicked="Logout_Click" BackgroundColor="#757575"/>
         </VerticalStackLayout>

@@ -26,11 +26,18 @@ namespace driver_client
         {
             try
             {
-                var srv = new Service1Client();
+                // Refresh teacher's default price so cards show the correct "Default" value.
+                try
+                {
+                    var teacher = ServiceGateway.Use(client => client.GetUserById(ClientSession.TeacherId, "Teacher"));
+                    if (teacher != null && teacher.LessonPrice > 0)
+                        LogIn.sign.LessonPrice = teacher.LessonPrice;
+                }
+                catch { }
 
                 // Get all students for this teacher
-                var allStudents = srv.GetAllUsers().ToList();
-                students = allStudents.Where(s => s.TeacherId == LogIn.sign.Id).ToList();
+                var allStudents = (ServiceGateway.Use(client => client.GetAllUsers()) ?? new AllUsers()).ToList();
+                students = allStudents.Where(s => s.TeacherId == ClientSession.TeacherId).ToList();
 
                 StudentsPanel.Children.Clear();
 
@@ -169,13 +176,14 @@ namespace driver_client
 
             try
             {
-                var srv = new Service1Client();
-
                 if (rbDefault.IsChecked == true)
                 {
                     // Reset to default
-                    srv.SetStudentLessonPrice(selectedStudent.Id, 0);
-                    srv.SetStudentDiscount(selectedStudent.Id, 0);
+                    ServiceGateway.Use(client =>
+                    {
+                        client.SetStudentLessonPrice(selectedStudent.Id, 0);
+                        client.SetStudentDiscount(selectedStudent.Id, 0);
+                    });
                     MessageBox.Show($"{selectedStudent.Username} will use your default price ({LogIn.sign.LessonPrice} ₪).",
                         "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
@@ -189,8 +197,11 @@ namespace driver_client
                         return;
                     }
 
-                    srv.SetStudentLessonPrice(selectedStudent.Id, customPrice);
-                    srv.SetStudentDiscount(selectedStudent.Id, 0); // Clear discount
+                    ServiceGateway.Use(client =>
+                    {
+                        client.SetStudentLessonPrice(selectedStudent.Id, customPrice);
+                        client.SetStudentDiscount(selectedStudent.Id, 0);
+                    });
                     MessageBox.Show($"{selectedStudent.Username}'s price set to {customPrice} ₪.",
                         "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
@@ -204,8 +215,11 @@ namespace driver_client
                         return;
                     }
 
-                    srv.SetStudentDiscount(selectedStudent.Id, discount);
-                    srv.SetStudentLessonPrice(selectedStudent.Id, 0); // Clear custom price
+                    ServiceGateway.Use(client =>
+                    {
+                        client.SetStudentDiscount(selectedStudent.Id, discount);
+                        client.SetStudentLessonPrice(selectedStudent.Id, 0);
+                    });
 
                     int discountedPrice = LogIn.sign.LessonPrice - (LogIn.sign.LessonPrice * discount / 100);
                     MessageBox.Show($"{selectedStudent.Username} gets {discount}% discount.\nEffective price: {discountedPrice} ₪",
@@ -236,12 +250,13 @@ namespace driver_client
 
             try
             {
-                var srv = new Service1Client();
-
                 foreach (var student in students)
                 {
-                    srv.SetStudentLessonPrice(student.Id, 0);
-                    srv.SetStudentDiscount(student.Id, 0);
+                    ServiceGateway.Use(client =>
+                    {
+                        client.SetStudentLessonPrice(student.Id, 0);
+                        client.SetStudentDiscount(student.Id, 0);
+                    });
                 }
 
                 MessageBox.Show($"All {students.Count} students reset to default price ({LogIn.sign.LessonPrice} ₪).",

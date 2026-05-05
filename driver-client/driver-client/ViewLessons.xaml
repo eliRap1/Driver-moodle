@@ -11,6 +11,56 @@
 
     <Page.Resources>
         <local:ImgConventer x:Key="ImgConventer"/>
+
+        <Style x:Key="DarkLessonCell" TargetType="DataGridCell">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="6,4"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="DataGridCell">
+                        <Border Background="{TemplateBinding Background}"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#0E1A2B"/>
+                    <Setter Property="Foreground" Value="#00E0FF"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="DarkLessonRow" TargetType="DataGridRow">
+            <Setter Property="Background" Value="#1B2D47"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Style.Triggers>
+                <Trigger Property="AlternationIndex" Value="1">
+                    <Setter Property="Background" Value="#1A2636"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#243A55"/>
+                    <Setter Property="Foreground" Value="White"/>
+                </Trigger>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#0E1A2B"/>
+                    <Setter Property="Foreground" Value="#00E0FF"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="DarkLessonHeader" TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="#00E0FF"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Padding" Value="6,4"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
     </Page.Resources>
 
     <Grid Background="#0E1A2B" Margin="-4,3,-6,-2">
@@ -55,7 +105,12 @@
                               HeadersVisibility="Column"
                               GridLinesVisibility="None"
                               ColumnHeaderHeight="30"
-                              BorderThickness="0">
+                              BorderThickness="0"
+                              CellStyle="{StaticResource DarkLessonCell}"
+                              RowStyle="{StaticResource DarkLessonRow}"
+                              ColumnHeaderStyle="{StaticResource DarkLessonHeader}"
+                              AlternationCount="2"
+                              SelectionUnit="FullRow">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="ID" Binding="{Binding LessonId}" Width="50"/>
                             <DataGridTextColumn Header="Date" Binding="{Binding Date}" Width="120"/>
@@ -94,7 +149,12 @@
                               HeadersVisibility="Column"
                               GridLinesVisibility="None"
                               ColumnHeaderHeight="30"
-                              BorderThickness="0">
+                              BorderThickness="0"
+                              CellStyle="{StaticResource DarkLessonCell}"
+                              RowStyle="{StaticResource DarkLessonRow}"
+                              ColumnHeaderStyle="{StaticResource DarkLessonHeader}"
+                              AlternationCount="2"
+                              SelectionUnit="FullRow">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="ID" Binding="{Binding LessonId}" Width="50"/>
                             <DataGridTextColumn Header="Date" Binding="{Binding Date}" Width="120"/>

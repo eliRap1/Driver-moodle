@@ -15,8 +15,7 @@ namespace driver_client
         public TeacherNotifications()
         {
             InitializeComponent();
-            var srv = new Service1Client();
-            teacherId = srv.GetUserID(LogIn.sign.Username, "Teacher");
+            teacherId = ClientSession.TeacherId;
 
             LoadStudents();
             LoadNotifications();
@@ -31,6 +30,7 @@ namespace driver_client
                 if (students != null)
                 {
                     StudentComboBox.ItemsSource = students;
+                    StudentComboBox.SelectedIndex = students.Length > 0 ? 0 : -1;
                 }
             }
             catch (Exception ex)
@@ -115,7 +115,8 @@ namespace driver_client
                 }
 
                 var srv = new Service1Client();
-                srv.SendTeacherMessage(teacherId, LogIn.sign.Username, selectedStudent.StudentId, title, message);
+                int studentId = selectedStudent.StudentId > 0 ? selectedStudent.StudentId : selectedStudent.Id;
+                srv.SendTeacherMessage(teacherId, LogIn.sign.Username, studentId, title, message);
 
                 MessageBox.Show("Message sent successfully!", "Success",
                     MessageBoxButton.OK, MessageBoxImage.Information);
@@ -123,7 +124,7 @@ namespace driver_client
                 // Clear form
                 TitleTextBox.Clear();
                 MessageTextBox.Clear();
-                StudentComboBox.SelectedIndex = -1;
+                LoadNotifications();
             }
             catch (Exception ex)
             {
