@@ -9,6 +9,7 @@ namespace ViewDB
     public abstract class BaseDB
     {
         private static string connectionString = null;
+        private static readonly object connectionStringLock = new object();
         protected OleDbConnection connection;
         protected OleDbCommand command;
         protected OleDbDataReader reader;
@@ -26,11 +27,62 @@ namespace ViewDB
         {
             if (connectionString == null)
             {
-                string ApplicationBaseFolder = AppDomain.CurrentDomain.BaseDirectory;
-                connectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" +
-                    ApplicationBaseFolder + "\\..\\..\\..\\ViewDB\\UsersDataBase.accdb;Persist Security Info=True";
+                lock (connectionStringLock)
+                {
+                    if (connectionString == null)
+                    {
+                        connectionString = ResolveConnectionString();
+                    }
+                }
             }
             return new OleDbConnection(connectionString);
+        }
+
+        private static string ResolveConnectionString()
+        {
+            string appBase = AppDomain.CurrentDomain.BaseDirectory;
+            string dbPath = appBase + "\\..\\..\\..\\ViewDB\\UsersDataBase.accdb";
+            string[] providers = { "Microsoft.ACE.OLEDB.16.0", "Microsoft.ACE.OLEDB.12.0" };
+            var failures = new List<string>();
+
+            foreach (string provider in providers)
+            {
+                string cs = $"Provider={provider};Data Source={dbPath};Persist Security Info=True";
+                try
+                {
+                    using (var testConn = new OleDbConnection(cs))
+                    {
+                        testConn.Open();
+                    }
+                    System.Diagnostics.Debug.WriteLine($"BaseDB: using OleDb provider {provider}");
+                    return cs;
+                }
+                catch (Exception ex) when (IsProviderMissingError(ex))
+                {
+                    failures.Add($"{provider}: {ex.Message}");
+                    System.Diagnostics.Debug.WriteLine($"BaseDB: provider {provider} unavailable - {ex.Message}");
+                }
+            }
+
+            string msg =
+                "Access Database Engine is NOT installed on this machine. " +
+                "Neither Microsoft.ACE.OLEDB.16.0 nor Microsoft.ACE.OLEDB.12.0 is registered. " +
+                "FIX: open elevated PowerShell in the repo root and run: scripts\\install-access-engine.ps1 " +
+                "-- or download manually from https://www.microsoft.com/en-us/download/details.aspx?id=54920 " +
+                "(pick AccessDatabaseEngine_X64.exe for x64 builds, AccessDatabaseEngine.exe for x86 / 'Prefer 32-bit'). " +
+                "After install, fully close and reopen Visual Studio.\n\nProvider probe details:\n" +
+                string.Join("\n", failures);
+            throw new InvalidOperationException(msg);
+        }
+
+        private static bool IsProviderMissingError(Exception ex)
+        {
+            if (ex == null) return false;
+            string m = ex.Message ?? string.Empty;
+            if (m.IndexOf("not registered", StringComparison.OrdinalIgnoreCase) >= 0) return true;
+            if (m.IndexOf("לא רשום", StringComparison.Ordinal) >= 0) return true; // "לא רשום" (Hebrew)
+            if ((uint)ex.HResult == 0x80040154) return true; // REGDB_E_CLASSNOTREG
+            return false;
         }
 
         protected virtual void CreateModel(Base entity)
@@ -60,7 +112,6 @@ namespace ViewDB
                 command.CommandText = sqlCommandTxt;
                 command.Parameters.Clear();
 
-                // Add parameters if provided
                 if (parameters != null && parameters.Length > 0)
                 {
                     command.Parameters.AddRange(parameters);
@@ -143,7 +194,6 @@ namespace ViewDB
                 if (parameters != null && parameters.Length > 0)
                 {
                     cmd.Parameters.AddRange(parameters);
-                    // Log parameter values for debugging
                     System.Diagnostics.Debug.WriteLine($"SaveChanges: Executing with {parameters.Length} parameters");
                     for (int i = 0; i < parameters.Length; i++)
                     {
